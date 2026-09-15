@@ -120,10 +120,26 @@ h1,h2,h3{ text-wrap:balance; color:var(--ink); }
   box-sizing:border-box;
   display:grid; grid-template-columns:220px minmax(0,760px); gap:56px; justify-content:center;
 }
-@media (max-width:900px){ .shell{grid-template-columns:minmax(0,1fr); gap:28px;} .toc{display:none;} }
+@media (max-width:900px){
+  .shell{grid-template-columns:minmax(0,1fr); gap:28px;}
+  .toc{display:none;}
+  /* Only one grid column track exists at this width — without resetting
+     these, grid-column:2 (set for the wide-layout sidebar-beside-content
+     arrangement) would create a stray implicit second column and push
+     content off to the side. */
+  .home-view, article{ grid-column:1; grid-row:auto; }
+}
 
-.home-view{ grid-column:1/-1; }
+/* Home-view and the article's sections are never visible at the same time
+   (see the Home/Menu/Detail navigation script), so both are pinned to the
+   same grid cell (column 2, row 1) — whichever one isn't display:none just
+   occupies it alone. This keeps the Contents/TOC sidebar (column 1) sitting
+   beside content from the very top of the page, instead of home-view
+   spanning full-width above the sidebar and pushing it down below a tall
+   block. */
+.home-view{ grid-column:2; grid-row:1; }
 .js-hidden{ display:none !important; }
+.empty-hint{ text-align:center; padding:70px 20px; color:var(--ink-faint); font-size:14.5px; }
 
 .control-block{
   grid-column:1/-1; max-width:900px; margin:0 auto 8px; position:relative; padding:22px 24px 4px;
@@ -165,7 +181,7 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
 .approval-meta{ font-size:11.5px; color:var(--ink-faint); }
 .doc-bn .approval-role, .doc-hi .approval-role{ letter-spacing:normal; text-transform:none; }
 
-.toc{position:sticky; top:78px; align-self:start;}
+.toc{position:sticky; top:78px; align-self:start; grid-column:1; grid-row:1;}
 .toc-eyebrow{ font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:12px; }
 .toc ol{list-style:none; margin:0; padding:0; counter-reset:toc;}
 .toc li{counter-increment:toc; margin-bottom:9px;}
@@ -174,12 +190,12 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
 .toc a:hover{ color:var(--ink); }
 .toc a.active{ color:var(--ink); font-weight:600; border-left-color:var(--gold); background:var(--structural-bg); }
 .toc-home-link{
-  display:flex; align-items:center; gap:8px; color:var(--ink); text-decoration:none;
-  font-size:13.5px; font-weight:600; padding:7px 8px; margin-bottom:14px;
-  border:1px solid var(--rule-strong); border-radius:6px; background:var(--paper-raised);
+  display:flex; align-items:center; gap:9px; color:var(--ink-soft); text-decoration:none;
+  font-size:13.5px; line-height:1.5; padding:3px 6px 3px 8px; border-radius:4px;
+  border-left:2px solid transparent; margin-bottom:12px;
 }
-.toc-home-link:hover{ border-color:var(--structural); }
-.toc-home-link.active{ background:var(--structural); color:#fff; border-color:var(--structural); }
+.toc-home-link:hover{ color:var(--ink); }
+.toc-home-link.active{ color:var(--ink); font-weight:600; border-left-color:var(--gold); background:var(--structural-bg); }
 
 /* ---------- Mobile Contents drawer (replaces the plain "hide below 900px"
    the TOC used to get — narrow screens, phones especially, had NO way to
@@ -255,9 +271,9 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
 .changelog-item{ display:flex; gap:12px; padding:10px 0; border-bottom:1px solid var(--rule); font-size:13.5px; }
 .changelog-item:last-child{ border-bottom:none; }
 .changelog-date{ font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-faint); white-space:nowrap; flex:none; padding-top:1px; }
-@media print{ .toc-fab, .toc-backdrop, .quickref, .changelog{ display:none !important; } }
+@media print{ .toc-fab, .toc-backdrop, .quickref, .changelog, #welcome-screen, #back-fab{ display:none !important; } }
 
-article{min-width:0;}
+article{min-width:0; grid-column:2; grid-row:1;}
 section{margin-bottom:52px; scroll-margin-top:90px;}
 .eyebrow{
   display:inline-flex; align-items:center; justify-content:center;
@@ -328,6 +344,7 @@ tbody tr.suggested td:first-child{color:var(--suggest);}
      (see the home/menu navigation script) — printing must always produce
      the complete document regardless of whatever is currently open. */
   .js-hidden{ display:block !important; }
+  .empty-hint{ display:none !important; }
   .control-block{ max-width:100% !important; margin:0 0 20px !important; background-image:none !important; }
   article{ min-width:0 !important; }
   section{ break-inside:avoid-page; margin-bottom:28px; }
@@ -359,22 +376,17 @@ tbody tr.suggested td:first-child{color:var(--suggest);}
     <span class="platecard"><img src="alcove-logo.png" alt="Alcove Realty" width="120" height="69"></span>
   </div>
   <div class="toolbar-mid">
-    <div class="langswitch">
-      <button type="button" data-lang="en">English</button>
-      <button type="button" data-lang="bn">বাংলা</button>
-      <button type="button" data-lang="hi">हिंदी</button>
-    </div>
-    <button type="button" class="dlbtn" id="dl-en">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-2M6 14h12v7H6z"/></svg>
-      English PDF
+    <button type="button" class="dlbtn" id="change-lang-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+      <span id="change-lang-label">Language</span>
     </button>
-    <button type="button" class="dlbtn" id="dl-bn">
+    <button type="button" class="dlbtn" id="save-pdf-btn">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-2M6 14h12v7H6z"/></svg>
-      বাংলা PDF
+      <span id="save-pdf-label">Save PDF</span>
     </button>
-    <button type="button" class="dlbtn" id="dl-hi">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-2M6 14h12v7H6z"/></svg>
-      हिंदी PDF
+    <button type="button" class="dlbtn" id="print-now-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-2M6 14h12v7H6z"/><rect x="6" y="14" width="12" height="7"/></svg>
+      <span id="print-now-label">Print</span>
     </button>
     <a class="dlbtn" href="formats.html" style="text-decoration:none;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4M9 15l11-11M14 4h6v6"/></svg>
@@ -383,7 +395,7 @@ tbody tr.suggested td:first-child{color:var(--suggest);}
   </div>
   <div class="toolbar-updated">Last updated / সর্বশেষ আপডেট: <span id="updated-stamp">15 September 2026</span></div>
 </div>
-<div class="toolbar-hint">A print dialog will open — choose "Save as PDF" as the printer / প্রিন্ট ডায়ালগ খুলবে — সেখানে "Save as PDF" বেছে নিন</div>
+<div class="toolbar-hint">"Save PDF" saves the file directly · "Print" opens the print dialog / "Save PDF" সরাসরি ফাইল সেভ করে · "Print" প্রিন্ট ডায়ালগ খোলে</div>
 
 <div class="toc-backdrop" id="toc-backdrop"></div>
 <button type="button" class="toc-fab" id="toc-fab">
@@ -395,10 +407,65 @@ tbody tr.suggested td:first-child{color:var(--suggest);}
   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-2.64-6.36M21 3v6h-6"/></svg>
   Refresh
 </button>
+
+<!-- Shown only while a section (not Home) is open — goHome()/showSection()
+     toggle this. Sits on every single section page so getting back never
+     depends on finding the sidebar/hamburger menu first. -->
+<button type="button" id="back-fab" style="display:none;position:fixed;left:18px;bottom:80px;z-index:500;align-items:center;gap:7px;background:var(--gold);color:#fff;border:none;border-radius:999px;padding:10px 16px;font-size:13.5px;font-weight:600;box-shadow:0 3px 10px rgba(0,0,0,0.25);cursor:pointer;">
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+  <span id="back-fab-label">Back</span>
+</button>
 <script>
 document.getElementById('refresh-fab').addEventListener('click', function(){
   location.href = location.pathname + '?t=' + Date.now();
 });
+</script>
+
+<!-- ============================= WELCOME SCREEN ============================= -->
+<style>
+#welcome-screen{
+  position:fixed; inset:0; z-index:1000; display:flex; align-items:center; justify-content:center; padding:24px;
+  background-image:linear-gradient(rgba(22,28,36,.28),rgba(22,28,36,.28)), url('welcome-bg.jpg');
+  background-size:cover; background-position:center;
+}
+.welcome-card{
+  text-align:center; max-width:380px; width:100%; background:rgba(251,250,246,.97);
+  border-radius:14px; padding:32px 28px; box-shadow:0 12px 40px rgba(0,0,0,.35);
+}
+</style>
+
+<div id="welcome-screen">
+  <div class="welcome-card">
+    <span class="platecard" style="display:inline-block; background:#fff; border-radius:8px; padding:12px 20px; box-shadow:var(--shadow); margin-bottom:22px;">
+      <img src="alcove-logo.png" alt="Alcove Realty" width="170" height="98" style="display:block;">
+    </span>
+    <h1 style="font-family:'Fraunces','Georgia',serif; font-size:1.55rem; font-weight:600; margin:0 0 6px; color:var(--ink);">Welcome to Alcove Documentation System</h1>
+    <p style="font-family:'Noto Serif Bengali','Source Serif 4',serif; font-size:14px; color:var(--ink-soft); margin:0 0 3px;">আলকোভ ডকুমেন্টেশন সিস্টেমে স্বাগতম</p>
+    <p style="font-family:'Noto Serif Devanagari','Source Serif 4',serif; font-size:14px; color:var(--ink-soft); margin:0 0 10px;">अल्कोव डॉक्यूमेंटेशन सिस्टम में आपका स्वागत है</p>
+    <p style="font-size:12.5px; color:var(--ink-faint); margin:0 0 22px;">Your central source for project information</p>
+
+    <div style="text-align:left; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px;">Select language</div>
+    <select id="welcome-lang-select" style="width:100%; padding:11px 12px; font-size:15px; border:1px solid var(--rule-strong); border-radius:6px; background:var(--paper-raised); color:var(--ink); margin-bottom:16px;">
+      <option value="en">English</option>
+      <option value="bn">বাংলা (Bengali)</option>
+      <option value="hi">हिंदी (Hindi)</option>
+    </select>
+
+    <button type="button" id="welcome-go-btn" style="width:100%; padding:13px; font-size:15px; font-weight:600; border:none; border-radius:6px; background:var(--structural); color:#fff; cursor:pointer;">
+      Go / যান / जाएँ
+    </button>
+  </div>
+</div>
+<script>
+(function(){
+  var screen = document.getElementById('welcome-screen');
+  var select = document.getElementById('welcome-lang-select');
+  document.getElementById('welcome-go-btn').addEventListener('click', function(){
+    var lang = select.value;
+    if (window.AlcoveSetLang) { window.AlcoveSetLang(lang); }
+    screen.style.display = 'none';
+  });
+})();
 </script>
 
 <!-- ============================= ENGLISH ============================= -->
@@ -528,6 +595,8 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
   </nav>
 
   <article>
+
+    <div class="empty-hint">← Select "Home" or a section from the menu to view its details.</div>
 
     <section id="en-purpose">
       <div class="eyebrow">01</div>
@@ -1041,6 +1110,8 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 
   <article>
 
+    <div class="empty-hint">← মেনু থেকে "Home" অথবা কোনো সেকশন বেছে নিন এর ভেতরের বিস্তারিত দেখতে।</div>
+
     <section id="bn-purpose">
       <div class="eyebrow">০১</div>
       <h2>উদ্দেশ্য</h2>
@@ -1553,6 +1624,8 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 
   <article>
 
+    <div class="empty-hint">← मेनू से "Home" या कोई सेक्शन चुनें उसका विवरण देखने के लिए।</div>
+
     <section id="hi-purpose">
       <div class="eyebrow">०१</div>
       <h2>उद्देश्य</h2>
@@ -1940,43 +2013,53 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 <script>
 (function(){
   var LANGS = ['en','bn','hi'];
+  var LABELS = {
+    changeLang: { en: 'Language', bn: 'ভাষা', hi: 'भाषा' },
+    savePdf: { en: 'Save PDF', bn: 'PDF সেভ করুন', hi: 'PDF सेव करें' },
+    printNow: { en: 'Print', bn: 'প্রিন্ট', hi: 'प्रिंट' }
+  };
 
   function setLang(lang){
     LANGS.forEach(function(l){ document.getElementById('doc-'+l).classList.toggle('active', l===lang); });
-    document.querySelectorAll('.langswitch button').forEach(function(b){
-      b.classList.toggle('active', b.dataset.lang===lang);
-    });
     try{ localStorage.setItem('alcove-sop-lang', lang); }catch(e){}
+    document.getElementById('change-lang-label').textContent = LABELS.changeLang[lang];
+    document.getElementById('save-pdf-label').textContent = LABELS.savePdf[lang];
+    document.getElementById('print-now-label').textContent = LABELS.printNow[lang];
   }
-  document.querySelectorAll('.langswitch button').forEach(function(b){
-    b.addEventListener('click', function(){ setLang(b.dataset.lang); });
-  });
+  // Exposed so the Welcome screen and the "Change language" toolbar button
+  // (defined further down the page) can switch language without needing
+  // access to this closure's internals.
+  window.AlcoveSetLang = setLang;
+
   var savedLang = 'en';
   try{ savedLang = localStorage.getItem('alcove-sop-lang') || 'en'; }catch(e){}
   if(LANGS.indexOf(savedLang)===-1){ savedLang = 'en'; }
   setLang(savedLang);
 
-  /* The desktop PDFs are made with Chrome's native print (which honours the
-     @media print rules below) and always came out right; the earlier
-     html2canvas/html2pdf in-page button used a completely different
-     rendering path and kept needing separate fixes for the same bugs.
-     Reusing the browser's own print dialog guarantees byte-for-byte the
-     same, already-verified layout — one rendering path, not two. */
-  function printLang(lang){
-    var previousActive = LANGS.filter(function(l){ return document.getElementById('doc-'+l).classList.contains('active'); })[0];
-    if(previousActive !== lang){ setLang(lang); }
-    /* Plain WebViews don't wire window.print() to anything — the Android
-       app injects an AndroidPrint bridge that renders straight to a PDF
-       file in Downloads instead. Browsers ignore this and just use
-       window.print() as before. */
-    setTimeout(function(){
-      if(window.AndroidPrint && window.AndroidPrint.print){ window.AndroidPrint.print(lang); }
-      else { window.print(); }
-      if(previousActive !== lang){ setLang(previousActive); }
-    }, 80);
+  function activeLang(){
+    return LANGS.filter(function(l){ return document.getElementById('doc-'+l).classList.contains('active'); })[0];
   }
-  LANGS.forEach(function(l){
-    document.getElementById('dl-'+l).addEventListener('click', function(){ printLang(l); });
+
+  /* "Save PDF": in the app, AndroidPrint.print() renders straight to a PDF
+     file in Downloads with no dialog at all. In a plain browser tab there
+     is no such bridge, so it falls back to window.print() (the same
+     already-verified @media print layout) — the user picks "Save as PDF"
+     there themselves. */
+  document.getElementById('save-pdf-btn').addEventListener('click', function(){
+    var lang = activeLang();
+    if(window.AndroidPrint && window.AndroidPrint.print){ window.AndroidPrint.print(lang); }
+    else { window.print(); }
+  });
+
+  /* "Print": opens an actual print dialog (a real printer can be picked,
+     not just PDF). In the app this uses Android's own PrintManager via a
+     second bridge method — a normal, dialog-driven print, unlike the
+     silent direct-to-PDF bridge above. In a browser, window.print() already
+     is that dialog, so it's the same call as Save PDF there. */
+  document.getElementById('print-now-btn').addEventListener('click', function(){
+    var lang = activeLang();
+    if(window.AndroidPrint && window.AndroidPrint.printDialog){ window.AndroidPrint.printDialog(lang); }
+    else { window.print(); }
   });
 })();
 </script>
@@ -2009,16 +2092,37 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
   if(fab){ fab.addEventListener('click', openToc); }
   if(backdrop){ backdrop.addEventListener('click', closeToc); }
 
+  var backFab = document.getElementById('back-fab');
+  if(backFab){
+    backFab.addEventListener('click', function(){
+      var doc = activeDoc();
+      if(doc){ goHome(doc); }
+    });
+  }
+
   function clearActiveLinks(doc){
     doc.querySelectorAll('.toc a').forEach(function(a){ a.classList.remove('active'); });
+  }
+  var BACK_LABELS = { en: 'Back', bn: 'ফিরে যান', hi: 'वापस' };
+  function setBackFabVisible(visible, lang){
+    var fab = document.getElementById('back-fab');
+    if(!fab) return;
+    fab.style.display = visible ? 'flex' : 'none';
+    if(visible){
+      var label = document.getElementById('back-fab-label');
+      if(label){ label.textContent = BACK_LABELS[lang] || BACK_LABELS.en; }
+    }
   }
   function goHome(doc){
     var home = doc.querySelector('.home-view');
     if(home){ home.classList.remove('js-hidden'); }
     doc.querySelectorAll('article > section, article > .footline').forEach(function(s){ s.classList.add('js-hidden'); });
+    var hint = doc.querySelector('.empty-hint');
+    if(hint){ hint.classList.add('js-hidden'); }
     clearActiveLinks(doc);
     var homeLink = doc.querySelector('.toc-home-link');
     if(homeLink){ homeLink.classList.add('active'); }
+    setBackFabVisible(false);
     window.scrollTo(0, 0);
   }
   function showSection(doc, id, link){
@@ -2030,8 +2134,11 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     target.classList.remove('js-hidden');
     var footline = doc.querySelector('article > .footline');
     if(footline){ footline.classList.remove('js-hidden'); }
+    var hint = doc.querySelector('.empty-hint');
+    if(hint){ hint.classList.add('js-hidden'); }
     clearActiveLinks(doc);
     if(link){ link.classList.add('active'); }
+    setBackFabVisible(true, doc.className.match(/doc-(en|bn|hi)/)[1]);
     window.scrollTo(0, 0);
   }
 
@@ -2052,7 +2159,12 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
         closeToc();
       });
     });
-    goHome(doc); // initial state: Home view, all sections hidden
+    // Initial state: nothing selected — Home behaves exactly like any other
+    // menu item (Purpose, Scope, ...): its content only appears once it is
+    // actually clicked, not automatically on load.
+    var home = doc.querySelector('.home-view');
+    if(home){ home.classList.add('js-hidden'); }
+    doc.querySelectorAll('article > section, article > .footline').forEach(function(s){ s.classList.add('js-hidden'); });
   }
 
   document.querySelectorAll('.doc-view').forEach(function(doc){ wireDoc(doc); });
@@ -2067,9 +2179,17 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     });
   });
 
-  document.querySelectorAll('.langswitch button').forEach(function(b){
-    b.addEventListener('click', closeToc);
-  });
+  var changeLangBtn = document.getElementById('change-lang-btn');
+  if(changeLangBtn){
+    changeLangBtn.addEventListener('click', function(){
+      closeToc();
+      var current = ['en','bn','hi'].filter(function(l){ return document.getElementById('doc-'+l).classList.contains('active'); })[0];
+      var welcome = document.getElementById('welcome-screen');
+      var select = document.getElementById('welcome-lang-select');
+      if(select && current){ select.value = current; }
+      if(welcome){ welcome.style.display = 'flex'; }
+    });
+  }
 })();
 </script>
 
@@ -2169,7 +2289,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
      shared yet — never blocks or nags beyond the one banner. -->
 <script>
 (function(){
-  var CURRENT_VERSION_CODE = 8;
+  var CURRENT_VERSION_CODE = 10;
   var VERSION_SHEET_ID = '1XvjtwcUpLoJV5GDU4eB0LFdjjvJ63cqxq4_iFYUopjU';
   var VERSION_CSV_URL = 'https://docs.google.com/spreadsheets/d/' + VERSION_SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=Sheet1';
 
