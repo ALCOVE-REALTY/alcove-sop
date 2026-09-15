@@ -1,4 +1,4 @@
-
+<meta charset="UTF-8">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -122,6 +122,9 @@ h1,h2,h3{ text-wrap:balance; color:var(--ink); }
 }
 @media (max-width:900px){ .shell{grid-template-columns:minmax(0,1fr); gap:28px;} .toc{display:none;} }
 
+.home-view{ grid-column:1/-1; }
+.js-hidden{ display:none !important; }
+
 .control-block{
   grid-column:1/-1; max-width:900px; margin:0 auto 8px; position:relative; padding:22px 24px 4px;
   background-image:
@@ -170,6 +173,13 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
 .toc a::before{ content:counter(toc); font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--structural); flex:none; width:1.4em; }
 .toc a:hover{ color:var(--ink); }
 .toc a.active{ color:var(--ink); font-weight:600; border-left-color:var(--gold); background:var(--structural-bg); }
+.toc-home-link{
+  display:flex; align-items:center; gap:8px; color:var(--ink); text-decoration:none;
+  font-size:13.5px; font-weight:600; padding:7px 8px; margin-bottom:14px;
+  border:1px solid var(--rule-strong); border-radius:6px; background:var(--paper-raised);
+}
+.toc-home-link:hover{ border-color:var(--structural); }
+.toc-home-link.active{ background:var(--structural); color:#fff; border-color:var(--structural); }
 
 /* ---------- Mobile Contents drawer (replaces the plain "hide below 900px"
    the TOC used to get — narrow screens, phones especially, had NO way to
@@ -314,6 +324,10 @@ tbody tr.suggested td:first-child{color:var(--suggest);}
     gap:0 !important;
   }
   .toc{ display:none !important; }
+  /* On screen, only the Home view or one selected section shows at a time
+     (see the home/menu navigation script) — printing must always produce
+     the complete document regardless of whatever is currently open. */
+  .js-hidden{ display:block !important; }
   .control-block{ max-width:100% !important; margin:0 0 20px !important; background-image:none !important; }
   article{ min-width:0 !important; }
   section{ break-inside:avoid-page; margin-bottom:28px; }
@@ -391,6 +405,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 <div id="doc-en" class="doc-view doc-en active">
 <div class="shell">
 
+<div class="home-view" id="home-en">
   <div class="control-block">
     <div class="brandrow">
       <div class="brandmark">
@@ -486,9 +501,11 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       </div>
     </div>
   </details>
+</div><!-- /home-en -->
 
   <nav class="toc">
     <div class="toc-eyebrow">Contents</div>
+    <a href="#" class="toc-home-link" data-home-target="en">🏠 Home</a>
     <ol>
       <li><a href="#en-purpose">Purpose</a></li>
       <li><a href="#en-scope">Scope</a></li>
@@ -900,6 +917,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 <div id="doc-bn" class="doc-view doc-bn">
 <div class="shell">
 
+<div class="home-view" id="home-bn">
   <div class="control-block">
     <div class="brandrow">
       <div class="brandmark">
@@ -995,9 +1013,11 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       </div>
     </div>
   </details>
+</div><!-- /home-bn -->
 
   <nav class="toc">
     <div class="toc-eyebrow">সূচিপত্র</div>
+    <a href="#" class="toc-home-link" data-home-target="bn">🏠 হোম</a>
     <ol>
       <li><a href="#bn-purpose">উদ্দেশ্য</a></li>
       <li><a href="#bn-scope">পরিধি</a></li>
@@ -1409,6 +1429,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 <div id="doc-hi" class="doc-view doc-hi">
 <div class="shell">
 
+<div class="home-view" id="home-hi">
   <div class="control-block">
     <div class="brandrow">
       <div class="brandmark">
@@ -1504,9 +1525,11 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       </div>
     </div>
   </details>
+</div><!-- /home-hi -->
 
   <nav class="toc">
     <div class="toc-eyebrow">विषय-सूची</div>
+    <a href="#" class="toc-home-link" data-home-target="hi">🏠 होम</a>
     <ol>
       <li><a href="#hi-purpose">उद्देश्य</a></li>
       <li><a href="#hi-scope">दायरा</a></li>
@@ -1958,61 +1981,94 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 })();
 </script>
 
-<!-- Mobile Contents drawer + scrollspy. Kept as its own IIFE (not merged into
-     the language-switch script above) since it only needs to react to
-     whichever .doc-view is active right now, not manage that state itself. -->
+<!-- Home / Menu / Detail navigation. Previously this was one long continuous
+     scroll (all 17 sections concatenated); now the menu (the old sidebar
+     TOC) shows either the Home view (title/docfields/approval/changelog/
+     quickref) or exactly one section at a time, app-style. Printing is
+     unaffected — @media print forces every .js-hidden element back to
+     display:block, so a PDF always contains the full document regardless
+     of whatever is open on screen when it's generated. -->
 <script>
 (function(){
   var fab = document.getElementById('toc-fab');
   var backdrop = document.getElementById('toc-backdrop');
 
-  function activeToc(){
-    var activeDoc = document.querySelector('.doc-view.active');
-    return activeDoc ? activeDoc.querySelector('.toc') : null;
-  }
-  function openToc(){
-    var toc = activeToc();
-    if(!toc) return;
-    toc.classList.add('mobile-open');
-    document.body.classList.add('toc-open');
-  }
+  function activeDoc(){ return document.querySelector('.doc-view.active'); }
+
   function closeToc(){
     document.querySelectorAll('.toc.mobile-open').forEach(function(t){ t.classList.remove('mobile-open'); });
     document.body.classList.remove('toc-open');
   }
+  function openToc(){
+    var doc = activeDoc();
+    var toc = doc ? doc.querySelector('.toc') : null;
+    if(!toc) return;
+    toc.classList.add('mobile-open');
+    document.body.classList.add('toc-open');
+  }
   if(fab){ fab.addEventListener('click', openToc); }
   if(backdrop){ backdrop.addEventListener('click', closeToc); }
-  document.querySelectorAll('.toc a').forEach(function(a){
-    a.addEventListener('click', closeToc);
+
+  function clearActiveLinks(doc){
+    doc.querySelectorAll('.toc a').forEach(function(a){ a.classList.remove('active'); });
+  }
+  function goHome(doc){
+    var home = doc.querySelector('.home-view');
+    if(home){ home.classList.remove('js-hidden'); }
+    doc.querySelectorAll('article > section, article > .footline').forEach(function(s){ s.classList.add('js-hidden'); });
+    clearActiveLinks(doc);
+    var homeLink = doc.querySelector('.toc-home-link');
+    if(homeLink){ homeLink.classList.add('active'); }
+    window.scrollTo(0, 0);
+  }
+  function showSection(doc, id, link){
+    var target = doc.querySelector('#' + CSS.escape(id));
+    if(!target) return;
+    var home = doc.querySelector('.home-view');
+    if(home){ home.classList.add('js-hidden'); }
+    doc.querySelectorAll('article > section, article > .footline').forEach(function(s){ s.classList.add('js-hidden'); });
+    target.classList.remove('js-hidden');
+    var footline = doc.querySelector('article > .footline');
+    if(footline){ footline.classList.remove('js-hidden'); }
+    clearActiveLinks(doc);
+    if(link){ link.classList.add('active'); }
+    window.scrollTo(0, 0);
+  }
+
+  function wireDoc(doc){
+    var homeLink = doc.querySelector('.toc-home-link');
+    if(homeLink){
+      homeLink.addEventListener('click', function(ev){
+        ev.preventDefault();
+        goHome(doc);
+        closeToc();
+      });
+    }
+    doc.querySelectorAll('.toc ol a').forEach(function(a){
+      a.addEventListener('click', function(ev){
+        ev.preventDefault();
+        var id = a.getAttribute('href').slice(1);
+        showSection(doc, id, a);
+        closeToc();
+      });
+    });
+    goHome(doc); // initial state: Home view, all sections hidden
+  }
+
+  document.querySelectorAll('.doc-view').forEach(function(doc){ wireDoc(doc); });
+
+  // Clicking the toolbar logo always returns whichever language is active
+  // to its Home view — a common, expected "brand mark goes home" pattern.
+  document.querySelectorAll('.toolbar-brand').forEach(function(b){
+    b.style.cursor = 'pointer';
+    b.addEventListener('click', function(){
+      var doc = activeDoc();
+      if(doc){ goHome(doc); }
+    });
   });
 
-  // Scrollspy: highlight the TOC entry for whichever section is currently
-  // in view. Re-scoped to the active language's sections/TOC each time, so
-  // it keeps working correctly after a language switch.
-  var currentObserver = null;
-  function setupScrollspy(){
-    if(currentObserver){ currentObserver.disconnect(); }
-    var activeDoc = document.querySelector('.doc-view.active');
-    if(!activeDoc) return;
-    var sections = activeDoc.querySelectorAll('article section[id]');
-    var tocLinks = activeDoc.querySelectorAll('.toc a');
-    if(!sections.length || !tocLinks.length) return;
-
-    currentObserver = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(!entry.isIntersecting) return;
-        var id = entry.target.id;
-        tocLinks.forEach(function(a){
-          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
-        });
-      });
-    }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
-
-    sections.forEach(function(s){ currentObserver.observe(s); });
-  }
-  setupScrollspy();
   document.querySelectorAll('.langswitch button').forEach(function(b){
-    b.addEventListener('click', function(){ setTimeout(setupScrollspy, 60); closeToc(); });
+    b.addEventListener('click', closeToc);
   });
 })();
 </script>
