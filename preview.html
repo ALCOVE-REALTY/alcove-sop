@@ -255,7 +255,7 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
 .changelog-item{ display:flex; gap:12px; padding:10px 0; border-bottom:1px solid var(--rule); font-size:13.5px; }
 .changelog-item:last-child{ border-bottom:none; }
 .changelog-date{ font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-faint); white-space:nowrap; flex:none; padding-top:1px; }
-@media print{ .toc-fab, .toc-backdrop, .quickref, .changelog, #welcome-screen{ display:none !important; } }
+@media print{ .toc-fab, .toc-backdrop, .quickref, .changelog, #welcome-screen, #back-fab{ display:none !important; } }
 
 article{min-width:0;}
 section{margin-bottom:52px; scroll-margin-top:90px;}
@@ -389,6 +389,14 @@ tbody tr.suggested td:first-child{color:var(--suggest);}
 <button type="button" id="refresh-fab" title="Reload latest content / সর্বশেষ কনটেন্ট রিলোড করুন" style="position:fixed;right:18px;bottom:18px;z-index:500;display:flex;align-items:center;gap:7px;background:#1f6f4a;color:#fff;border:none;border-radius:999px;padding:11px 18px;font-size:13.5px;font-weight:600;box-shadow:0 3px 10px rgba(0,0,0,0.25);cursor:pointer;">
   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-2.64-6.36M21 3v6h-6"/></svg>
   Refresh
+</button>
+
+<!-- Shown only while a section (not Home) is open — goHome()/showSection()
+     toggle this. Sits on every single section page so getting back never
+     depends on finding the sidebar/hamburger menu first. -->
+<button type="button" id="back-fab" style="display:none;position:fixed;left:18px;top:96px;z-index:500;align-items:center;gap:7px;background:var(--gold);color:#fff;border:none;border-radius:999px;padding:10px 16px;font-size:13.5px;font-weight:600;box-shadow:0 3px 10px rgba(0,0,0,0.25);cursor:pointer;">
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+  <span id="back-fab-label">Back</span>
 </button>
 <script>
 document.getElementById('refresh-fab').addEventListener('click', function(){
@@ -2048,8 +2056,26 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
   if(fab){ fab.addEventListener('click', openToc); }
   if(backdrop){ backdrop.addEventListener('click', closeToc); }
 
+  var backFab = document.getElementById('back-fab');
+  if(backFab){
+    backFab.addEventListener('click', function(){
+      var doc = activeDoc();
+      if(doc){ goHome(doc); }
+    });
+  }
+
   function clearActiveLinks(doc){
     doc.querySelectorAll('.toc a').forEach(function(a){ a.classList.remove('active'); });
+  }
+  var BACK_LABELS = { en: 'Back', bn: 'ফিরে যান', hi: 'वापस' };
+  function setBackFabVisible(visible, lang){
+    var fab = document.getElementById('back-fab');
+    if(!fab) return;
+    fab.style.display = visible ? 'flex' : 'none';
+    if(visible){
+      var label = document.getElementById('back-fab-label');
+      if(label){ label.textContent = BACK_LABELS[lang] || BACK_LABELS.en; }
+    }
   }
   function goHome(doc){
     var home = doc.querySelector('.home-view');
@@ -2058,6 +2084,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     clearActiveLinks(doc);
     var homeLink = doc.querySelector('.toc-home-link');
     if(homeLink){ homeLink.classList.add('active'); }
+    setBackFabVisible(false);
     window.scrollTo(0, 0);
   }
   function showSection(doc, id, link){
@@ -2071,6 +2098,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     if(footline){ footline.classList.remove('js-hidden'); }
     clearActiveLinks(doc);
     if(link){ link.classList.add('active'); }
+    setBackFabVisible(true, doc.className.match(/doc-(en|bn|hi)/)[1]);
     window.scrollTo(0, 0);
   }
 
