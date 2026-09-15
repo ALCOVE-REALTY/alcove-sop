@@ -1780,7 +1780,7 @@ tbody tr.suggested td:first-child{color:var(--suggest);}
      shared yet — never blocks or nags beyond the one banner. -->
 <script>
 (function(){
-  var CURRENT_VERSION_CODE = 6;
+  var CURRENT_VERSION_CODE = 7;
   var VERSION_SHEET_ID = '1XvjtwcUpLoJV5GDU4eB0LFdjjvJ63cqxq4_iFYUopjU';
   var VERSION_CSV_URL = 'https://docs.google.com/spreadsheets/d/' + VERSION_SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=Sheet1';
 
@@ -1821,13 +1821,14 @@ tbody tr.suggested td:first-child{color:var(--suggest);}
     var link = document.getElementById('update-banner-link');
     link.href = downloadUrl;
     link.textContent = 'Update to v' + latestName;
-    link.addEventListener('click', function(ev){
-      if(window.AndroidUpdate && window.AndroidUpdate.downloadAndInstall){
-        ev.preventDefault();
-        window.AndroidUpdate.downloadAndInstall(downloadUrl);
-      }
-      /* else: no bridge (plain browser) — let the href open normally */
-    });
+    /* Plain link, opened by the system browser as normal — deliberately NOT
+       auto-downloading + auto-installing the APK from inside this app.
+       That pattern (an app silently fetching another APK and prompting
+       install) is exactly what Google Play Protect's on-device heuristics
+       flag as trojan/dropper-like behaviour, and it got this app's installs
+       blocked outright ("harmful app blocked") the one time it shipped. A
+       normal browser download+manual-install is the only variant Play
+       Protect treats as an ordinary sideload. */
     document.getElementById('update-banner-text').textContent = note;
     document.getElementById('update-banner').style.display = 'block';
   }).catch(function(){
