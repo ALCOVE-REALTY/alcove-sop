@@ -1,4 +1,4 @@
-
+<meta charset="UTF-8">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -19,6 +19,8 @@
   --code-bg:rgba(46,79,110,.06);
   --suggest:#4B7A4E;
   --suggest-bg:rgba(75,122,78,.10);
+  --gold:#8A6D1F;
+  --gold-bg:rgba(138,109,31,.10);
   --shadow: 0 1px 2px rgba(33,38,43,.06), 0 6px 20px rgba(33,38,43,.05);
 }
 @media (prefers-color-scheme: dark){
@@ -28,6 +30,7 @@
     --stamp:#E28770; --stamp-bg:rgba(226,135,112,.12); --stamp-bg-strong:rgba(226,135,112,.18);
     --structural:#8FB2D2; --structural-bg:rgba(143,178,210,.10); --code-bg:rgba(143,178,210,.08);
     --suggest:#7FB284; --suggest-bg:rgba(127,178,132,.12);
+    --gold:#D9B45C; --gold-bg:rgba(217,180,92,.14);
     --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28);
   }
 }
@@ -37,10 +40,12 @@
   --stamp:#E28770; --stamp-bg:rgba(226,135,112,.12); --stamp-bg-strong:rgba(226,135,112,.18);
   --structural:#8FB2D2; --structural-bg:rgba(143,178,210,.10); --code-bg:rgba(143,178,210,.08);
   --suggest:#7FB284; --suggest-bg:rgba(127,178,132,.12);
+  --gold:#D9B45C; --gold-bg:rgba(217,180,92,.14);
   --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28);
 }
 
 *{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
 body{ background:var(--paper); color:var(--ink); padding:0; font-size:17px; }
 .mono{font-family:"IBM Plex Mono",monospace;}
 a{color:var(--structural);}
@@ -117,7 +122,16 @@ h1,h2,h3{ text-wrap:balance; color:var(--ink); }
 }
 @media (max-width:900px){ .shell{grid-template-columns:minmax(0,1fr); gap:28px;} .toc{display:none;} }
 
-.control-block{ grid-column:1/-1; max-width:900px; margin:0 auto 8px; }
+.home-view{ grid-column:1/-1; }
+.js-hidden{ display:none !important; }
+
+.control-block{
+  grid-column:1/-1; max-width:900px; margin:0 auto 8px; position:relative; padding:22px 24px 4px;
+  background-image:
+    radial-gradient(ellipse 620px 220px at 18% -30%, rgba(242,169,0,.10), transparent 65%),
+    radial-gradient(ellipse 480px 200px at 92% -20%, rgba(224,51,44,.07), transparent 65%);
+  background-repeat:no-repeat;
+}
 .brandrow{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:18px; }
 .brandmark{display:flex; align-items:center; gap:10px;}
 .brandmark .platecard{ background:#FFFFFF; border-radius:8px; padding:10px 16px; box-shadow:var(--shadow); line-height:0; }
@@ -155,14 +169,108 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
 .toc-eyebrow{ font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:12px; }
 .toc ol{list-style:none; margin:0; padding:0; counter-reset:toc;}
 .toc li{counter-increment:toc; margin-bottom:9px;}
-.toc a{ display:flex; gap:9px; color:var(--ink-soft); text-decoration:none; font-size:13.5px; line-height:1.5; }
+.toc a{ display:flex; gap:9px; color:var(--ink-soft); text-decoration:none; font-size:13.5px; line-height:1.5; padding:3px 6px 3px 8px; border-radius:4px; border-left:2px solid transparent; }
 .toc a::before{ content:counter(toc); font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--structural); flex:none; width:1.4em; }
 .toc a:hover{ color:var(--ink); }
+.toc a.active{ color:var(--ink); font-weight:600; border-left-color:var(--gold); background:var(--structural-bg); }
+.toc-home-link{
+  display:flex; align-items:center; gap:8px; color:var(--ink); text-decoration:none;
+  font-size:13.5px; font-weight:600; padding:7px 8px; margin-bottom:14px;
+  border:1px solid var(--rule-strong); border-radius:6px; background:var(--paper-raised);
+}
+.toc-home-link:hover{ border-color:var(--structural); }
+.toc-home-link.active{ background:var(--structural); color:#fff; border-color:var(--structural); }
+
+/* ---------- Mobile Contents drawer (replaces the plain "hide below 900px"
+   the TOC used to get — narrow screens, phones especially, had NO way to
+   jump to a section at all before this) ---------- */
+.toc-fab{
+  display:none; position:fixed; left:18px; bottom:18px; z-index:500;
+  align-items:center; gap:7px; background:var(--structural); color:#fff; border:none;
+  border-radius:999px; padding:11px 16px; font-size:13.5px; font-weight:600; font-family:inherit;
+  box-shadow:var(--shadow); cursor:pointer;
+}
+.toc-fab svg{width:16px;height:16px;flex:none;}
+.toc-backdrop{ display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:590; }
+@media (max-width:900px){
+  .toc-fab{ display:flex; }
+  .toc{
+    display:none; position:fixed; inset:0 12% 0 0; max-width:340px; z-index:600;
+    background:var(--paper-raised); padding:24px 22px; overflow-y:auto;
+    box-shadow:0 0 30px rgba(0,0,0,.3);
+  }
+  .toc.mobile-open{ display:block; }
+  body.toc-open .toc-backdrop{ display:block; }
+  .toc-close{
+    display:flex; align-items:center; justify-content:center; width:30px; height:30px;
+    border-radius:50%; border:1px solid var(--rule-strong); background:transparent; color:var(--ink);
+    position:absolute; top:16px; right:16px; cursor:pointer;
+  }
+}
+
+/* ---------- Quick-reference code chips ---------- */
+.quickref{
+  grid-column:1/-1; max-width:900px; margin:0 auto 8px; border:1px solid var(--rule-strong);
+  border-radius:8px; background:var(--paper-raised); box-shadow:var(--shadow); overflow:hidden;
+}
+.quickref summary{
+  cursor:pointer; list-style:none; padding:13px 18px; font-family:"IBM Plex Mono",monospace;
+  font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft);
+  display:flex; align-items:center; justify-content:space-between; user-select:none;
+}
+.doc-bn .quickref summary, .doc-hi .quickref summary{ text-transform:none; letter-spacing:0; font-family:inherit; font-size:14px; }
+.quickref summary::-webkit-details-marker{ display:none; }
+.quickref summary .chev{ transition:transform .15s; }
+.quickref[open] summary .chev{ transform:rotate(90deg); }
+.quickref-body{ padding:4px 18px 18px; border-top:1px solid var(--rule); }
+.chipgroup{ margin-top:14px; }
+.chipgroup .glabel{ font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:7px; }
+.doc-bn .chipgroup .glabel, .doc-hi .chipgroup .glabel{ text-transform:none; letter-spacing:0; }
+.chiprow{ display:flex; flex-wrap:wrap; gap:7px; }
+.chip{
+  display:inline-flex; align-items:center; gap:5px; font-family:"IBM Plex Mono",monospace;
+  font-size:12px; font-weight:600; border-radius:999px; padding:4px 11px 4px 9px; border:1px solid transparent;
+}
+.chip .full{ font-family:inherit; font-weight:400; color:var(--ink-soft); }
+.doc-bn .chip .full, .doc-hi .chip .full{ font-family:"Noto Serif Bengali","Source Serif 4",serif; font-size:12.5px; }
+.chip-disc{ background:var(--structural-bg); color:var(--structural); border-color:var(--structural); }
+.chip-reg{ background:var(--gold-bg); color:var(--gold); border-color:var(--gold); }
+.chip-status{ background:var(--stamp-bg); color:var(--stamp); border-color:var(--stamp); }
+
+/* ---------- What's new changelog strip ---------- */
+.changelog{
+  grid-column:1/-1; max-width:900px; margin:0 auto 20px; border:1px solid var(--rule-strong);
+  border-radius:8px; background:var(--paper-raised); box-shadow:var(--shadow); overflow:hidden;
+}
+.changelog summary{
+  cursor:pointer; list-style:none; padding:13px 18px; font-family:"IBM Plex Mono",monospace;
+  font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--suggest);
+  display:flex; align-items:center; justify-content:space-between; user-select:none;
+}
+.doc-bn .changelog summary, .doc-hi .changelog summary{ text-transform:none; letter-spacing:0; font-family:inherit; font-size:14px; }
+.changelog summary::-webkit-details-marker{ display:none; }
+.changelog summary .chev{ transition:transform .15s; }
+.changelog[open] summary .chev{ transform:rotate(90deg); }
+.changelog-body{ padding:2px 18px 16px; border-top:1px solid var(--rule); }
+.changelog-item{ display:flex; gap:12px; padding:10px 0; border-bottom:1px solid var(--rule); font-size:13.5px; }
+.changelog-item:last-child{ border-bottom:none; }
+.changelog-date{ font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-faint); white-space:nowrap; flex:none; padding-top:1px; }
+@media print{ .toc-fab, .toc-backdrop, .quickref, .changelog{ display:none !important; } }
 
 article{min-width:0;}
 section{margin-bottom:52px; scroll-margin-top:90px;}
-.eyebrow{ font-family:"IBM Plex Mono",monospace; font-size:12px; letter-spacing:.08em; color:var(--structural); margin-bottom:6px; }
-h2{ font-size:1.45rem; font-weight:600; margin:0 0 14px; padding-bottom:12px; border-bottom:1px solid var(--rule); }
+.eyebrow{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:26px; height:26px; border-radius:50%;
+  background:var(--structural); color:#fff;
+  font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600; letter-spacing:0;
+  margin-bottom:10px;
+}
+h2{
+  font-size:1.45rem; font-weight:600; margin:0 0 14px; padding-bottom:12px;
+  padding-left:14px; border-bottom:1px solid var(--rule);
+  border-left:3px solid var(--gold); position:relative;
+}
 h3{ font-size:1.12rem; font-weight:600; margin:26px 0 8px; }
 p{margin:0 0 14px;}
 ul,ol{margin:0 0 14px; padding-left:1.3em;}
@@ -216,7 +324,11 @@ tbody tr.suggested td:first-child{color:var(--suggest);}
     gap:0 !important;
   }
   .toc{ display:none !important; }
-  .control-block{ max-width:100% !important; margin:0 0 20px !important; }
+  /* On screen, only the Home view or one selected section shows at a time
+     (see the home/menu navigation script) — printing must always produce
+     the complete document regardless of whatever is currently open. */
+  .js-hidden{ display:block !important; }
+  .control-block{ max-width:100% !important; margin:0 0 20px !important; background-image:none !important; }
   article{ min-width:0 !important; }
   section{ break-inside:avoid-page; margin-bottom:28px; }
   h2{ break-after:avoid-page; }
@@ -273,6 +385,12 @@ tbody tr.suggested td:first-child{color:var(--suggest);}
 </div>
 <div class="toolbar-hint">A print dialog will open — choose "Save as PDF" as the printer / প্রিন্ট ডায়ালগ খুলবে — সেখানে "Save as PDF" বেছে নিন</div>
 
+<div class="toc-backdrop" id="toc-backdrop"></div>
+<button type="button" class="toc-fab" id="toc-fab">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+  Contents
+</button>
+
 <button type="button" id="refresh-fab" title="Reload latest content / সর্বশেষ কনটেন্ট রিলোড করুন" style="position:fixed;right:18px;bottom:18px;z-index:500;display:flex;align-items:center;gap:7px;background:#1f6f4a;color:#fff;border:none;border-radius:999px;padding:11px 18px;font-size:13.5px;font-weight:600;box-shadow:0 3px 10px rgba(0,0,0,0.25);cursor:pointer;">
   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-2.64-6.36M21 3v6h-6"/></svg>
   Refresh
@@ -287,6 +405,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 <div id="doc-en" class="doc-view doc-en active">
 <div class="shell">
 
+<div class="home-view" id="home-en">
   <div class="control-block">
     <div class="brandrow">
       <div class="brandmark">
@@ -331,8 +450,62 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     </div>
   </div>
 
+  <details class="changelog">
+    <summary>What's new <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
+    <div class="changelog-body">
+      <div class="changelog-item"><span class="changelog-date">15 Sep 2026</span><span>Added a Prepared&nbsp;/&nbsp;Reviewed&nbsp;/&nbsp;Approved sign-off block to the document header.</span></div>
+      <div class="changelog-item"><span class="changelog-date">15 Sep 2026</span><span>Renamed the ambiguous "SOR" code to <span class="tag">OTH</span> (Other Statutory NOC) for clarity.</span></div>
+      <div class="changelog-item"><span class="changelog-date">15 Sep 2026</span><span>Linked real register &amp; transmittal templates directly into §16 Related Documents.</span></div>
+      <div class="changelog-item"><span class="changelog-date">15 Sep 2026</span><span>Added the Document Formats menu — every register template in one place.</span></div>
+    </div>
+  </details>
+
+  <details class="quickref">
+    <summary>Quick reference — all codes <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
+    <div class="quickref-body">
+      <div class="chipgroup">
+        <div class="glabel">Discipline</div>
+        <div class="chiprow">
+          <span class="chip chip-disc">STR <span class="full">Structural</span></span>
+          <span class="chip chip-disc">ARC <span class="full">Architectural</span></span>
+          <span class="chip chip-disc">ELE <span class="full">Electrical</span></span>
+          <span class="chip chip-disc">PHE <span class="full">Plumbing</span></span>
+          <span class="chip chip-disc">HVAC <span class="full">HVAC</span></span>
+          <span class="chip chip-disc">FF <span class="full">Fire Fighting</span></span>
+        </div>
+      </div>
+      <div class="chipgroup">
+        <div class="glabel">Register / document type</div>
+        <div class="chiprow">
+          <span class="chip chip-reg">DAR <span class="full">Drawing Approval Request</span></span>
+          <span class="chip chip-reg">MAR <span class="full">Material Approval Request</span></span>
+          <span class="chip chip-reg">MIR <span class="full">Material Inspection Request</span></span>
+          <span class="chip chip-reg">CVA <span class="full">Confirmation of Verbal Approval</span></span>
+          <span class="chip chip-reg">TRN <span class="full">Document Transmittal</span></span>
+          <span class="chip chip-reg">RFI <span class="full">Request for Information</span></span>
+          <span class="chip chip-reg">DRT <span class="full">Drawing Transmittal</span></span>
+          <span class="chip chip-reg">WIR <span class="full">Work Inspection Report</span></span>
+          <span class="chip chip-reg">NCR <span class="full">Non-Conformance Report</span></span>
+          <span class="chip chip-reg">OTH <span class="full">Other Statutory NOC</span></span>
+        </div>
+      </div>
+      <div class="chipgroup">
+        <div class="glabel">Document status</div>
+        <div class="chiprow">
+          <span class="chip chip-status">IFR <span class="full">Issued For Review</span></span>
+          <span class="chip chip-status">IFA <span class="full">Issued For Approval</span></span>
+          <span class="chip chip-status">IFC <span class="full">Issued For Construction</span></span>
+          <span class="chip chip-status">AFC <span class="full">Approved For Construction</span></span>
+          <span class="chip chip-status">SUP <span class="full">Superseded</span></span>
+        </div>
+      </div>
+    </div>
+  </details>
+</div><!-- /home-en -->
+
   <nav class="toc">
     <div class="toc-eyebrow">Contents</div>
+    <a href="#" class="toc-home-link" data-home-target="en">🏠 Home</a>
     <ol>
       <li><a href="#en-purpose">Purpose</a></li>
       <li><a href="#en-scope">Scope</a></li>
@@ -744,6 +917,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 <div id="doc-bn" class="doc-view doc-bn">
 <div class="shell">
 
+<div class="home-view" id="home-bn">
   <div class="control-block">
     <div class="brandrow">
       <div class="brandmark">
@@ -788,8 +962,62 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     </div>
   </div>
 
+  <details class="changelog">
+    <summary>নতুন কী যোগ হলো <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
+    <div class="changelog-body">
+      <div class="changelog-item"><span class="changelog-date">১৫ সেপ্টেম্বর ২০২৬</span><span>ডকুমেন্ট হেডারে Prepared / Reviewed / Approved সাইন-অফ ব্লক যোগ করা হয়েছে।</span></div>
+      <div class="changelog-item"><span class="changelog-date">১৫ সেপ্টেম্বর ২০২৬</span><span>দ্ব্যর্থক "SOR" কোডটি <span class="tag">OTH</span> (Other Statutory NOC) নামে পরিবর্তন করা হয়েছে, স্পষ্টতার জন্য।</span></div>
+      <div class="changelog-item"><span class="changelog-date">১৫ সেপ্টেম্বর ২০২৬</span><span>§১৬ Related Documents-এ আসল রেজিস্টার ও ট্রান্সমিটাল টেমপ্লেট সরাসরি লিংক করা হয়েছে।</span></div>
+      <div class="changelog-item"><span class="changelog-date">১৫ সেপ্টেম্বর ২০২৬</span><span>Document Formats মেনু যোগ করা হয়েছে — সব রেজিস্টার টেমপ্লেট একসাথে।</span></div>
+    </div>
+  </details>
+
+  <details class="quickref">
+    <summary>কুইক রেফারেন্স — সব কোড <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
+    <div class="quickref-body">
+      <div class="chipgroup">
+        <div class="glabel">ডিসিপ্লিন</div>
+        <div class="chiprow">
+          <span class="chip chip-disc">STR <span class="full">স্ট্রাকচারাল</span></span>
+          <span class="chip chip-disc">ARC <span class="full">আর্কিটেকচারাল</span></span>
+          <span class="chip chip-disc">ELE <span class="full">ইলেকট্রিক্যাল</span></span>
+          <span class="chip chip-disc">PHE <span class="full">প্লাম্বিং</span></span>
+          <span class="chip chip-disc">HVAC <span class="full">HVAC</span></span>
+          <span class="chip chip-disc">FF <span class="full">ফায়ার ফাইটিং</span></span>
+        </div>
+      </div>
+      <div class="chipgroup">
+        <div class="glabel">রেজিস্টার / ডকুমেন্ট টাইপ</div>
+        <div class="chiprow">
+          <span class="chip chip-reg">DAR <span class="full">ড্রয়িং অ্যাপ্রুভাল রিকোয়েস্ট</span></span>
+          <span class="chip chip-reg">MAR <span class="full">ম্যাটেরিয়াল অ্যাপ্রুভাল রিকোয়েস্ট</span></span>
+          <span class="chip chip-reg">MIR <span class="full">ম্যাটেরিয়াল ইন্সপেকশন রিকোয়েস্ট</span></span>
+          <span class="chip chip-reg">CVA <span class="full">কনফার্মেশন অফ ভার্বাল অ্যাপ্রুভাল</span></span>
+          <span class="chip chip-reg">TRN <span class="full">ডকুমেন্ট ট্রান্সমিটাল</span></span>
+          <span class="chip chip-reg">RFI <span class="full">রিকোয়েস্ট ফর ইনফরমেশন</span></span>
+          <span class="chip chip-reg">DRT <span class="full">ড্রয়িং ট্রান্সমিটাল</span></span>
+          <span class="chip chip-reg">WIR <span class="full">ওয়ার্ক ইন্সপেকশন রিপোর্ট</span></span>
+          <span class="chip chip-reg">NCR <span class="full">নন-কনফরম্যান্স রিপোর্ট</span></span>
+          <span class="chip chip-reg">OTH <span class="full">আদার স্ট্যাটুটরি NOC</span></span>
+        </div>
+      </div>
+      <div class="chipgroup">
+        <div class="glabel">ডকুমেন্ট স্ট্যাটাস</div>
+        <div class="chiprow">
+          <span class="chip chip-status">IFR <span class="full">ইস্যুড ফর রিভিউ</span></span>
+          <span class="chip chip-status">IFA <span class="full">ইস্যুড ফর অ্যাপ্রুভাল</span></span>
+          <span class="chip chip-status">IFC <span class="full">ইস্যুড ফর কনস্ট্রাকশন</span></span>
+          <span class="chip chip-status">AFC <span class="full">অ্যাপ্রুভড ফর কনস্ট্রাকশন</span></span>
+          <span class="chip chip-status">SUP <span class="full">সুপারসিডেড</span></span>
+        </div>
+      </div>
+    </div>
+  </details>
+</div><!-- /home-bn -->
+
   <nav class="toc">
     <div class="toc-eyebrow">সূচিপত্র</div>
+    <a href="#" class="toc-home-link" data-home-target="bn">🏠 হোম</a>
     <ol>
       <li><a href="#bn-purpose">উদ্দেশ্য</a></li>
       <li><a href="#bn-scope">পরিধি</a></li>
@@ -1201,6 +1429,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 <div id="doc-hi" class="doc-view doc-hi">
 <div class="shell">
 
+<div class="home-view" id="home-hi">
   <div class="control-block">
     <div class="brandrow">
       <div class="brandmark">
@@ -1245,8 +1474,62 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     </div>
   </div>
 
+  <details class="changelog">
+    <summary>नया क्या जुड़ा <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
+    <div class="changelog-body">
+      <div class="changelog-item"><span class="changelog-date">15 सितंबर 2026</span><span>दस्तावेज़ हेडर में Prepared / Reviewed / Approved साइन-ऑफ ब्लॉक जोड़ा गया।</span></div>
+      <div class="changelog-item"><span class="changelog-date">15 सितंबर 2026</span><span>अस्पष्ट "SOR" कोड का नाम बदलकर <span class="tag">OTH</span> (Other Statutory NOC) किया गया, स्पष्टता के लिए।</span></div>
+      <div class="changelog-item"><span class="changelog-date">15 सितंबर 2026</span><span>§16 Related Documents में असली रजिस्टर व ट्रांसमिटल टेम्पलेट सीधे लिंक किए गए।</span></div>
+      <div class="changelog-item"><span class="changelog-date">15 सितंबर 2026</span><span>Document Formats मेनू जोड़ा गया — सभी रजिस्टर टेम्पलेट एक जगह।</span></div>
+    </div>
+  </details>
+
+  <details class="quickref">
+    <summary>क्विक रेफरेंस — सभी कोड <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
+    <div class="quickref-body">
+      <div class="chipgroup">
+        <div class="glabel">डिसिप्लिन</div>
+        <div class="chiprow">
+          <span class="chip chip-disc">STR <span class="full">स्ट्रक्चरल</span></span>
+          <span class="chip chip-disc">ARC <span class="full">आर्किटेक्चरल</span></span>
+          <span class="chip chip-disc">ELE <span class="full">इलेक्ट्रिकल</span></span>
+          <span class="chip chip-disc">PHE <span class="full">प्लंबिंग</span></span>
+          <span class="chip chip-disc">HVAC <span class="full">HVAC</span></span>
+          <span class="chip chip-disc">FF <span class="full">फायर फाइटिंग</span></span>
+        </div>
+      </div>
+      <div class="chipgroup">
+        <div class="glabel">रजिस्टर / दस्तावेज़ प्रकार</div>
+        <div class="chiprow">
+          <span class="chip chip-reg">DAR <span class="full">ड्रॉइंग अप्रूवल रिक्वेस्ट</span></span>
+          <span class="chip chip-reg">MAR <span class="full">मटीरियल अप्रूवल रिक्वेस्ट</span></span>
+          <span class="chip chip-reg">MIR <span class="full">मटीरियल इंस्पेक्शन रिक्वेस्ट</span></span>
+          <span class="chip chip-reg">CVA <span class="full">कन्फर्मेशन ऑफ वर्बल अप्रूवल</span></span>
+          <span class="chip chip-reg">TRN <span class="full">डॉक्यूमेंट ट्रांसमिटल</span></span>
+          <span class="chip chip-reg">RFI <span class="full">रिक्वेस्ट फॉर इन्फॉर्मेशन</span></span>
+          <span class="chip chip-reg">DRT <span class="full">ड्रॉइंग ट्रांसमिटल</span></span>
+          <span class="chip chip-reg">WIR <span class="full">वर्क इंस्पेक्शन रिपोर्ट</span></span>
+          <span class="chip chip-reg">NCR <span class="full">नॉन-कन्फॉर्मेंस रिपोर्ट</span></span>
+          <span class="chip chip-reg">OTH <span class="full">अदर स्टैट्यूटरी NOC</span></span>
+        </div>
+      </div>
+      <div class="chipgroup">
+        <div class="glabel">दस्तावेज़ स्थिति</div>
+        <div class="chiprow">
+          <span class="chip chip-status">IFR <span class="full">इश्यूड फॉर रिव्यू</span></span>
+          <span class="chip chip-status">IFA <span class="full">इश्यूड फॉर अप्रूवल</span></span>
+          <span class="chip chip-status">IFC <span class="full">इश्यूड फॉर कंस्ट्रक्शन</span></span>
+          <span class="chip chip-status">AFC <span class="full">अप्रूव्ड फॉर कंस्ट्रक्शन</span></span>
+          <span class="chip chip-status">SUP <span class="full">सुपरसीडेड</span></span>
+        </div>
+      </div>
+    </div>
+  </details>
+</div><!-- /home-hi -->
+
   <nav class="toc">
     <div class="toc-eyebrow">विषय-सूची</div>
+    <a href="#" class="toc-home-link" data-home-target="hi">🏠 होम</a>
     <ol>
       <li><a href="#hi-purpose">उद्देश्य</a></li>
       <li><a href="#hi-scope">दायरा</a></li>
@@ -1694,6 +1977,98 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
   }
   LANGS.forEach(function(l){
     document.getElementById('dl-'+l).addEventListener('click', function(){ printLang(l); });
+  });
+})();
+</script>
+
+<!-- Home / Menu / Detail navigation. Previously this was one long continuous
+     scroll (all 17 sections concatenated); now the menu (the old sidebar
+     TOC) shows either the Home view (title/docfields/approval/changelog/
+     quickref) or exactly one section at a time, app-style. Printing is
+     unaffected — @media print forces every .js-hidden element back to
+     display:block, so a PDF always contains the full document regardless
+     of whatever is open on screen when it's generated. -->
+<script>
+(function(){
+  var fab = document.getElementById('toc-fab');
+  var backdrop = document.getElementById('toc-backdrop');
+
+  function activeDoc(){ return document.querySelector('.doc-view.active'); }
+
+  function closeToc(){
+    document.querySelectorAll('.toc.mobile-open').forEach(function(t){ t.classList.remove('mobile-open'); });
+    document.body.classList.remove('toc-open');
+  }
+  function openToc(){
+    var doc = activeDoc();
+    var toc = doc ? doc.querySelector('.toc') : null;
+    if(!toc) return;
+    toc.classList.add('mobile-open');
+    document.body.classList.add('toc-open');
+  }
+  if(fab){ fab.addEventListener('click', openToc); }
+  if(backdrop){ backdrop.addEventListener('click', closeToc); }
+
+  function clearActiveLinks(doc){
+    doc.querySelectorAll('.toc a').forEach(function(a){ a.classList.remove('active'); });
+  }
+  function goHome(doc){
+    var home = doc.querySelector('.home-view');
+    if(home){ home.classList.remove('js-hidden'); }
+    doc.querySelectorAll('article > section, article > .footline').forEach(function(s){ s.classList.add('js-hidden'); });
+    clearActiveLinks(doc);
+    var homeLink = doc.querySelector('.toc-home-link');
+    if(homeLink){ homeLink.classList.add('active'); }
+    window.scrollTo(0, 0);
+  }
+  function showSection(doc, id, link){
+    var target = doc.querySelector('#' + CSS.escape(id));
+    if(!target) return;
+    var home = doc.querySelector('.home-view');
+    if(home){ home.classList.add('js-hidden'); }
+    doc.querySelectorAll('article > section, article > .footline').forEach(function(s){ s.classList.add('js-hidden'); });
+    target.classList.remove('js-hidden');
+    var footline = doc.querySelector('article > .footline');
+    if(footline){ footline.classList.remove('js-hidden'); }
+    clearActiveLinks(doc);
+    if(link){ link.classList.add('active'); }
+    window.scrollTo(0, 0);
+  }
+
+  function wireDoc(doc){
+    var homeLink = doc.querySelector('.toc-home-link');
+    if(homeLink){
+      homeLink.addEventListener('click', function(ev){
+        ev.preventDefault();
+        goHome(doc);
+        closeToc();
+      });
+    }
+    doc.querySelectorAll('.toc ol a').forEach(function(a){
+      a.addEventListener('click', function(ev){
+        ev.preventDefault();
+        var id = a.getAttribute('href').slice(1);
+        showSection(doc, id, a);
+        closeToc();
+      });
+    });
+    goHome(doc); // initial state: Home view, all sections hidden
+  }
+
+  document.querySelectorAll('.doc-view').forEach(function(doc){ wireDoc(doc); });
+
+  // Clicking the toolbar logo always returns whichever language is active
+  // to its Home view — a common, expected "brand mark goes home" pattern.
+  document.querySelectorAll('.toolbar-brand').forEach(function(b){
+    b.style.cursor = 'pointer';
+    b.addEventListener('click', function(){
+      var doc = activeDoc();
+      if(doc){ goHome(doc); }
+    });
+  });
+
+  document.querySelectorAll('.langswitch button').forEach(function(b){
+    b.addEventListener('click', closeToc);
   });
 })();
 </script>
