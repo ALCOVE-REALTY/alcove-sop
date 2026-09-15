@@ -422,14 +422,27 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 </script>
 
 <!-- ============================= WELCOME SCREEN ============================= -->
-<div id="welcome-screen" style="position:fixed; inset:0; z-index:1000; background:var(--paper); display:flex; align-items:center; justify-content:center; padding:24px;">
-  <div style="text-align:center; max-width:380px; width:100%;">
+<style>
+#welcome-screen{
+  position:fixed; inset:0; z-index:1000; display:flex; align-items:center; justify-content:center; padding:24px;
+  background-image:linear-gradient(rgba(22,28,36,.6),rgba(22,28,36,.6)), url('welcome-bg.jpg');
+  background-size:cover; background-position:center;
+}
+.welcome-card{
+  text-align:center; max-width:380px; width:100%; background:rgba(251,250,246,.97);
+  border-radius:14px; padding:32px 28px; box-shadow:0 12px 40px rgba(0,0,0,.35);
+}
+</style>
+
+<div id="welcome-screen">
+  <div class="welcome-card">
     <span class="platecard" style="display:inline-block; background:#fff; border-radius:8px; padding:12px 20px; box-shadow:var(--shadow); margin-bottom:22px;">
       <img src="alcove-logo.png" alt="Alcove Realty" width="170" height="98" style="display:block;">
     </span>
     <h1 style="font-family:'Fraunces','Georgia',serif; font-size:1.55rem; font-weight:600; margin:0 0 6px; color:var(--ink);">Welcome to Alcove Documentation System</h1>
     <p style="font-family:'Noto Serif Bengali','Source Serif 4',serif; font-size:14px; color:var(--ink-soft); margin:0 0 3px;">আলকোভ ডকুমেন্টেশন সিস্টেমে স্বাগতম</p>
-    <p style="font-family:'Noto Serif Devanagari','Source Serif 4',serif; font-size:14px; color:var(--ink-soft); margin:0 0 26px;">अल्कोव डॉक्यूमेंटेशन सिस्टम में आपका स्वागत है</p>
+    <p style="font-family:'Noto Serif Devanagari','Source Serif 4',serif; font-size:14px; color:var(--ink-soft); margin:0 0 10px;">अल्कोव डॉक्यूमेंटेशन सिस्टम में आपका स्वागत है</p>
+    <p style="font-size:12.5px; color:var(--ink-faint); margin:0 0 22px;">Your central source for project information</p>
 
     <div style="text-align:left; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px;">Select language</div>
     <select id="welcome-lang-select" style="width:100%; padding:11px 12px; font-size:15px; border:1px solid var(--rule-strong); border-radius:6px; background:var(--paper-raised); color:var(--ink); margin-bottom:16px;">
