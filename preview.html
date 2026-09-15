@@ -1,0 +1,2172 @@
+
+<title>Alcove Document Control SOP</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+:root{
+  --paper:#EEEDE6;
+  --paper-raised:#FBFAF6;
+  --ink:#21262B;
+  --ink-soft:#5B6570;
+  --ink-faint:#8A9096;
+  --rule:#D6D2C4;
+  --rule-strong:#B9B4A2;
+  --stamp:#93392A;
+  --stamp-bg:rgba(147,57,42,.08);
+  --stamp-bg-strong:rgba(147,57,42,.14);
+  --structural:#2E4F6E;
+  --structural-bg:rgba(46,79,110,.08);
+  --code-bg:rgba(46,79,110,.06);
+  --suggest:#4B7A4E;
+  --suggest-bg:rgba(75,122,78,.10);
+  --gold:#8A6D1F;
+  --gold-bg:rgba(138,109,31,.10);
+  --shadow: 0 1px 2px rgba(33,38,43,.06), 0 6px 20px rgba(33,38,43,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#191C1E; --paper-raised:#202426; --ink:#E7E4DB; --ink-soft:#A6ACAC; --ink-faint:#767C7C;
+    --rule:#33383A; --rule-strong:#454B4D;
+    --stamp:#E28770; --stamp-bg:rgba(226,135,112,.12); --stamp-bg-strong:rgba(226,135,112,.18);
+    --structural:#8FB2D2; --structural-bg:rgba(143,178,210,.10); --code-bg:rgba(143,178,210,.08);
+    --suggest:#7FB284; --suggest-bg:rgba(127,178,132,.12);
+    --gold:#D9B45C; --gold-bg:rgba(217,180,92,.14);
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#191C1E; --paper-raised:#202426; --ink:#E7E4DB; --ink-soft:#A6ACAC; --ink-faint:#767C7C;
+  --rule:#33383A; --rule-strong:#454B4D;
+  --stamp:#E28770; --stamp-bg:rgba(226,135,112,.12); --stamp-bg-strong:rgba(226,135,112,.18);
+  --structural:#8FB2D2; --structural-bg:rgba(143,178,210,.10); --code-bg:rgba(143,178,210,.08);
+  --suggest:#7FB284; --suggest-bg:rgba(127,178,132,.12);
+  --gold:#D9B45C; --gold-bg:rgba(217,180,92,.14);
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28);
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{ background:var(--paper); color:var(--ink); padding:0; font-size:17px; }
+.mono{font-family:"IBM Plex Mono",monospace;}
+a{color:var(--structural);}
+
+/* language scoping */
+.doc-en{ font-family:"Source Serif 4","Georgia",serif; line-height:1.65; }
+.doc-en h1,.doc-en h2,.doc-en h3{ font-family:"Fraunces","Georgia",serif; }
+.doc-bn{ font-family:"Noto Serif Bengali","Source Serif 4","Georgia",serif; line-height:1.85; }
+.doc-bn h1,.doc-bn h2,.doc-bn h3{ font-family:"Tiro Bangla","Noto Serif Bengali","Georgia",serif; }
+.doc-hi{ font-family:"Noto Serif Devanagari","Noto Serif Bengali","Source Serif 4","Georgia",serif; line-height:1.85; }
+.doc-hi h1,.doc-hi h2,.doc-hi h3{ font-family:"Tiro Devanagari Hindi","Noto Serif Devanagari","Georgia",serif; }
+h1,h2,h3{ text-wrap:balance; color:var(--ink); }
+
+/* ---------- Toolbar ---------- */
+.toolbar{
+  position:sticky; top:0; z-index:30;
+  background:var(--paper);
+  border-bottom:1px solid var(--rule-strong);
+  padding:10px 20px;
+  display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap;
+}
+.toolbar-brand{display:flex; align-items:center; gap:10px;}
+.toolbar-brand .platecard{background:#fff; border-radius:6px; padding:5px 9px; line-height:0; box-shadow:var(--shadow);}
+.toolbar-brand img{height:26px; width:auto; display:block;}
+.toolbar-mid{display:flex; align-items:center; gap:10px; flex-wrap:wrap;}
+.langswitch{display:inline-flex; border:1px solid var(--rule-strong); border-radius:999px; padding:3px; background:var(--paper-raised);}
+.langswitch button{
+  border:none; background:transparent; cursor:pointer;
+  font-family:"IBM Plex Mono",monospace; font-size:12.5px;
+  padding:6px 14px; border-radius:999px; color:var(--ink-soft);
+}
+.langswitch button.active{ background:var(--structural); color:#fff; }
+.dlbtn{
+  display:inline-flex; align-items:center; gap:7px;
+  border:1px solid var(--structural); background:var(--structural-bg);
+  color:var(--structural); font-family:"IBM Plex Mono",monospace; font-size:12.5px;
+  padding:7px 14px; border-radius:6px; cursor:pointer;
+}
+.dlbtn:hover{ background:var(--structural); color:#fff; }
+.dlbtn:disabled{ opacity:.6; cursor:default; }
+.dlbtn svg{width:13px;height:13px; flex:none;}
+.toolbar-updated{
+  font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-faint); white-space:nowrap;
+}
+.toolbar-hint{
+  text-align:center; font-size:12px; color:var(--ink-soft);
+  padding:6px 20px; background:var(--structural-bg); border-bottom:1px solid var(--rule-strong);
+}
+@media (max-width:640px){ .toolbar{justify-content:center;} .toolbar-updated{width:100%; text-align:center;} }
+
+/* ---------- doc view switching ---------- */
+.doc-view{ display:none; }
+.doc-view.active{ display:block; }
+.doc-view.pdf-capture{ display:block !important; position:fixed !important; left:-99999px !important; top:0 !important; width:900px !important; z-index:-1; }
+
+/* Simplified single-column layout used only while html2canvas rasterizes a
+   div for PDF export — avoids the sticky-sidebar-in-a-grid pagination bugs
+   that break native print output. Applied/removed by downloadLang(). */
+.pdf-export .shell{ display:block !important; max-width:100% !important; padding-block:0 !important; }
+.pdf-export .toc{ display:none !important; }
+.pdf-export .control-block{ max-width:100% !important; }
+/* html2canvas captures the on-screen (non-print) styles, so the same
+   overflow risk from a plain `1fr` grid track / nowrap table headers
+   applies here too — give it the same safety net as @media print. */
+.pdf-export .docfields{ grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+.pdf-export table{ table-layout:fixed !important; width:100% !important; }
+.pdf-export thead th, .pdf-export tbody td{ white-space:normal !important; }
+
+/* ---------- Shell ---------- */
+.shell{
+  max-width:1180px; margin:0 auto; padding-block:36px 80px; padding-inline:22px;
+  box-sizing:border-box;
+  display:grid; grid-template-columns:220px minmax(0,760px); gap:56px; justify-content:center;
+}
+@media (max-width:900px){ .shell{grid-template-columns:minmax(0,1fr); gap:28px;} .toc{display:none;} }
+
+.control-block{
+  grid-column:1/-1; max-width:900px; margin:0 auto 8px; position:relative; padding:22px 24px 4px;
+  background-image:
+    radial-gradient(ellipse 620px 220px at 18% -30%, rgba(242,169,0,.10), transparent 65%),
+    radial-gradient(ellipse 480px 200px at 92% -20%, rgba(224,51,44,.07), transparent 65%);
+  background-repeat:no-repeat;
+}
+.brandrow{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:18px; }
+.brandmark{display:flex; align-items:center; gap:10px;}
+.brandmark .platecard{ background:#FFFFFF; border-radius:8px; padding:10px 16px; box-shadow:var(--shadow); line-height:0; }
+.brandmark img{width:150px; height:auto; flex:none; display:block;}
+.stampmark{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:"IBM Plex Mono",monospace; font-size:11.5px; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--stamp); background:var(--stamp-bg); border:1px solid var(--stamp); border-radius:3px;
+  padding:5px 10px 5px 8px; white-space:nowrap;
+}
+.stampmark svg.icon{width:13px;height:13px;flex:none;}
+
+h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px; line-height:1.2; }
+.subtitle{ color:var(--ink-soft); font-size:1.05rem; max-width:58ch; margin:0 0 28px; }
+
+.docfields{
+  border:1px solid var(--rule-strong); border-radius:6px; background:var(--paper-raised); box-shadow:var(--shadow);
+  display:grid; grid-template-columns:repeat(4,1fr); overflow:hidden;
+}
+@media (max-width:720px){ .docfields{grid-template-columns:repeat(2,1fr);} }
+.docfields .cell{ padding:12px 16px; border-right:1px solid var(--rule); border-bottom:1px solid var(--rule); }
+.docfields .cell:nth-child(4n){border-right:none;}
+.docfields .label{ font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.06em; color:var(--ink-faint); margin-bottom:4px; }
+.docfields .value{font-size:14.5px; font-weight:500;}
+
+.approval-block{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin-top:14px; }
+@media (max-width:720px){ .approval-block{grid-template-columns:1fr;} }
+.approval-cell{ border:1px solid var(--rule-strong); border-radius:6px; background:var(--paper-raised); padding:14px 16px 28px; }
+.approval-role{ font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:24px; }
+.approval-line{ border-bottom:1px solid var(--rule-strong); height:1px; margin-bottom:6px; }
+.approval-meta{ font-size:11.5px; color:var(--ink-faint); }
+.doc-bn .approval-role, .doc-hi .approval-role{ letter-spacing:normal; text-transform:none; }
+
+.toc{position:sticky; top:78px; align-self:start;}
+.toc-eyebrow{ font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:12px; }
+.toc ol{list-style:none; margin:0; padding:0; counter-reset:toc;}
+.toc li{counter-increment:toc; margin-bottom:9px;}
+.toc a{ display:flex; gap:9px; color:var(--ink-soft); text-decoration:none; font-size:13.5px; line-height:1.5; padding:3px 6px 3px 8px; border-radius:4px; border-left:2px solid transparent; }
+.toc a::before{ content:counter(toc); font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--structural); flex:none; width:1.4em; }
+.toc a:hover{ color:var(--ink); }
+.toc a.active{ color:var(--ink); font-weight:600; border-left-color:var(--gold); background:var(--structural-bg); }
+
+/* ---------- Mobile Contents drawer (replaces the plain "hide below 900px"
+   the TOC used to get — narrow screens, phones especially, had NO way to
+   jump to a section at all before this) ---------- */
+.toc-fab{
+  display:none; position:fixed; left:18px; bottom:18px; z-index:500;
+  align-items:center; gap:7px; background:var(--structural); color:#fff; border:none;
+  border-radius:999px; padding:11px 16px; font-size:13.5px; font-weight:600; font-family:inherit;
+  box-shadow:var(--shadow); cursor:pointer;
+}
+.toc-fab svg{width:16px;height:16px;flex:none;}
+.toc-backdrop{ display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:590; }
+@media (max-width:900px){
+  .toc-fab{ display:flex; }
+  .toc{
+    display:none; position:fixed; inset:0 12% 0 0; max-width:340px; z-index:600;
+    background:var(--paper-raised); padding:24px 22px; overflow-y:auto;
+    box-shadow:0 0 30px rgba(0,0,0,.3);
+  }
+  .toc.mobile-open{ display:block; }
+  body.toc-open .toc-backdrop{ display:block; }
+  .toc-close{
+    display:flex; align-items:center; justify-content:center; width:30px; height:30px;
+    border-radius:50%; border:1px solid var(--rule-strong); background:transparent; color:var(--ink);
+    position:absolute; top:16px; right:16px; cursor:pointer;
+  }
+}
+
+/* ---------- Quick-reference code chips ---------- */
+.quickref{
+  grid-column:1/-1; max-width:900px; margin:0 auto 8px; border:1px solid var(--rule-strong);
+  border-radius:8px; background:var(--paper-raised); box-shadow:var(--shadow); overflow:hidden;
+}
+.quickref summary{
+  cursor:pointer; list-style:none; padding:13px 18px; font-family:"IBM Plex Mono",monospace;
+  font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-soft);
+  display:flex; align-items:center; justify-content:space-between; user-select:none;
+}
+.doc-bn .quickref summary, .doc-hi .quickref summary{ text-transform:none; letter-spacing:0; font-family:inherit; font-size:14px; }
+.quickref summary::-webkit-details-marker{ display:none; }
+.quickref summary .chev{ transition:transform .15s; }
+.quickref[open] summary .chev{ transform:rotate(90deg); }
+.quickref-body{ padding:4px 18px 18px; border-top:1px solid var(--rule); }
+.chipgroup{ margin-top:14px; }
+.chipgroup .glabel{ font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:7px; }
+.doc-bn .chipgroup .glabel, .doc-hi .chipgroup .glabel{ text-transform:none; letter-spacing:0; }
+.chiprow{ display:flex; flex-wrap:wrap; gap:7px; }
+.chip{
+  display:inline-flex; align-items:center; gap:5px; font-family:"IBM Plex Mono",monospace;
+  font-size:12px; font-weight:600; border-radius:999px; padding:4px 11px 4px 9px; border:1px solid transparent;
+}
+.chip .full{ font-family:inherit; font-weight:400; color:var(--ink-soft); }
+.doc-bn .chip .full, .doc-hi .chip .full{ font-family:"Noto Serif Bengali","Source Serif 4",serif; font-size:12.5px; }
+.chip-disc{ background:var(--structural-bg); color:var(--structural); border-color:var(--structural); }
+.chip-reg{ background:var(--gold-bg); color:var(--gold); border-color:var(--gold); }
+.chip-status{ background:var(--stamp-bg); color:var(--stamp); border-color:var(--stamp); }
+
+/* ---------- What's new changelog strip ---------- */
+.changelog{
+  grid-column:1/-1; max-width:900px; margin:0 auto 20px; border:1px solid var(--rule-strong);
+  border-radius:8px; background:var(--paper-raised); box-shadow:var(--shadow); overflow:hidden;
+}
+.changelog summary{
+  cursor:pointer; list-style:none; padding:13px 18px; font-family:"IBM Plex Mono",monospace;
+  font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--suggest);
+  display:flex; align-items:center; justify-content:space-between; user-select:none;
+}
+.doc-bn .changelog summary, .doc-hi .changelog summary{ text-transform:none; letter-spacing:0; font-family:inherit; font-size:14px; }
+.changelog summary::-webkit-details-marker{ display:none; }
+.changelog summary .chev{ transition:transform .15s; }
+.changelog[open] summary .chev{ transform:rotate(90deg); }
+.changelog-body{ padding:2px 18px 16px; border-top:1px solid var(--rule); }
+.changelog-item{ display:flex; gap:12px; padding:10px 0; border-bottom:1px solid var(--rule); font-size:13.5px; }
+.changelog-item:last-child{ border-bottom:none; }
+.changelog-date{ font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-faint); white-space:nowrap; flex:none; padding-top:1px; }
+@media print{ .toc-fab, .toc-backdrop, .quickref, .changelog{ display:none !important; } }
+
+article{min-width:0;}
+section{margin-bottom:52px; scroll-margin-top:90px;}
+.eyebrow{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:26px; height:26px; border-radius:50%;
+  background:var(--structural); color:#fff;
+  font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600; letter-spacing:0;
+  margin-bottom:10px;
+}
+h2{
+  font-size:1.45rem; font-weight:600; margin:0 0 14px; padding-bottom:12px;
+  padding-left:14px; border-bottom:1px solid var(--rule);
+  border-left:3px solid var(--gold); position:relative;
+}
+h3{ font-size:1.12rem; font-weight:600; margin:26px 0 8px; }
+p{margin:0 0 14px;}
+ul,ol{margin:0 0 14px; padding-left:1.3em;}
+li{margin-bottom:7px;}
+strong{font-weight:700;}
+
+.callout{ background:var(--structural-bg); border-left:3px solid var(--structural); border-radius:0 6px 6px 0; padding:12px 16px; font-size:15.5px; margin:0 0 16px; }
+.callout b{color:var(--structural);}
+.callout.warn{background:var(--stamp-bg); border-left-color:var(--stamp);}
+.callout.warn b{color:var(--stamp);}
+
+code, .tag{ font-family:"IBM Plex Mono",monospace; font-size:.86em; background:var(--code-bg); padding:.12em .4em; border-radius:4px; }
+.tag.suggested{background:var(--suggest-bg); color:var(--suggest); font-weight:600;}
+
+.codestring{ display:flex; flex-wrap:wrap; gap:6px; font-family:"IBM Plex Mono",monospace; font-size:13.5px; margin:14px 0 18px; }
+.codestring span{ background:var(--paper-raised); border:1px solid var(--rule-strong); border-radius:5px; padding:6px 10px; }
+.codestring .part-label{ display:block; font-family:"Noto Serif Bengali","Source Serif 4",serif; font-size:9.5px; letter-spacing:.02em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:3px; }
+
+.twrap{overflow-x:auto; margin:0 0 18px; border:1px solid var(--rule-strong); border-radius:6px; box-shadow:var(--shadow);}
+table{width:100%; border-collapse:collapse; background:var(--paper-raised); font-size:14.5px;}
+thead th{ text-align:left; font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); background:var(--structural-bg); padding:10px 14px; border-bottom:1px solid var(--rule-strong); white-space:nowrap; }
+.doc-bn thead th{ font-family:"Noto Serif Bengali",serif; font-size:12.5px; font-weight:600; text-transform:none; letter-spacing:0; }
+.doc-hi thead th{ font-family:"Noto Serif Devanagari",serif; font-size:12.5px; font-weight:600; text-transform:none; letter-spacing:0; }
+/* letter-spacing breaks conjunct shaping in Bengali/Devanagari — never apply it to their script runs */
+.doc-bn .stampmark, .doc-hi .stampmark,
+.doc-bn .toc-eyebrow, .doc-hi .toc-eyebrow,
+.doc-bn .docfields .label, .doc-hi .docfields .label{ letter-spacing:normal; text-transform:none; }
+tbody td{ padding:10px 14px; border-bottom:1px solid var(--rule); vertical-align:top; }
+tbody tr:last-child td{border-bottom:none;}
+tbody td.status{font-family:"IBM Plex Mono",monospace; font-weight:600; color:var(--stamp);}
+tbody td.num{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; white-space:nowrap;}
+tbody tr.suggested td:first-child{color:var(--suggest);}
+
+.footline{
+  margin-top:64px; padding-top:18px; border-top:1px solid var(--rule);
+  display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+  font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-faint);
+}
+
+/* ---------- Print / PDF export ----------
+   Chrome's print engine paginates a sticky sidebar + CSS grid very badly
+   (blank leading pages, overlapping repeated content). For print/PDF output,
+   drop to a single static column and kill sticky positioning entirely. */
+@media print{
+  .toolbar, .toolbar-hint{ display:none !important; }
+  body{ padding:0 !important; }
+  .shell{
+    display:block !important;
+    max-width:100% !important;
+    padding-block:0 !important;
+    gap:0 !important;
+  }
+  .toc{ display:none !important; }
+  .control-block{ max-width:100% !important; margin:0 0 20px !important; background-image:none !important; }
+  article{ min-width:0 !important; }
+  section{ break-inside:avoid-page; margin-bottom:28px; }
+  h2{ break-after:avoid-page; }
+  h3{ break-after:avoid-page; }
+  .twrap, table, .codestring, .callout, .docfields{ break-inside:avoid-page; }
+  .doc-view.pdf-capture{ position:static !important; left:auto !important; }
+
+  /* A plain `1fr` grid track and `white-space:nowrap` table headers both
+     refuse to shrink below their content's natural width — harmless in a
+     wide browser window, but wider than the printable page, so the excess
+     silently clips off the right edge instead of wrapping. Force both to
+     respect the page width. */
+  .docfields{ grid-template-columns:repeat(2,minmax(0,1fr)) !important; }
+  .twrap{ overflow-x:visible !important; }
+  table{ table-layout:fixed !important; width:100% !important; }
+  thead th, tbody td{ white-space:normal !important; }
+}
+</style>
+
+<div id="update-banner" style="display:none;background:#1f6f4a;color:#fff;font-size:13px;line-height:1.5;padding:9px 16px;text-align:center;">
+  <a id="update-banner-link" href="#" target="_blank" style="color:#fff;text-decoration:underline;font-weight:600;">Update</a>
+  <span id="update-banner-text" style="margin-left:8px;"></span>
+  <span onclick="document.getElementById('update-banner').style.display='none'" style="float:right;cursor:pointer;padding:0 4px;">&times;</span>
+</div>
+
+<div class="toolbar">
+  <div class="toolbar-brand">
+    <span class="platecard"><img src="alcove-logo.png" alt="Alcove Realty" width="120" height="69"></span>
+  </div>
+  <div class="toolbar-mid">
+    <div class="langswitch">
+      <button type="button" data-lang="en">English</button>
+      <button type="button" data-lang="bn">বাংলা</button>
+      <button type="button" data-lang="hi">हिंदी</button>
+    </div>
+    <button type="button" class="dlbtn" id="dl-en">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-2M6 14h12v7H6z"/></svg>
+      English PDF
+    </button>
+    <button type="button" class="dlbtn" id="dl-bn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-2M6 14h12v7H6z"/></svg>
+      বাংলা PDF
+    </button>
+    <button type="button" class="dlbtn" id="dl-hi">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-2M6 14h12v7H6z"/></svg>
+      हिंदी PDF
+    </button>
+    <a class="dlbtn" href="formats.html" style="text-decoration:none;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4M9 15l11-11M14 4h6v6"/></svg>
+      Document Formats
+    </a>
+  </div>
+  <div class="toolbar-updated">Last updated / সর্বশেষ আপডেট: <span id="updated-stamp">15 September 2026</span></div>
+</div>
+<div class="toolbar-hint">A print dialog will open — choose "Save as PDF" as the printer / প্রিন্ট ডায়ালগ খুলবে — সেখানে "Save as PDF" বেছে নিন</div>
+
+<div class="toc-backdrop" id="toc-backdrop"></div>
+<button type="button" class="toc-fab" id="toc-fab">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
+  Contents
+</button>
+
+<button type="button" id="refresh-fab" title="Reload latest content / সর্বশেষ কনটেন্ট রিলোড করুন" style="position:fixed;right:18px;bottom:18px;z-index:500;display:flex;align-items:center;gap:7px;background:#1f6f4a;color:#fff;border:none;border-radius:999px;padding:11px 18px;font-size:13.5px;font-weight:600;box-shadow:0 3px 10px rgba(0,0,0,0.25);cursor:pointer;">
+  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-2.64-6.36M21 3v6h-6"/></svg>
+  Refresh
+</button>
+<script>
+document.getElementById('refresh-fab').addEventListener('click', function(){
+  location.href = location.pathname + '?t=' + Date.now();
+});
+</script>
+
+<!-- ============================= ENGLISH ============================= -->
+<div id="doc-en" class="doc-view doc-en active">
+<div class="shell">
+
+  <div class="control-block">
+    <div class="brandrow">
+      <div class="brandmark">
+        <span class="platecard"><img src="alcove-logo.png" alt="Alcove Realty" width="200" height="115"></span>
+      </div>
+      <span class="stampmark">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>
+        Controlled Document
+      </span>
+    </div>
+
+    <h1 class="title">Document Control — Standard Operating Procedure</h1>
+    <p class="subtitle">Governs the numbering, review, distribution, revision, statutory-sanction tracking and archival of all documents handled by the Document Control department across Alcove Realty's live projects.</p>
+
+    <div class="docfields">
+      <div class="cell"><div class="label">Doc No.</div><div class="value mono">ALC-DC-SOP-001</div></div>
+      <div class="cell"><div class="label">Revision</div><div class="value mono">Rev 0</div></div>
+      <div class="cell"><div class="label">Effective Date</div><div class="value mono">To be set on approval</div></div>
+      <div class="cell"><div class="label">Review Cycle</div><div class="value mono">Annual</div></div>
+      <div class="cell"><div class="label">Department</div><div class="value">Document Control, Alcove Realty</div></div>
+      <div class="cell"><div class="label">Process Owner</div><div class="value">HOD, Document Control</div></div>
+      <div class="cell"><div class="label">Team</div><div class="value">HOD + 4 Document Controllers</div></div>
+      <div class="cell"><div class="label">Classification</div><div class="value">Internal</div></div>
+    </div>
+
+    <div class="approval-block">
+      <div class="approval-cell">
+        <div class="approval-role">Prepared by</div>
+        <div class="approval-line"></div>
+        <div class="approval-meta">Name · Designation · Date</div>
+      </div>
+      <div class="approval-cell">
+        <div class="approval-role">Reviewed by</div>
+        <div class="approval-line"></div>
+        <div class="approval-meta">Name · Designation · Date</div>
+      </div>
+      <div class="approval-cell">
+        <div class="approval-role">Approved by</div>
+        <div class="approval-line"></div>
+        <div class="approval-meta">Name · Designation · Date</div>
+      </div>
+    </div>
+  </div>
+
+  <details class="changelog">
+    <summary>What's new <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
+    <div class="changelog-body">
+      <div class="changelog-item"><span class="changelog-date">15 Sep 2026</span><span>Added a Prepared&nbsp;/&nbsp;Reviewed&nbsp;/&nbsp;Approved sign-off block to the document header.</span></div>
+      <div class="changelog-item"><span class="changelog-date">15 Sep 2026</span><span>Renamed the ambiguous "SOR" code to <span class="tag">OTH</span> (Other Statutory NOC) for clarity.</span></div>
+      <div class="changelog-item"><span class="changelog-date">15 Sep 2026</span><span>Linked real register &amp; transmittal templates directly into §16 Related Documents.</span></div>
+      <div class="changelog-item"><span class="changelog-date">15 Sep 2026</span><span>Added the Document Formats menu — every register template in one place.</span></div>
+    </div>
+  </details>
+
+  <details class="quickref">
+    <summary>Quick reference — all codes <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
+    <div class="quickref-body">
+      <div class="chipgroup">
+        <div class="glabel">Discipline</div>
+        <div class="chiprow">
+          <span class="chip chip-disc">STR <span class="full">Structural</span></span>
+          <span class="chip chip-disc">ARC <span class="full">Architectural</span></span>
+          <span class="chip chip-disc">ELE <span class="full">Electrical</span></span>
+          <span class="chip chip-disc">PHE <span class="full">Plumbing</span></span>
+          <span class="chip chip-disc">HVAC <span class="full">HVAC</span></span>
+          <span class="chip chip-disc">FF <span class="full">Fire Fighting</span></span>
+        </div>
+      </div>
+      <div class="chipgroup">
+        <div class="glabel">Register / document type</div>
+        <div class="chiprow">
+          <span class="chip chip-reg">DAR <span class="full">Drawing Approval Request</span></span>
+          <span class="chip chip-reg">MAR <span class="full">Material Approval Request</span></span>
+          <span class="chip chip-reg">MIR <span class="full">Material Inspection Request</span></span>
+          <span class="chip chip-reg">CVA <span class="full">Confirmation of Verbal Approval</span></span>
+          <span class="chip chip-reg">TRN <span class="full">Document Transmittal</span></span>
+          <span class="chip chip-reg">RFI <span class="full">Request for Information</span></span>
+          <span class="chip chip-reg">DRT <span class="full">Drawing Transmittal</span></span>
+          <span class="chip chip-reg">WIR <span class="full">Work Inspection Report</span></span>
+          <span class="chip chip-reg">NCR <span class="full">Non-Conformance Report</span></span>
+          <span class="chip chip-reg">OTH <span class="full">Other Statutory NOC</span></span>
+        </div>
+      </div>
+      <div class="chipgroup">
+        <div class="glabel">Document status</div>
+        <div class="chiprow">
+          <span class="chip chip-status">IFR <span class="full">Issued For Review</span></span>
+          <span class="chip chip-status">IFA <span class="full">Issued For Approval</span></span>
+          <span class="chip chip-status">IFC <span class="full">Issued For Construction</span></span>
+          <span class="chip chip-status">AFC <span class="full">Approved For Construction</span></span>
+          <span class="chip chip-status">SUP <span class="full">Superseded</span></span>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <nav class="toc">
+    <div class="toc-eyebrow">Contents</div>
+    <ol>
+      <li><a href="#en-purpose">Purpose</a></li>
+      <li><a href="#en-scope">Scope</a></li>
+      <li><a href="#en-definitions">Definitions &amp; abbreviations</a></li>
+      <li><a href="#en-projects">Active projects</a></li>
+      <li><a href="#en-roles">Roles &amp; responsibilities</a></li>
+      <li><a href="#en-numbering">Document numbering</a></li>
+      <li><a href="#en-status">Document status codes</a></li>
+      <li><a href="#en-sanctions">Statutory sanction tracking</a></li>
+      <li><a href="#en-procedure">Procedure</a></li>
+      <li><a href="#en-mdl">Master document list</a></li>
+      <li><a href="#en-distribution">Distribution matrix</a></li>
+      <li><a href="#en-security">Confidentiality &amp; security</a></li>
+      <li><a href="#en-nonconformance">Non‑conformance</a></li>
+      <li><a href="#en-training">Training &amp; competency</a></li>
+      <li><a href="#en-kpi">Monitoring &amp; KPIs</a></li>
+      <li><a href="#en-references">Related documents</a></li>
+      <li><a href="#en-history">Revision history</a></li>
+    </ol>
+  </nav>
+
+  <article>
+
+    <section id="en-purpose">
+      <div class="eyebrow">01</div>
+      <h2>Purpose</h2>
+      <p>This SOP defines a single, consistent method by which every drawing, statutory sanction, and correspondence/QA record is numbered, reviewed, approved, distributed, revised, tracked and archived across Alcove Realty's projects. It exists so that at any moment, anyone — from a site engineer to a client to a statutory authority — can be certain they are looking at the <strong>latest approved revision</strong> of a document, and so that a complete, auditable trail exists for every document from origination to project handover.</p>
+      <p>It is written for the Document Control department: the Head of Department (HOD) and the four Document Controllers (DCs) reporting to that role, and is the reference new DCs are trained against.</p>
+    </section>
+
+    <section id="en-scope">
+      <div class="eyebrow">02</div>
+      <h2>Scope</h2>
+      <p>This procedure applies to all controlled documents produced, received or transmitted in the course of Alcove Realty's projects, including but not limited to:</p>
+      <ul>
+        <li>Drawings — Structural, Architectural and MEP (Electrical, Plumbing, HVAC, Fire Fighting/Fire Protection)</li>
+        <li>Statutory sanctions and NOCs — KMC building permit, Fire permit, AAI, DFO, PCB and related approvals</li>
+        <li>Site correspondence and QA registers — approval requests, inspection requests, transmittals, RFIs, inspection and non‑conformance reports</li>
+        <li>Vendor and contractor submittals routed through Document Control</li>
+      </ul>
+      <p>It does not cover personal working files, drafts not yet issued for review, or documents explicitly excluded by a project's Document Control Plan.</p>
+    </section>
+
+    <section id="en-definitions">
+      <div class="eyebrow">03</div>
+      <h2>Definitions &amp; abbreviations</h2>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:110px">Term</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">DC</td><td>Document Controller</td></tr>
+            <tr><td class="mono">HOD</td><td>Head of Department — Document Control</td></tr>
+            <tr><td class="mono">ACC</td><td>Autodesk Construction Cloud — Alcove Realty's Electronic Document Management System (EDMS)</td></tr>
+            <tr><td class="mono">MDL</td><td>Master Document List — the master register of every controlled document and its current revision/status</td></tr>
+            <tr><td class="mono">NOC</td><td>No‑Objection Certificate issued by a statutory authority</td></tr>
+            <tr><td class="mono">MEP</td><td>Mechanical, Electrical &amp; Plumbing services</td></tr>
+            <tr><td class="mono">Superseded</td><td>A prior revision formally replaced and withdrawn from active use</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="en-projects">
+      <div class="eyebrow">04</div>
+      <h2>Active projects</h2>
+      <p>Every controlled document belongs to exactly one project code. The four codes below are proposed for adoption — confirm and freeze them with the HOD before the first document is numbered against them.</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th>Project</th><th style="width:120px">Project code</th></tr></thead>
+          <tbody>
+            <tr><td>Alcove Duets</td><td class="num">DUE</td></tr>
+            <tr><td>Alcove Crown</td><td class="num">CRN</td></tr>
+            <tr><td>Alcove Luxuria</td><td class="num">LUX</td></tr>
+            <tr><td>The Curve</td><td class="num">TCV</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="en-roles">
+      <div class="eyebrow">05</div>
+      <h2>Roles &amp; responsibilities</h2>
+      <p>Document Control operates as one team of four DCs reporting to the HOD, generally one DC per project so each register has a single, always‑identifiable owner. Day‑to‑day work is shared, but ownership of each function sits clearly with one role so nothing is assumed to be "someone else's job".</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:190px">Role</th><th>Responsible for</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>HOD, Document Control</strong></td>
+              <td>Owns this SOP and each project's Document Control Plan; approves the numbering scheme and distribution matrix; allocates DCs across the four projects; owns the statutory sanction register and renewal alerts (§8); is final escalation point for access, confidentiality or non‑conformance issues; signs off each project's MDL at audit; reports document control KPIs to management; approves onboarding/offboarding of ACC access.</td>
+            </tr>
+            <tr>
+              <td><strong>Document Controller</strong></td>
+              <td>Logs, numbers and uploads incoming/outgoing documents the same day as receipt; raises and tracks transmittals, RFIs, DAR/MAR/MIR and other registers (§6.3); maintains the MDL and distribution matrix for their assigned project; checks documents for correct numbering, revision and status marking before issue; files and backs up documents per §9.6; flags overdue reviews, approvals and expiring sanctions to the HOD; maintains the superseded/obsolete archive.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout"><b>Handover rule —</b> when a DC is on leave, their assigned project's registers and open transmittals are reassigned by the HOD in writing (email is sufficient) before the leave starts, so no register is ever unowned.</div>
+    </section>
+
+    <section id="en-numbering">
+      <div class="eyebrow">06</div>
+      <h2>Document numbering</h2>
+      <p>Every controlled document is issued a unique number at the point it first enters the register. Once assigned, a document number is <strong>never reused or reassigned</strong>, even if the document is later cancelled.</p>
+
+      <h3>6.1 Drawings &amp; technical documents</h3>
+      <div class="codestring">
+        <span><span class="part-label">Project</span>DUE</span><span><span class="part-label">Discipline</span>STR</span><span><span class="part-label">Doc type</span>DRG</span><span><span class="part-label">Sequence</span>0001</span>
+      </div>
+      <p>Example: <code>DUE-STR-DRG-0001</code> — Alcove Duets, Structural discipline, a Drawing, sequence <em>0001</em>. Revision is tracked separately and never folded into the number itself.</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:90px">Code</th><th>Discipline</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">STR</td><td>Structural</td></tr>
+            <tr><td class="mono">ARC</td><td>Architectural</td></tr>
+            <tr><td class="mono">ELE</td><td>Electrical (MEP)</td></tr>
+            <tr><td class="mono">PHE</td><td>Plumbing / Public Health Engineering (MEP)</td></tr>
+            <tr><td class="mono">HVAC</td><td>Heating, Ventilation &amp; Air‑Conditioning (MEP)</td></tr>
+            <tr><td class="mono">FF</td><td>Fire Fighting / Fire Protection (MEP)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>6.2 Registers &amp; correspondence</h3>
+      <p>Site correspondence and QA registers are numbered <code>[Project]-[Register code]-[Sequence]</code>, e.g. <code>DUE-RFI-0012</code>. These reset per project, not per discipline, since they track a workflow rather than a drawing set.</p>
+
+      <h3>6.3 Document type &amp; register codes</h3>
+      <p>The list below is your original set (unmarked rows), plus a few registers standard on residential/real‑estate projects that are worth adopting alongside them <span class="tag suggested">suggested</span> — review with the HOD and drop anything not needed.</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:90px">Code</th><th style="width:220px">Register</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">DAR</td><td>Document / Drawing Approval Request</td><td>Formal submission of a drawing or document for consultant/client approval</td></tr>
+            <tr><td class="mono">MAR</td><td>Material Approval Request</td><td>Contractor's submission of a proposed material/brand/make for approval before procurement</td></tr>
+            <tr><td class="mono">MIR</td><td>Material Inspection Request</td><td>Request to inspect material on arrival or before use</td></tr>
+            <tr><td class="mono">CVA</td><td>Confirmation of Verbal Approval</td><td>Written record closing out an instruction that was first given verbally or on site</td></tr>
+            <tr><td class="mono">TRN</td><td>Document Transmittal</td><td>Cover record for any document issued to another party</td></tr>
+            <tr><td class="mono">RFI</td><td>Request for Information</td><td>Query raised to design/consultant team for clarification</td></tr>
+            <tr><td class="mono">DRT</td><td>Drawing Transmittal</td><td>Cover record specifically for drawing issues, kept separate from general TRN so drawing traceability isn't mixed with correspondence</td></tr>
+            <tr><td class="mono">WIR</td><td>Work Inspection Report</td><td>Record of a completed-work inspection before proceeding to the next stage</td></tr>
+            <tr><td class="mono">NCR</td><td>Non‑Conformance Report</td><td>Formal record of work or material not meeting the approved specification</td></tr>
+            <tr><td class="mono">SOR</td><td>Site Observation Report</td><td>General site observation raised by supervision/consultant staff</td></tr>
+            <tr class="suggested"><td class="mono">SI <span class="tag suggested">suggested</span></td><td>Site Instruction</td><td>Written instruction issued to the contractor on site, distinct from a drawing revision</td></tr>
+            <tr class="suggested"><td class="mono">MTC <span class="tag suggested">suggested</span></td><td>Material Test Certificate</td><td>Lab/manufacturer test certificate filed against a MAR/MIR entry</td></tr>
+            <tr class="suggested"><td class="mono">ABD <span class="tag suggested">suggested</span></td><td>As‑Built Drawing Register</td><td>Tracks final as‑built status per drawing — essential at handover and for future facility management</td></tr>
+            <tr class="suggested"><td class="mono">SNL <span class="tag suggested">suggested</span></td><td>Snag / Punch List</td><td>Pre‑handover defect list per unit/tower, tracked to closure</td></tr>
+            <tr class="suggested"><td class="mono">HOTO <span class="tag suggested">suggested</span></td><td>Handover–Takeover Checklist</td><td>Formal record of unit/common‑area handover to the client or facility team</td></tr>
+            <tr class="suggested"><td class="mono">PR <span class="tag suggested">suggested</span></td><td>Progress Report</td><td>Weekly/monthly report register, useful to log even though DC doesn't author it</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The final code list is frozen per project in that project's Document Control Plan before the first document is issued — codes are not changed mid‑project.</p>
+    </section>
+
+    <section id="en-status">
+      <div class="eyebrow">07</div>
+      <h2>Document status codes</h2>
+      <p>Every issued document carries one status code, applied by whoever approves the issue — never by Document Control on its own judgement. DCs check the code is present and correctly used, they do not assign it.</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:90px">Code</th><th style="width:200px">Meaning</th><th>Use</th></tr></thead>
+          <tbody>
+            <tr><td class="status">IFR</td><td>Issued For Review</td><td>Circulated for comments; not for use in construction or procurement</td></tr>
+            <tr><td class="status">IFA</td><td>Issued For Approval</td><td>Formally submitted awaiting client/consultant approval</td></tr>
+            <tr><td class="status">IFI</td><td>Issued For Information</td><td>Shared for awareness only, no action required</td></tr>
+            <tr><td class="status">IFC</td><td>Issued For Construction</td><td>Approved and released for site execution</td></tr>
+            <tr><td class="status">AFC</td><td>Approved For Construction</td><td>Client/consultant approval confirmed on an IFC document</td></tr>
+            <tr><td class="status">AWC</td><td>Approved With Comments</td><td>Approved subject to incorporating listed comments; resubmission tracked</td></tr>
+            <tr><td class="status">RTN</td><td>Returned — Resubmit</td><td>Rejected; a new revision is required before re‑issue</td></tr>
+            <tr><td class="status">SUP</td><td>Superseded</td><td>Replaced by a later revision; moved to the superseded archive per §9.5</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="en-sanctions">
+      <div class="eyebrow">08</div>
+      <h2>Statutory sanction tracking</h2>
+      <p>Statutory approvals gate construction milestones and, unlike drawings, several carry a validity period that must be renewed — an expired NOC can stop work outright. These are tracked in a dedicated Sanction Register per project, separate from the MDL, owned by the HOD.</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:70px">Code</th><th style="width:190px">Approval</th><th>Authority / notes</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">KMC</td><td>Building Permit</td><td>Kolkata Municipal Corporation — sanctioned building plan; track revised/amended sanctions as separate revisions</td></tr>
+            <tr><td class="mono">FIRE</td><td>Fire Permit</td><td>Fire NOC — typically renewable; flag for re‑application ahead of expiry</td></tr>
+            <tr><td class="mono">AAI</td><td>Height Clearance NOC</td><td>Airports Authority of India — height clearance where the site falls in a funnel/approach zone</td></tr>
+            <tr><td class="mono">DFO</td><td>Forest / Tree NOC</td><td>Divisional Forest Officer — tree‑felling/transplantation clearance where applicable</td></tr>
+            <tr><td class="mono">PCB</td><td>Pollution Control Consent</td><td>State Pollution Control Board — Consent to Establish / Consent to Operate</td></tr>
+            <tr><td class="mono">OTH</td><td>Other Statutory NOC</td><td>Placeholder for any project‑specific NOC not yet covered by a dedicated code above (e.g. a local body clearance unique to one site) — give it a proper code drawn from the authority's own reference once identified, rather than leaving it as OTH long‑term</td></tr>
+            <tr class="suggested"><td class="mono">OC/CC <span class="tag suggested">suggested</span></td><td>Occupancy / Completion Certificate</td><td>KMC — the sanction that closes out a tower; worth its own tracked row given how handover‑critical it is</td></tr>
+            <tr class="suggested"><td class="mono">ENV <span class="tag suggested">suggested</span></td><td>Environmental Clearance</td><td>SEIAA/MoEF — required above certain built‑up‑area thresholds; confirm applicability per project</td></tr>
+            <tr class="suggested"><td class="mono">LIFT <span class="tag suggested">suggested</span></td><td>Lift Inspectorate NOC</td><td>Electrical Inspectorate — elevator installation/operation approval, needed before handover</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Each register row carries: application reference, date submitted, sanction/approval number, date granted, <strong>validity/expiry date</strong>, and a renewal‑alert lead time (recommend 60 days before expiry for anything renewable). The DC for that project raises the renewal alert to the HOD; the HOD tracks it through to re‑submission.</p>
+    </section>
+
+    <section id="en-procedure">
+      <div class="eyebrow">09</div>
+      <h2>Procedure</h2>
+
+      <h3>9.1 Receipt &amp; origination</h3>
+      <ul>
+        <li>Every incoming document (email, hand delivery, ACC upload, courier) is logged in the register <strong>the same working day</strong> it is received, with source, date received, and revision.</li>
+        <li>Internally originated documents are numbered by the DC assigned to that project before they are sent for review — never after.</li>
+        <li>The DC verifies the document carries the correct project code, discipline, revision box and status before accepting it into the register; incomplete title blocks are returned to the originator, not corrected by Document Control.</li>
+      </ul>
+
+      <h3>9.2 Review &amp; approval workflow</h3>
+      <ul>
+        <li>Document Control routes documents to reviewers per the distribution matrix (§11) and tracks the due date agreed in the project's Document Control Plan (typically 5–14 working days depending on document type).</li>
+        <li>Comments are consolidated by the DC into a single comment sheet per document, cross‑referenced to the document number and revision — reviewers do not mark up the DC's controlled copy directly.</li>
+        <li>Approval status (§7) and the approver's name/date are recorded in the register the same day the decision is received.</li>
+      </ul>
+
+      <h3>9.3 Distribution &amp; transmittals</h3>
+      <ul>
+        <li>No document leaves Document Control without a transmittal (TRN/DRT as applicable) — internal or external. The transmittal number, date, recipients and documents listed are all logged before dispatch.</li>
+        <li>Distribution follows the current distribution matrix (§11) for that document type; ad‑hoc recipients requested outside the matrix are added only on written instruction from the HOD.</li>
+        <li>A transmittal is never edited after dispatch. A correction is issued as a new transmittal that references the one it corrects.</li>
+      </ul>
+
+      <h3>9.4 Revision control</h3>
+      <ul>
+        <li>A new revision is opened the moment a document is reissued for any reason — a new comment, a design change, a site instruction. There is no such thing as an informal update to an issued document.</li>
+        <li>Each revision entry carries: revision letter/number, date, reason for revision (one line), and the transmittal it went out on.</li>
+        <li>The current revision is the only one available through normal retrieval; all prior revisions move to the superseded archive (§9.5) but are never deleted.</li>
+      </ul>
+
+      <h3>9.5 Superseded &amp; obsolete documents</h3>
+      <ul>
+        <li>The instant a new revision is approved and issued, the DC marks the previous revision <span class="tag">SUP</span> in the register and moves its file to the superseded archive folder, stamped "SUPERSEDED — DO NOT USE".</li>
+        <li>Superseded documents are retained for traceability and audit — never deleted — but are removed from any location where they could be mistaken for the current issue (shared drives, printed site copies).</li>
+        <li>Controlled hard copies at site are recalled within 2 working days of a document being superseded.</li>
+      </ul>
+
+      <h3>9.6 Filing, storage &amp; backup</h3>
+      <ul>
+        <li>ACC (Autodesk Construction Cloud) is the single source of truth. Local copies on a DC's own machine are working copies only and are never treated as the master record.</li>
+        <li>Folder structure mirrors the numbering scheme — by project, then discipline or register, then sequence — so any document's location is predictable from its number alone.</li>
+        <li>ACC's automated backup/versioning covers the day‑to‑day; a DC additionally exports the register and current‑revision files to a separate location every Friday as a secondary safeguard.</li>
+        <li>Physical/hard copies, where still required, are logged with a location reference (cabinet/shelf) in the register, and access to the physical registry is limited to Document Control staff.</li>
+      </ul>
+
+      <h3>9.7 Retrieval &amp; access</h3>
+      <ul>
+        <li>Any team member can request the current revision of a document from Document Control; DCs respond within the same working day for anything already in the register.</li>
+        <li>Access rights in ACC are set by document type and project role (see §11) and reviewed by the HOD whenever someone joins, leaves, or changes project.</li>
+      </ul>
+
+      <h3>9.8 Archiving &amp; retention</h3>
+      <ul>
+        <li>On project closeout, the DC assigned to that project compiles the final MDL and as‑built register, confirms every document is at its latest approved revision, and hands over a complete archive (electronic, and physical if applicable) to the location specified by company records policy.</li>
+        <li>Minimum retention period follows the applicable contractual and statutory requirement for the project; where none is specified, the company default retention is 8 years from project closeout.</li>
+      </ul>
+    </section>
+
+    <section id="en-mdl">
+      <div class="eyebrow">10</div>
+      <h2>Master document list</h2>
+      <p>The MDL is the register of record — every controlled document, its current revision, status, originator, and last transmittal, in one place per project. It is maintained continuously, not reconstructed periodically, and is what the HOD reviews at each internal audit.</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th>Doc no.</th><th>Title</th><th style="width:70px">Rev</th><th style="width:70px">Status</th><th style="width:110px">Date issued</th><th style="width:110px">Transmittal</th></tr></thead>
+          <tbody>
+            <tr><td class="num">DUE-ARC-DRG-0001</td><td>Typical Floor Plan — Tower A</td><td class="num">2</td><td class="status">AFC</td><td class="num">2026-04-11</td><td class="num">DRT-0042</td></tr>
+            <tr><td class="num">CRN-STR-DRG-0014</td><td>Foundation Layout</td><td class="num">1</td><td class="status">IFA</td><td class="num">2026-06-02</td><td class="num">DRT-0058</td></tr>
+            <tr><td class="num">LUX-FF-DRG-0006</td><td>Fire Fighting Riser Diagram</td><td class="num">0</td><td class="status">IFR</td><td class="num">2026-07-19</td><td class="num">DRT-0061</td></tr>
+            <tr><td class="num">TCV-RFI-0009</td><td>Clarification — Podium Waterproofing Detail</td><td class="num">—</td><td class="status">IFI</td><td class="num">2026-08-02</td><td class="num">TRN-0011</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Rows above are illustrative — each project's actual MDL is generated from the live register, not typed up separately.</p>
+    </section>
+
+    <section id="en-distribution">
+      <div class="eyebrow">11</div>
+      <h2>Distribution matrix</h2>
+      <p>Defines, per document type, who must receive it and in what capacity: <span class="tag">R</span> Responsible for review/comment, <span class="tag">A</span> Approves, <span class="tag">I</span> Informed only.</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th>Document type</th><th style="width:100px">Project Head</th><th style="width:120px">Architect / Consultant</th><th style="width:110px">Statutory / Liaison</th><th style="width:90px">QA/QC</th><th style="width:100px">Site Team</th></tr></thead>
+          <tbody>
+            <tr><td>Drawings</td><td class="num">I</td><td class="num">R</td><td class="num">–</td><td class="num">I</td><td class="num">I</td></tr>
+            <tr><td>Statutory sanctions</td><td class="num">A</td><td class="num">I</td><td class="num">R</td><td class="num">–</td><td class="num">I</td></tr>
+            <tr><td>MAR / MIR</td><td class="num">I</td><td class="num">A</td><td class="num">–</td><td class="num">R</td><td class="num">R</td></tr>
+            <tr><td>WIR</td><td class="num">I</td><td class="num">I</td><td class="num">–</td><td class="num">A</td><td class="num">R</td></tr>
+            <tr><td>NCR</td><td class="num">A</td><td class="num">R</td><td class="num">–</td><td class="num">R</td><td class="num">I</td></tr>
+            <tr><td>RFI</td><td class="num">I</td><td class="num">A</td><td class="num">–</td><td class="num">I</td><td class="num">R</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="en-security">
+      <div class="eyebrow">12</div>
+      <h2>Confidentiality &amp; security</h2>
+      <ul>
+        <li>Documents marked <em>Confidential</em> or <em>Client Restricted</em> are distributed only to the named individuals on the distribution matrix — never to a general project mailing list.</li>
+        <li>ACC accounts are personal, not shared; a DC's login is deactivated the day they leave the project or the company.</li>
+        <li>Documents are never sent to a personal (non‑company) email address, including by DCs themselves, as a workaround for file size or access issues — escalate to the HOD instead.</li>
+      </ul>
+    </section>
+
+    <section id="en-nonconformance">
+      <div class="eyebrow">13</div>
+      <h2>Non‑conformance &amp; corrective action</h2>
+      <p>A non‑conformance is anything that breaks the traceability this SOP exists to protect: a document issued without a number, a superseded copy still in circulation, a missing transmittal, an unauthorised distribution, an expired sanction not flagged in time.</p>
+      <ul>
+        <li>Any DC who identifies a non‑conformance logs it the same day, with what was found and where, and notifies the HOD.</li>
+        <li>The HOD determines corrective action (recall, re‑issue, access review, expedited renewal) and closes it out in the non‑conformance log with a dated resolution — nothing is closed verbally.</li>
+        <li>Recurring non‑conformances of the same type are reviewed at the next team meeting to check whether the procedure, not just the individual instance, needs to change.</li>
+      </ul>
+    </section>
+
+    <section id="en-training">
+      <div class="eyebrow">14</div>
+      <h2>Training &amp; competency</h2>
+      <ul>
+        <li>Every DC is walked through this SOP and the live ACC project/register on joining, before being given register access, and signs an acknowledgement that they have read it.</li>
+        <li>The HOD shadows a new DC's first two weeks of transmittals and register entries before they operate unsupervised.</li>
+        <li>This SOP is reviewed with the full team whenever it is revised, and refreshed annually regardless.</li>
+      </ul>
+    </section>
+
+    <section id="en-kpi">
+      <div class="eyebrow">15</div>
+      <h2>Monitoring &amp; KPIs</h2>
+      <div class="twrap">
+        <table>
+          <thead><tr><th>Metric</th><th>Target</th></tr></thead>
+          <tbody>
+            <tr><td>Same‑day logging of incoming documents</td><td class="num">100%</td></tr>
+            <tr><td>Transmittals issued within 1 working day of approval</td><td class="num">≥ 95%</td></tr>
+            <tr><td>Superseded copies recalled within 2 working days</td><td class="num">100%</td></tr>
+            <tr><td>MDL accuracy at internal audit (sample check)</td><td class="num">100%</td></tr>
+            <tr><td>Statutory sanctions with a live renewal alert set</td><td class="num">100%</td></tr>
+            <tr><td>Open non‑conformances older than 14 days</td><td class="num">0</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The HOD reviews these monthly and reports a summary to senior management.</p>
+    </section>
+
+    <section id="en-references">
+      <div class="eyebrow">16</div>
+      <h2>Related documents</h2>
+      <ul>
+        <li>Project Document Control Plan (per project — Duets, Crown, Luxuria, The Curve)</li>
+        <li>Statutory Sanction Register (per project)</li>
+        <li>ACC User Access &amp; Permissions Procedure</li>
+        <li>Company Records Retention Policy</li>
+        <li>QA/QC Non‑Conformance Procedure</li>
+      </ul>
+
+      <h3>Register templates (live links)</h3>
+      <p>The working spreadsheets below are the actual templates in use — open the one you need directly rather than rebuilding it from scratch. All sit inside the <a href="https://drive.google.com/drive/folders/1_BQjSm4hMCPi0osoiq-wgnYgG1XiP1tt" target="_blank" rel="noopener">Registers</a> folder on Drive; confirm with the HOD that this folder is shared with all four DCs before relying on it day‑to‑day.</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:210px">Template</th><th style="width:90px">Cross‑ref</th><th>Open</th></tr></thead>
+          <tbody>
+            <tr><td>Architecture Drawings Register</td><td class="mono">ARC · §10</td><td><a href="https://docs.google.com/spreadsheets/d/1H_sYTs3zI8di7fDIAIwllzkFm6qZ-Pug5LozYgTf8qk/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr><td>Structure Drawings Register</td><td class="mono">STR · §10</td><td><a href="https://docs.google.com/spreadsheets/d/1G9-Xl5irzO6oy0mXL5ktfC7bChnyLsLbzUHxSkZAofY/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr><td>MEP Drawings Register</td><td class="mono">ELE/PHE/HVAC/FF · §10</td><td><a href="https://docs.google.com/spreadsheets/d/1zFdejXZCBO3mlPzhxqykMRvZFTqDN5RfxVNnNr-7_uE/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr><td>Document Transmittal Register</td><td class="mono">TRN · §6.3</td><td><a href="https://docs.google.com/spreadsheets/d/1pD5_5o2bNKWm4eYW-w-9EwOVmZ8gC4KkJpK43Guwf-Q/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr><td>Drawing Transmittal — Architecture</td><td class="mono">DRT · §6.3</td><td><a href="https://docs.google.com/spreadsheets/d/1F8s0PnxgHvjNE9CEBUNGTE6rACK8MnS1bOWYzNrEysA/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr><td>Drawing Transmittal — Structure</td><td class="mono">DRT · §6.3</td><td><a href="https://docs.google.com/spreadsheets/d/1du5yhdILTzH_el7O16jtI1IsN9YWcIgLyEpuqmWlSO4/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr><td>Drawing Transmittal — MEP</td><td class="mono">DRT · §6.3</td><td><a href="https://docs.google.com/spreadsheets/d/1rZ7GK1jqwVHlzCMGT_uAKjn5COb9_HwiQ3PoHekm6PM/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr><td>RFI Register</td><td class="mono">RFI · §6.3</td><td><a href="https://docs.google.com/spreadsheets/d/1MXPYjnmwvFEEZbslLjVNV8uqzbsyWjUPMMApIafa-dU/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr><td>Sanction Document &amp; Drawings Register</td><td class="mono">§8</td><td><a href="https://docs.google.com/spreadsheets/d/1HNHZ-ZoqKYoofcJOjyAyZVxdaIFqIQDQNuxvqLvDT_o/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr><td>KMC Sanction Register</td><td class="mono">KMC · §8</td><td><a href="https://docs.google.com/spreadsheets/d/1Jghm5OhNgxZqpAF7wYTLx5X4zF1ejXkaPGO1KLCsYfA/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr class="suggested"><td>Method Statement Register <span class="tag suggested">suggested</span></td><td class="mono">§9.2</td><td><a href="https://docs.google.com/spreadsheets/d/1wXcLl3v8TbvKLsSb5qnZy47WBn0xSCgdEvLQT-cycPU/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr class="suggested"><td>Consultant Masters <span class="tag suggested">suggested</span></td><td class="mono">§11</td><td><a href="https://docs.google.com/spreadsheets/d/1g7K3NgQb8lfC-zv1UdbYYtUvbBkQ-8tX3xmTtASOJfY/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr class="suggested"><td>File Name &amp; Location Index <span class="tag suggested">suggested</span></td><td class="mono">§9.6</td><td><a href="https://docs.google.com/spreadsheets/d/1gU1h8jh-e7qR1ZJPkpH1eLkFL74OSIGymToAM2tjwUc/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr class="suggested"><td>Insurance Policy Tracker <span class="tag suggested">suggested</span></td><td class="mono">§16</td><td><a href="https://docs.google.com/spreadsheets/d/1BRqBkAVUkybl9VycpndTIY51daIRL9WkXokHe7SxcRg/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr class="suggested"><td>Land Owner Email Register <span class="tag suggested">suggested</span></td><td class="mono">§16</td><td><a href="https://docs.google.com/spreadsheets/d/1ixNkpaCmGkGzZz9TgL9UbqCbMwF88rGwnXdl0ZnnT40/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="en-history">
+      <div class="eyebrow">17</div>
+      <h2>Revision history</h2>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:70px">Rev</th><th style="width:120px">Date</th><th style="width:160px">Prepared by</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td class="num">0</td><td class="num">—</td><td>HOD, Document Control</td><td>Initial issue</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="footline">
+      <span>ALC-DC-SOP-001 · Alcove Realty · Document Control</span>
+      <span>Uncontrolled if printed — verify current revision in ACC before use · Last updated <span data-updated="en">15 September 2026</span></span>
+    </div>
+
+  </article>
+</div>
+</div>
+<!-- =========================== END ENGLISH =========================== -->
+
+<!-- ============================= BENGALI ============================= -->
+<div id="doc-bn" class="doc-view doc-bn">
+<div class="shell">
+
+  <div class="control-block">
+    <div class="brandrow">
+      <div class="brandmark">
+        <span class="platecard"><img src="alcove-logo.png" alt="Alcove Realty" width="200" height="115"></span>
+      </div>
+      <span class="stampmark">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>
+        কন্ট্রোলড ডকুমেন্ট
+      </span>
+    </div>
+
+    <h1 class="title">ডকুমেন্ট কন্ট্রোল — স্ট্যান্ডার্ড অপারেটিং প্রসিডিউর (SOP)</h1>
+    <p class="subtitle">অ্যালকোভ রিয়েলটির সক্রিয় প্রজেক্টগুলোতে ডকুমেন্ট কন্ট্রোল ডিপার্টমেন্ট যেসব ডকুমেন্ট হ্যান্ডল করে, তাদের নম্বরকরণ, পর্যালোচনা, বিতরণ, রিভিশন, স্ট্যাটুটরি-স্যাংশন ট্র্যাকিং এবং আর্কাইভাল-এর নিয়ম নির্ধারণ করে এই SOP।</p>
+
+    <div class="docfields">
+      <div class="cell"><div class="label">ডক নং</div><div class="value mono">ALC-DC-SOP-001</div></div>
+      <div class="cell"><div class="label">রিভিশন</div><div class="value mono">Rev 0</div></div>
+      <div class="cell"><div class="label">কার্যকর তারিখ</div><div class="value mono">অনুমোদনের পর নির্ধারিত হবে</div></div>
+      <div class="cell"><div class="label">পর্যালোচনা চক্র</div><div class="value mono">বার্ষিক</div></div>
+      <div class="cell"><div class="label">ডিপার্টমেন্ট</div><div class="value">ডকুমেন্ট কন্ট্রোল, অ্যালকোভ রিয়েলটি</div></div>
+      <div class="cell"><div class="label">প্রসেস ওনার</div><div class="value">HOD, ডকুমেন্ট কন্ট্রোল</div></div>
+      <div class="cell"><div class="label">টিম</div><div class="value">HOD + ৪ জন ডকুমেন্ট কন্ট্রোলার</div></div>
+      <div class="cell"><div class="label">শ্রেণী</div><div class="value">ইন্টারনাল</div></div>
+    </div>
+
+    <div class="approval-block">
+      <div class="approval-cell">
+        <div class="approval-role">প্রস্তুতকারী</div>
+        <div class="approval-line"></div>
+        <div class="approval-meta">নাম · পদবি · তারিখ</div>
+      </div>
+      <div class="approval-cell">
+        <div class="approval-role">পর্যালোচনাকারী</div>
+        <div class="approval-line"></div>
+        <div class="approval-meta">নাম · পদবি · তারিখ</div>
+      </div>
+      <div class="approval-cell">
+        <div class="approval-role">অনুমোদনকারী</div>
+        <div class="approval-line"></div>
+        <div class="approval-meta">নাম · পদবি · তারিখ</div>
+      </div>
+    </div>
+  </div>
+
+  <details class="changelog">
+    <summary>নতুন কী যোগ হলো <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
+    <div class="changelog-body">
+      <div class="changelog-item"><span class="changelog-date">১৫ সেপ্টেম্বর ২০২৬</span><span>ডকুমেন্ট হেডারে Prepared / Reviewed / Approved সাইন-অফ ব্লক যোগ করা হয়েছে।</span></div>
+      <div class="changelog-item"><span class="changelog-date">১৫ সেপ্টেম্বর ২০২৬</span><span>দ্ব্যর্থক "SOR" কোডটি <span class="tag">OTH</span> (Other Statutory NOC) নামে পরিবর্তন করা হয়েছে, স্পষ্টতার জন্য।</span></div>
+      <div class="changelog-item"><span class="changelog-date">১৫ সেপ্টেম্বর ২০২৬</span><span>§১৬ Related Documents-এ আসল রেজিস্টার ও ট্রান্সমিটাল টেমপ্লেট সরাসরি লিংক করা হয়েছে।</span></div>
+      <div class="changelog-item"><span class="changelog-date">১৫ সেপ্টেম্বর ২০২৬</span><span>Document Formats মেনু যোগ করা হয়েছে — সব রেজিস্টার টেমপ্লেট একসাথে।</span></div>
+    </div>
+  </details>
+
+  <details class="quickref">
+    <summary>কুইক রেফারেন্স — সব কোড <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
+    <div class="quickref-body">
+      <div class="chipgroup">
+        <div class="glabel">ডিসিপ্লিন</div>
+        <div class="chiprow">
+          <span class="chip chip-disc">STR <span class="full">স্ট্রাকচারাল</span></span>
+          <span class="chip chip-disc">ARC <span class="full">আর্কিটেকচারাল</span></span>
+          <span class="chip chip-disc">ELE <span class="full">ইলেকট্রিক্যাল</span></span>
+          <span class="chip chip-disc">PHE <span class="full">প্লাম্বিং</span></span>
+          <span class="chip chip-disc">HVAC <span class="full">HVAC</span></span>
+          <span class="chip chip-disc">FF <span class="full">ফায়ার ফাইটিং</span></span>
+        </div>
+      </div>
+      <div class="chipgroup">
+        <div class="glabel">রেজিস্টার / ডকুমেন্ট টাইপ</div>
+        <div class="chiprow">
+          <span class="chip chip-reg">DAR <span class="full">ড্রয়িং অ্যাপ্রুভাল রিকোয়েস্ট</span></span>
+          <span class="chip chip-reg">MAR <span class="full">ম্যাটেরিয়াল অ্যাপ্রুভাল রিকোয়েস্ট</span></span>
+          <span class="chip chip-reg">MIR <span class="full">ম্যাটেরিয়াল ইন্সপেকশন রিকোয়েস্ট</span></span>
+          <span class="chip chip-reg">CVA <span class="full">কনফার্মেশন অফ ভার্বাল অ্যাপ্রুভাল</span></span>
+          <span class="chip chip-reg">TRN <span class="full">ডকুমেন্ট ট্রান্সমিটাল</span></span>
+          <span class="chip chip-reg">RFI <span class="full">রিকোয়েস্ট ফর ইনফরমেশন</span></span>
+          <span class="chip chip-reg">DRT <span class="full">ড্রয়িং ট্রান্সমিটাল</span></span>
+          <span class="chip chip-reg">WIR <span class="full">ওয়ার্ক ইন্সপেকশন রিপোর্ট</span></span>
+          <span class="chip chip-reg">NCR <span class="full">নন-কনফরম্যান্স রিপোর্ট</span></span>
+          <span class="chip chip-reg">OTH <span class="full">আদার স্ট্যাটুটরি NOC</span></span>
+        </div>
+      </div>
+      <div class="chipgroup">
+        <div class="glabel">ডকুমেন্ট স্ট্যাটাস</div>
+        <div class="chiprow">
+          <span class="chip chip-status">IFR <span class="full">ইস্যুড ফর রিভিউ</span></span>
+          <span class="chip chip-status">IFA <span class="full">ইস্যুড ফর অ্যাপ্রুভাল</span></span>
+          <span class="chip chip-status">IFC <span class="full">ইস্যুড ফর কনস্ট্রাকশন</span></span>
+          <span class="chip chip-status">AFC <span class="full">অ্যাপ্রুভড ফর কনস্ট্রাকশন</span></span>
+          <span class="chip chip-status">SUP <span class="full">সুপারসিডেড</span></span>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <nav class="toc">
+    <div class="toc-eyebrow">সূচিপত্র</div>
+    <ol>
+      <li><a href="#bn-purpose">উদ্দেশ্য</a></li>
+      <li><a href="#bn-scope">পরিধি</a></li>
+      <li><a href="#bn-definitions">সংজ্ঞা ও সংক্ষিপ্ত রূপ</a></li>
+      <li><a href="#bn-projects">চলমান প্রজেক্ট</a></li>
+      <li><a href="#bn-roles">রোল ও দায়িত্ব</a></li>
+      <li><a href="#bn-numbering">ডকুমেন্ট নম্বরকরণ</a></li>
+      <li><a href="#bn-status">ডকুমেন্ট স্ট্যাটাস কোড</a></li>
+      <li><a href="#bn-sanctions">স্ট্যাটুটরি স্যাংশন ট্র্যাকিং</a></li>
+      <li><a href="#bn-procedure">প্রসিডিউর</a></li>
+      <li><a href="#bn-mdl">মাস্টার ডকুমেন্ট লিস্ট</a></li>
+      <li><a href="#bn-distribution">ডিস্ট্রিবিউশন ম্যাট্রিক্স</a></li>
+      <li><a href="#bn-security">কনফিডেন্সিয়ালিটি ও সিকিউরিটি</a></li>
+      <li><a href="#bn-nonconformance">নন-কনফরম্যান্স</a></li>
+      <li><a href="#bn-training">ট্রেনিং ও যোগ্যতা</a></li>
+      <li><a href="#bn-kpi">মনিটরিং ও KPI</a></li>
+      <li><a href="#bn-references">সম্পর্কিত ডকুমেন্ট</a></li>
+      <li><a href="#bn-history">রিভিশন হিস্ট্রি</a></li>
+    </ol>
+  </nav>
+
+  <article>
+
+    <section id="bn-purpose">
+      <div class="eyebrow">০১</div>
+      <h2>উদ্দেশ্য</h2>
+      <p>এই SOP একটি একক ও সামঞ্জস্যপূর্ণ পদ্ধতি নির্ধারণ করে, যার মাধ্যমে অ্যালকোভ রিয়েলটির প্রতিটি ড্রয়িং, স্ট্যাটুটরি স্যাংশন এবং কারেসপন্ডেন্স/QA রেকর্ড নম্বরকরণ, পর্যালোচনা, অনুমোদন, বিতরণ, সংশোধন, ট্র্যাক ও আর্কাইভ করা হয়। এর উদ্দেশ্য হলো — যেকোনো মুহূর্তে, সাইট ইঞ্জিনিয়ার থেকে শুরু করে ক্লায়েন্ট বা স্ট্যাটুটরি অথরিটি পর্যন্ত যে কেউ যেন নিশ্চিত থাকতে পারেন যে তারা কোনো ডকুমেন্টের <strong>সর্বশেষ অনুমোদিত রিভিশন</strong> দেখছেন, এবং প্রতিটি ডকুমেন্টের জন্ম থেকে প্রজেক্ট হ্যান্ডওভার পর্যন্ত একটি সম্পূর্ণ অডিটযোগ্য ট্রেইল বজায় থাকে।</p>
+      <p>এটি ডকুমেন্ট কন্ট্রোল ডিপার্টমেন্টের জন্য লেখা — HOD (Head of Department) এবং তার অধীনস্থ চারজন ডকুমেন্ট কন্ট্রোলার (DC)-এর জন্য, এবং নতুন DC-দের ট্রেনিং করানোর সময় এটিকেই রেফারেন্স হিসেবে ব্যবহার করা হবে।</p>
+    </section>
+
+    <section id="bn-scope">
+      <div class="eyebrow">০২</div>
+      <h2>পরিধি</h2>
+      <p>অ্যালকোভ রিয়েলটির প্রজেক্টগুলোতে তৈরি, প্রাপ্ত বা পাঠানো সকল কন্ট্রোলড ডকুমেন্টের ক্ষেত্রে এই প্রসিডিউর প্রযোজ্য, যার মধ্যে রয়েছে (কিন্তু সীমাবদ্ধ নয়):</p>
+      <ul>
+        <li>ড্রয়িং — স্ট্রাকচারাল, আর্কিটেকচারাল এবং MEP (ইলেকট্রিক্যাল, প্লাম্বিং, HVAC, ফায়ার ফাইটিং/ফায়ার প্রোটেকশন)</li>
+        <li>স্ট্যাটুটরি স্যাংশন ও NOC — KMC বিল্ডিং পারমিট, ফায়ার পারমিট, AAI, DFO, PCB এবং সম্পর্কিত অনুমোদন</li>
+        <li>সাইট কারেসপন্ডেন্স ও QA রেজিস্টার — অ্যাপ্রুভাল রিকোয়েস্ট, ইন্সপেকশন রিকোয়েস্ট, ট্রান্সমিটাল, RFI, ইন্সপেকশন ও নন-কনফরম্যান্স রিপোর্ট</li>
+        <li>Document Control-এর মাধ্যমে রুট হওয়া ভেন্ডর ও কন্ট্রাক্টর সাবমিটাল</li>
+      </ul>
+      <p>এর আওতায় নেই — ব্যক্তিগত ওয়ার্কিং ফাইল, রিভিউ-এর জন্য এখনো ইস্যু না-হওয়া ড্র্যাফট, বা কোনো প্রজেক্টের Document Control Plan-এ স্পষ্টভাবে বাদ দেওয়া ডকুমেন্ট।</p>
+    </section>
+
+    <section id="bn-definitions">
+      <div class="eyebrow">০৩</div>
+      <h2>সংজ্ঞা ও সংক্ষিপ্ত রূপ</h2>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:110px">টার্ম</th><th>অর্থ</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">DC</td><td>ডকুমেন্ট কন্ট্রোলার</td></tr>
+            <tr><td class="mono">HOD</td><td>হেড অফ ডিপার্টমেন্ট — ডকুমেন্ট কন্ট্রোল</td></tr>
+            <tr><td class="mono">ACC</td><td>Autodesk Construction Cloud — অ্যালকোভ রিয়েলটির ইলেকট্রনিক ডকুমেন্ট ম্যানেজমেন্ট সিস্টেম (EDMS)</td></tr>
+            <tr><td class="mono">MDL</td><td>মাস্টার ডকুমেন্ট লিস্ট — প্রতিটি কন্ট্রোলড ডকুমেন্ট ও তার বর্তমান রিভিশন/স্ট্যাটাসের মাস্টার রেজিস্টার</td></tr>
+            <tr><td class="mono">NOC</td><td>কোনো স্ট্যাটুটরি অথরিটির দেওয়া নো-অবজেকশন সার্টিফিকেট</td></tr>
+            <tr><td class="mono">MEP</td><td>মেকানিক্যাল, ইলেকট্রিক্যাল ও প্লাম্বিং সার্ভিস</td></tr>
+            <tr><td class="mono">সুপারসিডেড</td><td>যে পূর্ববর্তী রিভিশন আনুষ্ঠানিকভাবে প্রতিস্থাপিত হয়ে সক্রিয় ব্যবহার থেকে প্রত্যাহার করা হয়েছে</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="bn-projects">
+      <div class="eyebrow">০৪</div>
+      <h2>চলমান প্রজেক্ট</h2>
+      <p>প্রতিটি কন্ট্রোলড ডকুমেন্ট ঠিক একটি প্রজেক্ট কোডের অন্তর্গত হবে। নিচের চারটি কোড প্রস্তাবিত — প্রথম ডকুমেন্ট নম্বর করার আগে HOD-এর সাথে এগুলো নিশ্চিত ও ফিক্সড করে নিন।</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th>প্রজেক্ট</th><th style="width:140px">প্রজেক্ট কোড</th></tr></thead>
+          <tbody>
+            <tr><td>Alcove Duets</td><td class="num">DUE</td></tr>
+            <tr><td>Alcove Crown</td><td class="num">CRN</td></tr>
+            <tr><td>Alcove Luxuria</td><td class="num">LUX</td></tr>
+            <tr><td>The Curve</td><td class="num">TCV</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="bn-roles">
+      <div class="eyebrow">০৫</div>
+      <h2>রোল ও দায়িত্ব</h2>
+      <p>Document Control একটি টিম হিসেবে কাজ করে — চারজন DC, HOD-এর অধীনে, সাধারণত একটি প্রজেক্টে একজন DC থাকবেন যাতে প্রতিটি রেজিস্টারের একজন স্পষ্ট মালিক (owner) সবসময় চিহ্নিত থাকে। দৈনন্দিন কাজ শেয়ার করা হলেও, প্রতিটি ফাংশনের মালিকানা একটি নির্দিষ্ট রোলের সাথে থাকে, যাতে কোনো কাজ "অন্য কারো দায়িত্ব" ভেবে বাদ না পড়ে।</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:200px">রোল</th><th>দায়িত্বে যা থাকবে</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>HOD, Document Control</strong></td>
+              <td>এই SOP ও প্রতিটি প্রজেক্টের Document Control Plan-এর মালিক; নম্বরকরণ স্কিম ও ডিস্ট্রিবিউশন ম্যাট্রিক্স অনুমোদন করেন; চারটি প্রজেক্ট জুড়ে DC বণ্টন করেন; স্ট্যাটুটরি স্যাংশন রেজিস্টার ও রিনিউয়াল অ্যালার্টের মালিক (§৮); অ্যাক্সেস, কনফিডেন্সিয়ালিটি বা নন-কনফরম্যান্স ইস্যুতে চূড়ান্ত এস্কেলেশন পয়েন্ট; অডিটে প্রতিটি প্রজেক্টের MDL সাইন-অফ করেন; ম্যানেজমেন্টকে ডকুমেন্ট কন্ট্রোল KPI রিপোর্ট করেন; ACC অ্যাক্সেস অনবোর্ডিং/অফবোর্ডিং অনুমোদন করেন।</td>
+            </tr>
+            <tr>
+              <td><strong>ডকুমেন্ট কন্ট্রোলার</strong></td>
+              <td>প্রাপ্তির দিনই ইনকামিং/আউটগোয়িং ডকুমেন্ট লগ, নম্বরকরণ ও আপলোড করেন; ট্রান্সমিটাল, RFI, DAR/MAR/MIR ও অন্যান্য রেজিস্টার (§৬.৩) তৈরি ও ট্র্যাক করেন; নিজের প্রজেক্টের MDL ও ডিস্ট্রিবিউশন ম্যাট্রিক্স মেইনটেইন করেন; ইস্যুর আগে নম্বরকরণ, রিভিশন ও স্ট্যাটাস মার্কিং ঠিক আছে কিনা যাচাই করেন; §৯.৬ অনুযায়ী ফাইলিং ও ব্যাকআপ করেন; ওভারডিউ রিভিউ, অনুমোদন ও মেয়াদ-শেষ-হতে-চলা স্যাংশন HOD-কে জানান; সুপারসিডেড/অবসোলিট আর্কাইভ মেইনটেইন করেন।</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout"><b>হ্যান্ডওভার নিয়ম —</b> কোনো DC ছুটিতে গেলে, ছুটি শুরুর আগেই তার প্রজেক্টের রেজিস্টার ও চলমান ট্রান্সমিটাল HOD লিখিতভাবে (ইমেইলই যথেষ্ট) অন্য কাউকে বণ্টন করে দেবেন, যাতে কোনো রেজিস্টার কখনোই মালিকহীন না থাকে।</div>
+    </section>
+
+    <section id="bn-numbering">
+      <div class="eyebrow">০৬</div>
+      <h2>ডকুমেন্ট নম্বরকরণ</h2>
+      <p>প্রতিটি কন্ট্রোলড ডকুমেন্ট রেজিস্টারে প্রথম ঢোকার মুহূর্তেই একটি ইউনিক নম্বর পায়। একবার নম্বর দেওয়া হলে, সেটি <strong>কখনোই পুনরায় ব্যবহার বা পুনর্বণ্টন করা হয় না</strong> — এমনকি পরে ডকুমেন্টটি বাতিল হলেও নয়।</p>
+
+      <h3>৬.১ ড্রয়িং ও টেকনিক্যাল ডকুমেন্ট</h3>
+      <div class="codestring">
+        <span><span class="part-label">প্রজেক্ট</span>DUE</span><span><span class="part-label">ডিসিপ্লিন</span>STR</span><span><span class="part-label">ডক টাইপ</span>DRG</span><span><span class="part-label">সিকোয়েন্স</span>0001</span>
+      </div>
+      <p>উদাহরণ: <code>DUE-STR-DRG-0001</code> — Alcove Duets, স্ট্রাকচারাল ডিসিপ্লিন, একটি ড্রয়িং, সিকোয়েন্স <em>0001</em>। রিভিশন আলাদাভাবে ট্র্যাক করা হয় এবং কখনোই ডকুমেন্ট নম্বরের ভেতরে জোড়া হয় না।</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:90px">কোড</th><th>ডিসিপ্লিন</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">STR</td><td>স্ট্রাকচারাল</td></tr>
+            <tr><td class="mono">ARC</td><td>আর্কিটেকচারাল</td></tr>
+            <tr><td class="mono">ELE</td><td>ইলেকট্রিক্যাল (MEP)</td></tr>
+            <tr><td class="mono">PHE</td><td>প্লাম্বিং / পাবলিক হেলথ ইঞ্জিনিয়ারিং (MEP)</td></tr>
+            <tr><td class="mono">HVAC</td><td>হিটিং, ভেন্টিলেশন ও এয়ার-কন্ডিশনিং (MEP)</td></tr>
+            <tr><td class="mono">FF</td><td>ফায়ার ফাইটিং / ফায়ার প্রোটেকশন (MEP)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>৬.২ রেজিস্টার ও কারেসপন্ডেন্স</h3>
+      <p>সাইট কারেসপন্ডেন্স ও QA রেজিস্টারের নম্বর হবে <code>[প্রজেক্ট]-[রেজিস্টার কোড]-[সিকোয়েন্স]</code> ফরম্যাটে, যেমন <code>DUE-RFI-0012</code>। এগুলো প্রজেক্ট অনুযায়ী রিসেট হয়, ডিসিপ্লিন অনুযায়ী নয় — কারণ এগুলো একটি ড্রয়িং সেট নয়, একটি ওয়ার্কফ্লো ট্র্যাক করে।</p>
+
+      <h3>৬.৩ ডকুমেন্ট টাইপ ও রেজিস্টার কোড</h3>
+      <p>নিচের তালিকায় প্রথমে আপনার দেওয়া মূল সেট (আনমার্কড রো), এবং তার সাথে আবাসিক/রিয়েল-এস্টেট প্রজেক্টে সাধারণত ব্যবহৃত আরও কিছু রেজিস্টার <span class="tag suggested">সাজেস্টেড</span> যোগ করা হয়েছে — HOD-এর সাথে রিভিউ করে যা দরকার নেই তা বাদ দিন।</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:90px">কোড</th><th style="width:230px">রেজিস্টার</th><th>উদ্দেশ্য</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">DAR</td><td>ডকুমেন্ট / ড্রয়িং অ্যাপ্রুভাল রিকোয়েস্ট</td><td>কনসালট্যান্ট/ক্লায়েন্টের অনুমোদনের জন্য কোনো ড্রয়িং বা ডকুমেন্টের আনুষ্ঠানিক সাবমিশন</td></tr>
+            <tr><td class="mono">MAR</td><td>মেটেরিয়াল অ্যাপ্রুভাল রিকোয়েস্ট</td><td>প্রকিউরমেন্টের আগে প্রস্তাবিত মেটেরিয়াল/ব্র্যান্ড/মেক অনুমোদনের জন্য কন্ট্রাক্টরের সাবমিশন</td></tr>
+            <tr><td class="mono">MIR</td><td>মেটেরিয়াল ইন্সপেকশন রিকোয়েস্ট</td><td>মেটেরিয়াল সাইটে আসার পর বা ব্যবহারের আগে ইন্সপেকশনের অনুরোধ</td></tr>
+            <tr><td class="mono">CVA</td><td>কনফার্মেশন অফ ভার্বাল অ্যাপ্রুভাল</td><td>মৌখিক বা সাইটে দেওয়া নির্দেশনার লিখিত রেকর্ড ক্লোজ-আউট</td></tr>
+            <tr><td class="mono">TRN</td><td>ডকুমেন্ট ট্রান্সমিটাল</td><td>অন্য কোনো পক্ষকে ইস্যু করা যেকোনো ডকুমেন্টের কভার রেকর্ড</td></tr>
+            <tr><td class="mono">RFI</td><td>রিকোয়েস্ট ফর ইনফরমেশন</td><td>ডিজাইন/কনসালট্যান্ট টিমের কাছে স্পষ্টীকরণের জন্য প্রশ্ন</td></tr>
+            <tr><td class="mono">DRT</td><td>ড্রয়িং ট্রান্সমিটাল</td><td>শুধু ড্রয়িং ইস্যুর জন্য আলাদা কভার রেকর্ড, যাতে ড্রয়িং-এর ট্রেসেবিলিটি সাধারণ কারেসপন্ডেন্সের সাথে না মেশে</td></tr>
+            <tr><td class="mono">WIR</td><td>ওয়ার্ক ইন্সপেকশন রিপোর্ট</td><td>পরবর্তী পর্যায়ে যাওয়ার আগে সম্পন্ন কাজের ইন্সপেকশনের রেকর্ড</td></tr>
+            <tr><td class="mono">NCR</td><td>নন-কনফরম্যান্স রিপোর্ট</td><td>অনুমোদিত স্পেসিফিকেশন মেনে না-চলা কাজ বা মেটেরিয়ালের আনুষ্ঠানিক রেকর্ড</td></tr>
+            <tr><td class="mono">SOR</td><td>সাইট অবজারভেশন রিপোর্ট</td><td>সুপারভিশন/কনসালট্যান্ট স্টাফের তোলা সাধারণ সাইট অবজারভেশন</td></tr>
+            <tr class="suggested"><td class="mono">SI <span class="tag suggested">সাজেস্টেড</span></td><td>সাইট ইনস্ট্রাকশন</td><td>সাইটে কন্ট্রাক্টরকে দেওয়া লিখিত নির্দেশনা, ড্রয়িং রিভিশন থেকে আলাদা</td></tr>
+            <tr class="suggested"><td class="mono">MTC <span class="tag suggested">সাজেস্টেড</span></td><td>মেটেরিয়াল টেস্ট সার্টিফিকেট</td><td>MAR/MIR এন্ট্রির বিপরীতে ফাইল করা ল্যাব/ম্যানুফ্যাকচারার টেস্ট সার্টিফিকেট</td></tr>
+            <tr class="suggested"><td class="mono">ABD <span class="tag suggested">সাজেস্টেড</span></td><td>অ্যাজ-বিল্ট ড্রয়িং রেজিস্টার</td><td>প্রতিটি ড্রয়িং-এর ফাইনাল অ্যাজ-বিল্ট স্ট্যাটাস ট্র্যাক করে — হ্যান্ডওভার ও ভবিষ্যৎ ফ্যাসিলিটি ম্যানেজমেন্টের জন্য অত্যন্ত জরুরি</td></tr>
+            <tr class="suggested"><td class="mono">SNL <span class="tag suggested">সাজেস্টেড</span></td><td>স্ন্যাগ / পাঞ্চ লিস্ট</td><td>প্রি-হ্যান্ডওভার ডিফেক্ট লিস্ট, প্রতিটি ইউনিট/টাওয়ার অনুযায়ী, ক্লোজার পর্যন্ত ট্র্যাক করা</td></tr>
+            <tr class="suggested"><td class="mono">HOTO <span class="tag suggested">সাজেস্টেড</span></td><td>হ্যান্ডওভার–টেকওভার চেকলিস্ট</td><td>ক্লায়েন্ট বা ফ্যাসিলিটি টিমের কাছে ইউনিট/কমন-এরিয়া হ্যান্ডওভারের আনুষ্ঠানিক রেকর্ড</td></tr>
+            <tr class="suggested"><td class="mono">PR <span class="tag suggested">সাজেস্টেড</span></td><td>প্রগ্রেস রিপোর্ট</td><td>সাপ্তাহিক/মাসিক রিপোর্ট রেজিস্টার — DC এটি না লিখলেও লগ করে রাখা কাজে দেয়</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>প্রতিটি প্রজেক্টের চূড়ান্ত কোড লিস্ট সেই প্রজেক্টের Document Control Plan-এ প্রথম ডকুমেন্ট ইস্যুর আগেই ফিক্সড করা হয় — প্রজেক্ট চলাকালীন কোড পরিবর্তন করা হয় না।</p>
+    </section>
+
+    <section id="bn-status">
+      <div class="eyebrow">০৭</div>
+      <h2>ডকুমেন্ট স্ট্যাটাস কোড</h2>
+      <p>প্রতিটি ইস্যু করা ডকুমেন্ট একটি স্ট্যাটাস কোড বহন করে, যা ইস্যু অনুমোদনকারী ব্যক্তি প্রয়োগ করেন — কখনোই Document Control নিজের বিচারে দেয় না। DC শুধু যাচাই করেন কোডটি আছে কিনা এবং সঠিকভাবে ব্যবহৃত হয়েছে কিনা, কোড তারা নিজে বসান না।</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:90px">কোড</th><th style="width:210px">অর্থ</th><th>ব্যবহার</th></tr></thead>
+          <tbody>
+            <tr><td class="status">IFR</td><td>Issued For Review</td><td>মন্তব্যের জন্য পাঠানো হয়েছে; নির্মাণ বা প্রকিউরমেন্টের জন্য নয়</td></tr>
+            <tr><td class="status">IFA</td><td>Issued For Approval</td><td>ক্লায়েন্ট/কনসালট্যান্টের অনুমোদনের অপেক্ষায় আনুষ্ঠানিকভাবে সাবমিট করা হয়েছে</td></tr>
+            <tr><td class="status">IFI</td><td>Issued For Information</td><td>শুধু অবগতির জন্য শেয়ার করা হয়েছে, কোনো অ্যাকশন দরকার নেই</td></tr>
+            <tr><td class="status">IFC</td><td>Issued For Construction</td><td>অনুমোদিত এবং সাইট এক্সিকিউশনের জন্য রিলিজ করা হয়েছে</td></tr>
+            <tr><td class="status">AFC</td><td>Approved For Construction</td><td>IFC ডকুমেন্টে ক্লায়েন্ট/কনসালট্যান্টের অনুমোদন নিশ্চিত হয়েছে</td></tr>
+            <tr><td class="status">AWC</td><td>Approved With Comments</td><td>তালিকাভুক্ত মন্তব্য অন্তর্ভুক্ত করার শর্তে অনুমোদিত; পুনঃসাবমিশন ট্র্যাক করা হয়</td></tr>
+            <tr><td class="status">RTN</td><td>Returned — Resubmit</td><td>প্রত্যাখ্যাত; পুনরায় ইস্যুর আগে নতুন রিভিশন দরকার</td></tr>
+            <tr><td class="status">SUP</td><td>Superseded</td><td>পরবর্তী রিভিশন দিয়ে প্রতিস্থাপিত; §৯.৫ অনুযায়ী সুপারসিডেড আর্কাইভে সরানো হয়</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="bn-sanctions">
+      <div class="eyebrow">০৮</div>
+      <h2>স্ট্যাটুটরি স্যাংশন ট্র্যাকিং</h2>
+      <p>স্ট্যাটুটরি অনুমোদন নির্মাণের গুরুত্বপূর্ণ মাইলস্টোন নিয়ন্ত্রণ করে, এবং ড্রয়িং-এর মতো নয়, এর মধ্যে বেশ কয়েকটির একটি মেয়াদ (validity period) থাকে যা রিনিউ করতে হয় — মেয়াদ শেষ হয়ে যাওয়া কোনো NOC সরাসরি কাজ বন্ধ করে দিতে পারে। এগুলো প্রতিটি প্রজেক্টের জন্য একটি আলাদা Sanction Register-এ ট্র্যাক করা হয়, MDL থেকে আলাদা, এবং HOD এর মালিক।</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:70px">কোড</th><th style="width:190px">অনুমোদন</th><th>অথরিটি / নোট</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">KMC</td><td>বিল্ডিং পারমিট</td><td>Kolkata Municipal Corporation — অনুমোদিত বিল্ডিং প্ল্যান; সংশোধিত/অ্যামেন্ডেড স্যাংশনকে আলাদা রিভিশন হিসেবে ট্র্যাক করুন</td></tr>
+            <tr><td class="mono">FIRE</td><td>ফায়ার পারমিট</td><td>ফায়ার NOC — সাধারণত রিনিউয়েবল; মেয়াদ শেষ হওয়ার আগেই পুনরায় আবেদনের জন্য ফ্ল্যাগ করুন</td></tr>
+            <tr><td class="mono">AAI</td><td>হাইট ক্লিয়ারেন্স NOC</td><td>Airports Authority of India — সাইট এয়ারপোর্ট ফানেল/অ্যাপ্রোচ জোনে পড়লে হাইট ক্লিয়ারেন্স</td></tr>
+            <tr><td class="mono">DFO</td><td>ফরেস্ট / ট্রি NOC</td><td>Divisional Forest Officer — প্রযোজ্য ক্ষেত্রে গাছ কাটা/প্রতিস্থাপনের ক্লিয়ারেন্স</td></tr>
+            <tr><td class="mono">PCB</td><td>পলিউশন কন্ট্রোল কনসেন্ট</td><td>State Pollution Control Board — Consent to Establish / Consent to Operate</td></tr>
+            <tr><td class="mono">OTH</td><td>অন্যান্য স্ট্যাটুটরি NOC</td><td>উপরের নির্দিষ্ট কোডগুলোর বাইরে কোনো প্রজেক্ট-নির্দিষ্ট NOC-এর জন্য প্লেসহোল্ডার (যেমন কোনো একটি সাইটের জন্য বিশেষ কোনো স্থানীয় ক্লিয়ারেন্স) — চিহ্নিত হওয়ার পর অথরিটির নিজস্ব রেফারেন্স থেকে একটা যথাযথ কোড দিন, দীর্ঘদিন OTH রেখে দেবেন না</td></tr>
+            <tr class="suggested"><td class="mono">OC/CC <span class="tag suggested">সাজেস্টেড</span></td><td>অকুপেন্সি / কমপ্লিশন সার্টিফিকেট</td><td>KMC — একটি টাওয়ার ক্লোজ-আউট করা স্যাংশন; হ্যান্ডওভারের জন্য এত গুরুত্বপূর্ণ যে আলাদাভাবে ট্র্যাক করা উচিত</td></tr>
+            <tr class="suggested"><td class="mono">ENV <span class="tag suggested">সাজেস্টেড</span></td><td>এনভায়রনমেন্টাল ক্লিয়ারেন্স</td><td>SEIAA/MoEF — নির্দিষ্ট বিল্ট-আপ-এরিয়া থ্রেশহোল্ডের উপরে প্রয়োজন; প্রজেক্ট অনুযায়ী প্রযোজ্যতা যাচাই করুন</td></tr>
+            <tr class="suggested"><td class="mono">LIFT <span class="tag suggested">সাজেস্টেড</span></td><td>লিফট ইন্সপেক্টরেট NOC</td><td>Electrical Inspectorate — এলিভেটর ইনস্টলেশন/অপারেশন অনুমোদন, হ্যান্ডওভারের আগে প্রয়োজন</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>রেজিস্টারের প্রতিটি সারিতে থাকবে: অ্যাপ্লিকেশন রেফারেন্স, সাবমিশনের তারিখ, স্যাংশন/অ্যাপ্রুভাল নম্বর, মঞ্জুরের তারিখ, <strong>মেয়াদ/এক্সপায়ারি তারিখ</strong>, এবং একটি রিনিউয়াল-অ্যালার্ট লিড-টাইম (রিনিউয়েবল যেকোনো কিছুর জন্য মেয়াদ শেষের ৬০ দিন আগে রাখার পরামর্শ)। সেই প্রজেক্টের DC HOD-কে রিনিউয়াল অ্যালার্ট জানান; HOD সেটি পুনরায়-সাবমিশন পর্যন্ত ট্র্যাক করেন।</p>
+    </section>
+
+    <section id="bn-procedure">
+      <div class="eyebrow">০৯</div>
+      <h2>প্রসিডিউর</h2>
+
+      <h3>৯.১ প্রাপ্তি ও origination</h3>
+      <ul>
+        <li>প্রতিটি ইনকামিং ডকুমেন্ট (ইমেইল, হাতে-ডেলিভারি, ACC আপলোড, কুরিয়ার) প্রাপ্তির <strong>একই কর্মদিবসে</strong> সোর্স, প্রাপ্তির তারিখ ও রিভিশনসহ রেজিস্টারে লগ করা হয়।</li>
+        <li>ইন্টারনালি তৈরি ডকুমেন্ট রিভিউয়ে পাঠানোর আগেই সংশ্লিষ্ট প্রজেক্টের DC নম্বর দেন — পরে নয়।</li>
+        <li>রেজিস্টারে গ্রহণ করার আগে DC যাচাই করেন ডকুমেন্টে সঠিক প্রজেক্ট কোড, ডিসিপ্লিন, রিভিশন বক্স ও স্ট্যাটাস আছে কিনা; অসম্পূর্ণ টাইটেল ব্লক অরিজিনেটরকে ফেরত পাঠানো হয়, Document Control নিজে ঠিক করে না।</li>
+      </ul>
+
+      <h3>৯.২ রিভিউ ও অ্যাপ্রুভাল ওয়ার্কফ্লো</h3>
+      <ul>
+        <li>Document Control ডিস্ট্রিবিউশন ম্যাট্রিক্স (§১১) অনুযায়ী রিভিউয়ারদের কাছে ডকুমেন্ট পাঠায় এবং প্রজেক্টের Document Control Plan-এ ঠিক করা ডেডলাইন (সাধারণত ডকুমেন্ট টাইপ অনুযায়ী ৫–১৪ কর্মদিবস) ট্র্যাক করে।</li>
+        <li>DC প্রতিটি ডকুমেন্টের জন্য সব মন্তব্য একটি একক কমেন্ট শিটে একত্র করেন, ডকুমেন্ট নম্বর ও রিভিশনের সাথে ক্রস-রেফারেন্স করে — রিভিউয়াররা সরাসরি DC-এর কন্ট্রোলড কপিতে মার্কআপ করেন না।</li>
+        <li>অ্যাপ্রুভাল স্ট্যাটাস (§৭) এবং অ্যাপ্রুভারের নাম/তারিখ সিদ্ধান্ত পাওয়ার একই দিনে রেজিস্টারে লেখা হয়।</li>
+      </ul>
+
+      <h3>৯.৩ বিতরণ ও ট্রান্সমিটাল</h3>
+      <ul>
+        <li>ট্রান্সমিটাল (TRN/DRT অনুযায়ী) ছাড়া Document Control থেকে কোনো ডকুমেন্ট বের হয় না — ইন্টারনাল হোক বা এক্সটার্নাল। পাঠানোর আগেই ট্রান্সমিটাল নম্বর, তারিখ, প্রাপক ও তালিকাভুক্ত ডকুমেন্ট লগ করা হয়।</li>
+        <li>বিতরণ সেই ডকুমেন্ট টাইপের বর্তমান ডিস্ট্রিবিউশন ম্যাট্রিক্স (§১১) অনুসরণ করে; ম্যাট্রিক্সের বাইরে চাওয়া হঠাৎ প্রাপক শুধুমাত্র HOD-এর লিখিত নির্দেশে যোগ করা হয়।</li>
+        <li>পাঠানোর পর কোনো ট্রান্সমিটাল কখনো এডিট করা হয় না। কোনো সংশোধন লাগলে, তা যে ট্রান্সমিটাল সংশোধন করছে তার রেফারেন্স দিয়ে একটি নতুন ট্রান্সমিটাল হিসেবে ইস্যু করা হয়।</li>
+      </ul>
+
+      <h3>৯.৪ রিভিশন কন্ট্রোল</h3>
+      <ul>
+        <li>যেকোনো কারণে — নতুন মন্তব্য, ডিজাইন পরিবর্তন, সাইট ইনস্ট্রাকশন — কোনো ডকুমেন্ট পুনরায় ইস্যু হওয়ার মুহূর্তেই একটি নতুন রিভিশন খোলা হয়। ইস্যু করা ডকুমেন্টের কোনো "আনঅফিসিয়াল আপডেট" বলে কিছু নেই।</li>
+        <li>প্রতিটি রিভিশন এন্ট্রিতে থাকে: রিভিশন লেটার/নম্বর, তারিখ, রিভিশনের কারণ (এক লাইনে), এবং যে ট্রান্সমিটালে তা গেছে।</li>
+        <li>স্বাভাবিক রিট্রিভালের মাধ্যমে শুধু বর্তমান রিভিশনই পাওয়া যায়; সব আগের রিভিশন সুপারসিডেড আর্কাইভে (§৯.৫) সরে যায়, কিন্তু কখনো ডিলিট হয় না।</li>
+      </ul>
+
+      <h3>৯.৫ সুপারসিডেড ও অবসোলিট ডকুমেন্ট</h3>
+      <ul>
+        <li>নতুন রিভিশন অনুমোদিত ও ইস্যু হওয়ার সাথে সাথেই DC আগের রিভিশনকে রেজিস্টারে <span class="tag">SUP</span> মার্ক করেন এবং সেটির ফাইল "SUPERSEDED — DO NOT USE" স্ট্যাম্প দিয়ে সুপারসিডেড আর্কাইভ ফোল্ডারে সরিয়ে দেন।</li>
+        <li>সুপারসিডেড ডকুমেন্ট ট্রেসেবিলিটি ও অডিটের জন্য সংরক্ষণ করা হয় — কখনো ডিলিট হয় না — কিন্তু যেসব জায়গায় সেটিকে বর্তমান ইস্যু ভেবে ভুল হতে পারে (শেয়ার্ড ড্রাইভ, সাইটের প্রিন্ট করা কপি) সেখান থেকে সরিয়ে দেওয়া হয়।</li>
+        <li>ডকুমেন্ট সুপারসিডেড হওয়ার ২ কর্মদিবসের মধ্যে সাইটের কন্ট্রোলড হার্ড কপি ফেরত নেওয়া হয়।</li>
+      </ul>
+
+      <h3>৯.৬ ফাইলিং, স্টোরেজ ও ব্যাকআপ</h3>
+      <ul>
+        <li>ACC (Autodesk Construction Cloud) একমাত্র সোর্স অফ ট্রুথ। DC-এর নিজের মেশিনের লোকাল কপি শুধু ওয়ার্কিং কপি, কখনো মাস্টার রেকর্ড হিসেবে গণ্য হয় না।</li>
+        <li>ফোল্ডার স্ট্রাকচার নম্বরকরণ স্কিম অনুসরণ করে — প্রজেক্ট, তারপর ডিসিপ্লিন বা রেজিস্টার, তারপর সিকোয়েন্স — যাতে যেকোনো ডকুমেন্টের অবস্থান তার নম্বর থেকেই অনুমান করা যায়।</li>
+        <li>ACC-এর নিজস্ব অটোমেটিক ব্যাকআপ/ভার্সনিং প্রতিদিনের কাজ কভার করে; এর পাশাপাশি অতিরিক্ত সুরক্ষা হিসেবে DC প্রতি শুক্রবার রেজিস্টার ও বর্তমান-রিভিশনের ফাইল আলাদা জায়গায় এক্সপোর্ট করেন।</li>
+        <li>ফিজিক্যাল/হার্ড কপি, যেখানে এখনো প্রয়োজন, রেজিস্টারে একটি লোকেশন রেফারেন্স (ক্যাবিনেট/শেলফ্) সহ লগ করা হয়, এবং ফিজিক্যাল রেজিস্ট্রির অ্যাক্সেস শুধু Document Control স্টাফের জন্য সীমাবদ্ধ থাকে।</li>
+      </ul>
+
+      <h3>৯.৭ রিট্রিভাল ও অ্যাক্সেস</h3>
+      <ul>
+        <li>টিমের যেকোনো সদস্য Document Control-এর কাছ থেকে কোনো ডকুমেন্টের বর্তমান রিভিশন চাইতে পারেন; রেজিস্টারে থাকা যেকোনো কিছুর জন্য DC একই কর্মদিবসে সাড়া দেন।</li>
+        <li>ACC-তে অ্যাক্সেস অধিকার ডকুমেন্ট টাইপ ও প্রজেক্ট রোল অনুযায়ী সেট করা হয় (§১১ দেখুন), এবং কেউ যোগ দিলে, ছেড়ে গেলে বা প্রজেক্ট বদলালে HOD তা পর্যালোচনা করেন।</li>
+      </ul>
+
+      <h3>৯.৮ আর্কাইভিং ও রিটেনশন</h3>
+      <ul>
+        <li>প্রজেক্ট ক্লোজআউটে, সংশ্লিষ্ট প্রজেক্টের DC ফাইনাল MDL ও অ্যাজ-বিল্ট রেজিস্টার তৈরি করেন, প্রতিটি ডকুমেন্ট সর্বশেষ অনুমোদিত রিভিশনে আছে কিনা নিশ্চিত করেন, এবং কোম্পানির রেকর্ড পলিসিতে নির্ধারিত স্থানে একটি সম্পূর্ণ আর্কাইভ (ইলেকট্রনিক, এবং প্রযোজ্য হলে ফিজিক্যালও) হস্তান্তর করেন।</li>
+        <li>ন্যূনতম রিটেনশন পিরিয়ড প্রজেক্টের প্রযোজ্য চুক্তি ও স্ট্যাটুটরি প্রয়োজনীয়তা অনুসরণ করে; কোনোটি নির্দিষ্ট না থাকলে, কোম্পানির ডিফল্ট রিটেনশন প্রজেক্ট ক্লোজআউট থেকে ৮ বছর।</li>
+      </ul>
+    </section>
+
+    <section id="bn-mdl">
+      <div class="eyebrow">১০</div>
+      <h2>মাস্টার ডকুমেন্ট লিস্ট</h2>
+      <p>MDL হলো রেকর্ডের রেজিস্টার — প্রতিটি কন্ট্রোলড ডকুমেন্ট, তার বর্তমান রিভিশন, স্ট্যাটাস, অরিজিনেটর এবং সর্বশেষ ট্রান্সমিটাল, প্রতিটি প্রজেক্টের জন্য একটি জায়গায়। এটি নিয়মিতভাবে আপডেট রাখা হয়, মাঝেমধ্যে বানিয়ে নেওয়া হয় না, এবং প্রতিটি ইন্টারনাল অডিটে HOD এটিই পর্যালোচনা করেন।</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th>ডক নং</th><th>শিরোনাম</th><th style="width:70px">রিভিশন</th><th style="width:70px">স্ট্যাটাস</th><th style="width:110px">ইস্যুর তারিখ</th><th style="width:110px">ট্রান্সমিটাল</th></tr></thead>
+          <tbody>
+            <tr><td class="num">DUE-ARC-DRG-0001</td><td>টিপিক্যাল ফ্লোর প্ল্যান — টাওয়ার A</td><td class="num">2</td><td class="status">AFC</td><td class="num">2026-04-11</td><td class="num">DRT-0042</td></tr>
+            <tr><td class="num">CRN-STR-DRG-0014</td><td>ফাউন্ডেশন লেআউট</td><td class="num">1</td><td class="status">IFA</td><td class="num">2026-06-02</td><td class="num">DRT-0058</td></tr>
+            <tr><td class="num">LUX-FF-DRG-0006</td><td>ফায়ার ফাইটিং রাইজার ডায়াগ্রাম</td><td class="num">0</td><td class="status">IFR</td><td class="num">2026-07-19</td><td class="num">DRT-0061</td></tr>
+            <tr><td class="num">TCV-RFI-0009</td><td>স্পষ্টীকরণ — পোডিয়াম ওয়াটারপ্রুফিং ডিটেইল</td><td class="num">—</td><td class="status">IFI</td><td class="num">2026-08-02</td><td class="num">TRN-0011</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>উপরের সারিগুলো উদাহরণমাত্র — প্রতিটি প্রজেক্টের প্রকৃত MDL লাইভ রেজিস্টার থেকে তৈরি হয়, আলাদাভাবে টাইপ করা হয় না।</p>
+    </section>
+
+    <section id="bn-distribution">
+      <div class="eyebrow">১১</div>
+      <h2>ডিস্ট্রিবিউশন ম্যাট্রিক্স</h2>
+      <p>প্রতিটি ডকুমেন্ট টাইপ অনুযায়ী নির্ধারণ করে কে কোন ভূমিকায় ডকুমেন্ট পাবেন: <span class="tag">R</span> রিভিউ/মন্তব্যের জন্য দায়ী, <span class="tag">A</span> অনুমোদন করেন, <span class="tag">I</span> শুধু অবগতির জন্য।</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th>ডকুমেন্ট টাইপ</th><th style="width:110px">প্রজেক্ট হেড</th><th style="width:130px">আর্কিটেক্ট / কনসালট্যান্ট</th><th style="width:120px">স্ট্যাটুটরি / লিয়াজোঁ</th><th style="width:90px">QA/QC</th><th style="width:100px">সাইট টিম</th></tr></thead>
+          <tbody>
+            <tr><td>ড্রয়িং</td><td class="num">I</td><td class="num">R</td><td class="num">–</td><td class="num">I</td><td class="num">I</td></tr>
+            <tr><td>স্ট্যাটুটরি স্যাংশন</td><td class="num">A</td><td class="num">I</td><td class="num">R</td><td class="num">–</td><td class="num">I</td></tr>
+            <tr><td>MAR / MIR</td><td class="num">I</td><td class="num">A</td><td class="num">–</td><td class="num">R</td><td class="num">R</td></tr>
+            <tr><td>WIR</td><td class="num">I</td><td class="num">I</td><td class="num">–</td><td class="num">A</td><td class="num">R</td></tr>
+            <tr><td>NCR</td><td class="num">A</td><td class="num">R</td><td class="num">–</td><td class="num">R</td><td class="num">I</td></tr>
+            <tr><td>RFI</td><td class="num">I</td><td class="num">A</td><td class="num">–</td><td class="num">I</td><td class="num">R</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="bn-security">
+      <div class="eyebrow">১২</div>
+      <h2>কনফিডেন্সিয়ালিটি ও সিকিউরিটি</h2>
+      <ul>
+        <li><em>Confidential</em> বা <em>Client Restricted</em> চিহ্নিত ডকুমেন্ট শুধু ডিস্ট্রিবিউশন ম্যাট্রিক্সে নাম-উল্লেখিত ব্যক্তিদের কাছে পাঠানো হয় — কখনো সাধারণ প্রজেক্ট মেইলিং লিস্টে নয়।</li>
+        <li>ACC অ্যাকাউন্ট ব্যক্তিগত, শেয়ার করা যায় না; কোনো DC প্রজেক্ট বা কোম্পানি ছাড়ার দিনই তার লগইন বন্ধ করে দেওয়া হয়।</li>
+        <li>ফাইল সাইজ বা অ্যাক্সেসের সমস্যার সমাধান হিসেবে DC নিজে হোক বা অন্য কেউ — কখনো ব্যক্তিগত (কোম্পানির বাইরের) ইমেইলে ডকুমেন্ট পাঠানো হয় না — বদলে HOD-কে জানান।</li>
+      </ul>
+    </section>
+
+    <section id="bn-nonconformance">
+      <div class="eyebrow">১৩</div>
+      <h2>নন-কনফরম্যান্স ও করেক্টিভ অ্যাকশন</h2>
+      <p>নন-কনফরম্যান্স হলো এমন কিছু যা এই SOP-র রক্ষা করা ট্রেসেবিলিটি ভেঙে দেয়: নম্বর ছাড়া ইস্যু হওয়া ডকুমেন্ট, এখনো সার্কুলেশনে থাকা সুপারসিডেড কপি, হারিয়ে যাওয়া ট্রান্সমিটাল, অননুমোদিত বিতরণ, সময়মতো ফ্ল্যাগ না-হওয়া মেয়াদ-শেষ স্যাংশন।</p>
+      <ul>
+        <li>কোনো DC নন-কনফরম্যান্স শনাক্ত করলে, সেদিনই কী পাওয়া গেছে ও কোথায় তা লগ করে HOD-কে জানান।</li>
+        <li>HOD করেক্টিভ অ্যাকশন (রিকল, পুনরায় ইস্যু, অ্যাক্সেস রিভিউ, দ্রুত রিনিউয়াল) নির্ধারণ করেন এবং নন-কনফরম্যান্স লগে একটি তারিখযুক্ত রেজোলিউশন দিয়ে সেটি ক্লোজ করেন — মৌখিকভাবে কিছু ক্লোজ করা হয় না।</li>
+        <li>একই ধরনের নন-কনফরম্যান্স বারবার হলে, শুধু সেই ঘটনাই নয়, প্রসিডিউরটিরই পরিবর্তন দরকার কিনা তা পরবর্তী টিম মিটিংয়ে পর্যালোচনা করা হয়।</li>
+      </ul>
+    </section>
+
+    <section id="bn-training">
+      <div class="eyebrow">১৪</div>
+      <h2>ট্রেনিং ও যোগ্যতা</h2>
+      <ul>
+        <li>নতুন যোগ দেওয়া প্রতিটি DC-কে রেজিস্টার অ্যাক্সেস দেওয়ার আগে এই SOP ও লাইভ ACC প্রজেক্ট/রেজিস্টার হাতেকলমে বুঝিয়ে দেওয়া হয়, এবং তারা এটি পড়েছেন বলে স্বীকৃতিতে সই করেন।</li>
+        <li>নতুন DC নিজে থেকে কাজ শুরু করার আগে, প্রথম দুই সপ্তাহের ট্রান্সমিটাল ও রেজিস্টার এন্ট্রি HOD পাশে থেকে দেখিয়ে দেন।</li>
+        <li>এই SOP সংশোধিত হলে পুরো টিমের সাথে রিভিউ করা হয়, এবং তা না হলেও প্রতি বছর নতুন করে রিফ্রেশ করা হয়।</li>
+      </ul>
+    </section>
+
+    <section id="bn-kpi">
+      <div class="eyebrow">১৫</div>
+      <h2>মনিটরিং ও KPI</h2>
+      <div class="twrap">
+        <table>
+          <thead><tr><th>মেট্রিক</th><th>টার্গেট</th></tr></thead>
+          <tbody>
+            <tr><td>ইনকামিং ডকুমেন্টের একই-দিনে লগিং</td><td class="num">100%</td></tr>
+            <tr><td>অনুমোদনের ১ কর্মদিবসের মধ্যে ট্রান্সমিটাল ইস্যু</td><td class="num">≥ 95%</td></tr>
+            <tr><td>২ কর্মদিবসের মধ্যে সুপারসিডেড কপি ফেরত</td><td class="num">100%</td></tr>
+            <tr><td>ইন্টারনাল অডিটে MDL নির্ভুলতা (স্যাম্পল চেক)</td><td class="num">100%</td></tr>
+            <tr><td>স্ট্যাটুটরি স্যাংশনে লাইভ রিনিউয়াল অ্যালার্ট সেট করা</td><td class="num">100%</td></tr>
+            <tr><td>১৪ দিনের বেশি পুরনো খোলা নন-কনফরম্যান্স</td><td class="num">0</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>HOD প্রতি মাসে এগুলো পর্যালোচনা করে সিনিয়র ম্যানেজমেন্টকে একটি সারসংক্ষেপ রিপোর্ট করেন।</p>
+    </section>
+
+    <section id="bn-references">
+      <div class="eyebrow">১৬</div>
+      <h2>সম্পর্কিত ডকুমেন্ট</h2>
+      <ul>
+        <li>প্রজেক্ট Document Control Plan (প্রতিটি প্রজেক্টের জন্য — Duets, Crown, Luxuria, The Curve)</li>
+        <li>স্ট্যাটুটরি স্যাংশন রেজিস্টার (প্রতিটি প্রজেক্টের জন্য)</li>
+        <li>ACC ইউজার অ্যাক্সেস ও পারমিশন প্রসিডিউর</li>
+        <li>কোম্পানি রেকর্ডস রিটেনশন পলিসি</li>
+        <li>QA/QC নন-কনফরম্যান্স প্রসিডিউর</li>
+      </ul>
+
+      <h3>রেজিস্টার টেমপ্লেট (লাইভ লিংক)</h3>
+      <p>নিচের স্প্রেডশিটগুলো বর্তমানে ব্যবহৃত আসল টেমপ্লেট — নতুন করে বানানোর বদলে দরকারমতো সরাসরি খুলুন। সবগুলো Drive-এর <a href="https://drive.google.com/drive/folders/1_BQjSm4hMCPi0osoiq-wgnYgG1XiP1tt" target="_blank" rel="noopener">Registers</a> ফোল্ডারের ভেতরে আছে — প্রতিদিন ব্যবহারের আগে HOD-এর সাথে নিশ্চিত করে নিন যে এই ফোল্ডারটা চার জন DC-এর সাথেই শেয়ার করা আছে।</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:210px">টেমপ্লেট</th><th style="width:110px">ক্রস-রেফ</th><th>খুলুন</th></tr></thead>
+          <tbody>
+            <tr><td>Architecture Drawings Register</td><td class="mono">ARC · §১০</td><td><a href="https://docs.google.com/spreadsheets/d/1H_sYTs3zI8di7fDIAIwllzkFm6qZ-Pug5LozYgTf8qk/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr><td>Structure Drawings Register</td><td class="mono">STR · §১০</td><td><a href="https://docs.google.com/spreadsheets/d/1G9-Xl5irzO6oy0mXL5ktfC7bChnyLsLbzUHxSkZAofY/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr><td>MEP Drawings Register</td><td class="mono">ELE/PHE/HVAC/FF · §১০</td><td><a href="https://docs.google.com/spreadsheets/d/1zFdejXZCBO3mlPzhxqykMRvZFTqDN5RfxVNnNr-7_uE/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr><td>Document Transmittal Register</td><td class="mono">TRN · §৬.৩</td><td><a href="https://docs.google.com/spreadsheets/d/1pD5_5o2bNKWm4eYW-w-9EwOVmZ8gC4KkJpK43Guwf-Q/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr><td>Drawing Transmittal — Architecture</td><td class="mono">DRT · §৬.৩</td><td><a href="https://docs.google.com/spreadsheets/d/1F8s0PnxgHvjNE9CEBUNGTE6rACK8MnS1bOWYzNrEysA/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr><td>Drawing Transmittal — Structure</td><td class="mono">DRT · §৬.৩</td><td><a href="https://docs.google.com/spreadsheets/d/1du5yhdILTzH_el7O16jtI1IsN9YWcIgLyEpuqmWlSO4/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr><td>Drawing Transmittal — MEP</td><td class="mono">DRT · §৬.৩</td><td><a href="https://docs.google.com/spreadsheets/d/1rZ7GK1jqwVHlzCMGT_uAKjn5COb9_HwiQ3PoHekm6PM/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr><td>RFI Register</td><td class="mono">RFI · §৬.৩</td><td><a href="https://docs.google.com/spreadsheets/d/1MXPYjnmwvFEEZbslLjVNV8uqzbsyWjUPMMApIafa-dU/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr><td>Sanction Document &amp; Drawings Register</td><td class="mono">§৮</td><td><a href="https://docs.google.com/spreadsheets/d/1HNHZ-ZoqKYoofcJOjyAyZVxdaIFqIQDQNuxvqLvDT_o/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr><td>KMC Sanction Register</td><td class="mono">KMC · §৮</td><td><a href="https://docs.google.com/spreadsheets/d/1Jghm5OhNgxZqpAF7wYTLx5X4zF1ejXkaPGO1KLCsYfA/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr class="suggested"><td>Method Statement Register <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">§৯.২</td><td><a href="https://docs.google.com/spreadsheets/d/1wXcLl3v8TbvKLsSb5qnZy47WBn0xSCgdEvLQT-cycPU/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr class="suggested"><td>Consultant Masters <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">§১১</td><td><a href="https://docs.google.com/spreadsheets/d/1g7K3NgQb8lfC-zv1UdbYYtUvbBkQ-8tX3xmTtASOJfY/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr class="suggested"><td>File Name &amp; Location Index <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">§৯.৬</td><td><a href="https://docs.google.com/spreadsheets/d/1gU1h8jh-e7qR1ZJPkpH1eLkFL74OSIGymToAM2tjwUc/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr class="suggested"><td>Insurance Policy Tracker <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">§১৬</td><td><a href="https://docs.google.com/spreadsheets/d/1BRqBkAVUkybl9VycpndTIY51daIRL9WkXokHe7SxcRg/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr class="suggested"><td>Land Owner Email Register <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">§১৬</td><td><a href="https://docs.google.com/spreadsheets/d/1ixNkpaCmGkGzZz9TgL9UbqCbMwF88rGwnXdl0ZnnT40/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="bn-history">
+      <div class="eyebrow">১৭</div>
+      <h2>রিভিশন হিস্ট্রি</h2>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:80px">রিভিশন</th><th style="width:130px">তারিখ</th><th style="width:170px">প্রস্তুতকারী</th><th>বিবরণ</th></tr></thead>
+          <tbody>
+            <tr><td class="num">0</td><td class="num">—</td><td>HOD, Document Control</td><td>প্রাথমিক ইস্যু</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="footline">
+      <span>ALC-DC-SOP-001 · অ্যালকোভ রিয়েলটি · Document Control</span>
+      <span>প্রিন্ট করা হলে আনকন্ট্রোলড — ব্যবহারের আগে ACC-তে বর্তমান রিভিশন যাচাই করুন · সর্বশেষ আপডেট <span data-updated="bn">১৫ সেপ্টেম্বর ২০২৬</span></span>
+    </div>
+
+  </article>
+</div>
+</div>
+<!-- =========================== END BENGALI =========================== -->
+
+<!-- ============================== HINDI =============================== -->
+<div id="doc-hi" class="doc-view doc-hi">
+<div class="shell">
+
+  <div class="control-block">
+    <div class="brandrow">
+      <div class="brandmark">
+        <span class="platecard"><img src="alcove-logo.png" alt="Alcove Realty" width="200" height="115"></span>
+      </div>
+      <span class="stampmark">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>
+        कंट्रोल्ड डॉक्यूमेंट
+      </span>
+    </div>
+
+    <h1 class="title">डॉक्यूमेंट कंट्रोल — स्टैंडर्ड ऑपरेटिंग प्रोसीजर (SOP)</h1>
+    <p class="subtitle">अल्कोव रियल्टी के सक्रिय प्रोजेक्ट्स में डॉक्यूमेंट कंट्रोल डिपार्टमेंट जिन दस्तावेज़ों को संभालता है, उनकी नंबरिंग, समीक्षा, वितरण, रिवीज़न, स्टैट्यूटरी-सैंक्शन ट्रैकिंग और आर्काइवल के नियम यह SOP तय करता है।</p>
+
+    <div class="docfields">
+      <div class="cell"><div class="label">डॉक्यूमेंट सं.</div><div class="value mono">ALC-DC-SOP-001</div></div>
+      <div class="cell"><div class="label">रिवीज़न</div><div class="value mono">Rev 0</div></div>
+      <div class="cell"><div class="label">प्रभावी तिथि</div><div class="value mono">अनुमोदन के बाद तय होगी</div></div>
+      <div class="cell"><div class="label">समीक्षा चक्र</div><div class="value mono">वार्षिक</div></div>
+      <div class="cell"><div class="label">डिपार्टमेंट</div><div class="value">डॉक्यूमेंट कंट्रोल, अल्कोव रियल्टी</div></div>
+      <div class="cell"><div class="label">प्रोसेस ओनर</div><div class="value">HOD, डॉक्यूमेंट कंट्रोल</div></div>
+      <div class="cell"><div class="label">टीम</div><div class="value">HOD + 4 डॉक्यूमेंट कंट्रोलर</div></div>
+      <div class="cell"><div class="label">वर्गीकरण</div><div class="value">इंटरनल</div></div>
+    </div>
+
+    <div class="approval-block">
+      <div class="approval-cell">
+        <div class="approval-role">तैयार किया गया</div>
+        <div class="approval-line"></div>
+        <div class="approval-meta">नाम · पदनाम · तारीख</div>
+      </div>
+      <div class="approval-cell">
+        <div class="approval-role">समीक्षक</div>
+        <div class="approval-line"></div>
+        <div class="approval-meta">नाम · पदनाम · तारीख</div>
+      </div>
+      <div class="approval-cell">
+        <div class="approval-role">अनुमोदक</div>
+        <div class="approval-line"></div>
+        <div class="approval-meta">नाम · पदनाम · तारीख</div>
+      </div>
+    </div>
+  </div>
+
+  <details class="changelog">
+    <summary>नया क्या जुड़ा <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
+    <div class="changelog-body">
+      <div class="changelog-item"><span class="changelog-date">15 सितंबर 2026</span><span>दस्तावेज़ हेडर में Prepared / Reviewed / Approved साइन-ऑफ ब्लॉक जोड़ा गया।</span></div>
+      <div class="changelog-item"><span class="changelog-date">15 सितंबर 2026</span><span>अस्पष्ट "SOR" कोड का नाम बदलकर <span class="tag">OTH</span> (Other Statutory NOC) किया गया, स्पष्टता के लिए।</span></div>
+      <div class="changelog-item"><span class="changelog-date">15 सितंबर 2026</span><span>§16 Related Documents में असली रजिस्टर व ट्रांसमिटल टेम्पलेट सीधे लिंक किए गए।</span></div>
+      <div class="changelog-item"><span class="changelog-date">15 सितंबर 2026</span><span>Document Formats मेनू जोड़ा गया — सभी रजिस्टर टेम्पलेट एक जगह।</span></div>
+    </div>
+  </details>
+
+  <details class="quickref">
+    <summary>क्विक रेफरेंस — सभी कोड <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
+    <div class="quickref-body">
+      <div class="chipgroup">
+        <div class="glabel">डिसिप्लिन</div>
+        <div class="chiprow">
+          <span class="chip chip-disc">STR <span class="full">स्ट्रक्चरल</span></span>
+          <span class="chip chip-disc">ARC <span class="full">आर्किटेक्चरल</span></span>
+          <span class="chip chip-disc">ELE <span class="full">इलेक्ट्रिकल</span></span>
+          <span class="chip chip-disc">PHE <span class="full">प्लंबिंग</span></span>
+          <span class="chip chip-disc">HVAC <span class="full">HVAC</span></span>
+          <span class="chip chip-disc">FF <span class="full">फायर फाइटिंग</span></span>
+        </div>
+      </div>
+      <div class="chipgroup">
+        <div class="glabel">रजिस्टर / दस्तावेज़ प्रकार</div>
+        <div class="chiprow">
+          <span class="chip chip-reg">DAR <span class="full">ड्रॉइंग अप्रूवल रिक्वेस्ट</span></span>
+          <span class="chip chip-reg">MAR <span class="full">मटीरियल अप्रूवल रिक्वेस्ट</span></span>
+          <span class="chip chip-reg">MIR <span class="full">मटीरियल इंस्पेक्शन रिक्वेस्ट</span></span>
+          <span class="chip chip-reg">CVA <span class="full">कन्फर्मेशन ऑफ वर्बल अप्रूवल</span></span>
+          <span class="chip chip-reg">TRN <span class="full">डॉक्यूमेंट ट्रांसमिटल</span></span>
+          <span class="chip chip-reg">RFI <span class="full">रिक्वेस्ट फॉर इन्फॉर्मेशन</span></span>
+          <span class="chip chip-reg">DRT <span class="full">ड्रॉइंग ट्रांसमिटल</span></span>
+          <span class="chip chip-reg">WIR <span class="full">वर्क इंस्पेक्शन रिपोर्ट</span></span>
+          <span class="chip chip-reg">NCR <span class="full">नॉन-कन्फॉर्मेंस रिपोर्ट</span></span>
+          <span class="chip chip-reg">OTH <span class="full">अदर स्टैट्यूटरी NOC</span></span>
+        </div>
+      </div>
+      <div class="chipgroup">
+        <div class="glabel">दस्तावेज़ स्थिति</div>
+        <div class="chiprow">
+          <span class="chip chip-status">IFR <span class="full">इश्यूड फॉर रिव्यू</span></span>
+          <span class="chip chip-status">IFA <span class="full">इश्यूड फॉर अप्रूवल</span></span>
+          <span class="chip chip-status">IFC <span class="full">इश्यूड फॉर कंस्ट्रक्शन</span></span>
+          <span class="chip chip-status">AFC <span class="full">अप्रूव्ड फॉर कंस्ट्रक्शन</span></span>
+          <span class="chip chip-status">SUP <span class="full">सुपरसीडेड</span></span>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <nav class="toc">
+    <div class="toc-eyebrow">विषय-सूची</div>
+    <ol>
+      <li><a href="#hi-purpose">उद्देश्य</a></li>
+      <li><a href="#hi-scope">दायरा</a></li>
+      <li><a href="#hi-definitions">परिभाषाएँ व संक्षिप्ताक्षर</a></li>
+      <li><a href="#hi-projects">सक्रिय प्रोजेक्ट</a></li>
+      <li><a href="#hi-roles">भूमिकाएँ व जिम्मेदारियाँ</a></li>
+      <li><a href="#hi-numbering">डॉक्यूमेंट नंबरिंग</a></li>
+      <li><a href="#hi-status">डॉक्यूमेंट स्टेटस कोड</a></li>
+      <li><a href="#hi-sanctions">स्टैट्यूटरी सैंक्शन ट्रैकिंग</a></li>
+      <li><a href="#hi-procedure">प्रोसीजर</a></li>
+      <li><a href="#hi-mdl">मास्टर डॉक्यूमेंट लिस्ट</a></li>
+      <li><a href="#hi-distribution">डिस्ट्रीब्यूशन मैट्रिक्स</a></li>
+      <li><a href="#hi-security">गोपनीयता व सुरक्षा</a></li>
+      <li><a href="#hi-nonconformance">नॉन-कन्फॉर्मेंस</a></li>
+      <li><a href="#hi-training">प्रशिक्षण व योग्यता</a></li>
+      <li><a href="#hi-kpi">मॉनिटरिंग व KPI</a></li>
+      <li><a href="#hi-references">संबंधित दस्तावेज़</a></li>
+      <li><a href="#hi-history">रिवीज़न हिस्ट्री</a></li>
+    </ol>
+  </nav>
+
+  <article>
+
+    <section id="hi-purpose">
+      <div class="eyebrow">०१</div>
+      <h2>उद्देश्य</h2>
+      <p>यह SOP एक ऐसी एकल व सुसंगत पद्धति तय करता है जिसके ज़रिए अल्कोव रियल्टी के हर ड्रॉइंग, स्टैट्यूटरी सैंक्शन और कॉरेस्पॉन्डेंस/QA रिकॉर्ड को नंबर दिया जाता है, समीक्षा, अनुमोदन, वितरण, संशोधन, ट्रैक व आर्काइव किया जाता है। इसका मकसद यह है कि किसी भी क्षण — साइट इंजीनियर से लेकर क्लाइंट या स्टैट्यूटरी अथॉरिटी तक — कोई भी यह सुनिश्चित कर सके कि वह किसी दस्तावेज़ का <strong>नवीनतम अनुमोदित रिवीज़न</strong> देख रहा है, और हर दस्तावेज़ के जन्म से लेकर प्रोजेक्ट हैंडओवर तक एक पूरी ऑडिट-योग्य ट्रेल बनी रहे।</p>
+      <p>यह डॉक्यूमेंट कंट्रोल डिपार्टमेंट के लिए लिखा गया है — HOD (Head of Department) और उनके अधीन काम करने वाले चार डॉक्यूमेंट कंट्रोलर (DC) के लिए, और नए DC को ट्रेनिंग देते समय इसे ही रेफरेंस के तौर पर इस्तेमाल किया जाएगा।</p>
+    </section>
+
+    <section id="hi-scope">
+      <div class="eyebrow">०२</div>
+      <h2>दायरा</h2>
+      <p>अल्कोव रियल्टी के प्रोजेक्ट्स में बनाए, प्राप्त या भेजे गए सभी कंट्रोल्ड दस्तावेज़ों पर यह प्रोसीजर लागू होता है, जिसमें शामिल हैं (लेकिन सीमित नहीं):</p>
+      <ul>
+        <li>ड्रॉइंग — स्ट्रक्चरल, आर्किटेक्चरल और MEP (इलेक्ट्रिकल, प्लंबिंग, HVAC, फायर फाइटिंग/फायर प्रोटेक्शन)</li>
+        <li>स्टैट्यूटरी सैंक्शन और NOC — KMC बिल्डिंग परमिट, फायर परमिट, AAI, DFO, PCB और संबंधित अनुमोदन</li>
+        <li>साइट कॉरेस्पॉन्डेंस व QA रजिस्टर — अप्रूवल रिक्वेस्ट, इंस्पेक्शन रिक्वेस्ट, ट्रांसमिटल, RFI, इंस्पेक्शन व नॉन-कन्फॉर्मेंस रिपोर्ट</li>
+        <li>डॉक्यूमेंट कंट्रोल के ज़रिए रूट होने वाले वेंडर व कॉन्ट्रैक्टर सबमिटल</li>
+      </ul>
+      <p>इसके दायरे में नहीं — व्यक्तिगत वर्किंग फाइलें, समीक्षा के लिए अभी जारी न किए गए ड्राफ्ट, या किसी प्रोजेक्ट के Document Control Plan में स्पष्ट रूप से बाहर रखे गए दस्तावेज़।</p>
+    </section>
+
+    <section id="hi-definitions">
+      <div class="eyebrow">०३</div>
+      <h2>परिभाषाएँ व संक्षिप्ताक्षर</h2>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:110px">शब्द</th><th>अर्थ</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">DC</td><td>डॉक्यूमेंट कंट्रोलर</td></tr>
+            <tr><td class="mono">HOD</td><td>हेड ऑफ डिपार्टमेंट — डॉक्यूमेंट कंट्रोल</td></tr>
+            <tr><td class="mono">ACC</td><td>Autodesk Construction Cloud — अल्कोव रियल्टी का इलेक्ट्रॉनिक डॉक्यूमेंट मैनेजमेंट सिस्टम (EDMS)</td></tr>
+            <tr><td class="mono">MDL</td><td>मास्टर डॉक्यूमेंट लिस्ट — हर कंट्रोल्ड दस्तावेज़ व उसके मौजूदा रिवीज़न/स्टेटस का मास्टर रजिस्टर</td></tr>
+            <tr><td class="mono">NOC</td><td>किसी स्टैट्यूटरी अथॉरिटी द्वारा दिया गया नो-ऑब्जेक्शन सर्टिफिकेट</td></tr>
+            <tr><td class="mono">MEP</td><td>मैकेनिकल, इलेक्ट्रिकल व प्लंबिंग सर्विसेज़</td></tr>
+            <tr><td class="mono">सुपरसीडेड</td><td>वह पूर्व रिवीज़न जिसे औपचारिक रूप से बदल दिया गया है और सक्रिय उपयोग से हटा दिया गया है</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="hi-projects">
+      <div class="eyebrow">०४</div>
+      <h2>सक्रिय प्रोजेक्ट</h2>
+      <p>हर कंट्रोल्ड दस्तावेज़ ठीक एक प्रोजेक्ट कोड से संबंधित होगा। नीचे दिए गए चार कोड प्रस्तावित हैं — पहला दस्तावेज़ नंबर करने से पहले HOD के साथ इन्हें कन्फर्म व फिक्स कर लें।</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th>प्रोजेक्ट</th><th style="width:140px">प्रोजेक्ट कोड</th></tr></thead>
+          <tbody>
+            <tr><td>Alcove Duets</td><td class="num">DUE</td></tr>
+            <tr><td>Alcove Crown</td><td class="num">CRN</td></tr>
+            <tr><td>Alcove Luxuria</td><td class="num">LUX</td></tr>
+            <tr><td>The Curve</td><td class="num">TCV</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="hi-roles">
+      <div class="eyebrow">०५</div>
+      <h2>भूमिकाएँ व जिम्मेदारियाँ</h2>
+      <p>डॉक्यूमेंट कंट्रोल एक टीम के रूप में काम करता है — चार DC, HOD के अधीन, आमतौर पर एक प्रोजेक्ट पर एक DC होगा ताकि हर रजिस्टर का एक स्पष्ट मालिक (owner) हमेशा पहचाना जा सके। रोज़मर्रा का काम साझा होता है, लेकिन हर फंक्शन की मालिकाना ज़िम्मेदारी एक तय भूमिका के पास रहती है, ताकि कोई काम "किसी और की ज़िम्मेदारी" समझकर छूट न जाए।</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:200px">भूमिका</th><th>जिम्मेदारी में क्या-क्या</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>HOD, Document Control</strong></td>
+              <td>इस SOP और हर प्रोजेक्ट के Document Control Plan के मालिक; नंबरिंग स्कीम व डिस्ट्रीब्यूशन मैट्रिक्स को अनुमोदित करते हैं; चारों प्रोजेक्ट में DC आवंटित करते हैं; स्टैट्यूटरी सैंक्शन रजिस्टर व रिन्यूअल अलर्ट के मालिक (§8); एक्सेस, गोपनीयता या नॉन-कन्फॉर्मेंस मुद्दों पर अंतिम एस्कलेशन पॉइंट; ऑडिट में हर प्रोजेक्ट की MDL साइन-ऑफ करते हैं; मैनेजमेंट को डॉक्यूमेंट कंट्रोल KPI रिपोर्ट करते हैं; ACC एक्सेस ऑनबोर्डिंग/ऑफबोर्डिंग को अनुमोदित करते हैं।</td>
+            </tr>
+            <tr>
+              <td><strong>डॉक्यूमेंट कंट्रोलर</strong></td>
+              <td>प्राप्ति के उसी दिन इनकमिंग/आउटगोइंग दस्तावेज़ लॉग, नंबर व अपलोड करते हैं; ट्रांसमिटल, RFI, DAR/MAR/MIR व अन्य रजिस्टर (§6.3) बनाते व ट्रैक करते हैं; अपने प्रोजेक्ट की MDL व डिस्ट्रीब्यूशन मैट्रिक्स मेंटेन करते हैं; जारी करने से पहले नंबरिंग, रिवीज़न व स्टेटस मार्किंग सही है या नहीं जाँचते हैं; §9.6 के अनुसार फाइलिंग व बैकअप करते हैं; ओवरड्यू समीक्षा, अनुमोदन व समाप्त हो रहे सैंक्शन HOD को बताते हैं; सुपरसीडेड/ऑब्सोलीट आर्काइव मेंटेन करते हैं।</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout"><b>हैंडओवर नियम —</b> जब कोई DC छुट्टी पर जाए, तो छुट्टी शुरू होने से पहले ही उसके प्रोजेक्ट के रजिस्टर व खुले ट्रांसमिटल HOD लिखित रूप में (ईमेल काफी है) किसी और को सौंप देंगे, ताकि कोई भी रजिस्टर कभी बिना मालिक के न रहे।</div>
+    </section>
+
+    <section id="hi-numbering">
+      <div class="eyebrow">०६</div>
+      <h2>डॉक्यूमेंट नंबरिंग</h2>
+      <p>हर कंट्रोल्ड दस्तावेज़ को रजिस्टर में पहली बार दर्ज होते ही एक यूनीक नंबर दिया जाता है। एक बार नंबर देने के बाद, वह <strong>कभी दोबारा इस्तेमाल या पुनः आवंटित नहीं किया जाता</strong> — भले ही बाद में वह दस्तावेज़ रद्द हो जाए।</p>
+
+      <h3>6.1 ड्रॉइंग व टेक्निकल दस्तावेज़</h3>
+      <div class="codestring">
+        <span><span class="part-label">प्रोजेक्ट</span>DUE</span><span><span class="part-label">डिसिप्लिन</span>STR</span><span><span class="part-label">डॉक टाइप</span>DRG</span><span><span class="part-label">सीक्वेंस</span>0001</span>
+      </div>
+      <p>उदाहरण: <code>DUE-STR-DRG-0001</code> — Alcove Duets, स्ट्रक्चरल डिसिप्लिन, एक ड्रॉइंग, सीक्वेंस <em>0001</em>। रिवीज़न को अलग से ट्रैक किया जाता है और यह कभी भी दस्तावेज़ नंबर के भीतर नहीं जोड़ा जाता।</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:90px">कोड</th><th>डिसिप्लिन</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">STR</td><td>स्ट्रक्चरल</td></tr>
+            <tr><td class="mono">ARC</td><td>आर्किटेक्चरल</td></tr>
+            <tr><td class="mono">ELE</td><td>इलेक्ट्रिकल (MEP)</td></tr>
+            <tr><td class="mono">PHE</td><td>प्लंबिंग / पब्लिक हेल्थ इंजीनियरिंग (MEP)</td></tr>
+            <tr><td class="mono">HVAC</td><td>हीटिंग, वेंटिलेशन व एयर-कंडीशनिंग (MEP)</td></tr>
+            <tr><td class="mono">FF</td><td>फायर फाइटिंग / फायर प्रोटेक्शन (MEP)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>6.2 रजिस्टर व कॉरेस्पॉन्डेंस</h3>
+      <p>साइट कॉरेस्पॉन्डेंस व QA रजिस्टर को <code>[प्रोजेक्ट]-[रजिस्टर कोड]-[सीक्वेंस]</code> फॉर्मेट में नंबर दिया जाता है, जैसे <code>DUE-RFI-0012</code>। ये प्रोजेक्ट के अनुसार रीसेट होते हैं, डिसिप्लिन के अनुसार नहीं — क्योंकि ये किसी ड्रॉइंग सेट को नहीं, बल्कि एक वर्कफ़्लो को ट्रैक करते हैं।</p>
+
+      <h3>6.3 डॉक्यूमेंट टाइप व रजिस्टर कोड</h3>
+      <p>नीचे दी गई सूची में पहले आपका मूल सेट (बिना मार्क वाली पंक्तियाँ) है, और साथ ही रेज़िडेंशियल/रियल-एस्टेट प्रोजेक्ट्स में आमतौर पर इस्तेमाल होने वाले कुछ और रजिस्टर <span class="tag suggested">सुझाए गए</span> जोड़े गए हैं — HOD के साथ समीक्षा कर जो ज़रूरी न हो उसे हटा दें।</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:90px">कोड</th><th style="width:230px">रजिस्टर</th><th>उद्देश्य</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">DAR</td><td>डॉक्यूमेंट / ड्रॉइंग अप्रूवल रिक्वेस्ट</td><td>कंसल्टेंट/क्लाइंट के अनुमोदन के लिए किसी ड्रॉइंग या दस्तावेज़ का औपचारिक सबमिशन</td></tr>
+            <tr><td class="mono">MAR</td><td>मटेरियल अप्रूवल रिक्वेस्ट</td><td>खरीद से पहले प्रस्तावित मटेरियल/ब्रांड/मेक के अनुमोदन के लिए कॉन्ट्रैक्टर का सबमिशन</td></tr>
+            <tr><td class="mono">MIR</td><td>मटेरियल इंस्पेक्शन रिक्वेस्ट</td><td>मटेरियल के साइट पर आने पर या इस्तेमाल से पहले इंस्पेक्शन का अनुरोध</td></tr>
+            <tr><td class="mono">CVA</td><td>कन्फर्मेशन ऑफ वर्बल अप्रूवल</td><td>पहले मौखिक रूप से या साइट पर दिए गए निर्देश का लिखित रिकॉर्ड क्लोज़-आउट</td></tr>
+            <tr><td class="mono">TRN</td><td>डॉक्यूमेंट ट्रांसमिटल</td><td>किसी और पक्ष को जारी किए गए किसी भी दस्तावेज़ का कवर रिकॉर्ड</td></tr>
+            <tr><td class="mono">RFI</td><td>रिक्वेस्ट फॉर इन्फॉर्मेशन</td><td>स्पष्टीकरण के लिए डिज़ाइन/कंसल्टेंट टीम से पूछा गया प्रश्न</td></tr>
+            <tr><td class="mono">DRT</td><td>ड्रॉइंग ट्रांसमिटल</td><td>सिर्फ ड्रॉइंग इश्यू के लिए अलग कवर रिकॉर्ड, ताकि ड्रॉइंग की ट्रेसेबिलिटी सामान्य कॉरेस्पॉन्डेंस से न मिले</td></tr>
+            <tr><td class="mono">WIR</td><td>वर्क इंस्पेक्शन रिपोर्ट</td><td>अगले चरण में जाने से पहले पूरे हो चुके काम के इंस्पेक्शन का रिकॉर्ड</td></tr>
+            <tr><td class="mono">NCR</td><td>नॉन-कन्फॉर्मेंस रिपोर्ट</td><td>अनुमोदित स्पेसिफिकेशन के अनुरूप न होने वाले काम या मटेरियल का औपचारिक रिकॉर्ड</td></tr>
+            <tr><td class="mono">SOR</td><td>साइट ऑब्ज़र्वेशन रिपोर्ट</td><td>सुपरविज़न/कंसल्टेंट स्टाफ द्वारा उठाया गया सामान्य साइट ऑब्ज़र्वेशन</td></tr>
+            <tr class="suggested"><td class="mono">SI <span class="tag suggested">सुझाया गया</span></td><td>साइट इंस्ट्रक्शन</td><td>साइट पर कॉन्ट्रैक्टर को दिया गया लिखित निर्देश, ड्रॉइंग रिवीज़न से अलग</td></tr>
+            <tr class="suggested"><td class="mono">MTC <span class="tag suggested">सुझाया गया</span></td><td>मटेरियल टेस्ट सर्टिफिकेट</td><td>MAR/MIR एंट्री के विरुद्ध फाइल किया गया लैब/मैन्युफैक्चरर टेस्ट सर्टिफिकेट</td></tr>
+            <tr class="suggested"><td class="mono">ABD <span class="tag suggested">सुझाया गया</span></td><td>ऐज़-बिल्ट ड्रॉइंग रजिस्टर</td><td>हर ड्रॉइंग की अंतिम ऐज़-बिल्ट स्थिति ट्रैक करता है — हैंडओवर व भविष्य के फैसिलिटी मैनेजमेंट के लिए बेहद ज़रूरी</td></tr>
+            <tr class="suggested"><td class="mono">SNL <span class="tag suggested">सुझाया गया</span></td><td>स्नैग / पंच लिस्ट</td><td>हैंडओवर से पहले की डिफेक्ट लिस्ट, प्रति यूनिट/टावर, क्लोज़र तक ट्रैक की जाए</td></tr>
+            <tr class="suggested"><td class="mono">HOTO <span class="tag suggested">सुझाया गया</span></td><td>हैंडओवर–टेकओवर चेकलिस्ट</td><td>क्लाइंट या फैसिलिटी टीम को यूनिट/कॉमन-एरिया हैंडओवर का औपचारिक रिकॉर्ड</td></tr>
+            <tr class="suggested"><td class="mono">PR <span class="tag suggested">सुझाया गया</span></td><td>प्रोग्रेस रिपोर्ट</td><td>साप्ताहिक/मासिक रिपोर्ट रजिस्टर — DC इसे न लिखे तब भी लॉग रखना काम आता है</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>हर प्रोजेक्ट की अंतिम कोड लिस्ट उस प्रोजेक्ट के Document Control Plan में पहले दस्तावेज़ जारी होने से पहले ही फिक्स कर दी जाती है — प्रोजेक्ट के दौरान कोड नहीं बदले जाते।</p>
+    </section>
+
+    <section id="hi-status">
+      <div class="eyebrow">०७</div>
+      <h2>डॉक्यूमेंट स्टेटस कोड</h2>
+      <p>हर जारी किया गया दस्तावेज़ एक स्टेटस कोड लेकर चलता है, जिसे जारी करने को अनुमोदित करने वाला व्यक्ति लगाता है — कभी भी डॉक्यूमेंट कंट्रोल अपनी तरफ से नहीं देता। DC सिर्फ यह जाँचते हैं कि कोड मौजूद है व सही तरीके से इस्तेमाल हुआ है, कोड वे खुद नहीं लगाते।</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:90px">कोड</th><th style="width:210px">अर्थ</th><th>इस्तेमाल</th></tr></thead>
+          <tbody>
+            <tr><td class="status">IFR</td><td>Issued For Review</td><td>टिप्पणियों के लिए भेजा गया; निर्माण या खरीद के लिए नहीं</td></tr>
+            <tr><td class="status">IFA</td><td>Issued For Approval</td><td>क्लाइंट/कंसल्टेंट के अनुमोदन की प्रतीक्षा में औपचारिक रूप से सबमिट किया गया</td></tr>
+            <tr><td class="status">IFI</td><td>Issued For Information</td><td>सिर्फ जानकारी के लिए साझा किया गया, कोई कार्रवाई ज़रूरी नहीं</td></tr>
+            <tr><td class="status">IFC</td><td>Issued For Construction</td><td>अनुमोदित और साइट एक्ज़ीक्यूशन के लिए जारी</td></tr>
+            <tr><td class="status">AFC</td><td>Approved For Construction</td><td>IFC दस्तावेज़ पर क्लाइंट/कंसल्टेंट का अनुमोदन पुष्ट हुआ</td></tr>
+            <tr><td class="status">AWC</td><td>Approved With Comments</td><td>सूचीबद्ध टिप्पणियाँ शामिल करने की शर्त पर अनुमोदित; पुनः सबमिशन ट्रैक किया जाता है</td></tr>
+            <tr><td class="status">RTN</td><td>Returned — Resubmit</td><td>अस्वीकृत; दोबारा जारी करने से पहले नया रिवीज़न ज़रूरी</td></tr>
+            <tr><td class="status">SUP</td><td>Superseded</td><td>बाद के रिवीज़न से बदला गया; §9.5 के अनुसार सुपरसीडेड आर्काइव में ले जाया गया</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="hi-sanctions">
+      <div class="eyebrow">०८</div>
+      <h2>स्टैट्यूटरी सैंक्शन ट्रैकिंग</h2>
+      <p>स्टैट्यूटरी अनुमोदन निर्माण के अहम माइलस्टोन तय करते हैं, और ड्रॉइंग की तरह नहीं, इनमें से कई की एक वैधता अवधि (validity period) होती है जिसे रिन्यू करना ज़रूरी होता है — मियाद खत्म हो चुका कोई NOC सीधे काम रोक सकता है। इन्हें हर प्रोजेक्ट के लिए एक अलग Sanction Register में ट्रैक किया जाता है, MDL से अलग, और यह HOD का ज़िम्मा है।</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:70px">कोड</th><th style="width:190px">अनुमोदन</th><th>अथॉरिटी / नोट</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">KMC</td><td>बिल्डिंग परमिट</td><td>Kolkata Municipal Corporation — अनुमोदित बिल्डिंग प्लान; संशोधित/अमेंडेड सैंक्शन को अलग रिवीज़न के रूप में ट्रैक करें</td></tr>
+            <tr><td class="mono">FIRE</td><td>फायर परमिट</td><td>फायर NOC — आमतौर पर रिन्यूएबल; मियाद खत्म होने से पहले फिर से आवेदन के लिए फ्लैग करें</td></tr>
+            <tr><td class="mono">AAI</td><td>हाइट क्लियरेंस NOC</td><td>Airports Authority of India — साइट एयरपोर्ट फनल/अप्रोच ज़ोन में आने पर हाइट क्लियरेंस</td></tr>
+            <tr><td class="mono">DFO</td><td>फॉरेस्ट / ट्री NOC</td><td>Divisional Forest Officer — लागू होने पर पेड़ काटने/स्थानांतरण की क्लियरेंस</td></tr>
+            <tr><td class="mono">PCB</td><td>पॉल्यूशन कंट्रोल कन्सेंट</td><td>State Pollution Control Board — Consent to Establish / Consent to Operate</td></tr>
+            <tr><td class="mono">OTH</td><td>अन्य स्टैट्यूटरी NOC</td><td>ऊपर दिए गए कोड्स से बाहर किसी प्रोजेक्ट-विशिष्ट NOC के लिए प्लेसहोल्डर (जैसे किसी एक साइट के लिए कोई खास स्थानीय क्लियरेंस) — पहचान होने के बाद अथॉरिटी के अपने रेफरेंस से एक उचित कोड दें, लंबे समय तक OTH न रखें</td></tr>
+            <tr class="suggested"><td class="mono">OC/CC <span class="tag suggested">सुझाया गया</span></td><td>ऑक्युपेंसी / कम्प्लीशन सर्टिफिकेट</td><td>KMC — एक टावर को क्लोज़-आउट करने वाला सैंक्शन; हैंडओवर के लिए इतना अहम कि अलग से ट्रैक होना चाहिए</td></tr>
+            <tr class="suggested"><td class="mono">ENV <span class="tag suggested">सुझाया गया</span></td><td>एनवायरनमेंटल क्लियरेंस</td><td>SEIAA/MoEF — कुछ बिल्ट-अप-एरिया सीमा से ऊपर ज़रूरी; प्रोजेक्ट अनुसार लागू होना कन्फर्म करें</td></tr>
+            <tr class="suggested"><td class="mono">LIFT <span class="tag suggested">सुझाया गया</span></td><td>लिफ्ट इंस्पेक्टोरेट NOC</td><td>Electrical Inspectorate — एलिवेटर इंस्टॉलेशन/ऑपरेशन अनुमोदन, हैंडओवर से पहले ज़रूरी</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>रजिस्टर की हर पंक्ति में होगा: एप्लीकेशन रेफरेंस, सबमिशन की तारीख, सैंक्शन/अप्रूवल नंबर, मंज़ूरी की तारीख, <strong>वैधता/एक्सपायरी तारीख</strong>, और एक रिन्यूअल-अलर्ट लीड-टाइम (रिन्यूएबल किसी भी चीज़ के लिए मियाद खत्म होने से 60 दिन पहले रखने की सलाह)। संबंधित प्रोजेक्ट का DC HOD को रिन्यूअल अलर्ट देता है; HOD उसे पुनः-सबमिशन तक ट्रैक करते हैं।</p>
+    </section>
+
+    <section id="hi-procedure">
+      <div class="eyebrow">०९</div>
+      <h2>प्रोसीजर</h2>
+
+      <h3>9.1 प्राप्ति व origination</h3>
+      <ul>
+        <li>हर इनकमिंग दस्तावेज़ (ईमेल, हाथों-हाथ डिलीवरी, ACC अपलोड, कूरियर) प्राप्ति के <strong>उसी कार्यदिवस</strong> स्रोत, प्राप्ति तिथि व रिवीज़न के साथ रजिस्टर में लॉग किया जाता है।</li>
+        <li>आंतरिक रूप से बनाए गए दस्तावेज़ को समीक्षा के लिए भेजने से पहले ही संबंधित प्रोजेक्ट का DC नंबर देता है — बाद में नहीं।</li>
+        <li>रजिस्टर में स्वीकार करने से पहले DC जाँचते हैं कि दस्तावेज़ में सही प्रोजेक्ट कोड, डिसिप्लिन, रिवीज़न बॉक्स व स्टेटस है या नहीं; अधूरे टाइटल ब्लॉक ओरिजिनेटर को वापस भेजे जाते हैं, डॉक्यूमेंट कंट्रोल खुद ठीक नहीं करता।</li>
+      </ul>
+
+      <h3>9.2 समीक्षा व अनुमोदन वर्कफ़्लो</h3>
+      <ul>
+        <li>डॉक्यूमेंट कंट्रोल डिस्ट्रीब्यूशन मैट्रिक्स (§11) के अनुसार समीक्षकों को दस्तावेज़ भेजता है और प्रोजेक्ट के Document Control Plan में तय समय-सीमा (आमतौर पर दस्तावेज़ के प्रकार अनुसार 5–14 कार्यदिवस) ट्रैक करता है।</li>
+        <li>DC हर दस्तावेज़ की सभी टिप्पणियाँ एक ही कमेंट शीट में इकट्ठा करते हैं, दस्तावेज़ नंबर व रिवीज़न से क्रॉस-रेफरेंस करते हुए — समीक्षक सीधे DC की कंट्रोल्ड कॉपी पर मार्कअप नहीं करते।</li>
+        <li>अनुमोदन स्टेटस (§7) व अनुमोदक का नाम/तारीख निर्णय मिलने के उसी दिन रजिस्टर में दर्ज होता है।</li>
+      </ul>
+
+      <h3>9.3 वितरण व ट्रांसमिटल</h3>
+      <ul>
+        <li>ट्रांसमिटल (लागू अनुसार TRN/DRT) के बिना डॉक्यूमेंट कंट्रोल से कोई दस्तावेज़ बाहर नहीं जाता — चाहे आंतरिक हो या बाहरी। भेजने से पहले ट्रांसमिटल नंबर, तारीख, प्राप्तकर्ता व सूचीबद्ध दस्तावेज़ लॉग किए जाते हैं।</li>
+        <li>वितरण उस दस्तावेज़ प्रकार के मौजूदा डिस्ट्रीब्यूशन मैट्रिक्स (§11) का पालन करता है; मैट्रिक्स से बाहर माँगे गए अस्थायी प्राप्तकर्ता सिर्फ HOD के लिखित निर्देश पर जोड़े जाते हैं।</li>
+        <li>भेजे जाने के बाद कोई ट्रांसमिटल कभी एडिट नहीं किया जाता। कोई सुधार ज़रूरी हो तो, वह जिस ट्रांसमिटल को सुधार रहा है उसका संदर्भ देते हुए एक नए ट्रांसमिटल के रूप में जारी किया जाता है।</li>
+      </ul>
+
+      <h3>9.4 रिवीज़न कंट्रोल</h3>
+      <ul>
+        <li>किसी भी वजह से — नई टिप्पणी, डिज़ाइन बदलाव, साइट इंस्ट्रक्शन — कोई दस्तावेज़ दोबारा जारी होते ही एक नया रिवीज़न खोला जाता है। जारी हो चुके दस्तावेज़ का कोई "अनौपचारिक अपडेट" नहीं होता।</li>
+        <li>हर रिवीज़न एंट्री में होता है: रिवीज़न लेटर/नंबर, तारीख, रिवीज़न की वजह (एक पंक्ति में), और जिस ट्रांसमिटल पर वह गया।</li>
+        <li>सामान्य रिट्रीवल से सिर्फ मौजूदा रिवीज़न ही मिलता है; सभी पुराने रिवीज़न सुपरसीडेड आर्काइव (§9.5) में चले जाते हैं, लेकिन कभी डिलीट नहीं होते।</li>
+      </ul>
+
+      <h3>9.5 सुपरसीडेड व ऑब्सोलीट दस्तावेज़</h3>
+      <ul>
+        <li>नया रिवीज़न अनुमोदित व जारी होते ही, DC पिछले रिवीज़न को रजिस्टर में <span class="tag">SUP</span> मार्क करते हैं और उसकी फाइल को "SUPERSEDED — DO NOT USE" स्टैम्प के साथ सुपरसीडेड आर्काइव फोल्डर में ले जाते हैं।</li>
+        <li>सुपरसीडेड दस्तावेज़ ट्रेसेबिलिटी व ऑडिट के लिए सुरक्षित रखे जाते हैं — कभी डिलीट नहीं होते — लेकिन जहाँ भी उसे मौजूदा इश्यू समझ लिया जा सके (शेयर्ड ड्राइव, साइट की प्रिंटेड कॉपी) वहाँ से हटा दिया जाता है।</li>
+        <li>दस्तावेज़ सुपरसीडेड होने के 2 कार्यदिवस के भीतर साइट की कंट्रोल्ड हार्ड कॉपी वापस ली जाती है।</li>
+      </ul>
+
+      <h3>9.6 फाइलिंग, स्टोरेज व बैकअप</h3>
+      <ul>
+        <li>ACC (Autodesk Construction Cloud) ही एकमात्र सोर्स ऑफ ट्रुथ है। DC की अपनी मशीन की लोकल कॉपी सिर्फ वर्किंग कॉपी होती है, कभी मास्टर रिकॉर्ड नहीं मानी जाती।</li>
+        <li>फोल्डर स्ट्रक्चर नंबरिंग स्कीम को दर्शाता है — प्रोजेक्ट, फिर डिसिप्लिन या रजिस्टर, फिर सीक्वेंस — ताकि किसी भी दस्तावेज़ की जगह उसके नंबर से ही पता चल जाए।</li>
+        <li>ACC की अपनी ऑटोमेटिक बैकअप/वर्ज़निंग रोज़मर्रा का काम संभालती है; इसके अलावा एक अतिरिक्त सुरक्षा के तौर पर DC हर शुक्रवार रजिस्टर व मौजूदा-रिवीज़न फाइलों को अलग जगह एक्सपोर्ट करते हैं।</li>
+        <li>फिज़िकल/हार्ड कॉपी, जहाँ अभी भी ज़रूरी हो, रजिस्टर में एक लोकेशन रेफरेंस (कैबिनेट/शेल्फ़) के साथ लॉग की जाती है, और फिज़िकल रजिस्ट्री तक पहुँच सिर्फ डॉक्यूमेंट कंट्रोल स्टाफ तक सीमित रहती है।</li>
+      </ul>
+
+      <h3>9.7 रिट्रीवल व एक्सेस</h3>
+      <ul>
+        <li>टीम का कोई भी सदस्य डॉक्यूमेंट कंट्रोल से किसी दस्तावेज़ का मौजूदा रिवीज़न माँग सकता है; रजिस्टर में पहले से मौजूद किसी भी चीज़ के लिए DC उसी कार्यदिवस जवाब देते हैं।</li>
+        <li>ACC में एक्सेस अधिकार दस्तावेज़ प्रकार व प्रोजेक्ट भूमिका के अनुसार तय होते हैं (§11 देखें), और कोई जुड़े, छोड़े, या प्रोजेक्ट बदले तो HOD उसकी समीक्षा करते हैं।</li>
+      </ul>
+
+      <h3>9.8 आर्काइविंग व रिटेंशन</h3>
+      <ul>
+        <li>प्रोजेक्ट क्लोज़आउट पर, संबंधित प्रोजेक्ट का DC फाइनल MDL व ऐज़-बिल्ट रजिस्टर तैयार करता है, पुष्टि करता है कि हर दस्तावेज़ नवीनतम अनुमोदित रिवीज़न पर है, और कंपनी की रिकॉर्ड पॉलिसी में तय जगह पर एक पूरा आर्काइव (इलेक्ट्रॉनिक, और लागू हो तो फिज़िकल भी) सौंपता है।</li>
+        <li>न्यूनतम रिटेंशन अवधि प्रोजेक्ट की लागू संविदा व स्टैट्यूटरी आवश्यकता के अनुसार होती है; कुछ तय न हो तो, कंपनी की डिफ़ॉल्ट रिटेंशन प्रोजेक्ट क्लोज़आउट से 8 वर्ष है।</li>
+      </ul>
+    </section>
+
+    <section id="hi-mdl">
+      <div class="eyebrow">१०</div>
+      <h2>मास्टर डॉक्यूमेंट लिस्ट</h2>
+      <p>MDL रिकॉर्ड का रजिस्टर है — हर कंट्रोल्ड दस्तावेज़, उसका मौजूदा रिवीज़न, स्टेटस, ओरिजिनेटर, और आखिरी ट्रांसमिटल, हर प्रोजेक्ट के लिए एक ही जगह। इसे लगातार अपडेट रखा जाता है, कभी-कभार बनाया नहीं जाता, और हर इंटरनल ऑडिट में HOD इसी की समीक्षा करते हैं।</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th>डॉक्यूमेंट सं.</th><th>शीर्षक</th><th style="width:70px">रिवीज़न</th><th style="width:70px">स्टेटस</th><th style="width:110px">जारी तिथि</th><th style="width:110px">ट्रांसमिटल</th></tr></thead>
+          <tbody>
+            <tr><td class="num">DUE-ARC-DRG-0001</td><td>टिपिकल फ्लोर प्लान — टावर A</td><td class="num">2</td><td class="status">AFC</td><td class="num">2026-04-11</td><td class="num">DRT-0042</td></tr>
+            <tr><td class="num">CRN-STR-DRG-0014</td><td>फाउंडेशन लेआउट</td><td class="num">1</td><td class="status">IFA</td><td class="num">2026-06-02</td><td class="num">DRT-0058</td></tr>
+            <tr><td class="num">LUX-FF-DRG-0006</td><td>फायर फाइटिंग राइज़र डायग्राम</td><td class="num">0</td><td class="status">IFR</td><td class="num">2026-07-19</td><td class="num">DRT-0061</td></tr>
+            <tr><td class="num">TCV-RFI-0009</td><td>स्पष्टीकरण — पोडियम वॉटरप्रूफिंग डिटेल</td><td class="num">—</td><td class="status">IFI</td><td class="num">2026-08-02</td><td class="num">TRN-0011</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>ऊपर दी गई पंक्तियाँ सिर्फ उदाहरण हैं — हर प्रोजेक्ट की असली MDL लाइव रजिस्टर से बनती है, अलग से टाइप नहीं की जाती।</p>
+    </section>
+
+    <section id="hi-distribution">
+      <div class="eyebrow">११</div>
+      <h2>डिस्ट्रीब्यूशन मैट्रिक्स</h2>
+      <p>हर दस्तावेज़ प्रकार के अनुसार तय करता है कि कौन किस भूमिका में दस्तावेज़ पाएगा: <span class="tag">R</span> समीक्षा/टिप्पणी के लिए ज़िम्मेदार, <span class="tag">A</span> अनुमोदन करता है, <span class="tag">I</span> सिर्फ जानकारी के लिए।</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th>दस्तावेज़ प्रकार</th><th style="width:110px">प्रोजेक्ट हेड</th><th style="width:130px">आर्किटेक्ट / कंसल्टेंट</th><th style="width:120px">स्टैट्यूटरी / लायज़न</th><th style="width:90px">QA/QC</th><th style="width:100px">साइट टीम</th></tr></thead>
+          <tbody>
+            <tr><td>ड्रॉइंग</td><td class="num">I</td><td class="num">R</td><td class="num">–</td><td class="num">I</td><td class="num">I</td></tr>
+            <tr><td>स्टैट्यूटरी सैंक्शन</td><td class="num">A</td><td class="num">I</td><td class="num">R</td><td class="num">–</td><td class="num">I</td></tr>
+            <tr><td>MAR / MIR</td><td class="num">I</td><td class="num">A</td><td class="num">–</td><td class="num">R</td><td class="num">R</td></tr>
+            <tr><td>WIR</td><td class="num">I</td><td class="num">I</td><td class="num">–</td><td class="num">A</td><td class="num">R</td></tr>
+            <tr><td>NCR</td><td class="num">A</td><td class="num">R</td><td class="num">–</td><td class="num">R</td><td class="num">I</td></tr>
+            <tr><td>RFI</td><td class="num">I</td><td class="num">A</td><td class="num">–</td><td class="num">I</td><td class="num">R</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="hi-security">
+      <div class="eyebrow">१२</div>
+      <h2>गोपनीयता व सुरक्षा</h2>
+      <ul>
+        <li><em>Confidential</em> या <em>Client Restricted</em> चिह्नित दस्तावेज़ सिर्फ डिस्ट्रीब्यूशन मैट्रिक्स में नामित व्यक्तियों को भेजे जाते हैं — कभी सामान्य प्रोजेक्ट मेलिंग लिस्ट पर नहीं।</li>
+        <li>ACC अकाउंट व्यक्तिगत होते हैं, साझा नहीं किए जाते; किसी DC के प्रोजेक्ट या कंपनी छोड़ने के उसी दिन उसका लॉगिन बंद कर दिया जाता है।</li>
+        <li>फाइल साइज़ या एक्सेस की समस्या के समाधान के तौर पर — चाहे DC खुद हों या कोई और — दस्तावेज़ कभी व्यक्तिगत (कंपनी के बाहर के) ईमेल पर नहीं भेजा जाता — बदले में HOD को बताएँ।</li>
+      </ul>
+    </section>
+
+    <section id="hi-nonconformance">
+      <div class="eyebrow">१३</div>
+      <h2>नॉन-कन्फॉर्मेंस व करेक्टिव एक्शन</h2>
+      <p>नॉन-कन्फॉर्मेंस वह कुछ भी है जो इस SOP द्वारा सुरक्षित की जाने वाली ट्रेसेबिलिटी को तोड़ता है: बिना नंबर के जारी दस्तावेज़, अब भी सर्कुलेशन में मौजूद सुपरसीडेड कॉपी, गुम ट्रांसमिटल, अनधिकृत वितरण, समय पर फ्लैग न हुआ समाप्त सैंक्शन।</p>
+      <ul>
+        <li>जो भी DC कोई नॉन-कन्फॉर्मेंस पहचानता है, वह उसी दिन क्या मिला व कहाँ मिला यह लॉग कर HOD को बताता है।</li>
+        <li>HOD करेक्टिव एक्शन (रिकॉल, दोबारा जारी करना, एक्सेस समीक्षा, त्वरित रिन्यूअल) तय करते हैं और नॉन-कन्फॉर्मेंस लॉग में एक तारीख़ वाले रेज़ोल्यूशन के साथ उसे बंद करते हैं — मौखिक रूप से कुछ बंद नहीं किया जाता।</li>
+        <li>एक ही तरह का नॉन-कन्फॉर्मेंस बार-बार हो, तो सिर्फ उस घटना को ही नहीं, बल्कि प्रोसीजर में ही बदलाव ज़रूरी है या नहीं, यह अगली टीम मीटिंग में समीक्षा की जाती है।</li>
+      </ul>
+    </section>
+
+    <section id="hi-training">
+      <div class="eyebrow">१४</div>
+      <h2>प्रशिक्षण व योग्यता</h2>
+      <ul>
+        <li>हर नए जुड़े DC को रजिस्टर एक्सेस देने से पहले यह SOP व लाइव ACC प्रोजेक्ट/रजिस्टर व्यावहारिक रूप से समझाया जाता है, और वे इसे पढ़ चुके हैं ऐसी पावती पर हस्ताक्षर करते हैं।</li>
+        <li>नया DC खुद से काम शुरू करने से पहले, पहले दो हफ्तों के ट्रांसमिटल व रजिस्टर एंट्री HOD साथ में देखकर सिखाते हैं।</li>
+        <li>यह SOP संशोधित होने पर पूरी टीम के साथ समीक्षा की जाती है, और वरना भी हर साल नए सिरे से रीफ्रेश की जाती है।</li>
+      </ul>
+    </section>
+
+    <section id="hi-kpi">
+      <div class="eyebrow">१५</div>
+      <h2>मॉनिटरिंग व KPI</h2>
+      <div class="twrap">
+        <table>
+          <thead><tr><th>मेट्रिक</th><th>लक्ष्य</th></tr></thead>
+          <tbody>
+            <tr><td>इनकमिंग दस्तावेज़ों की उसी दिन लॉगिंग</td><td class="num">100%</td></tr>
+            <tr><td>अनुमोदन के 1 कार्यदिवस के भीतर ट्रांसमिटल जारी</td><td class="num">≥ 95%</td></tr>
+            <tr><td>2 कार्यदिवस के भीतर सुपरसीडेड कॉपी वापसी</td><td class="num">100%</td></tr>
+            <tr><td>इंटरनल ऑडिट में MDL सटीकता (सैंपल जाँच)</td><td class="num">100%</td></tr>
+            <tr><td>स्टैट्यूटरी सैंक्शन पर लाइव रिन्यूअल अलर्ट सेट होना</td><td class="num">100%</td></tr>
+            <tr><td>14 दिन से पुराने खुले नॉन-कन्फॉर्मेंस</td><td class="num">0</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>HOD हर महीने इनकी समीक्षा कर सीनियर मैनेजमेंट को सारांश रिपोर्ट देते हैं।</p>
+    </section>
+
+    <section id="hi-references">
+      <div class="eyebrow">१६</div>
+      <h2>संबंधित दस्तावेज़</h2>
+      <ul>
+        <li>प्रोजेक्ट Document Control Plan (हर प्रोजेक्ट के लिए — Duets, Crown, Luxuria, The Curve)</li>
+        <li>स्टैट्यूटरी सैंक्शन रजिस्टर (हर प्रोजेक्ट के लिए)</li>
+        <li>ACC यूज़र एक्सेस व पर्मिशन प्रोसीजर</li>
+        <li>कंपनी रिकॉर्ड्स रिटेंशन पॉलिसी</li>
+        <li>QA/QC नॉन-कन्फॉर्मेंस प्रोसीजर</li>
+      </ul>
+
+      <h3>रजिस्टर टेम्पलेट (लाइव लिंक)</h3>
+      <p>नीचे दिए गए स्प्रेडशीट वही असली टेम्पलेट हैं जो अभी इस्तेमाल हो रहे हैं — नया बनाने के बजाय ज़रूरत के हिसाब से सीधे खोलें। ये सभी Drive के <a href="https://drive.google.com/drive/folders/1_BQjSm4hMCPi0osoiq-wgnYgG1XiP1tt" target="_blank" rel="noopener">Registers</a> फ़ोल्डर के अंदर हैं — रोज़मर्रा इस्तेमाल से पहले HOD के साथ कन्फर्म कर लें कि यह फ़ोल्डर चारों DC के साथ शेयर किया गया है।</p>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:210px">टेम्पलेट</th><th style="width:110px">क्रॉस-रेफ</th><th>खोलें</th></tr></thead>
+          <tbody>
+            <tr><td>Architecture Drawings Register</td><td class="mono">ARC · §10</td><td><a href="https://docs.google.com/spreadsheets/d/1H_sYTs3zI8di7fDIAIwllzkFm6qZ-Pug5LozYgTf8qk/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr><td>Structure Drawings Register</td><td class="mono">STR · §10</td><td><a href="https://docs.google.com/spreadsheets/d/1G9-Xl5irzO6oy0mXL5ktfC7bChnyLsLbzUHxSkZAofY/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr><td>MEP Drawings Register</td><td class="mono">ELE/PHE/HVAC/FF · §10</td><td><a href="https://docs.google.com/spreadsheets/d/1zFdejXZCBO3mlPzhxqykMRvZFTqDN5RfxVNnNr-7_uE/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr><td>Document Transmittal Register</td><td class="mono">TRN · §6.3</td><td><a href="https://docs.google.com/spreadsheets/d/1pD5_5o2bNKWm4eYW-w-9EwOVmZ8gC4KkJpK43Guwf-Q/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr><td>Drawing Transmittal — Architecture</td><td class="mono">DRT · §6.3</td><td><a href="https://docs.google.com/spreadsheets/d/1F8s0PnxgHvjNE9CEBUNGTE6rACK8MnS1bOWYzNrEysA/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr><td>Drawing Transmittal — Structure</td><td class="mono">DRT · §6.3</td><td><a href="https://docs.google.com/spreadsheets/d/1du5yhdILTzH_el7O16jtI1IsN9YWcIgLyEpuqmWlSO4/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr><td>Drawing Transmittal — MEP</td><td class="mono">DRT · §6.3</td><td><a href="https://docs.google.com/spreadsheets/d/1rZ7GK1jqwVHlzCMGT_uAKjn5COb9_HwiQ3PoHekm6PM/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr><td>RFI Register</td><td class="mono">RFI · §6.3</td><td><a href="https://docs.google.com/spreadsheets/d/1MXPYjnmwvFEEZbslLjVNV8uqzbsyWjUPMMApIafa-dU/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr><td>Sanction Document &amp; Drawings Register</td><td class="mono">§8</td><td><a href="https://docs.google.com/spreadsheets/d/1HNHZ-ZoqKYoofcJOjyAyZVxdaIFqIQDQNuxvqLvDT_o/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr><td>KMC Sanction Register</td><td class="mono">KMC · §8</td><td><a href="https://docs.google.com/spreadsheets/d/1Jghm5OhNgxZqpAF7wYTLx5X4zF1ejXkaPGO1KLCsYfA/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr class="suggested"><td>Method Statement Register <span class="tag suggested">सुझाया गया</span></td><td class="mono">§9.2</td><td><a href="https://docs.google.com/spreadsheets/d/1wXcLl3v8TbvKLsSb5qnZy47WBn0xSCgdEvLQT-cycPU/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr class="suggested"><td>Consultant Masters <span class="tag suggested">सुझाया गया</span></td><td class="mono">§11</td><td><a href="https://docs.google.com/spreadsheets/d/1g7K3NgQb8lfC-zv1UdbYYtUvbBkQ-8tX3xmTtASOJfY/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr class="suggested"><td>File Name &amp; Location Index <span class="tag suggested">सुझाया गया</span></td><td class="mono">§9.6</td><td><a href="https://docs.google.com/spreadsheets/d/1gU1h8jh-e7qR1ZJPkpH1eLkFL74OSIGymToAM2tjwUc/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr class="suggested"><td>Insurance Policy Tracker <span class="tag suggested">सुझाया गया</span></td><td class="mono">§16</td><td><a href="https://docs.google.com/spreadsheets/d/1BRqBkAVUkybl9VycpndTIY51daIRL9WkXokHe7SxcRg/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr class="suggested"><td>Land Owner Email Register <span class="tag suggested">सुझाया गया</span></td><td class="mono">§16</td><td><a href="https://docs.google.com/spreadsheets/d/1ixNkpaCmGkGzZz9TgL9UbqCbMwF88rGwnXdl0ZnnT40/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="hi-history">
+      <div class="eyebrow">१७</div>
+      <h2>रिवीज़न हिस्ट्री</h2>
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:80px">रिवीज़न</th><th style="width:130px">तारीख</th><th style="width:170px">तैयार किया गया</th><th>विवरण</th></tr></thead>
+          <tbody>
+            <tr><td class="num">0</td><td class="num">—</td><td>HOD, Document Control</td><td>प्रारंभिक जारी</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="footline">
+      <span>ALC-DC-SOP-001 · अल्कोव रियल्टी · Document Control</span>
+      <span>प्रिंट होने पर अनकंट्रोल्ड — इस्तेमाल से पहले ACC में मौजूदा रिवीज़न जाँच लें · अंतिम अपडेट <span data-updated="hi">15 सितंबर 2026</span></span>
+    </div>
+
+  </article>
+</div>
+</div>
+<!-- ============================= END HINDI ============================= -->
+
+<script>
+(function(){
+  var LANGS = ['en','bn','hi'];
+
+  function setLang(lang){
+    LANGS.forEach(function(l){ document.getElementById('doc-'+l).classList.toggle('active', l===lang); });
+    document.querySelectorAll('.langswitch button').forEach(function(b){
+      b.classList.toggle('active', b.dataset.lang===lang);
+    });
+    try{ localStorage.setItem('alcove-sop-lang', lang); }catch(e){}
+  }
+  document.querySelectorAll('.langswitch button').forEach(function(b){
+    b.addEventListener('click', function(){ setLang(b.dataset.lang); });
+  });
+  var savedLang = 'en';
+  try{ savedLang = localStorage.getItem('alcove-sop-lang') || 'en'; }catch(e){}
+  if(LANGS.indexOf(savedLang)===-1){ savedLang = 'en'; }
+  setLang(savedLang);
+
+  /* The desktop PDFs are made with Chrome's native print (which honours the
+     @media print rules below) and always came out right; the earlier
+     html2canvas/html2pdf in-page button used a completely different
+     rendering path and kept needing separate fixes for the same bugs.
+     Reusing the browser's own print dialog guarantees byte-for-byte the
+     same, already-verified layout — one rendering path, not two. */
+  function printLang(lang){
+    var previousActive = LANGS.filter(function(l){ return document.getElementById('doc-'+l).classList.contains('active'); })[0];
+    if(previousActive !== lang){ setLang(lang); }
+    /* Plain WebViews don't wire window.print() to anything — the Android
+       app injects an AndroidPrint bridge that renders straight to a PDF
+       file in Downloads instead. Browsers ignore this and just use
+       window.print() as before. */
+    setTimeout(function(){
+      if(window.AndroidPrint && window.AndroidPrint.print){ window.AndroidPrint.print(lang); }
+      else { window.print(); }
+      if(previousActive !== lang){ setLang(previousActive); }
+    }, 80);
+  }
+  LANGS.forEach(function(l){
+    document.getElementById('dl-'+l).addEventListener('click', function(){ printLang(l); });
+  });
+})();
+</script>
+
+<!-- Mobile Contents drawer + scrollspy. Kept as its own IIFE (not merged into
+     the language-switch script above) since it only needs to react to
+     whichever .doc-view is active right now, not manage that state itself. -->
+<script>
+(function(){
+  var fab = document.getElementById('toc-fab');
+  var backdrop = document.getElementById('toc-backdrop');
+
+  function activeToc(){
+    var activeDoc = document.querySelector('.doc-view.active');
+    return activeDoc ? activeDoc.querySelector('.toc') : null;
+  }
+  function openToc(){
+    var toc = activeToc();
+    if(!toc) return;
+    toc.classList.add('mobile-open');
+    document.body.classList.add('toc-open');
+  }
+  function closeToc(){
+    document.querySelectorAll('.toc.mobile-open').forEach(function(t){ t.classList.remove('mobile-open'); });
+    document.body.classList.remove('toc-open');
+  }
+  if(fab){ fab.addEventListener('click', openToc); }
+  if(backdrop){ backdrop.addEventListener('click', closeToc); }
+  document.querySelectorAll('.toc a').forEach(function(a){
+    a.addEventListener('click', closeToc);
+  });
+
+  // Scrollspy: highlight the TOC entry for whichever section is currently
+  // in view. Re-scoped to the active language's sections/TOC each time, so
+  // it keeps working correctly after a language switch.
+  var currentObserver = null;
+  function setupScrollspy(){
+    if(currentObserver){ currentObserver.disconnect(); }
+    var activeDoc = document.querySelector('.doc-view.active');
+    if(!activeDoc) return;
+    var sections = activeDoc.querySelectorAll('article section[id]');
+    var tocLinks = activeDoc.querySelectorAll('.toc a');
+    if(!sections.length || !tocLinks.length) return;
+
+    currentObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(!entry.isIntersecting) return;
+        var id = entry.target.id;
+        tocLinks.forEach(function(a){
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+      });
+    }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+
+    sections.forEach(function(s){ currentObserver.observe(s); });
+  }
+  setupScrollspy();
+  document.querySelectorAll('.langswitch button').forEach(function(b){
+    b.addEventListener('click', function(){ setTimeout(setupScrollspy, 60); closeToc(); });
+  });
+})();
+</script>
+
+<!-- Live-content sync: the six prose-only sections (Purpose, Scope, Procedure,
+     Confidentiality & security, Non-conformance, Training) are refreshed from
+     a Google Sheet on load, so editing that Sheet updates the app without a
+     rebuild. Table/colour-bearing sections are NOT touched by this and stay
+     bundled in this file as before. If the fetch fails (offline, sheet not
+     shared, etc.) nothing is changed and the bundled static text above stays
+     exactly as shipped — this script never removes content until it has a
+     successful replacement ready. -->
+<script>
+(function(){
+  var SHEET_ID = '1vqC40j9XeAojak6jJNilBnPqNXvOGtMo2D8XHJbVoD0';
+  var CSV_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=Sheet1';
+  var LANG_COL = { en: 1, bn: 2, hi: 3 };
+
+  function inlineMd(s){
+    return s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  }
+
+  function markupToHtml(text){
+    var lines = text.replace(/\r\n/g, '\n').split('\n');
+    var html = '', ulOpen = false, para = [];
+    function flushPara(){ if(para.length){ html += '<p>' + para.join(' ') + '</p>'; para = []; } }
+    function closeUl(){ if(ulOpen){ html += '</ul>'; ulOpen = false; } }
+    for(var i = 0; i < lines.length; i++){
+      var line = lines[i].trim();
+      if(line === ''){ flushPara(); closeUl(); continue; }
+      if(line.indexOf('## ') === 0){ flushPara(); closeUl(); html += '<h3>' + inlineMd(line.slice(3)) + '</h3>'; continue; }
+      if(line.indexOf('- ') === 0){ flushPara(); if(!ulOpen){ html += '<ul>'; ulOpen = true; } html += '<li>' + inlineMd(line.slice(2)) + '</li>'; continue; }
+      para.push(inlineMd(line));
+    }
+    flushPara(); closeUl();
+    return html;
+  }
+
+  function parseCSV(text){
+    var rows = [], row = [], field = '', inQuotes = false;
+    for(var i = 0; i < text.length; i++){
+      var c = text[i];
+      if(inQuotes){
+        if(c === '"'){ if(text[i+1] === '"'){ field += '"'; i++; } else { inQuotes = false; } }
+        else { field += c; }
+      } else {
+        if(c === '"'){ inQuotes = true; }
+        else if(c === ','){ row.push(field); field = ''; }
+        else if(c === '\n'){ row.push(field); rows.push(row); row = []; field = ''; }
+        else if(c === '\r'){ /* skip */ }
+        else { field += c; }
+      }
+    }
+    if(field.length || row.length){ row.push(field); rows.push(row); }
+    return rows;
+  }
+
+  function applyLiveContent(rows){
+    for(var r = 1; r < rows.length; r++){
+      var row = rows[r];
+      if(!row || !row[0]) continue;
+      var key = row[0].trim();
+      ['en', 'bn', 'hi'].forEach(function(lang){
+        var el = document.getElementById(lang + '-' + key);
+        if(!el) return;
+        var raw = row[LANG_COL[lang]];
+        if(raw === undefined || raw.trim() === '') return;
+        var eyebrow = el.querySelector('.eyebrow');
+        var h2 = el.querySelector('h2');
+        var rendered = markupToHtml(raw);
+        el.innerHTML = '';
+        if(eyebrow) el.appendChild(eyebrow);
+        if(h2) el.appendChild(h2);
+        var wrap = document.createElement('div');
+        wrap.innerHTML = rendered;
+        while(wrap.firstChild) el.appendChild(wrap.firstChild);
+      });
+    }
+  }
+
+  if(window.fetch){
+    fetch(CSV_URL).then(function(resp){
+      if(!resp.ok) throw new Error('sheet fetch failed: ' + resp.status);
+      return resp.text();
+    }).then(function(text){
+      applyLiveContent(parseCSV(text));
+    }).catch(function(){
+      /* offline or sheet not shared yet — bundled static content stays as-is */
+    });
+  }
+})();
+</script>
+
+<!-- Check-for-update: this app has no Play Store auto-update since it is
+     sideloaded, so this reads a tiny separate Sheet for the newest available
+     version and shows a dismissible banner with a download link if the
+     installed build is older. Silent no-op if offline or the sheet isn't
+     shared yet — never blocks or nags beyond the one banner. -->
+<script>
+(function(){
+  var CURRENT_VERSION_CODE = 8;
+  var VERSION_SHEET_ID = '1XvjtwcUpLoJV5GDU4eB0LFdjjvJ63cqxq4_iFYUopjU';
+  var VERSION_CSV_URL = 'https://docs.google.com/spreadsheets/d/' + VERSION_SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=Sheet1';
+
+  function parseCSVLine(text){
+    // reuse the same simple parser logic inline (kept separate from the
+    // content-sync script above so this file has no cross-script dependency)
+    var rows = [], row = [], field = '', inQuotes = false;
+    for(var i = 0; i < text.length; i++){
+      var c = text[i];
+      if(inQuotes){
+        if(c === '"'){ if(text[i+1] === '"'){ field += '"'; i++; } else { inQuotes = false; } }
+        else { field += c; }
+      } else {
+        if(c === '"'){ inQuotes = true; }
+        else if(c === ','){ row.push(field); field = ''; }
+        else if(c === '\n'){ row.push(field); rows.push(row); row = []; field = ''; }
+        else if(c === '\r'){ /* skip */ }
+        else { field += c; }
+      }
+    }
+    if(field.length || row.length){ row.push(field); rows.push(row); }
+    return rows;
+  }
+
+  if(!window.fetch) return;
+  fetch(VERSION_CSV_URL).then(function(resp){
+    if(!resp.ok) throw new Error('version check failed: ' + resp.status);
+    return resp.text();
+  }).then(function(text){
+    var rows = parseCSVLine(text);
+    if(rows.length < 2) return;
+    var data = rows[1]; // header row, then one data row: versionCode, versionName, downloadUrl, note
+    var latestCode = parseInt(data[0], 10);
+    var latestName = data[1] || '';
+    var downloadUrl = data[2] || '';
+    var note = data[3] || 'নতুন ভার্সন উপলব্ধ। New version available.';
+    if(!latestCode || latestCode <= CURRENT_VERSION_CODE || !downloadUrl) return;
+    var link = document.getElementById('update-banner-link');
+    link.href = downloadUrl;
+    link.textContent = 'Update to v' + latestName;
+    /* Plain link, opened by the system browser as normal — deliberately NOT
+       auto-downloading + auto-installing the APK from inside this app.
+       That pattern (an app silently fetching another APK and prompting
+       install) is exactly what Google Play Protect's on-device heuristics
+       flag as trojan/dropper-like behaviour, and it got this app's installs
+       blocked outright ("harmful app blocked") the one time it shipped. A
+       normal browser download+manual-install is the only variant Play
+       Protect treats as an ordinary sideload. */
+    document.getElementById('update-banner-text').textContent = note;
+    document.getElementById('update-banner').style.display = 'block';
+  }).catch(function(){
+    /* offline or version sheet not shared yet — no banner, no error shown */
+  });
+})();
+</script>
+
