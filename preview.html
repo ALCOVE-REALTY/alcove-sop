@@ -124,6 +124,7 @@ h1,h2,h3{ text-wrap:balance; color:var(--ink); }
 
 .home-view{ grid-column:1/-1; }
 .js-hidden{ display:none !important; }
+.empty-hint{ text-align:center; padding:70px 20px; color:var(--ink-faint); font-size:14.5px; }
 
 .control-block{
   grid-column:1/-1; max-width:900px; margin:0 auto 8px; position:relative; padding:22px 24px 4px;
@@ -328,6 +329,7 @@ tbody tr.suggested td:first-child{color:var(--suggest);}
      (see the home/menu navigation script) — printing must always produce
      the complete document regardless of whatever is currently open. */
   .js-hidden{ display:block !important; }
+  .empty-hint{ display:none !important; }
   .control-block{ max-width:100% !important; margin:0 0 20px !important; background-image:none !important; }
   article{ min-width:0 !important; }
   section{ break-inside:avoid-page; margin-bottom:28px; }
@@ -565,6 +567,8 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
   </nav>
 
   <article>
+
+    <div class="empty-hint">← Select "Home" or a section from the menu to view its details.</div>
 
     <section id="en-purpose">
       <div class="eyebrow">01</div>
@@ -1078,6 +1082,8 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 
   <article>
 
+    <div class="empty-hint">← মেনু থেকে "Home" অথবা কোনো সেকশন বেছে নিন এর ভেতরের বিস্তারিত দেখতে।</div>
+
     <section id="bn-purpose">
       <div class="eyebrow">০১</div>
       <h2>উদ্দেশ্য</h2>
@@ -1590,6 +1596,8 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 
   <article>
 
+    <div class="empty-hint">← मेनू से "Home" या कोई सेक्शन चुनें उसका विवरण देखने के लिए।</div>
+
     <section id="hi-purpose">
       <div class="eyebrow">०१</div>
       <h2>उद्देश्य</h2>
@@ -2081,6 +2089,8 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     var home = doc.querySelector('.home-view');
     if(home){ home.classList.remove('js-hidden'); }
     doc.querySelectorAll('article > section, article > .footline').forEach(function(s){ s.classList.add('js-hidden'); });
+    var hint = doc.querySelector('.empty-hint');
+    if(hint){ hint.classList.add('js-hidden'); }
     clearActiveLinks(doc);
     var homeLink = doc.querySelector('.toc-home-link');
     if(homeLink){ homeLink.classList.add('active'); }
@@ -2096,6 +2106,8 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     target.classList.remove('js-hidden');
     var footline = doc.querySelector('article > .footline');
     if(footline){ footline.classList.remove('js-hidden'); }
+    var hint = doc.querySelector('.empty-hint');
+    if(hint){ hint.classList.add('js-hidden'); }
     clearActiveLinks(doc);
     if(link){ link.classList.add('active'); }
     setBackFabVisible(true, doc.className.match(/doc-(en|bn|hi)/)[1]);
@@ -2119,7 +2131,12 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
         closeToc();
       });
     });
-    goHome(doc); // initial state: Home view, all sections hidden
+    // Initial state: nothing selected — Home behaves exactly like any other
+    // menu item (Purpose, Scope, ...): its content only appears once it is
+    // actually clicked, not automatically on load.
+    var home = doc.querySelector('.home-view');
+    if(home){ home.classList.add('js-hidden'); }
+    doc.querySelectorAll('article > section, article > .footline').forEach(function(s){ s.classList.add('js-hidden'); });
   }
 
   document.querySelectorAll('.doc-view').forEach(function(doc){ wireDoc(doc); });
