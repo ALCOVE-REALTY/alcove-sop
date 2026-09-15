@@ -359,22 +359,17 @@ tbody tr.suggested td:first-child{color:var(--suggest);}
     <span class="platecard"><img src="alcove-logo.png" alt="Alcove Realty" width="120" height="69"></span>
   </div>
   <div class="toolbar-mid">
-    <div class="langswitch">
-      <button type="button" data-lang="en">English</button>
-      <button type="button" data-lang="bn">বাংলা</button>
-      <button type="button" data-lang="hi">हिंदी</button>
-    </div>
-    <button type="button" class="dlbtn" id="dl-en">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-2M6 14h12v7H6z"/></svg>
-      English PDF
+    <button type="button" class="dlbtn" id="change-lang-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
+      <span id="change-lang-label">Language</span>
     </button>
-    <button type="button" class="dlbtn" id="dl-bn">
+    <button type="button" class="dlbtn" id="save-pdf-btn">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-2M6 14h12v7H6z"/></svg>
-      বাংলা PDF
+      <span id="save-pdf-label">Save PDF</span>
     </button>
-    <button type="button" class="dlbtn" id="dl-hi">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-2M6 14h12v7H6z"/></svg>
-      हिंदी PDF
+    <button type="button" class="dlbtn" id="print-now-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-2M6 14h12v7H6z"/><rect x="6" y="14" width="12" height="7"/></svg>
+      <span id="print-now-label">Print</span>
     </button>
     <a class="dlbtn" href="formats.html" style="text-decoration:none;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4M9 15l11-11M14 4h6v6"/></svg>
@@ -383,7 +378,7 @@ tbody tr.suggested td:first-child{color:var(--suggest);}
   </div>
   <div class="toolbar-updated">Last updated / সর্বশেষ আপডেট: <span id="updated-stamp">15 September 2026</span></div>
 </div>
-<div class="toolbar-hint">A print dialog will open — choose "Save as PDF" as the printer / প্রিন্ট ডায়ালগ খুলবে — সেখানে "Save as PDF" বেছে নিন</div>
+<div class="toolbar-hint">"Save PDF" saves the file directly · "Print" opens the print dialog / "Save PDF" সরাসরি ফাইল সেভ করে · "Print" প্রিন্ট ডায়ালগ খোলে</div>
 
 <div class="toc-backdrop" id="toc-backdrop"></div>
 <button type="button" class="toc-fab" id="toc-fab">
@@ -429,8 +424,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
   var select = document.getElementById('welcome-lang-select');
   document.getElementById('welcome-go-btn').addEventListener('click', function(){
     var lang = select.value;
-    var btn = document.querySelector('.langswitch button[data-lang="' + lang + '"]');
-    if (btn) { btn.click(); }
+    if (window.AlcoveSetLang) { window.AlcoveSetLang(lang); }
     screen.style.display = 'none';
   });
 })();
@@ -1975,43 +1969,53 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 <script>
 (function(){
   var LANGS = ['en','bn','hi'];
+  var LABELS = {
+    changeLang: { en: 'Language', bn: 'ভাষা', hi: 'भाषा' },
+    savePdf: { en: 'Save PDF', bn: 'PDF সেভ করুন', hi: 'PDF सेव करें' },
+    printNow: { en: 'Print', bn: 'প্রিন্ট', hi: 'प्रिंट' }
+  };
 
   function setLang(lang){
     LANGS.forEach(function(l){ document.getElementById('doc-'+l).classList.toggle('active', l===lang); });
-    document.querySelectorAll('.langswitch button').forEach(function(b){
-      b.classList.toggle('active', b.dataset.lang===lang);
-    });
     try{ localStorage.setItem('alcove-sop-lang', lang); }catch(e){}
+    document.getElementById('change-lang-label').textContent = LABELS.changeLang[lang];
+    document.getElementById('save-pdf-label').textContent = LABELS.savePdf[lang];
+    document.getElementById('print-now-label').textContent = LABELS.printNow[lang];
   }
-  document.querySelectorAll('.langswitch button').forEach(function(b){
-    b.addEventListener('click', function(){ setLang(b.dataset.lang); });
-  });
+  // Exposed so the Welcome screen and the "Change language" toolbar button
+  // (defined further down the page) can switch language without needing
+  // access to this closure's internals.
+  window.AlcoveSetLang = setLang;
+
   var savedLang = 'en';
   try{ savedLang = localStorage.getItem('alcove-sop-lang') || 'en'; }catch(e){}
   if(LANGS.indexOf(savedLang)===-1){ savedLang = 'en'; }
   setLang(savedLang);
 
-  /* The desktop PDFs are made with Chrome's native print (which honours the
-     @media print rules below) and always came out right; the earlier
-     html2canvas/html2pdf in-page button used a completely different
-     rendering path and kept needing separate fixes for the same bugs.
-     Reusing the browser's own print dialog guarantees byte-for-byte the
-     same, already-verified layout — one rendering path, not two. */
-  function printLang(lang){
-    var previousActive = LANGS.filter(function(l){ return document.getElementById('doc-'+l).classList.contains('active'); })[0];
-    if(previousActive !== lang){ setLang(lang); }
-    /* Plain WebViews don't wire window.print() to anything — the Android
-       app injects an AndroidPrint bridge that renders straight to a PDF
-       file in Downloads instead. Browsers ignore this and just use
-       window.print() as before. */
-    setTimeout(function(){
-      if(window.AndroidPrint && window.AndroidPrint.print){ window.AndroidPrint.print(lang); }
-      else { window.print(); }
-      if(previousActive !== lang){ setLang(previousActive); }
-    }, 80);
+  function activeLang(){
+    return LANGS.filter(function(l){ return document.getElementById('doc-'+l).classList.contains('active'); })[0];
   }
-  LANGS.forEach(function(l){
-    document.getElementById('dl-'+l).addEventListener('click', function(){ printLang(l); });
+
+  /* "Save PDF": in the app, AndroidPrint.print() renders straight to a PDF
+     file in Downloads with no dialog at all. In a plain browser tab there
+     is no such bridge, so it falls back to window.print() (the same
+     already-verified @media print layout) — the user picks "Save as PDF"
+     there themselves. */
+  document.getElementById('save-pdf-btn').addEventListener('click', function(){
+    var lang = activeLang();
+    if(window.AndroidPrint && window.AndroidPrint.print){ window.AndroidPrint.print(lang); }
+    else { window.print(); }
+  });
+
+  /* "Print": opens an actual print dialog (a real printer can be picked,
+     not just PDF). In the app this uses Android's own PrintManager via a
+     second bridge method — a normal, dialog-driven print, unlike the
+     silent direct-to-PDF bridge above. In a browser, window.print() already
+     is that dialog, so it's the same call as Save PDF there. */
+  document.getElementById('print-now-btn').addEventListener('click', function(){
+    var lang = activeLang();
+    if(window.AndroidPrint && window.AndroidPrint.printDialog){ window.AndroidPrint.printDialog(lang); }
+    else { window.print(); }
   });
 })();
 </script>
@@ -2102,9 +2106,17 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     });
   });
 
-  document.querySelectorAll('.langswitch button').forEach(function(b){
-    b.addEventListener('click', closeToc);
-  });
+  var changeLangBtn = document.getElementById('change-lang-btn');
+  if(changeLangBtn){
+    changeLangBtn.addEventListener('click', function(){
+      closeToc();
+      var current = ['en','bn','hi'].filter(function(l){ return document.getElementById('doc-'+l).classList.contains('active'); })[0];
+      var welcome = document.getElementById('welcome-screen');
+      var select = document.getElementById('welcome-lang-select');
+      if(select && current){ select.value = current; }
+      if(welcome){ welcome.style.display = 'flex'; }
+    });
+  }
 })();
 </script>
 
@@ -2204,7 +2216,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
      shared yet — never blocks or nags beyond the one banner. -->
 <script>
 (function(){
-  var CURRENT_VERSION_CODE = 8;
+  var CURRENT_VERSION_CODE = 10;
   var VERSION_SHEET_ID = '1XvjtwcUpLoJV5GDU4eB0LFdjjvJ63cqxq4_iFYUopjU';
   var VERSION_CSV_URL = 'https://docs.google.com/spreadsheets/d/' + VERSION_SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=Sheet1';
 
