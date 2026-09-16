@@ -205,6 +205,7 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
    screen; without its own scroll the sticky sidebar would strand the last
    few items out of reach. */
 .toc{position:sticky; top:78px; align-self:start; grid-column:1; grid-row:1; max-height:calc(100vh - 96px); overflow-y:auto; scrollbar-width:thin;}
+.toc-more{ display:none; }
 .toc-eyebrow{ font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:12px; }
 .toc ol{list-style:none; margin:0; padding:0; counter-reset:toc;}
 .toc li{counter-increment:toc; margin-bottom:4px;}
@@ -377,32 +378,68 @@ section[id$="-history"],        .toc a[href$="-history"]{ --art-src:url('pages/h
      top margin cancels .shell's own 36px of top padding so nothing shows
      between the hint bar and the nav. */
   .toc{
-    position:static; max-height:none; overflow:visible;
-    display:flex; flex-wrap:wrap; align-items:center; gap:6px;
-    width:100vw; margin:-36px calc(50% - 50vw) 28px;
-    padding:11px max(22px, calc(50vw - 538px)) 13px;
-    background:var(--paper-raised);
-    border:none; border-bottom:1px solid var(--rule-strong);
-    border-radius:0; box-shadow:none;
+    position:static; max-height:none;
+    /* Must stay visible or it clips the More dropdown, which hangs below the
+       bar. Nothing actually spills: the fit script moves every item that
+       would overflow into that dropdown. */
+    overflow:visible;
+    display:flex; flex-wrap:nowrap; align-items:stretch; gap:0;
+    width:100vw; margin:-36px calc(50% - 50vw) 30px;
+    padding:0 max(18px, calc(50vw - 548px));
+    background:rgba(20,24,29,.82);
+    border:none; border-radius:0; box-shadow:none;
   }
   /* "CONTENTS" above a row of links reads as a card heading; a nav bar
      doesn't label itself. */
   .toc-eyebrow{ display:none; }
-  .toc-home-link{ margin:0; }
   /* display:contents dissolves the <ol> box so the list items become flex
-     children of .toc itself — that is what lets Home sit on the same
-     wrapping row as the numbered sections instead of being pushed above
-     the whole list. The counter still increments on the <li>. */
+     children of .toc itself — that is what lets Home sit on the same row as
+     the sections instead of being stranded on a line above them. */
   .toc ol{ display:contents; }
   .toc li{ margin:0; }
   .toc a, .toc-home-link{
-    padding:6px 12px; border-radius:999px;
-    border:1px solid transparent; border-left-width:1px;
+    display:flex; align-items:center; white-space:nowrap;
+    font-family:"Segoe UI",system-ui,-apple-system,sans-serif;
+    font-size:14px; font-weight:600; line-height:1.2;
+    color:rgba(255,255,255,.86);
+    margin:0; padding:15px 13px;
+    border:none; border-bottom:3px solid transparent; border-radius:0;
   }
+  .toc a:hover, .toc-home-link:hover{ color:#fff; background:rgba(255,255,255,.08); }
   .toc a.active, .toc-home-link.active{
-    border-color:var(--gold); background:var(--structural-bg);
+    color:#fff; background:transparent; border-bottom-color:var(--gold);
   }
+  /* Section numbers belong on the page, not in the nav — the reference the
+     user asked for is plain named links. */
+  .toc a::before{ content:none; }
   .toc a::after, .toc-home-link::after{ display:none; }
+
+  /* Overflow menu. The nav never wraps; whatever will not fit on one line is
+     moved in here by the layout script, which also adds .has-items. */
+  .toc-more{ position:relative; display:none; }
+  .toc-more.has-items{ display:block; }
+  .toc-more-btn{
+    display:flex; align-items:center; gap:6px; height:100%;
+    font-family:"Segoe UI",system-ui,-apple-system,sans-serif;
+    font-size:14px; font-weight:600; color:rgba(255,255,255,.86);
+    background:transparent; border:none; padding:15px 13px;
+    cursor:pointer; white-space:nowrap;
+  }
+  .toc-more-btn:hover{ color:#fff; background:rgba(255,255,255,.08); }
+  .toc-more-btn .caret{ font-size:11px; opacity:.8; }
+  .toc-more-panel{
+    display:none; position:absolute; right:0; top:100%; z-index:60;
+    min-width:260px; max-height:70vh; overflow-y:auto;
+    padding:6px 0; background:rgba(20,24,29,.97);
+    box-shadow:0 14px 34px rgba(0,0,0,.4);
+  }
+  .toc-more.open .toc-more-panel{ display:block; }
+  .toc-more-panel li{ display:block; }
+  .toc-more-panel a{
+    padding:10px 18px; border-bottom:none;
+    border-left:3px solid transparent;
+  }
+  .toc-more-panel a.active{ border-left-color:var(--gold); color:#fff; }
   .toc a::before{ width:auto; margin-right:3px; }
   /* Reserve the right end of the toolbar for the two buttons now pinned
      there, so they never land on top of "Document Formats". */
@@ -787,6 +824,10 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       <li><a href="#en-references">Related documents</a></li>
       <li><a href="#en-history">Revision history</a></li>
     </ol>
+    <div class="toc-more">
+      <button type="button" class="toc-more-btn">More <span class="caret">&#9662;</span></button>
+      <div class="toc-more-panel"></div>
+    </div>
   </nav>
 
   <article>
@@ -1334,6 +1375,10 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       <li><a href="#bn-references">সম্পর্কিত ডকুমেন্ট</a></li>
       <li><a href="#bn-history">রিভিশন হিস্ট্রি</a></li>
     </ol>
+    <div class="toc-more">
+      <button type="button" class="toc-more-btn">আরও <span class="caret">&#9662;</span></button>
+      <div class="toc-more-panel"></div>
+    </div>
   </nav>
 
   <article>
@@ -1881,6 +1926,10 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       <li><a href="#hi-references">संबंधित दस्तावेज़</a></li>
       <li><a href="#hi-history">रिवीज़न हिस्ट्री</a></li>
     </ol>
+    <div class="toc-more">
+      <button type="button" class="toc-more-btn">और <span class="caret">&#9662;</span></button>
+      <div class="toc-more-panel"></div>
+    </div>
   </nav>
 
   <article>
@@ -2317,6 +2366,9 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     document.getElementById('save-pdf-label').textContent = LABELS.savePdf[lang];
     var sel = document.getElementById('toolbar-lang-select');
     if(sel){ sel.value = lang; }
+    // Each language has its own nav with its own label widths, and the one
+    // just revealed measured zero while it was hidden — re-fit it now.
+    if(window.AlcoveLayoutNav){ window.AlcoveLayoutNav(); }
   }
   // Exposed so the Welcome screen (and anything else outside this closure)
   // can switch language without needing access to this closure's internals.
@@ -2631,3 +2683,57 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 })();
 </script>
 
+
+<!-- Priority+ navigation. The desktop menu is a single line that never
+     wraps; whatever will not fit is moved into the "More" dropdown. It has
+     to be measured rather than guessed, because the three languages have
+     very different label widths. -->
+<script>
+(function(){
+  function fit(toc){
+    var more = toc.querySelector('.toc-more');
+    var ol = toc.querySelector('ol');
+    if(!more || !ol) return;
+    var panel = more.querySelector('.toc-more-panel');
+    while(panel.firstChild){ ol.appendChild(panel.firstChild); }
+    more.classList.remove('has-items', 'open');
+    if(window.innerWidth < 901) return;
+    // Measure with the button present, or the last item would be pushed out
+    // by the button appearing afterwards.
+    more.classList.add('has-items');
+    var items = Array.prototype.slice.call(ol.children);
+    for(var i = items.length - 1; i >= 0; i--){
+      if(toc.scrollWidth <= toc.clientWidth + 1) break;
+      panel.insertBefore(items[i], panel.firstChild);
+    }
+    if(!panel.children.length){ more.classList.remove('has-items'); }
+  }
+  function fitAll(){ document.querySelectorAll('.toc').forEach(fit); }
+  window.AlcoveLayoutNav = fitAll;
+
+  document.addEventListener('click', function(ev){
+    if(!ev.target.closest) return;
+    var btn = ev.target.closest('.toc-more-btn');
+    if(btn){ ev.preventDefault(); btn.parentNode.classList.toggle('open'); return; }
+    var picked = ev.target.closest('.toc-more-panel a');
+    if(picked){
+      var owner = picked.closest('.toc-more');
+      if(owner){ owner.classList.remove('open'); }
+      return;
+    }
+    document.querySelectorAll('.toc-more.open').forEach(function(m){
+      if(!m.contains(ev.target)){ m.classList.remove('open'); }
+    });
+  });
+
+  var pending;
+  window.addEventListener('resize', function(){
+    clearTimeout(pending); pending = setTimeout(fitAll, 120);
+  });
+
+  fitAll();
+  // Web fonts land after first paint and change every label's width.
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(fitAll); }
+  setTimeout(fitAll, 500);
+})();
+</script>
