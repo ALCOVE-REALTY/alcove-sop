@@ -361,6 +361,48 @@ section[id$="-history"],        .toc a[href$="-history"]{ --art-src:url('pages/h
   }
 }
 
+/* ---------- Desktop: menu across the top, not down the side ----------
+   The sidebar is gone above 900px: the shell collapses to a single column
+   and the TOC becomes a full-width strip of chips under the toolbar, so the
+   document gets the whole width. Thumbnails are dropped here — 18 pictures
+   in a horizontal strip is noise, and they still do their job in the phone
+   menu. Back and Refresh move up into the toolbar row for the same reason
+   the menu did: everything that steers the page now lives at the top. */
+@media (min-width:901px){
+  .shell{ display:block; max-width:1120px; }
+  .toc{
+    position:static; max-height:none; overflow:visible;
+    display:flex; flex-wrap:wrap; align-items:center; gap:6px;
+    margin:0 0 24px; padding:12px 16px 14px;
+  }
+  .toc-eyebrow{ width:100%; margin:0 0 9px; }
+  .toc-home-link{ margin:0; }
+  .toc ol{ display:flex; flex-wrap:wrap; gap:6px; }
+  .toc li{ margin:0; }
+  .toc a, .toc-home-link{
+    padding:6px 12px; border-radius:999px;
+    border:1px solid transparent; border-left-width:1px;
+  }
+  .toc a.active, .toc-home-link.active{
+    border-color:var(--gold); background:var(--structural-bg);
+  }
+  .toc a::after, .toc-home-link::after{ display:none; }
+  .toc a::before{ width:auto; margin-right:3px; }
+  /* Reserve the right end of the toolbar for the two buttons now pinned
+     there, so they never land on top of "Document Formats". */
+  .toolbar{ padding-right:280px; }
+  .toolbar-updated{ display:none; }
+  /* Both buttons carry their geometry in a style attribute, so the desktop
+     override has to out-rank it — without !important the inline bottom/left
+     stay put and the pill stretches across the whole viewport. */
+  #back-fab, #refresh-fab{
+    top:9px !important; bottom:auto !important; left:auto !important;
+    z-index:40; padding:9px 15px !important; font-size:12.5px;
+  }
+  #back-fab{ right:142px !important; }
+  #refresh-fab{ right:18px !important; }
+}
+
 /* ---------- Quick-reference code chips ---------- */
 .quickref{
   grid-column:1/-1; max-width:900px; margin:0 auto 8px; border:1px solid var(--rule-strong);
