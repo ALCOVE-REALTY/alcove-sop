@@ -680,7 +680,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
         <div class="chiprow">
           <span class="chip chip-status">IFR <span class="full">Issued For Review</span></span>
           <span class="chip chip-status">IFA <span class="full">Issued For Approval</span></span>
-          <span class="chip chip-status">IFC <span class="full">Issued For Construction</span></span>
+          <span class="chip chip-status">GFC <span class="full">Good For Construction</span></span>
           <span class="chip chip-status">AFC <span class="full">Approved For Construction</span></span>
           <span class="chip chip-status">SUP <span class="full">Superseded</span></span>
         </div>
@@ -705,7 +705,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       <li><a href="#en-mdl">Master document list</a></li>
       <li><a href="#en-distribution">Distribution matrix</a></li>
       <li><a href="#en-security">Confidentiality &amp; security</a></li>
-      <li><a href="#en-nonconformance">Non‑conformance</a></li>
+      <li><a href="#en-nonconformance">DC process deviation</a></li>
       <li><a href="#en-training">Training &amp; competency</a></li>
       <li><a href="#en-kpi">Monitoring &amp; KPIs</a></li>
       <li><a href="#en-references">Related documents</a></li>
@@ -732,6 +732,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       <ul>
         <li>Drawings — Structural, Architectural and MEP (Electrical, Plumbing, HVAC, Fire Fighting/Fire Protection)</li>
         <li>Statutory sanctions and NOCs — KMC building permit, Fire permit, AAI, DFO, PCB and related approvals</li>
+        <li>Contracts and legal documents — agreements, work orders, letters of intent and the associated legal correspondence, registered and tracked through Document Control</li>
         <li>Site correspondence and QA registers — approval requests, inspection requests, transmittals, RFIs, inspection and non‑conformance reports</li>
         <li>Vendor and contractor submittals routed through Document Control</li>
       </ul>
@@ -741,17 +742,42 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     <section id="en-definitions">
       <div class="eyebrow">03</div>
       <h2>Definitions &amp; abbreviations</h2>
+      <div class="callout"><b>Note —</b> a document/register code (RFI, NCR, TRN and the like) identifies what kind of document or register something is; a status code (IFR, IFA, GFC, SUP and the like) identifies where that document stands in the issue/approval process. The two serve different purposes — do not conflate them.</div>
       <div class="twrap">
         <table>
-          <thead><tr><th style="width:110px">Term</th><th>Meaning</th></tr></thead>
+          <thead><tr><th style="width:120px">Term</th><th>Meaning</th></tr></thead>
           <tbody>
-            <tr><td class="mono">DC</td><td>Document Controller</td></tr>
-            <tr><td class="mono">HOD</td><td>Head of Department — Document Control</td></tr>
+            <tr><td class="mono">AAI</td><td>Airports Authority of India — the statutory authority responsible for building height clearance</td></tr>
+            <tr><td class="mono">ABD</td><td>As‑Built Drawing Register — tracks the final as‑built status of every drawing</td></tr>
             <tr><td class="mono">ACC</td><td>Autodesk Construction Cloud — Alcove Realty's Electronic Document Management System (EDMS)</td></tr>
+            <tr><td class="mono">CVA</td><td>Confirmation of Verbal Approval — written record closing out an instruction first given verbally or on site</td></tr>
+            <tr><td class="mono">DAR</td><td>Document / Drawing Approval Request — formal submission for consultant/client approval</td></tr>
+            <tr><td class="mono">DC</td><td>Document Controller</td></tr>
+            <tr><td class="mono">DFO</td><td>Divisional Forest Officer — the statutory authority for tree‑felling/transplantation approvals</td></tr>
+            <tr><td class="mono">DRT</td><td>Drawing Transmittal — a separate cover record used only for drawing issues</td></tr>
+            <tr><td class="mono">GFC</td><td>Good For Construction — the final drawing revision, approved and issued for use on site (a status code, see §7)</td></tr>
+            <tr><td class="mono">HOD</td><td>Head of Department — Document Control</td></tr>
+            <tr><td class="mono">HOTO</td><td>Handover–Takeover Checklist — formal record of handover to the client or facility team</td></tr>
+            <tr><td class="mono">KMC</td><td>Kolkata Municipal Corporation — the local authority that issues building permits</td></tr>
+            <tr><td class="mono">MAR</td><td>Material Approval Request — submission for approval of a material/brand/make ahead of procurement</td></tr>
             <tr><td class="mono">MDL</td><td>Master Document List — the master register of every controlled document and its current revision/status</td></tr>
-            <tr><td class="mono">NOC</td><td>No‑Objection Certificate issued by a statutory authority</td></tr>
             <tr><td class="mono">MEP</td><td>Mechanical, Electrical &amp; Plumbing services</td></tr>
+            <tr><td class="mono">MIR</td><td>Material Inspection Request — request to inspect material once it arrives on site</td></tr>
+            <tr><td class="mono">MTC</td><td>Material Test Certificate — lab/manufacturer test certificate filed against a MAR/MIR entry</td></tr>
+            <tr><td class="mono">NCR</td><td>Non‑Conformance Report — formal record of work or material not meeting the approved specification</td></tr>
+            <tr><td class="mono">NOC</td><td>No‑Objection Certificate issued by a statutory authority</td></tr>
+            <tr><td class="mono">PCB</td><td>Pollution Control Board — the authority responsible for environmental clearance and compliance</td></tr>
+            <tr><td class="mono">PMC</td><td>Project Management Consultant</td></tr>
+            <tr><td class="mono">PR</td><td>Progress Report — weekly/monthly report register</td></tr>
+            <tr><td>Project Head</td><td>The person carrying overall responsibility for a project (head of site/project management) — a role distinct from the Document Control HOD, used in the distribution matrix (§11)</td></tr>
+            <tr><td class="mono">QA</td><td>Quality Assurance</td></tr>
+            <tr><td class="mono">RFI</td><td>Request for Information — request for clarification on design or specification</td></tr>
+            <tr><td class="mono">SI</td><td>Site Instruction — written instruction issued to the contractor on site, distinct from a drawing revision</td></tr>
+            <tr><td class="mono">SNL</td><td>Snag / Punch List — pre‑handover defect list, tracked per unit/tower</td></tr>
+            <tr><td class="mono">SOR</td><td>Site Observation Report — general site observation raised by supervision/consultant staff</td></tr>
             <tr><td class="mono">Superseded</td><td>A prior revision formally replaced and withdrawn from active use</td></tr>
+            <tr><td class="mono">TRN</td><td>Document Transmittal — the cover record formally sending a document to a recipient, serving as proof of despatch and receipt</td></tr>
+            <tr><td class="mono">WIR</td><td>Work Inspection Report — record of a completed‑work inspection before proceeding to the next stage</td></tr>
           </tbody>
         </table>
       </div>
@@ -824,7 +850,6 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       <p>Site correspondence and QA registers are numbered <code>[Project]-[Register code]-[Sequence]</code>, e.g. <code>DUE-RFI-0012</code>. These reset per project, not per discipline, since they track a workflow rather than a drawing set.</p>
 
       <h3>6.3 Document type &amp; register codes</h3>
-      <p>The list below is your original set (unmarked rows), plus a few registers standard on residential/real‑estate projects that are worth adopting alongside them <span class="tag suggested">suggested</span> — review with the HOD and drop anything not needed.</p>
       <div class="twrap">
         <table>
           <thead><tr><th style="width:90px">Code</th><th style="width:220px">Register</th><th>Purpose</th></tr></thead>
@@ -839,12 +864,12 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
             <tr><td class="mono">WIR</td><td>Work Inspection Report</td><td>Record of a completed-work inspection before proceeding to the next stage</td></tr>
             <tr><td class="mono">NCR</td><td>Non‑Conformance Report</td><td>Formal record of work or material not meeting the approved specification</td></tr>
             <tr><td class="mono">SOR</td><td>Site Observation Report</td><td>General site observation raised by supervision/consultant staff</td></tr>
-            <tr class="suggested"><td class="mono">SI <span class="tag suggested">suggested</span></td><td>Site Instruction</td><td>Written instruction issued to the contractor on site, distinct from a drawing revision</td></tr>
-            <tr class="suggested"><td class="mono">MTC <span class="tag suggested">suggested</span></td><td>Material Test Certificate</td><td>Lab/manufacturer test certificate filed against a MAR/MIR entry</td></tr>
-            <tr class="suggested"><td class="mono">ABD <span class="tag suggested">suggested</span></td><td>As‑Built Drawing Register</td><td>Tracks final as‑built status per drawing — essential at handover and for future facility management</td></tr>
-            <tr class="suggested"><td class="mono">SNL <span class="tag suggested">suggested</span></td><td>Snag / Punch List</td><td>Pre‑handover defect list per unit/tower, tracked to closure</td></tr>
-            <tr class="suggested"><td class="mono">HOTO <span class="tag suggested">suggested</span></td><td>Handover–Takeover Checklist</td><td>Formal record of unit/common‑area handover to the client or facility team</td></tr>
-            <tr class="suggested"><td class="mono">PR <span class="tag suggested">suggested</span></td><td>Progress Report</td><td>Weekly/monthly report register, useful to log even though DC doesn't author it</td></tr>
+            <tr><td class="mono">SI</td><td>Site Instruction</td><td>Written instruction issued to the contractor on site, distinct from a drawing revision</td></tr>
+            <tr><td class="mono">MTC</td><td>Material Test Certificate</td><td>Lab/manufacturer test certificate filed against a MAR/MIR entry</td></tr>
+            <tr><td class="mono">ABD</td><td>As‑Built Drawing Register</td><td>Tracks final as‑built status per drawing — essential at handover and for future facility management</td></tr>
+            <tr><td class="mono">SNL</td><td>Snag / Punch List</td><td>Pre‑handover defect list per unit/tower, tracked to closure</td></tr>
+            <tr><td class="mono">HOTO</td><td>Handover–Takeover Checklist</td><td>Formal record of unit/common‑area handover to the client or facility team</td></tr>
+            <tr><td class="mono">PR</td><td>Progress Report</td><td>Weekly/monthly report register, useful to log even though DC doesn't author it</td></tr>
           </tbody>
         </table>
       </div>
@@ -862,14 +887,15 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
             <tr><td class="status">IFR</td><td>Issued For Review</td><td>Circulated for comments; not for use in construction or procurement</td></tr>
             <tr><td class="status">IFA</td><td>Issued For Approval</td><td>Formally submitted awaiting client/consultant approval</td></tr>
             <tr><td class="status">IFI</td><td>Issued For Information</td><td>Shared for awareness only, no action required</td></tr>
-            <tr><td class="status">IFC</td><td>Issued For Construction</td><td>Approved and released for site execution</td></tr>
-            <tr><td class="status">AFC</td><td>Approved For Construction</td><td>Client/consultant approval confirmed on an IFC document</td></tr>
+            <tr><td class="status">GFC</td><td>Good For Construction</td><td>Approved and released for site execution — the first point at which a document may be used in construction</td></tr>
+            <tr><td class="status">AFC</td><td>Approved For Construction</td><td>The client/consultant's formal approval of a GFC document, subsequently confirmed and recorded</td></tr>
             <tr><td class="status">AWC</td><td>Approved With Comments</td><td>Approved subject to incorporating listed comments; resubmission tracked</td></tr>
             <tr><td class="status">RTN</td><td>Returned — Resubmit</td><td>Rejected; a new revision is required before re‑issue</td></tr>
             <tr><td class="status">SUP</td><td>Superseded</td><td>Replaced by a later revision; moved to the superseded archive per §9.5</td></tr>
           </tbody>
         </table>
       </div>
+      <div class="callout"><b>How GFC and AFC relate —</b> these are two sequential steps on the same document, not alternatives. GFC issues the document as usable on site; AFC records that the client's or consultant's formal approval of that same document has since been obtained. A document may be issued as GFC first and pick up AFC status later on the same revision — the two are not parallel options.</div>
     </section>
 
     <section id="en-sanctions">
@@ -886,13 +912,14 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
             <tr><td class="mono">DFO</td><td>Forest / Tree NOC</td><td>Divisional Forest Officer — tree‑felling/transplantation clearance where applicable</td></tr>
             <tr><td class="mono">PCB</td><td>Pollution Control Consent</td><td>State Pollution Control Board — Consent to Establish / Consent to Operate</td></tr>
             <tr><td class="mono">OTH</td><td>Other Statutory NOC</td><td>Placeholder for any project‑specific NOC not yet covered by a dedicated code above (e.g. a local body clearance unique to one site) — give it a proper code drawn from the authority's own reference once identified, rather than leaving it as OTH long‑term</td></tr>
-            <tr class="suggested"><td class="mono">OC/CC <span class="tag suggested">suggested</span></td><td>Occupancy / Completion Certificate</td><td>KMC — the sanction that closes out a tower; worth its own tracked row given how handover‑critical it is</td></tr>
-            <tr class="suggested"><td class="mono">ENV <span class="tag suggested">suggested</span></td><td>Environmental Clearance</td><td>SEIAA/MoEF — required above certain built‑up‑area thresholds; confirm applicability per project</td></tr>
-            <tr class="suggested"><td class="mono">LIFT <span class="tag suggested">suggested</span></td><td>Lift Inspectorate NOC</td><td>Electrical Inspectorate — elevator installation/operation approval, needed before handover</td></tr>
+            <tr><td class="mono">OC/CC</td><td>Occupancy / Completion Certificate</td><td>KMC — the sanction that closes out a tower; worth its own tracked row given how handover‑critical it is</td></tr>
+            <tr><td class="mono">ENV</td><td>Environmental Clearance</td><td>SEIAA/MoEF — required above certain built‑up‑area thresholds; confirm applicability per project</td></tr>
+            <tr><td class="mono">LIFT</td><td>Lift Inspectorate NOC</td><td>Electrical Inspectorate — elevator installation/operation approval, needed before handover</td></tr>
           </tbody>
         </table>
       </div>
       <p>Each register row carries: application reference, date submitted, sanction/approval number, date granted, <strong>validity/expiry date</strong>, and a renewal‑alert lead time (recommend 60 days before expiry for anything renewable). The DC for that project raises the renewal alert to the HOD; the HOD tracks it through to re‑submission.</p>
+      <div class="callout"><b>Validity varies —</b> the rules on validity periods and renewal differ by authority and by project. The table above is a general framework; confirm applicability and the specific conditions for each project with the HOD.</div>
     </section>
 
     <section id="en-procedure">
@@ -900,6 +927,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       <h2>Procedure</h2>
 
       <h3>9.1 Receipt &amp; origination</h3>
+      <div class="callout"><b>Workflow order —</b> receipt → initial check → numbering → registration → review/approval → status update → transmittal → distribution. Every document follows these eight steps in the same order; no step is skipped and the order is not varied.</div>
       <ul>
         <li>Every incoming document (email, hand delivery, ACC upload, courier) is logged in the register <strong>the same working day</strong> it is received, with source, date received, and revision.</li>
         <li>Internally originated documents are numbered by the DC assigned to that project before they are sent for review — never after.</li>
@@ -961,16 +989,16 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       <p>The MDL is the register of record — every controlled document, its current revision, status, originator, and last transmittal, in one place per project. It is maintained continuously, not reconstructed periodically, and is what the HOD reviews at each internal audit.</p>
       <div class="twrap">
         <table>
-          <thead><tr><th>Doc no.</th><th>Title</th><th style="width:70px">Rev</th><th style="width:70px">Status</th><th style="width:110px">Date issued</th><th style="width:110px">Transmittal</th></tr></thead>
+          <thead><tr><th>Doc no.</th><th>Title</th><th style="width:60px">Rev</th><th style="width:70px">Status</th><th style="width:130px">Originator</th><th style="width:110px">Date issued</th><th style="width:110px">Transmittal</th></tr></thead>
           <tbody>
-            <tr><td class="num">DUE-ARC-DRG-0001</td><td>Typical Floor Plan — Tower A</td><td class="num">2</td><td class="status">AFC</td><td class="num">2026-04-11</td><td class="num">DRT-0042</td></tr>
-            <tr><td class="num">CRN-STR-DRG-0014</td><td>Foundation Layout</td><td class="num">1</td><td class="status">IFA</td><td class="num">2026-06-02</td><td class="num">DRT-0058</td></tr>
-            <tr><td class="num">LUX-FF-DRG-0006</td><td>Fire Fighting Riser Diagram</td><td class="num">0</td><td class="status">IFR</td><td class="num">2026-07-19</td><td class="num">DRT-0061</td></tr>
-            <tr><td class="num">TCV-RFI-0009</td><td>Clarification — Podium Waterproofing Detail</td><td class="num">—</td><td class="status">IFI</td><td class="num">2026-08-02</td><td class="num">TRN-0011</td></tr>
+            <tr><td class="num">DUE-ARC-DRG-0001</td><td>Typical Floor Plan — Tower A</td><td class="num">2</td><td class="status">AFC</td><td>ABC Architects</td><td class="num">2026-04-11</td><td class="num">DRT-0042</td></tr>
+            <tr><td class="num">CRN-STR-DRG-0014</td><td>Foundation Layout</td><td class="num">1</td><td class="status">IFA</td><td>XYZ Structural Consultants</td><td class="num">2026-06-02</td><td class="num">DRT-0058</td></tr>
+            <tr><td class="num">LUX-FF-DRG-0006</td><td>Fire Fighting Riser Diagram</td><td class="num">0</td><td class="status">IFR</td><td>MEP Consultant</td><td class="num">2026-07-19</td><td class="num">DRT-0061</td></tr>
+            <tr><td class="num">TCV-RFI-0009</td><td>Clarification — Podium Waterproofing Detail</td><td class="num">—</td><td class="status">IFI</td><td>Site team</td><td class="num">2026-08-02</td><td class="num">TRN-0011</td></tr>
           </tbody>
         </table>
       </div>
-      <p>Rows above are illustrative — each project's actual MDL is generated from the live register, not typed up separately.</p>
+      <p>Rows above are illustrative — each project's actual MDL is generated from the live register, not typed up separately. <strong>Originator is a mandatory field</strong>: every entry must name the consultant or team that produced the document.</p>
     </section>
 
     <section id="en-distribution">
@@ -990,6 +1018,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
           </tbody>
         </table>
       </div>
+      <div class="callout"><b>Joint review —</b> where more than one party has to review a document together, more than one column may be marked <code>R</code> for that document type. That is normal where the work calls for it, not an exception.</div>
     </section>
 
     <section id="en-security">
@@ -1004,12 +1033,13 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 
     <section id="en-nonconformance">
       <div class="eyebrow">13</div>
-      <h2>Non‑conformance &amp; corrective action</h2>
-      <p>A non‑conformance is anything that breaks the traceability this SOP exists to protect: a document issued without a number, a superseded copy still in circulation, a missing transmittal, an unauthorised distribution, an expired sanction not flagged in time.</p>
+      <h2>DC process deviation &amp; corrective action</h2>
+      <p>A DC process deviation is anything that breaks the traceability this SOP exists to protect: a document issued without a number, a superseded copy still in circulation, a missing transmittal, an unauthorised distribution, an expired sanction not flagged in time.</p>
+      <div class="callout"><b>Not the same as an NCR —</b> this log is entirely separate from the NCR (Non‑Conformance Report) in §6.3. An NCR tracks a site/construction quality issue; this log tracks lapses in the Document Control process itself.</div>
       <ul>
-        <li>Any DC who identifies a non‑conformance logs it the same day, with what was found and where, and notifies the HOD.</li>
-        <li>The HOD determines corrective action (recall, re‑issue, access review, expedited renewal) and closes it out in the non‑conformance log with a dated resolution — nothing is closed verbally.</li>
-        <li>Recurring non‑conformances of the same type are reviewed at the next team meeting to check whether the procedure, not just the individual instance, needs to change.</li>
+        <li>Any DC who identifies a process deviation logs it the same day, with what was found and where, and notifies the HOD.</li>
+        <li>The HOD determines corrective action (recall, re‑issue, access review, expedited renewal) and closes it out in the deviation log with a dated resolution — nothing is closed verbally.</li>
+        <li>Recurring deviations of the same type are reviewed at the next team meeting to check whether the procedure, not just the individual instance, needs to change.</li>
       </ul>
     </section>
 
@@ -1030,15 +1060,16 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
         <table>
           <thead><tr><th>Metric</th><th>Target</th></tr></thead>
           <tbody>
-            <tr><td>Same‑day logging of incoming documents</td><td class="num">100%</td></tr>
+            <tr><td>Same‑day logging of incoming documents (received within working hours)</td><td class="num">100%</td></tr>
             <tr><td>Transmittals issued within 1 working day of approval</td><td class="num">≥ 95%</td></tr>
             <tr><td>Superseded copies recalled within 2 working days</td><td class="num">100%</td></tr>
             <tr><td>MDL accuracy at internal audit (sample check)</td><td class="num">100%</td></tr>
             <tr><td>Statutory sanctions with a live renewal alert set</td><td class="num">100%</td></tr>
-            <tr><td>Open non‑conformances older than 14 days</td><td class="num">0</td></tr>
+            <tr><td>Open DC process deviations older than 14 days</td><td class="num">0</td></tr>
           </tbody>
         </table>
       </div>
+      <div class="callout"><b>What same‑day means —</b> for documents received outside working hours, at a weekend or on a holiday, "same‑day logging" means logging at the start of the next working day — not that same night.</div>
       <p>The HOD reviews these monthly and reports a summary to senior management.</p>
     </section>
 
@@ -1051,6 +1082,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
         <li>ACC User Access &amp; Permissions Procedure</li>
         <li>Company Records Retention Policy</li>
         <li>QA/QC Non‑Conformance Procedure</li>
+        <li>Register templates (live links)</li>
       </ul>
 
       <h3>Register templates (live links)</h3>
@@ -1069,11 +1101,11 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
             <tr><td>RFI Register</td><td class="mono">RFI · §6.3</td><td><a href="https://docs.google.com/spreadsheets/d/1MXPYjnmwvFEEZbslLjVNV8uqzbsyWjUPMMApIafa-dU/edit" target="_blank" rel="noopener">Open register</a></td></tr>
             <tr><td>Sanction Document &amp; Drawings Register</td><td class="mono">§8</td><td><a href="https://docs.google.com/spreadsheets/d/1HNHZ-ZoqKYoofcJOjyAyZVxdaIFqIQDQNuxvqLvDT_o/edit" target="_blank" rel="noopener">Open register</a></td></tr>
             <tr><td>KMC Sanction Register</td><td class="mono">KMC · §8</td><td><a href="https://docs.google.com/spreadsheets/d/1Jghm5OhNgxZqpAF7wYTLx5X4zF1ejXkaPGO1KLCsYfA/edit" target="_blank" rel="noopener">Open register</a></td></tr>
-            <tr class="suggested"><td>Method Statement Register <span class="tag suggested">suggested</span></td><td class="mono">§9.2</td><td><a href="https://docs.google.com/spreadsheets/d/1wXcLl3v8TbvKLsSb5qnZy47WBn0xSCgdEvLQT-cycPU/edit" target="_blank" rel="noopener">Open register</a></td></tr>
-            <tr class="suggested"><td>Consultant Masters <span class="tag suggested">suggested</span></td><td class="mono">§11</td><td><a href="https://docs.google.com/spreadsheets/d/1g7K3NgQb8lfC-zv1UdbYYtUvbBkQ-8tX3xmTtASOJfY/edit" target="_blank" rel="noopener">Open register</a></td></tr>
-            <tr class="suggested"><td>File Name &amp; Location Index <span class="tag suggested">suggested</span></td><td class="mono">§9.6</td><td><a href="https://docs.google.com/spreadsheets/d/1gU1h8jh-e7qR1ZJPkpH1eLkFL74OSIGymToAM2tjwUc/edit" target="_blank" rel="noopener">Open register</a></td></tr>
-            <tr class="suggested"><td>Insurance Policy Tracker <span class="tag suggested">suggested</span></td><td class="mono">§16</td><td><a href="https://docs.google.com/spreadsheets/d/1BRqBkAVUkybl9VycpndTIY51daIRL9WkXokHe7SxcRg/edit" target="_blank" rel="noopener">Open register</a></td></tr>
-            <tr class="suggested"><td>Land Owner Email Register <span class="tag suggested">suggested</span></td><td class="mono">§16</td><td><a href="https://docs.google.com/spreadsheets/d/1ixNkpaCmGkGzZz9TgL9UbqCbMwF88rGwnXdl0ZnnT40/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr><td>Method Statement Register <span class="tag suggested">suggested</span></td><td class="mono">§9.2</td><td><a href="https://docs.google.com/spreadsheets/d/1wXcLl3v8TbvKLsSb5qnZy47WBn0xSCgdEvLQT-cycPU/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr><td>Consultant Masters <span class="tag suggested">suggested</span></td><td class="mono">§11</td><td><a href="https://docs.google.com/spreadsheets/d/1g7K3NgQb8lfC-zv1UdbYYtUvbBkQ-8tX3xmTtASOJfY/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr><td>File Name &amp; Location Index <span class="tag suggested">suggested</span></td><td class="mono">§9.6</td><td><a href="https://docs.google.com/spreadsheets/d/1gU1h8jh-e7qR1ZJPkpH1eLkFL74OSIGymToAM2tjwUc/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr><td>Insurance Policy Tracker <span class="tag suggested">suggested</span></td><td class="mono">§16</td><td><a href="https://docs.google.com/spreadsheets/d/1BRqBkAVUkybl9VycpndTIY51daIRL9WkXokHe7SxcRg/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr><td>Land Owner Email Register <span class="tag suggested">suggested</span></td><td class="mono">§16</td><td><a href="https://docs.google.com/spreadsheets/d/1ixNkpaCmGkGzZz9TgL9UbqCbMwF88rGwnXdl0ZnnT40/edit" target="_blank" rel="noopener">Open register</a></td></tr>
           </tbody>
         </table>
       </div>
@@ -1195,7 +1227,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
         <div class="chiprow">
           <span class="chip chip-status">IFR <span class="full">ইস্যুড ফর রিভিউ</span></span>
           <span class="chip chip-status">IFA <span class="full">ইস্যুড ফর অ্যাপ্রুভাল</span></span>
-          <span class="chip chip-status">IFC <span class="full">ইস্যুড ফর কনস্ট্রাকশন</span></span>
+          <span class="chip chip-status">GFC <span class="full">গুড ফর কনস্ট্রাকশন</span></span>
           <span class="chip chip-status">AFC <span class="full">অ্যাপ্রুভড ফর কনস্ট্রাকশন</span></span>
           <span class="chip chip-status">SUP <span class="full">সুপারসিডেড</span></span>
         </div>
@@ -1220,7 +1252,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       <li><a href="#bn-mdl">মাস্টার ডকুমেন্ট লিস্ট</a></li>
       <li><a href="#bn-distribution">ডিস্ট্রিবিউশন ম্যাট্রিক্স</a></li>
       <li><a href="#bn-security">কনফিডেন্সিয়ালিটি ও সিকিউরিটি</a></li>
-      <li><a href="#bn-nonconformance">নন-কনফরম্যান্স</a></li>
+      <li><a href="#bn-nonconformance">DC প্রসেস ডেভিয়েশন</a></li>
       <li><a href="#bn-training">ট্রেনিং ও যোগ্যতা</a></li>
       <li><a href="#bn-kpi">মনিটরিং ও KPI</a></li>
       <li><a href="#bn-references">সম্পর্কিত ডকুমেন্ট</a></li>
@@ -1247,6 +1279,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       <ul>
         <li>ড্রয়িং — স্ট্রাকচারাল, আর্কিটেকচারাল এবং MEP (ইলেকট্রিক্যাল, প্লাম্বিং, HVAC, ফায়ার ফাইটিং/ফায়ার প্রোটেকশন)</li>
         <li>স্ট্যাটুটরি স্যাংশন ও NOC — KMC বিল্ডিং পারমিট, ফায়ার পারমিট, AAI, DFO, PCB এবং সম্পর্কিত অনুমোদন</li>
+        <li>কন্ট্রাক্ট ও লিগ্যাল ডকুমেন্ট — এগ্রিমেন্ট, ওয়ার্ক অর্ডার, লেটার অফ ইনটেন্ট এবং সংশ্লিষ্ট লিগ্যাল কোরেসপন্ডেন্স, যা Document Control-এর মাধ্যমে রেজিস্টার্ড ও ট্র্যাক করা হয়</li>
         <li>সাইট কারেসপন্ডেন্স ও QA রেজিস্টার — অ্যাপ্রুভাল রিকোয়েস্ট, ইন্সপেকশন রিকোয়েস্ট, ট্রান্সমিটাল, RFI, ইন্সপেকশন ও নন-কনফরম্যান্স রিপোর্ট</li>
         <li>Document Control-এর মাধ্যমে রুট হওয়া ভেন্ডর ও কন্ট্রাক্টর সাবমিটাল</li>
       </ul>
@@ -1256,17 +1289,42 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     <section id="bn-definitions">
       <div class="eyebrow">০৩</div>
       <h2>সংজ্ঞা ও সংক্ষিপ্ত রূপ</h2>
+      <div class="callout"><b>নোট —</b> ডকুমেন্ট/রেজিস্টার কোড (যেমন RFI, NCR, TRN) কোনো ডকুমেন্ট বা রেজিস্টারের ধরন চিহ্নিত করে; স্ট্যাটাস কোড (যেমন IFR, IFA, GFC, SUP) সেই ডকুমেন্টের ইস্যু/অনুমোদনের অবস্থা চিহ্নিত করে। দুটো ভিন্ন উদ্দেশ্যে ব্যবহৃত — একসাথে গুলিয়ে ফেলবেন না।</div>
       <div class="twrap">
         <table>
-          <thead><tr><th style="width:110px">টার্ম</th><th>অর্থ</th></tr></thead>
+          <thead><tr><th style="width:120px">টার্ম</th><th>অর্থ</th></tr></thead>
           <tbody>
-            <tr><td class="mono">DC</td><td>ডকুমেন্ট কন্ট্রোলার</td></tr>
-            <tr><td class="mono">HOD</td><td>হেড অফ ডিপার্টমেন্ট — ডকুমেন্ট কন্ট্রোল</td></tr>
+            <tr><td class="mono">AAI</td><td>এয়ারপোর্ট অথরিটি অফ ইন্ডিয়া — বিল্ডিং হাইট ক্লিয়ারেন্সের জন্য দায়ী স্ট্যাটুটরি অথরিটি</td></tr>
+            <tr><td class="mono">ABD</td><td>অ্যাজ-বিল্ট ড্রয়িং রেজিস্টার — প্রতিটি ড্রয়িং-এর ফাইনাল অ্যাজ-বিল্ট স্ট্যাটাস ট্র্যাক করে</td></tr>
             <tr><td class="mono">ACC</td><td>Autodesk Construction Cloud — অ্যালকোভ রিয়েলটির ইলেকট্রনিক ডকুমেন্ট ম্যানেজমেন্ট সিস্টেম (EDMS)</td></tr>
+            <tr><td class="mono">CVA</td><td>কনফার্মেশন অফ ভার্বাল অ্যাপ্রুভাল — মৌখিক বা সাইটে দেওয়া নির্দেশনার লিখিত রেকর্ড ক্লোজ-আউট</td></tr>
+            <tr><td class="mono">DAR</td><td>ডকুমেন্ট / ড্রয়িং অ্যাপ্রুভাল রিকোয়েস্ট — কনসালট্যান্ট/ক্লায়েন্টের অনুমোদনের জন্য আনুষ্ঠানিক সাবমিশন</td></tr>
+            <tr><td class="mono">DC</td><td>ডকুমেন্ট কন্ট্রোলার</td></tr>
+            <tr><td class="mono">DFO</td><td>ডিভিশনাল ফরেস্ট অফিসার — ট্রি কাটিং/ট্রান্সপ্লান্টেশন সংক্রান্ত অনুমোদনের জন্য দায়ী স্ট্যাটুটরি অথরিটি</td></tr>
+            <tr><td class="mono">DRT</td><td>ড্রয়িং ট্রান্সমিটাল — শুধু ড্রয়িং ইস্যুর জন্য আলাদা কভার রেকর্ড</td></tr>
+            <tr><td class="mono">GFC</td><td>Good For Construction — অনুমোদিত ও সাইটে ব্যবহারের জন্য ইস্যুকৃত চূড়ান্ত ড্রয়িং রিভিশন (স্ট্যাটাস কোড, §৭ দেখুন)</td></tr>
+            <tr><td class="mono">HOD</td><td>হেড অফ ডিপার্টমেন্ট — ডকুমেন্ট কন্ট্রোল</td></tr>
+            <tr><td class="mono">HOTO</td><td>হ্যান্ডওভার–টেকওভার চেকলিস্ট — ক্লায়েন্ট/ফ্যাসিলিটি টিমের কাছে হ্যান্ডওভারের আনুষ্ঠানিক রেকর্ড</td></tr>
+            <tr><td class="mono">KMC</td><td>কলকাতা মিউনিসিপ্যাল কর্পোরেশন — বিল্ডিং পারমিট ইস্যুকারী স্থানীয় অথরিটি</td></tr>
+            <tr><td class="mono">MAR</td><td>মেটেরিয়াল অ্যাপ্রুভাল রিকোয়েস্ট — প্রকিউরমেন্টের আগে মেটেরিয়াল/ব্র্যান্ড/মেক অনুমোদনের জন্য সাবমিশন</td></tr>
             <tr><td class="mono">MDL</td><td>মাস্টার ডকুমেন্ট লিস্ট — প্রতিটি কন্ট্রোলড ডকুমেন্ট ও তার বর্তমান রিভিশন/স্ট্যাটাসের মাস্টার রেজিস্টার</td></tr>
-            <tr><td class="mono">NOC</td><td>কোনো স্ট্যাটুটরি অথরিটির দেওয়া নো-অবজেকশন সার্টিফিকেট</td></tr>
             <tr><td class="mono">MEP</td><td>মেকানিক্যাল, ইলেকট্রিক্যাল ও প্লাম্বিং সার্ভিস</td></tr>
+            <tr><td class="mono">MIR</td><td>মেটেরিয়াল ইন্সপেকশন রিকোয়েস্ট — মেটেরিয়াল সাইটে আসার পর ইন্সপেকশনের অনুরোধ</td></tr>
+            <tr><td class="mono">MTC</td><td>মেটেরিয়াল টেস্ট সার্টিফিকেট — MAR/MIR এন্ট্রির বিপরীতে ফাইল করা ল্যাব/ম্যানুফ্যাকচারার টেস্ট সার্টিফিকেট</td></tr>
+            <tr><td class="mono">NCR</td><td>নন-কনফরম্যান্স রিপোর্ট — অনুমোদিত স্পেসিফিকেশন মেনে না-চলা কাজ/মেটেরিয়ালের আনুষ্ঠানিক রেকর্ড</td></tr>
+            <tr><td class="mono">NOC</td><td>কোনো স্ট্যাটুটরি অথরিটির দেওয়া নো-অবজেকশন সার্টিফিকেট</td></tr>
+            <tr><td class="mono">PCB</td><td>পলিউশন কন্ট্রোল বোর্ড — পরিবেশগত ছাড়পত্র ও কমপ্লায়েন্সের জন্য দায়ী অথরিটি</td></tr>
+            <tr><td class="mono">PMC</td><td>প্রজেক্ট ম্যানেজমেন্ট কনসালট্যান্ট</td></tr>
+            <tr><td class="mono">PR</td><td>প্রগ্রেস রিপোর্ট — সাপ্তাহিক/মাসিক রিপোর্ট রেজিস্টার</td></tr>
+            <tr><td>প্রজেক্ট হেড</td><td>সংশ্লিষ্ট প্রজেক্টের সামগ্রিক দায়িত্বে থাকা ব্যক্তি (সাইট/প্রজেক্ট ম্যানেজমেন্টের প্রধান) — Document Control-এর HOD থেকে পৃথক একটি রোল, ডিস্ট্রিবিউশন ম্যাট্রিক্সে (§১১) ব্যবহৃত</td></tr>
+            <tr><td class="mono">QA</td><td>কোয়ালিটি অ্যাসুরেন্স</td></tr>
+            <tr><td class="mono">RFI</td><td>রিকোয়েস্ট ফর ইনফরমেশন — ডিজাইন/স্পেসিফিকেশন সংক্রান্ত স্পষ্টীকরণের অনুরোধ</td></tr>
+            <tr><td class="mono">SI</td><td>সাইট ইনস্ট্রাকশন — সাইটে কন্ট্রাক্টরকে দেওয়া লিখিত নির্দেশনা, ড্রয়িং রিভিশন থেকে আলাদা</td></tr>
+            <tr><td class="mono">SNL</td><td>স্ন্যাগ / পাঞ্চ লিস্ট — প্রি-হ্যান্ডওভার ডিফেক্ট লিস্ট, প্রতিটি ইউনিট/টাওয়ার অনুযায়ী ট্র্যাক করা</td></tr>
+            <tr><td class="mono">SOR</td><td>সাইট অবজারভেশন রিপোর্ট — সুপারভিশন/কনসালট্যান্ট স্টাফের তোলা সাধারণ সাইট অবজারভেশন</td></tr>
             <tr><td class="mono">সুপারসিডেড</td><td>যে পূর্ববর্তী রিভিশন আনুষ্ঠানিকভাবে প্রতিস্থাপিত হয়ে সক্রিয় ব্যবহার থেকে প্রত্যাহার করা হয়েছে</td></tr>
+            <tr><td class="mono">TRN</td><td>ডকুমেন্ট ট্রান্সমিটাল — কোনো ডকুমেন্ট আনুষ্ঠানিকভাবে প্রাপকের কাছে পাঠানোর কভার রেকর্ড, যা প্রেরণ ও প্রাপ্তির প্রমাণ হিসেবে কাজ করে</td></tr>
+            <tr><td class="mono">WIR</td><td>ওয়ার্ক ইন্সপেকশন রিপোর্ট — পরবর্তী পর্যায়ে যাওয়ার আগে সম্পন্ন কাজের ইন্সপেকশনের রেকর্ড</td></tr>
           </tbody>
         </table>
       </div>
@@ -1339,7 +1397,6 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       <p>সাইট কারেসপন্ডেন্স ও QA রেজিস্টারের নম্বর হবে <code>[প্রজেক্ট]-[রেজিস্টার কোড]-[সিকোয়েন্স]</code> ফরম্যাটে, যেমন <code>DUE-RFI-0012</code>। এগুলো প্রজেক্ট অনুযায়ী রিসেট হয়, ডিসিপ্লিন অনুযায়ী নয় — কারণ এগুলো একটি ড্রয়িং সেট নয়, একটি ওয়ার্কফ্লো ট্র্যাক করে।</p>
 
       <h3>৬.৩ ডকুমেন্ট টাইপ ও রেজিস্টার কোড</h3>
-      <p>নিচের তালিকায় প্রথমে আপনার দেওয়া মূল সেট (আনমার্কড রো), এবং তার সাথে আবাসিক/রিয়েল-এস্টেট প্রজেক্টে সাধারণত ব্যবহৃত আরও কিছু রেজিস্টার <span class="tag suggested">সাজেস্টেড</span> যোগ করা হয়েছে — HOD-এর সাথে রিভিউ করে যা দরকার নেই তা বাদ দিন।</p>
       <div class="twrap">
         <table>
           <thead><tr><th style="width:90px">কোড</th><th style="width:230px">রেজিস্টার</th><th>উদ্দেশ্য</th></tr></thead>
@@ -1354,12 +1411,12 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
             <tr><td class="mono">WIR</td><td>ওয়ার্ক ইন্সপেকশন রিপোর্ট</td><td>পরবর্তী পর্যায়ে যাওয়ার আগে সম্পন্ন কাজের ইন্সপেকশনের রেকর্ড</td></tr>
             <tr><td class="mono">NCR</td><td>নন-কনফরম্যান্স রিপোর্ট</td><td>অনুমোদিত স্পেসিফিকেশন মেনে না-চলা কাজ বা মেটেরিয়ালের আনুষ্ঠানিক রেকর্ড</td></tr>
             <tr><td class="mono">SOR</td><td>সাইট অবজারভেশন রিপোর্ট</td><td>সুপারভিশন/কনসালট্যান্ট স্টাফের তোলা সাধারণ সাইট অবজারভেশন</td></tr>
-            <tr class="suggested"><td class="mono">SI <span class="tag suggested">সাজেস্টেড</span></td><td>সাইট ইনস্ট্রাকশন</td><td>সাইটে কন্ট্রাক্টরকে দেওয়া লিখিত নির্দেশনা, ড্রয়িং রিভিশন থেকে আলাদা</td></tr>
-            <tr class="suggested"><td class="mono">MTC <span class="tag suggested">সাজেস্টেড</span></td><td>মেটেরিয়াল টেস্ট সার্টিফিকেট</td><td>MAR/MIR এন্ট্রির বিপরীতে ফাইল করা ল্যাব/ম্যানুফ্যাকচারার টেস্ট সার্টিফিকেট</td></tr>
-            <tr class="suggested"><td class="mono">ABD <span class="tag suggested">সাজেস্টেড</span></td><td>অ্যাজ-বিল্ট ড্রয়িং রেজিস্টার</td><td>প্রতিটি ড্রয়িং-এর ফাইনাল অ্যাজ-বিল্ট স্ট্যাটাস ট্র্যাক করে — হ্যান্ডওভার ও ভবিষ্যৎ ফ্যাসিলিটি ম্যানেজমেন্টের জন্য অত্যন্ত জরুরি</td></tr>
-            <tr class="suggested"><td class="mono">SNL <span class="tag suggested">সাজেস্টেড</span></td><td>স্ন্যাগ / পাঞ্চ লিস্ট</td><td>প্রি-হ্যান্ডওভার ডিফেক্ট লিস্ট, প্রতিটি ইউনিট/টাওয়ার অনুযায়ী, ক্লোজার পর্যন্ত ট্র্যাক করা</td></tr>
-            <tr class="suggested"><td class="mono">HOTO <span class="tag suggested">সাজেস্টেড</span></td><td>হ্যান্ডওভার–টেকওভার চেকলিস্ট</td><td>ক্লায়েন্ট বা ফ্যাসিলিটি টিমের কাছে ইউনিট/কমন-এরিয়া হ্যান্ডওভারের আনুষ্ঠানিক রেকর্ড</td></tr>
-            <tr class="suggested"><td class="mono">PR <span class="tag suggested">সাজেস্টেড</span></td><td>প্রগ্রেস রিপোর্ট</td><td>সাপ্তাহিক/মাসিক রিপোর্ট রেজিস্টার — DC এটি না লিখলেও লগ করে রাখা কাজে দেয়</td></tr>
+            <tr><td class="mono">SI</td><td>সাইট ইনস্ট্রাকশন</td><td>সাইটে কন্ট্রাক্টরকে দেওয়া লিখিত নির্দেশনা, ড্রয়িং রিভিশন থেকে আলাদা</td></tr>
+            <tr><td class="mono">MTC</td><td>মেটেরিয়াল টেস্ট সার্টিফিকেট</td><td>MAR/MIR এন্ট্রির বিপরীতে ফাইল করা ল্যাব/ম্যানুফ্যাকচারার টেস্ট সার্টিফিকেট</td></tr>
+            <tr><td class="mono">ABD</td><td>অ্যাজ-বিল্ট ড্রয়িং রেজিস্টার</td><td>প্রতিটি ড্রয়িং-এর ফাইনাল অ্যাজ-বিল্ট স্ট্যাটাস ট্র্যাক করে — হ্যান্ডওভার ও ভবিষ্যৎ ফ্যাসিলিটি ম্যানেজমেন্টের জন্য অত্যন্ত জরুরি</td></tr>
+            <tr><td class="mono">SNL</td><td>স্ন্যাগ / পাঞ্চ লিস্ট</td><td>প্রি-হ্যান্ডওভার ডিফেক্ট লিস্ট, প্রতিটি ইউনিট/টাওয়ার অনুযায়ী, ক্লোজার পর্যন্ত ট্র্যাক করা</td></tr>
+            <tr><td class="mono">HOTO</td><td>হ্যান্ডওভার–টেকওভার চেকলিস্ট</td><td>ক্লায়েন্ট বা ফ্যাসিলিটি টিমের কাছে ইউনিট/কমন-এরিয়া হ্যান্ডওভারের আনুষ্ঠানিক রেকর্ড</td></tr>
+            <tr><td class="mono">PR</td><td>প্রগ্রেস রিপোর্ট</td><td>সাপ্তাহিক/মাসিক রিপোর্ট রেজিস্টার — DC এটি না লিখলেও লগ করে রাখা কাজে দেয়</td></tr>
           </tbody>
         </table>
       </div>
@@ -1377,14 +1434,15 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
             <tr><td class="status">IFR</td><td>Issued For Review</td><td>মন্তব্যের জন্য পাঠানো হয়েছে; নির্মাণ বা প্রকিউরমেন্টের জন্য নয়</td></tr>
             <tr><td class="status">IFA</td><td>Issued For Approval</td><td>ক্লায়েন্ট/কনসালট্যান্টের অনুমোদনের অপেক্ষায় আনুষ্ঠানিকভাবে সাবমিট করা হয়েছে</td></tr>
             <tr><td class="status">IFI</td><td>Issued For Information</td><td>শুধু অবগতির জন্য শেয়ার করা হয়েছে, কোনো অ্যাকশন দরকার নেই</td></tr>
-            <tr><td class="status">IFC</td><td>Issued For Construction</td><td>অনুমোদিত এবং সাইট এক্সিকিউশনের জন্য রিলিজ করা হয়েছে</td></tr>
-            <tr><td class="status">AFC</td><td>Approved For Construction</td><td>IFC ডকুমেন্টে ক্লায়েন্ট/কনসালট্যান্টের অনুমোদন নিশ্চিত হয়েছে</td></tr>
+            <tr><td class="status">GFC</td><td>Good For Construction</td><td>অনুমোদিত এবং সাইট এক্সিকিউশনের জন্য রিলিজ করা হয়েছে — নির্মাণে ব্যবহারযোগ্য প্রথম ধাপ</td></tr>
+            <tr><td class="status">AFC</td><td>Approved For Construction</td><td>একটি GFC ডকুমেন্টে ক্লায়েন্ট/কনসালট্যান্টের আনুষ্ঠানিক অনুমোদন পরবর্তীতে নিশ্চিত ও রেকর্ড করা হয়েছে</td></tr>
             <tr><td class="status">AWC</td><td>Approved With Comments</td><td>তালিকাভুক্ত মন্তব্য অন্তর্ভুক্ত করার শর্তে অনুমোদিত; পুনঃসাবমিশন ট্র্যাক করা হয়</td></tr>
             <tr><td class="status">RTN</td><td>Returned — Resubmit</td><td>প্রত্যাখ্যাত; পুনরায় ইস্যুর আগে নতুন রিভিশন দরকার</td></tr>
             <tr><td class="status">SUP</td><td>Superseded</td><td>পরবর্তী রিভিশন দিয়ে প্রতিস্থাপিত; §৯.৫ অনুযায়ী সুপারসিডেড আর্কাইভে সরানো হয়</td></tr>
           </tbody>
         </table>
       </div>
+      <div class="callout"><b>GFC ও AFC-এর সম্পর্ক —</b> এই দুটি একই ডকুমেন্টের ধারাবাহিক দুটি ধাপ, বিকল্প নয়। GFC ডকুমেন্টটিকে সাইটে ব্যবহারযোগ্য হিসেবে ইস্যু করে; AFC সেই একই ডকুমেন্টের উপর ক্লায়েন্ট/কনসালট্যান্টের আনুষ্ঠানিক অনুমোদন যুক্ত হওয়া নির্দেশ করে। একটি ডকুমেন্ট প্রথমে GFC হিসেবে ইস্যু হতে পারে, পরে একই রিভিশনে AFC স্ট্যাটাস যোগ হতে পারে — দুটো স্ট্যাটাস সমান্তরাল বিকল্প নয়।</div>
     </section>
 
     <section id="bn-sanctions">
@@ -1401,20 +1459,22 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
             <tr><td class="mono">DFO</td><td>ফরেস্ট / ট্রি NOC</td><td>Divisional Forest Officer — প্রযোজ্য ক্ষেত্রে গাছ কাটা/প্রতিস্থাপনের ক্লিয়ারেন্স</td></tr>
             <tr><td class="mono">PCB</td><td>পলিউশন কন্ট্রোল কনসেন্ট</td><td>State Pollution Control Board — Consent to Establish / Consent to Operate</td></tr>
             <tr><td class="mono">OTH</td><td>অন্যান্য স্ট্যাটুটরি NOC</td><td>উপরের নির্দিষ্ট কোডগুলোর বাইরে কোনো প্রজেক্ট-নির্দিষ্ট NOC-এর জন্য প্লেসহোল্ডার (যেমন কোনো একটি সাইটের জন্য বিশেষ কোনো স্থানীয় ক্লিয়ারেন্স) — চিহ্নিত হওয়ার পর অথরিটির নিজস্ব রেফারেন্স থেকে একটা যথাযথ কোড দিন, দীর্ঘদিন OTH রেখে দেবেন না</td></tr>
-            <tr class="suggested"><td class="mono">OC/CC <span class="tag suggested">সাজেস্টেড</span></td><td>অকুপেন্সি / কমপ্লিশন সার্টিফিকেট</td><td>KMC — একটি টাওয়ার ক্লোজ-আউট করা স্যাংশন; হ্যান্ডওভারের জন্য এত গুরুত্বপূর্ণ যে আলাদাভাবে ট্র্যাক করা উচিত</td></tr>
-            <tr class="suggested"><td class="mono">ENV <span class="tag suggested">সাজেস্টেড</span></td><td>এনভায়রনমেন্টাল ক্লিয়ারেন্স</td><td>SEIAA/MoEF — নির্দিষ্ট বিল্ট-আপ-এরিয়া থ্রেশহোল্ডের উপরে প্রয়োজন; প্রজেক্ট অনুযায়ী প্রযোজ্যতা যাচাই করুন</td></tr>
-            <tr class="suggested"><td class="mono">LIFT <span class="tag suggested">সাজেস্টেড</span></td><td>লিফট ইন্সপেক্টরেট NOC</td><td>Electrical Inspectorate — এলিভেটর ইনস্টলেশন/অপারেশন অনুমোদন, হ্যান্ডওভারের আগে প্রয়োজন</td></tr>
+            <tr><td class="mono">OC/CC</td><td>অকুপেন্সি / কমপ্লিশন সার্টিফিকেট</td><td>KMC — একটি টাওয়ার ক্লোজ-আউট করা স্যাংশন; হ্যান্ডওভারের জন্য এত গুরুত্বপূর্ণ যে আলাদাভাবে ট্র্যাক করা উচিত</td></tr>
+            <tr><td class="mono">ENV</td><td>এনভায়রনমেন্টাল ক্লিয়ারেন্স</td><td>SEIAA/MoEF — নির্দিষ্ট বিল্ট-আপ-এরিয়া থ্রেশহোল্ডের উপরে প্রয়োজন; প্রজেক্ট অনুযায়ী প্রযোজ্যতা যাচাই করুন</td></tr>
+            <tr><td class="mono">LIFT</td><td>লিফট ইন্সপেক্টরেট NOC</td><td>Electrical Inspectorate — এলিভেটর ইনস্টলেশন/অপারেশন অনুমোদন, হ্যান্ডওভারের আগে প্রয়োজন</td></tr>
           </tbody>
         </table>
       </div>
       <p>রেজিস্টারের প্রতিটি সারিতে থাকবে: অ্যাপ্লিকেশন রেফারেন্স, সাবমিশনের তারিখ, স্যাংশন/অ্যাপ্রুভাল নম্বর, মঞ্জুরের তারিখ, <strong>মেয়াদ/এক্সপায়ারি তারিখ</strong>, এবং একটি রিনিউয়াল-অ্যালার্ট লিড-টাইম (রিনিউয়েবল যেকোনো কিছুর জন্য মেয়াদ শেষের ৬০ দিন আগে রাখার পরামর্শ)। সেই প্রজেক্টের DC HOD-কে রিনিউয়াল অ্যালার্ট জানান; HOD সেটি পুনরায়-সাবমিশন পর্যন্ত ট্র্যাক করেন।</p>
+      <div class="callout"><b>মেয়াদ প্রতিটি ক্ষেত্রে আলাদা —</b> স্ট্যাটুটরি অনুমোদন সংক্রান্ত মেয়াদ ও renewal-এর নিয়ম প্রতিটি অথরিটি ও প্রজেক্ট অনুযায়ী ভিন্ন হতে পারে। উপরের বিবরণ একটি সাধারণ কাঠামো; প্রতিটি প্রজেক্টে প্রযোজ্যতা ও নির্দিষ্ট শর্ত HOD-এর সাথে যাচাই করে নিতে হবে।</div>
     </section>
 
     <section id="bn-procedure">
       <div class="eyebrow">০৯</div>
       <h2>প্রসিডিউর</h2>
 
-      <h3>৯.১ প্রাপ্তি ও origination</h3>
+      <h3>৯.১ প্রাপ্তি ও উৎপত্তি</h3>
+      <div class="callout"><b>ওয়ার্কফ্লো ক্রম —</b> প্রাপ্তি → প্রাথমিক যাচাই → নম্বরকরণ → রেজিস্ট্রেশন → রিভিউ/অনুমোদন → স্ট্যাটাস আপডেট → ট্রান্সমিটাল → বিতরণ। এই আটটি ধাপ প্রতিটি ডকুমেন্টের জন্য একই ক্রমে অনুসরণ করা হয়; কোনো ধাপ এড়িয়ে যাওয়া বা ক্রম পরিবর্তন করা যাবে না।</div>
       <ul>
         <li>প্রতিটি ইনকামিং ডকুমেন্ট (ইমেইল, হাতে-ডেলিভারি, ACC আপলোড, কুরিয়ার) প্রাপ্তির <strong>একই কর্মদিবসে</strong> সোর্স, প্রাপ্তির তারিখ ও রিভিশনসহ রেজিস্টারে লগ করা হয়।</li>
         <li>ইন্টারনালি তৈরি ডকুমেন্ট রিভিউয়ে পাঠানোর আগেই সংশ্লিষ্ট প্রজেক্টের DC নম্বর দেন — পরে নয়।</li>
@@ -1476,16 +1536,16 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       <p>MDL হলো রেকর্ডের রেজিস্টার — প্রতিটি কন্ট্রোলড ডকুমেন্ট, তার বর্তমান রিভিশন, স্ট্যাটাস, অরিজিনেটর এবং সর্বশেষ ট্রান্সমিটাল, প্রতিটি প্রজেক্টের জন্য একটি জায়গায়। এটি নিয়মিতভাবে আপডেট রাখা হয়, মাঝেমধ্যে বানিয়ে নেওয়া হয় না, এবং প্রতিটি ইন্টারনাল অডিটে HOD এটিই পর্যালোচনা করেন।</p>
       <div class="twrap">
         <table>
-          <thead><tr><th>ডক নং</th><th>শিরোনাম</th><th style="width:70px">রিভিশন</th><th style="width:70px">স্ট্যাটাস</th><th style="width:110px">ইস্যুর তারিখ</th><th style="width:110px">ট্রান্সমিটাল</th></tr></thead>
+          <thead><tr><th>ডক নং</th><th>শিরোনাম</th><th style="width:60px">রিভিশন</th><th style="width:70px">স্ট্যাটাস</th><th style="width:130px">Originator</th><th style="width:110px">ইস্যুর তারিখ</th><th style="width:110px">ট্রান্সমিটাল</th></tr></thead>
           <tbody>
-            <tr><td class="num">DUE-ARC-DRG-0001</td><td>টিপিক্যাল ফ্লোর প্ল্যান — টাওয়ার A</td><td class="num">2</td><td class="status">AFC</td><td class="num">2026-04-11</td><td class="num">DRT-0042</td></tr>
-            <tr><td class="num">CRN-STR-DRG-0014</td><td>ফাউন্ডেশন লেআউট</td><td class="num">1</td><td class="status">IFA</td><td class="num">2026-06-02</td><td class="num">DRT-0058</td></tr>
-            <tr><td class="num">LUX-FF-DRG-0006</td><td>ফায়ার ফাইটিং রাইজার ডায়াগ্রাম</td><td class="num">0</td><td class="status">IFR</td><td class="num">2026-07-19</td><td class="num">DRT-0061</td></tr>
-            <tr><td class="num">TCV-RFI-0009</td><td>স্পষ্টীকরণ — পোডিয়াম ওয়াটারপ্রুফিং ডিটেইল</td><td class="num">—</td><td class="status">IFI</td><td class="num">2026-08-02</td><td class="num">TRN-0011</td></tr>
+            <tr><td class="num">DUE-ARC-DRG-0001</td><td>টিপিক্যাল ফ্লোর প্ল্যান — টাওয়ার A</td><td class="num">2</td><td class="status">AFC</td><td>ABC Architects</td><td class="num">2026-04-11</td><td class="num">DRT-0042</td></tr>
+            <tr><td class="num">CRN-STR-DRG-0014</td><td>ফাউন্ডেশন লেআউট</td><td class="num">1</td><td class="status">IFA</td><td>XYZ Structural Consultants</td><td class="num">2026-06-02</td><td class="num">DRT-0058</td></tr>
+            <tr><td class="num">LUX-FF-DRG-0006</td><td>ফায়ার ফাইটিং রাইজার ডায়াগ্রাম</td><td class="num">0</td><td class="status">IFR</td><td>MEP Consultant</td><td class="num">2026-07-19</td><td class="num">DRT-0061</td></tr>
+            <tr><td class="num">TCV-RFI-0009</td><td>স্পষ্টীকরণ — পোডিয়াম ওয়াটারপ্রুফিং ডিটেইল</td><td class="num">—</td><td class="status">IFI</td><td>সাইট টিম</td><td class="num">2026-08-02</td><td class="num">TRN-0011</td></tr>
           </tbody>
         </table>
       </div>
-      <p>উপরের সারিগুলো উদাহরণমাত্র — প্রতিটি প্রজেক্টের প্রকৃত MDL লাইভ রেজিস্টার থেকে তৈরি হয়, আলাদাভাবে টাইপ করা হয় না।</p>
+      <p>উপরের সারিগুলো উদাহরণমাত্র — প্রতিটি প্রজেক্টের প্রকৃত MDL লাইভ রেজিস্টার থেকে তৈরি হয়, আলাদাভাবে টাইপ করা হয় না। <strong>"Originator" কলামটি বাধ্যতামূলক ফিল্ড</strong> — কোন কনসালট্যান্ট/দল ডকুমেন্টটি তৈরি করেছে তা প্রতিটি এন্ট্রিতে উল্লেখ করতে হবে।</p>
     </section>
 
     <section id="bn-distribution">
@@ -1505,6 +1565,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
           </tbody>
         </table>
       </div>
+      <div class="callout"><b>জয়েন্ট রিভিউ —</b> একাধিক পক্ষ যদি যৌথভাবে একটি ডকুমেন্ট রিভিউ করেন, সেই ডকুমেন্ট টাইপের একাধিক কলামে <code>R</code> চিহ্নিত করা যেতে পারে — এটি ব্যতিক্রম নয়, প্রয়োজন অনুযায়ী স্বাভাবিক।</div>
     </section>
 
     <section id="bn-security">
@@ -1519,12 +1580,13 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 
     <section id="bn-nonconformance">
       <div class="eyebrow">১৩</div>
-      <h2>নন-কনফরম্যান্স ও করেক্টিভ অ্যাকশন</h2>
-      <p>নন-কনফরম্যান্স হলো এমন কিছু যা এই SOP-র রক্ষা করা ট্রেসেবিলিটি ভেঙে দেয়: নম্বর ছাড়া ইস্যু হওয়া ডকুমেন্ট, এখনো সার্কুলেশনে থাকা সুপারসিডেড কপি, হারিয়ে যাওয়া ট্রান্সমিটাল, অননুমোদিত বিতরণ, সময়মতো ফ্ল্যাগ না-হওয়া মেয়াদ-শেষ স্যাংশন।</p>
+      <h2>DC প্রসেস ডেভিয়েশন ও সংশোধনমূলক ব্যবস্থা</h2>
+      <p>DC প্রসেস ডেভিয়েশন হলো এমন যেকোনো ঘটনা যা এই SOP-এর রক্ষা করা ট্রেসেবিলিটি ভঙ্গ করে — নম্বরবিহীন ইস্যুকৃত ডকুমেন্ট, এখনও সার্কুলেশনে থাকা সুপারসিডেড কপি, অনুপস্থিত ট্রান্সমিটাল, অননুমোদিত বিতরণ, বা সময়মতো ফ্ল্যাগ না-করা মেয়াদ-উত্তীর্ণ স্যাংশন।</p>
+      <div class="callout"><b>NCR-এর সাথে গুলিয়ে ফেলবেন না —</b> এটি §৬.৩-এর NCR (নন-কনফরম্যান্স রিপোর্ট) থেকে সম্পূর্ণ পৃথক একটি লগ। NCR সাইট/কনস্ট্রাকশন কোয়ালিটি ইস্যু ট্র্যাক করে; এই লগ Document Control প্রক্রিয়ার নিজস্ব ব্যত্যয় ট্র্যাক করে।</div>
       <ul>
-        <li>কোনো DC নন-কনফরম্যান্স শনাক্ত করলে, সেদিনই কী পাওয়া গেছে ও কোথায় তা লগ করে HOD-কে জানান।</li>
-        <li>HOD করেক্টিভ অ্যাকশন (রিকল, পুনরায় ইস্যু, অ্যাক্সেস রিভিউ, দ্রুত রিনিউয়াল) নির্ধারণ করেন এবং নন-কনফরম্যান্স লগে একটি তারিখযুক্ত রেজোলিউশন দিয়ে সেটি ক্লোজ করেন — মৌখিকভাবে কিছু ক্লোজ করা হয় না।</li>
-        <li>একই ধরনের নন-কনফরম্যান্স বারবার হলে, শুধু সেই ঘটনাই নয়, প্রসিডিউরটিরই পরিবর্তন দরকার কিনা তা পরবর্তী টিম মিটিংয়ে পর্যালোচনা করা হয়।</li>
+        <li>যে DC কোনো প্রসেস ডেভিয়েশন শনাক্ত করেন, তিনি একই দিনে সেটি লগ করেন — কী পাওয়া গেছে এবং কোথায় — এবং HOD-কে জানান।</li>
+        <li>HOD সংশোধনমূলক ব্যবস্থা (রিকল, পুনরায়-ইস্যু, অ্যাক্সেস রিভিউ, এক্সপিডাইটেড রিনিউয়াল) নির্ধারণ করেন এবং একটি তারিখসহ রেজোলিউশন দিয়ে ডেভিয়েশন লগে এটি ক্লোজ করেন — মৌখিকভাবে কিছুই ক্লোজ করা হয় না।</li>
+        <li>একই ধরনের বারবার ঘটা ডেভিয়েশন পরবর্তী টিম মিটিংয়ে রিভিউ করা হয়, যাতে শুধু একটি ঘটনা নয় বরং প্রসিডিউর নিজেই পরিবর্তন করা দরকার কি না তা যাচাই করা যায়।</li>
       </ul>
     </section>
 
@@ -1545,15 +1607,16 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
         <table>
           <thead><tr><th>মেট্রিক</th><th>টার্গেট</th></tr></thead>
           <tbody>
-            <tr><td>ইনকামিং ডকুমেন্টের একই-দিনে লগিং</td><td class="num">100%</td></tr>
+            <tr><td>ইনকামিং ডকুমেন্টের একই-দিনে লগিং (কর্মঘণ্টার মধ্যে প্রাপ্ত)</td><td class="num">100%</td></tr>
             <tr><td>অনুমোদনের ১ কর্মদিবসের মধ্যে ট্রান্সমিটাল ইস্যু</td><td class="num">≥ 95%</td></tr>
             <tr><td>২ কর্মদিবসের মধ্যে সুপারসিডেড কপি ফেরত</td><td class="num">100%</td></tr>
             <tr><td>ইন্টারনাল অডিটে MDL নির্ভুলতা (স্যাম্পল চেক)</td><td class="num">100%</td></tr>
             <tr><td>স্ট্যাটুটরি স্যাংশনে লাইভ রিনিউয়াল অ্যালার্ট সেট করা</td><td class="num">100%</td></tr>
-            <tr><td>১৪ দিনের বেশি পুরনো খোলা নন-কনফরম্যান্স</td><td class="num">0</td></tr>
+            <tr><td>১৪ দিনের বেশি পুরনো ওপেন DC প্রসেস ডেভিয়েশন</td><td class="num">0</td></tr>
           </tbody>
         </table>
       </div>
+      <div class="callout"><b>একই-দিনে লগিং মানে —</b> কর্মঘণ্টার বাইরে, সপ্তাহান্তে বা ছুটির দিনে প্রাপ্ত ডকুমেন্টের ক্ষেত্রে "একই-দিনে লগিং" মানে পরবর্তী কর্মদিবসের শুরুতে লগ করা — সেদিন রাতেই নয়।</div>
       <p>HOD প্রতি মাসে এগুলো পর্যালোচনা করে সিনিয়র ম্যানেজমেন্টকে একটি সারসংক্ষেপ রিপোর্ট করেন।</p>
     </section>
 
@@ -1566,6 +1629,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
         <li>ACC ইউজার অ্যাক্সেস ও পারমিশন প্রসিডিউর</li>
         <li>কোম্পানি রেকর্ডস রিটেনশন পলিসি</li>
         <li>QA/QC নন-কনফরম্যান্স প্রসিডিউর</li>
+        <li>রেজিস্টার টেমপ্লেট (লাইভ লিংক)</li>
       </ul>
 
       <h3>রেজিস্টার টেমপ্লেট (লাইভ লিংক)</h3>
@@ -1584,11 +1648,11 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
             <tr><td>RFI Register</td><td class="mono">RFI · §৬.৩</td><td><a href="https://docs.google.com/spreadsheets/d/1MXPYjnmwvFEEZbslLjVNV8uqzbsyWjUPMMApIafa-dU/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
             <tr><td>Sanction Document &amp; Drawings Register</td><td class="mono">§৮</td><td><a href="https://docs.google.com/spreadsheets/d/1HNHZ-ZoqKYoofcJOjyAyZVxdaIFqIQDQNuxvqLvDT_o/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
             <tr><td>KMC Sanction Register</td><td class="mono">KMC · §৮</td><td><a href="https://docs.google.com/spreadsheets/d/1Jghm5OhNgxZqpAF7wYTLx5X4zF1ejXkaPGO1KLCsYfA/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
-            <tr class="suggested"><td>Method Statement Register <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">§৯.২</td><td><a href="https://docs.google.com/spreadsheets/d/1wXcLl3v8TbvKLsSb5qnZy47WBn0xSCgdEvLQT-cycPU/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
-            <tr class="suggested"><td>Consultant Masters <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">§১১</td><td><a href="https://docs.google.com/spreadsheets/d/1g7K3NgQb8lfC-zv1UdbYYtUvbBkQ-8tX3xmTtASOJfY/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
-            <tr class="suggested"><td>File Name &amp; Location Index <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">§৯.৬</td><td><a href="https://docs.google.com/spreadsheets/d/1gU1h8jh-e7qR1ZJPkpH1eLkFL74OSIGymToAM2tjwUc/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
-            <tr class="suggested"><td>Insurance Policy Tracker <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">§১৬</td><td><a href="https://docs.google.com/spreadsheets/d/1BRqBkAVUkybl9VycpndTIY51daIRL9WkXokHe7SxcRg/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
-            <tr class="suggested"><td>Land Owner Email Register <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">§১৬</td><td><a href="https://docs.google.com/spreadsheets/d/1ixNkpaCmGkGzZz9TgL9UbqCbMwF88rGwnXdl0ZnnT40/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr><td>Method Statement Register <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">§৯.২</td><td><a href="https://docs.google.com/spreadsheets/d/1wXcLl3v8TbvKLsSb5qnZy47WBn0xSCgdEvLQT-cycPU/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr><td>Consultant Masters <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">§১১</td><td><a href="https://docs.google.com/spreadsheets/d/1g7K3NgQb8lfC-zv1UdbYYtUvbBkQ-8tX3xmTtASOJfY/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr><td>File Name &amp; Location Index <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">§৯.৬</td><td><a href="https://docs.google.com/spreadsheets/d/1gU1h8jh-e7qR1ZJPkpH1eLkFL74OSIGymToAM2tjwUc/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr><td>Insurance Policy Tracker <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">§১৬</td><td><a href="https://docs.google.com/spreadsheets/d/1BRqBkAVUkybl9VycpndTIY51daIRL9WkXokHe7SxcRg/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr><td>Land Owner Email Register <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">§১৬</td><td><a href="https://docs.google.com/spreadsheets/d/1ixNkpaCmGkGzZz9TgL9UbqCbMwF88rGwnXdl0ZnnT40/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
           </tbody>
         </table>
       </div>
@@ -1710,7 +1774,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
         <div class="chiprow">
           <span class="chip chip-status">IFR <span class="full">इश्यूड फॉर रिव्यू</span></span>
           <span class="chip chip-status">IFA <span class="full">इश्यूड फॉर अप्रूवल</span></span>
-          <span class="chip chip-status">IFC <span class="full">इश्यूड फॉर कंस्ट्रक्शन</span></span>
+          <span class="chip chip-status">GFC <span class="full">गुड फॉर कंस्ट्रक्शन</span></span>
           <span class="chip chip-status">AFC <span class="full">अप्रूव्ड फॉर कंस्ट्रक्शन</span></span>
           <span class="chip chip-status">SUP <span class="full">सुपरसीडेड</span></span>
         </div>
@@ -1735,7 +1799,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       <li><a href="#hi-mdl">मास्टर डॉक्यूमेंट लिस्ट</a></li>
       <li><a href="#hi-distribution">डिस्ट्रीब्यूशन मैट्रिक्स</a></li>
       <li><a href="#hi-security">गोपनीयता व सुरक्षा</a></li>
-      <li><a href="#hi-nonconformance">नॉन-कन्फॉर्मेंस</a></li>
+      <li><a href="#hi-nonconformance">DC प्रोसेस डेविएशन</a></li>
       <li><a href="#hi-training">प्रशिक्षण व योग्यता</a></li>
       <li><a href="#hi-kpi">मॉनिटरिंग व KPI</a></li>
       <li><a href="#hi-references">संबंधित दस्तावेज़</a></li>
@@ -1762,6 +1826,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       <ul>
         <li>ड्रॉइंग — स्ट्रक्चरल, आर्किटेक्चरल और MEP (इलेक्ट्रिकल, प्लंबिंग, HVAC, फायर फाइटिंग/फायर प्रोटेक्शन)</li>
         <li>स्टैट्यूटरी सैंक्शन और NOC — KMC बिल्डिंग परमिट, फायर परमिट, AAI, DFO, PCB और संबंधित अनुमोदन</li>
+        <li>कॉन्ट्रैक्ट व लीगल दस्तावेज़ — एग्रीमेंट, वर्क ऑर्डर, लेटर ऑफ़ इंटेंट और उनसे जुड़ा लीगल कॉरेस्पॉन्डेंस, जो Document Control के ज़रिए रजिस्टर्ड व ट्रैक किया जाता है</li>
         <li>साइट कॉरेस्पॉन्डेंस व QA रजिस्टर — अप्रूवल रिक्वेस्ट, इंस्पेक्शन रिक्वेस्ट, ट्रांसमिटल, RFI, इंस्पेक्शन व नॉन-कन्फॉर्मेंस रिपोर्ट</li>
         <li>डॉक्यूमेंट कंट्रोल के ज़रिए रूट होने वाले वेंडर व कॉन्ट्रैक्टर सबमिटल</li>
       </ul>
@@ -1771,17 +1836,42 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     <section id="hi-definitions">
       <div class="eyebrow">०३</div>
       <h2>परिभाषाएँ व संक्षिप्ताक्षर</h2>
+      <div class="callout"><b>नोट —</b> डॉक्यूमेंट/रजिस्टर कोड (जैसे RFI, NCR, TRN) यह बताता है कि दस्तावेज़ या रजिस्टर किस प्रकार का है; स्टेटस कोड (जैसे IFR, IFA, GFC, SUP) उस दस्तावेज़ की इशू/अनुमोदन की स्थिति बताता है। दोनों अलग उद्देश्य से इस्तेमाल होते हैं — इन्हें आपस में न मिलाएँ।</div>
       <div class="twrap">
         <table>
-          <thead><tr><th style="width:110px">शब्द</th><th>अर्थ</th></tr></thead>
+          <thead><tr><th style="width:120px">शब्द</th><th>अर्थ</th></tr></thead>
           <tbody>
-            <tr><td class="mono">DC</td><td>डॉक्यूमेंट कंट्रोलर</td></tr>
-            <tr><td class="mono">HOD</td><td>हेड ऑफ डिपार्टमेंट — डॉक्यूमेंट कंट्रोल</td></tr>
+            <tr><td class="mono">AAI</td><td>एयरपोर्ट अथॉरिटी ऑफ इंडिया — बिल्डिंग हाइट क्लियरेंस के लिए ज़िम्मेदार स्टैट्यूटरी अथॉरिटी</td></tr>
+            <tr><td class="mono">ABD</td><td>ऐज़-बिल्ट ड्रॉइंग रजिस्टर — हर ड्रॉइंग की फ़ाइनल ऐज़-बिल्ट स्थिति ट्रैक करता है</td></tr>
             <tr><td class="mono">ACC</td><td>Autodesk Construction Cloud — अल्कोव रियल्टी का इलेक्ट्रॉनिक डॉक्यूमेंट मैनेजमेंट सिस्टम (EDMS)</td></tr>
+            <tr><td class="mono">CVA</td><td>कन्फ़र्मेशन ऑफ़ वर्बल अप्रूवल — मौखिक रूप से या साइट पर दिए गए निर्देश का लिखित रिकॉर्ड क्लोज़-आउट</td></tr>
+            <tr><td class="mono">DAR</td><td>डॉक्यूमेंट / ड्रॉइंग अप्रूवल रिक्वेस्ट — कंसल्टेंट/क्लाइंट के अनुमोदन के लिए औपचारिक सबमिशन</td></tr>
+            <tr><td class="mono">DC</td><td>डॉक्यूमेंट कंट्रोलर</td></tr>
+            <tr><td class="mono">DFO</td><td>डिविजनल फ़ॉरेस्ट ऑफिसर — पेड़ काटने/ट्रांसप्लांटेशन संबंधी अनुमोदन के लिए ज़िम्मेदार स्टैट्यूटरी अथॉरिटी</td></tr>
+            <tr><td class="mono">DRT</td><td>ड्रॉइंग ट्रांसमिटल — केवल ड्रॉइंग इशू के लिए अलग कवर रिकॉर्ड</td></tr>
+            <tr><td class="mono">GFC</td><td>Good For Construction — अनुमोदित और साइट पर उपयोग के लिए जारी अंतिम ड्रॉइंग रिवीज़न (स्टेटस कोड, §७ देखें)</td></tr>
+            <tr><td class="mono">HOD</td><td>हेड ऑफ डिपार्टमेंट — डॉक्यूमेंट कंट्रोल</td></tr>
+            <tr><td class="mono">HOTO</td><td>हैंडओवर–टेकओवर चेकलिस्ट — क्लाइंट/फ़ैसिलिटी टीम को हैंडओवर का औपचारिक रिकॉर्ड</td></tr>
+            <tr><td class="mono">KMC</td><td>कोलकाता म्युनिसिपल कॉर्पोरेशन — बिल्डिंग परमिट जारी करने वाली स्थानीय अथॉरिटी</td></tr>
+            <tr><td class="mono">MAR</td><td>मटेरियल अप्रूवल रिक्वेस्ट — प्रोक्योरमेंट से पहले मटेरियल/ब्रांड/मेक के अनुमोदन के लिए सबमिशन</td></tr>
             <tr><td class="mono">MDL</td><td>मास्टर डॉक्यूमेंट लिस्ट — हर कंट्रोल्ड दस्तावेज़ व उसके मौजूदा रिवीज़न/स्टेटस का मास्टर रजिस्टर</td></tr>
-            <tr><td class="mono">NOC</td><td>किसी स्टैट्यूटरी अथॉरिटी द्वारा दिया गया नो-ऑब्जेक्शन सर्टिफिकेट</td></tr>
             <tr><td class="mono">MEP</td><td>मैकेनिकल, इलेक्ट्रिकल व प्लंबिंग सर्विसेज़</td></tr>
+            <tr><td class="mono">MIR</td><td>मटेरियल इंस्पेक्शन रिक्वेस्ट — मटेरियल साइट पर आने के बाद इंस्पेक्शन का अनुरोध</td></tr>
+            <tr><td class="mono">MTC</td><td>मटेरियल टेस्ट सर्टिफिकेट — MAR/MIR एंट्री के विरुद्ध फ़ाइल किया गया लैब/मैन्युफैक्चरर टेस्ट सर्टिफिकेट</td></tr>
+            <tr><td class="mono">NCR</td><td>नॉन-कन्फ़ॉर्मेंस रिपोर्ट — अनुमोदित स्पेसिफिकेशन के अनुरूप न होने वाले काम/मटेरियल का औपचारिक रिकॉर्ड</td></tr>
+            <tr><td class="mono">NOC</td><td>किसी स्टैट्यूटरी अथॉरिटी द्वारा दिया गया नो-ऑब्जेक्शन सर्टिफिकेट</td></tr>
+            <tr><td class="mono">PCB</td><td>पॉल्यूशन कंट्रोल बोर्ड — पर्यावरणीय क्लियरेंस व कम्प्लायंस के लिए ज़िम्मेदार अथॉरिटी</td></tr>
+            <tr><td class="mono">PMC</td><td>प्रोजेक्ट मैनेजमेंट कंसल्टेंट</td></tr>
+            <tr><td class="mono">PR</td><td>प्रोग्रेस रिपोर्ट — साप्ताहिक/मासिक रिपोर्ट रजिस्टर</td></tr>
+            <tr><td>प्रोजेक्ट हेड</td><td>संबंधित प्रोजेक्ट की समग्र ज़िम्मेदारी रखने वाला व्यक्ति (साइट/प्रोजेक्ट मैनेजमेंट का प्रमुख) — Document Control के HOD से अलग एक रोल, डिस्ट्रिब्यूशन मैट्रिक्स (§११) में प्रयुक्त</td></tr>
+            <tr><td class="mono">QA</td><td>क्वालिटी अश्योरेंस</td></tr>
+            <tr><td class="mono">RFI</td><td>रिक्वेस्ट फ़ॉर इंफ़ॉर्मेशन — डिज़ाइन/स्पेसिफिकेशन संबंधी स्पष्टीकरण का अनुरोध</td></tr>
+            <tr><td class="mono">SI</td><td>साइट इंस्ट्रक्शन — साइट पर कॉन्ट्रैक्टर को दिया गया लिखित निर्देश, ड्रॉइंग रिवीज़न से अलग</td></tr>
+            <tr><td class="mono">SNL</td><td>स्नैग / पंच लिस्ट — प्री-हैंडओवर डिफ़ेक्ट लिस्ट, हर यूनिट/टावर के अनुसार ट्रैक की जाती है</td></tr>
+            <tr><td class="mono">SOR</td><td>साइट ऑब्ज़र्वेशन रिपोर्ट — सुपरविज़न/कंसल्टेंट स्टाफ़ द्वारा उठाया गया सामान्य साइट ऑब्ज़र्वेशन</td></tr>
             <tr><td class="mono">सुपरसीडेड</td><td>वह पूर्व रिवीज़न जिसे औपचारिक रूप से बदल दिया गया है और सक्रिय उपयोग से हटा दिया गया है</td></tr>
+            <tr><td class="mono">TRN</td><td>डॉक्यूमेंट ट्रांसमिटल — किसी दस्तावेज़ को औपचारिक रूप से प्राप्तकर्ता तक भेजने का कवर रिकॉर्ड, जो भेजने व प्राप्ति का प्रमाण होता है</td></tr>
+            <tr><td class="mono">WIR</td><td>वर्क इंस्पेक्शन रिपोर्ट — अगले चरण पर जाने से पहले पूर्ण कार्य के इंस्पेक्शन का रिकॉर्ड</td></tr>
           </tbody>
         </table>
       </div>
@@ -1854,7 +1944,6 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       <p>साइट कॉरेस्पॉन्डेंस व QA रजिस्टर को <code>[प्रोजेक्ट]-[रजिस्टर कोड]-[सीक्वेंस]</code> फॉर्मेट में नंबर दिया जाता है, जैसे <code>DUE-RFI-0012</code>। ये प्रोजेक्ट के अनुसार रीसेट होते हैं, डिसिप्लिन के अनुसार नहीं — क्योंकि ये किसी ड्रॉइंग सेट को नहीं, बल्कि एक वर्कफ़्लो को ट्रैक करते हैं।</p>
 
       <h3>6.3 डॉक्यूमेंट टाइप व रजिस्टर कोड</h3>
-      <p>नीचे दी गई सूची में पहले आपका मूल सेट (बिना मार्क वाली पंक्तियाँ) है, और साथ ही रेज़िडेंशियल/रियल-एस्टेट प्रोजेक्ट्स में आमतौर पर इस्तेमाल होने वाले कुछ और रजिस्टर <span class="tag suggested">सुझाए गए</span> जोड़े गए हैं — HOD के साथ समीक्षा कर जो ज़रूरी न हो उसे हटा दें।</p>
       <div class="twrap">
         <table>
           <thead><tr><th style="width:90px">कोड</th><th style="width:230px">रजिस्टर</th><th>उद्देश्य</th></tr></thead>
@@ -1869,12 +1958,12 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
             <tr><td class="mono">WIR</td><td>वर्क इंस्पेक्शन रिपोर्ट</td><td>अगले चरण में जाने से पहले पूरे हो चुके काम के इंस्पेक्शन का रिकॉर्ड</td></tr>
             <tr><td class="mono">NCR</td><td>नॉन-कन्फॉर्मेंस रिपोर्ट</td><td>अनुमोदित स्पेसिफिकेशन के अनुरूप न होने वाले काम या मटेरियल का औपचारिक रिकॉर्ड</td></tr>
             <tr><td class="mono">SOR</td><td>साइट ऑब्ज़र्वेशन रिपोर्ट</td><td>सुपरविज़न/कंसल्टेंट स्टाफ द्वारा उठाया गया सामान्य साइट ऑब्ज़र्वेशन</td></tr>
-            <tr class="suggested"><td class="mono">SI <span class="tag suggested">सुझाया गया</span></td><td>साइट इंस्ट्रक्शन</td><td>साइट पर कॉन्ट्रैक्टर को दिया गया लिखित निर्देश, ड्रॉइंग रिवीज़न से अलग</td></tr>
-            <tr class="suggested"><td class="mono">MTC <span class="tag suggested">सुझाया गया</span></td><td>मटेरियल टेस्ट सर्टिफिकेट</td><td>MAR/MIR एंट्री के विरुद्ध फाइल किया गया लैब/मैन्युफैक्चरर टेस्ट सर्टिफिकेट</td></tr>
-            <tr class="suggested"><td class="mono">ABD <span class="tag suggested">सुझाया गया</span></td><td>ऐज़-बिल्ट ड्रॉइंग रजिस्टर</td><td>हर ड्रॉइंग की अंतिम ऐज़-बिल्ट स्थिति ट्रैक करता है — हैंडओवर व भविष्य के फैसिलिटी मैनेजमेंट के लिए बेहद ज़रूरी</td></tr>
-            <tr class="suggested"><td class="mono">SNL <span class="tag suggested">सुझाया गया</span></td><td>स्नैग / पंच लिस्ट</td><td>हैंडओवर से पहले की डिफेक्ट लिस्ट, प्रति यूनिट/टावर, क्लोज़र तक ट्रैक की जाए</td></tr>
-            <tr class="suggested"><td class="mono">HOTO <span class="tag suggested">सुझाया गया</span></td><td>हैंडओवर–टेकओवर चेकलिस्ट</td><td>क्लाइंट या फैसिलिटी टीम को यूनिट/कॉमन-एरिया हैंडओवर का औपचारिक रिकॉर्ड</td></tr>
-            <tr class="suggested"><td class="mono">PR <span class="tag suggested">सुझाया गया</span></td><td>प्रोग्रेस रिपोर्ट</td><td>साप्ताहिक/मासिक रिपोर्ट रजिस्टर — DC इसे न लिखे तब भी लॉग रखना काम आता है</td></tr>
+            <tr><td class="mono">SI</td><td>साइट इंस्ट्रक्शन</td><td>साइट पर कॉन्ट्रैक्टर को दिया गया लिखित निर्देश, ड्रॉइंग रिवीज़न से अलग</td></tr>
+            <tr><td class="mono">MTC</td><td>मटेरियल टेस्ट सर्टिफिकेट</td><td>MAR/MIR एंट्री के विरुद्ध फाइल किया गया लैब/मैन्युफैक्चरर टेस्ट सर्टिफिकेट</td></tr>
+            <tr><td class="mono">ABD</td><td>ऐज़-बिल्ट ड्रॉइंग रजिस्टर</td><td>हर ड्रॉइंग की अंतिम ऐज़-बिल्ट स्थिति ट्रैक करता है — हैंडओवर व भविष्य के फैसिलिटी मैनेजमेंट के लिए बेहद ज़रूरी</td></tr>
+            <tr><td class="mono">SNL</td><td>स्नैग / पंच लिस्ट</td><td>हैंडओवर से पहले की डिफेक्ट लिस्ट, प्रति यूनिट/टावर, क्लोज़र तक ट्रैक की जाए</td></tr>
+            <tr><td class="mono">HOTO</td><td>हैंडओवर–टेकओवर चेकलिस्ट</td><td>क्लाइंट या फैसिलिटी टीम को यूनिट/कॉमन-एरिया हैंडओवर का औपचारिक रिकॉर्ड</td></tr>
+            <tr><td class="mono">PR</td><td>प्रोग्रेस रिपोर्ट</td><td>साप्ताहिक/मासिक रिपोर्ट रजिस्टर — DC इसे न लिखे तब भी लॉग रखना काम आता है</td></tr>
           </tbody>
         </table>
       </div>
@@ -1892,14 +1981,15 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
             <tr><td class="status">IFR</td><td>Issued For Review</td><td>टिप्पणियों के लिए भेजा गया; निर्माण या खरीद के लिए नहीं</td></tr>
             <tr><td class="status">IFA</td><td>Issued For Approval</td><td>क्लाइंट/कंसल्टेंट के अनुमोदन की प्रतीक्षा में औपचारिक रूप से सबमिट किया गया</td></tr>
             <tr><td class="status">IFI</td><td>Issued For Information</td><td>सिर्फ जानकारी के लिए साझा किया गया, कोई कार्रवाई ज़रूरी नहीं</td></tr>
-            <tr><td class="status">IFC</td><td>Issued For Construction</td><td>अनुमोदित और साइट एक्ज़ीक्यूशन के लिए जारी</td></tr>
-            <tr><td class="status">AFC</td><td>Approved For Construction</td><td>IFC दस्तावेज़ पर क्लाइंट/कंसल्टेंट का अनुमोदन पुष्ट हुआ</td></tr>
+            <tr><td class="status">GFC</td><td>Good For Construction</td><td>अनुमोदित और साइट एक्ज़ीक्यूशन के लिए जारी — निर्माण में उपयोग योग्य पहला चरण</td></tr>
+            <tr><td class="status">AFC</td><td>Approved For Construction</td><td>किसी GFC दस्तावेज़ पर क्लाइंट/कंसल्टेंट का औपचारिक अनुमोदन बाद में पुष्ट व रिकॉर्ड किया गया</td></tr>
             <tr><td class="status">AWC</td><td>Approved With Comments</td><td>सूचीबद्ध टिप्पणियाँ शामिल करने की शर्त पर अनुमोदित; पुनः सबमिशन ट्रैक किया जाता है</td></tr>
             <tr><td class="status">RTN</td><td>Returned — Resubmit</td><td>अस्वीकृत; दोबारा जारी करने से पहले नया रिवीज़न ज़रूरी</td></tr>
             <tr><td class="status">SUP</td><td>Superseded</td><td>बाद के रिवीज़न से बदला गया; §9.5 के अनुसार सुपरसीडेड आर्काइव में ले जाया गया</td></tr>
           </tbody>
         </table>
       </div>
+      <div class="callout"><b>GFC और AFC का संबंध —</b> ये एक ही दस्तावेज़ के दो क्रमिक चरण हैं, विकल्प नहीं। GFC दस्तावेज़ को साइट पर उपयोग योग्य के रूप में जारी करता है; AFC उसी दस्तावेज़ पर क्लाइंट/कंसल्टेंट का औपचारिक अनुमोदन जुड़ जाने को दर्शाता है। कोई दस्तावेज़ पहले GFC के रूप में जारी हो सकता है और बाद में उसी रिवीज़न पर AFC स्टेटस पा सकता है — दोनों समानांतर विकल्प नहीं हैं।</div>
     </section>
 
     <section id="hi-sanctions">
@@ -1916,20 +2006,22 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
             <tr><td class="mono">DFO</td><td>फॉरेस्ट / ट्री NOC</td><td>Divisional Forest Officer — लागू होने पर पेड़ काटने/स्थानांतरण की क्लियरेंस</td></tr>
             <tr><td class="mono">PCB</td><td>पॉल्यूशन कंट्रोल कन्सेंट</td><td>State Pollution Control Board — Consent to Establish / Consent to Operate</td></tr>
             <tr><td class="mono">OTH</td><td>अन्य स्टैट्यूटरी NOC</td><td>ऊपर दिए गए कोड्स से बाहर किसी प्रोजेक्ट-विशिष्ट NOC के लिए प्लेसहोल्डर (जैसे किसी एक साइट के लिए कोई खास स्थानीय क्लियरेंस) — पहचान होने के बाद अथॉरिटी के अपने रेफरेंस से एक उचित कोड दें, लंबे समय तक OTH न रखें</td></tr>
-            <tr class="suggested"><td class="mono">OC/CC <span class="tag suggested">सुझाया गया</span></td><td>ऑक्युपेंसी / कम्प्लीशन सर्टिफिकेट</td><td>KMC — एक टावर को क्लोज़-आउट करने वाला सैंक्शन; हैंडओवर के लिए इतना अहम कि अलग से ट्रैक होना चाहिए</td></tr>
-            <tr class="suggested"><td class="mono">ENV <span class="tag suggested">सुझाया गया</span></td><td>एनवायरनमेंटल क्लियरेंस</td><td>SEIAA/MoEF — कुछ बिल्ट-अप-एरिया सीमा से ऊपर ज़रूरी; प्रोजेक्ट अनुसार लागू होना कन्फर्म करें</td></tr>
-            <tr class="suggested"><td class="mono">LIFT <span class="tag suggested">सुझाया गया</span></td><td>लिफ्ट इंस्पेक्टोरेट NOC</td><td>Electrical Inspectorate — एलिवेटर इंस्टॉलेशन/ऑपरेशन अनुमोदन, हैंडओवर से पहले ज़रूरी</td></tr>
+            <tr><td class="mono">OC/CC</td><td>ऑक्युपेंसी / कम्प्लीशन सर्टिफिकेट</td><td>KMC — एक टावर को क्लोज़-आउट करने वाला सैंक्शन; हैंडओवर के लिए इतना अहम कि अलग से ट्रैक होना चाहिए</td></tr>
+            <tr><td class="mono">ENV</td><td>एनवायरनमेंटल क्लियरेंस</td><td>SEIAA/MoEF — कुछ बिल्ट-अप-एरिया सीमा से ऊपर ज़रूरी; प्रोजेक्ट अनुसार लागू होना कन्फर्म करें</td></tr>
+            <tr><td class="mono">LIFT</td><td>लिफ्ट इंस्पेक्टोरेट NOC</td><td>Electrical Inspectorate — एलिवेटर इंस्टॉलेशन/ऑपरेशन अनुमोदन, हैंडओवर से पहले ज़रूरी</td></tr>
           </tbody>
         </table>
       </div>
       <p>रजिस्टर की हर पंक्ति में होगा: एप्लीकेशन रेफरेंस, सबमिशन की तारीख, सैंक्शन/अप्रूवल नंबर, मंज़ूरी की तारीख, <strong>वैधता/एक्सपायरी तारीख</strong>, और एक रिन्यूअल-अलर्ट लीड-टाइम (रिन्यूएबल किसी भी चीज़ के लिए मियाद खत्म होने से 60 दिन पहले रखने की सलाह)। संबंधित प्रोजेक्ट का DC HOD को रिन्यूअल अलर्ट देता है; HOD उसे पुनः-सबमिशन तक ट्रैक करते हैं।</p>
+      <div class="callout"><b>मियाद हर मामले में अलग —</b> स्टैट्यूटरी अनुमोदन की मियाद व renewal के नियम हर अथॉरिटी और हर प्रोजेक्ट के अनुसार अलग हो सकते हैं। ऊपर दिया विवरण एक सामान्य ढाँचा है; हर प्रोजेक्ट में प्रयोज्यता व विशिष्ट शर्तें HOD के साथ जाँच लें।</div>
     </section>
 
     <section id="hi-procedure">
       <div class="eyebrow">०९</div>
       <h2>प्रोसीजर</h2>
 
-      <h3>9.1 प्राप्ति व origination</h3>
+      <h3>9.1 प्राप्ति व उत्पत्ति</h3>
+      <div class="callout"><b>वर्कफ़्लो क्रम —</b> प्राप्ति → प्रारंभिक जाँच → नंबरिंग → रजिस्ट्रेशन → रिव्यू/अनुमोदन → स्टेटस अपडेट → ट्रांसमिटल → वितरण। हर दस्तावेज़ के लिए ये आठ चरण इसी क्रम में अपनाए जाते हैं; कोई चरण छोड़ा नहीं जाता और क्रम बदला नहीं जाता।</div>
       <ul>
         <li>हर इनकमिंग दस्तावेज़ (ईमेल, हाथों-हाथ डिलीवरी, ACC अपलोड, कूरियर) प्राप्ति के <strong>उसी कार्यदिवस</strong> स्रोत, प्राप्ति तिथि व रिवीज़न के साथ रजिस्टर में लॉग किया जाता है।</li>
         <li>आंतरिक रूप से बनाए गए दस्तावेज़ को समीक्षा के लिए भेजने से पहले ही संबंधित प्रोजेक्ट का DC नंबर देता है — बाद में नहीं।</li>
@@ -1991,16 +2083,16 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       <p>MDL रिकॉर्ड का रजिस्टर है — हर कंट्रोल्ड दस्तावेज़, उसका मौजूदा रिवीज़न, स्टेटस, ओरिजिनेटर, और आखिरी ट्रांसमिटल, हर प्रोजेक्ट के लिए एक ही जगह। इसे लगातार अपडेट रखा जाता है, कभी-कभार बनाया नहीं जाता, और हर इंटरनल ऑडिट में HOD इसी की समीक्षा करते हैं।</p>
       <div class="twrap">
         <table>
-          <thead><tr><th>डॉक्यूमेंट सं.</th><th>शीर्षक</th><th style="width:70px">रिवीज़न</th><th style="width:70px">स्टेटस</th><th style="width:110px">जारी तिथि</th><th style="width:110px">ट्रांसमिटल</th></tr></thead>
+          <thead><tr><th>डॉक्यूमेंट सं.</th><th>शीर्षक</th><th style="width:60px">रिवीज़न</th><th style="width:70px">स्टेटस</th><th style="width:130px">Originator</th><th style="width:110px">जारी तिथि</th><th style="width:110px">ट्रांसमिटल</th></tr></thead>
           <tbody>
-            <tr><td class="num">DUE-ARC-DRG-0001</td><td>टिपिकल फ्लोर प्लान — टावर A</td><td class="num">2</td><td class="status">AFC</td><td class="num">2026-04-11</td><td class="num">DRT-0042</td></tr>
-            <tr><td class="num">CRN-STR-DRG-0014</td><td>फाउंडेशन लेआउट</td><td class="num">1</td><td class="status">IFA</td><td class="num">2026-06-02</td><td class="num">DRT-0058</td></tr>
-            <tr><td class="num">LUX-FF-DRG-0006</td><td>फायर फाइटिंग राइज़र डायग्राम</td><td class="num">0</td><td class="status">IFR</td><td class="num">2026-07-19</td><td class="num">DRT-0061</td></tr>
-            <tr><td class="num">TCV-RFI-0009</td><td>स्पष्टीकरण — पोडियम वॉटरप्रूफिंग डिटेल</td><td class="num">—</td><td class="status">IFI</td><td class="num">2026-08-02</td><td class="num">TRN-0011</td></tr>
+            <tr><td class="num">DUE-ARC-DRG-0001</td><td>टिपिकल फ्लोर प्लान — टावर A</td><td class="num">2</td><td class="status">AFC</td><td>ABC Architects</td><td class="num">2026-04-11</td><td class="num">DRT-0042</td></tr>
+            <tr><td class="num">CRN-STR-DRG-0014</td><td>फाउंडेशन लेआउट</td><td class="num">1</td><td class="status">IFA</td><td>XYZ Structural Consultants</td><td class="num">2026-06-02</td><td class="num">DRT-0058</td></tr>
+            <tr><td class="num">LUX-FF-DRG-0006</td><td>फायर फाइटिंग राइज़र डायग्राम</td><td class="num">0</td><td class="status">IFR</td><td>MEP Consultant</td><td class="num">2026-07-19</td><td class="num">DRT-0061</td></tr>
+            <tr><td class="num">TCV-RFI-0009</td><td>स्पष्टीकरण — पोडियम वॉटरप्रूफिंग डिटेल</td><td class="num">—</td><td class="status">IFI</td><td>साइट टीम</td><td class="num">2026-08-02</td><td class="num">TRN-0011</td></tr>
           </tbody>
         </table>
       </div>
-      <p>ऊपर दी गई पंक्तियाँ सिर्फ उदाहरण हैं — हर प्रोजेक्ट की असली MDL लाइव रजिस्टर से बनती है, अलग से टाइप नहीं की जाती।</p>
+      <p>ऊपर दी गई पंक्तियाँ सिर्फ उदाहरण हैं — हर प्रोजेक्ट की असली MDL लाइव रजिस्टर से बनती है, अलग से टाइप नहीं की जाती। <strong>"Originator" कॉलम अनिवार्य फ़ील्ड है</strong> — किस कंसल्टेंट/टीम ने दस्तावेज़ बनाया, यह हर एंट्री में लिखना होगा।</p>
     </section>
 
     <section id="hi-distribution">
@@ -2020,6 +2112,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
           </tbody>
         </table>
       </div>
+      <div class="callout"><b>जॉइंट रिव्यू —</b> यदि एक से अधिक पक्ष मिलकर किसी दस्तावेज़ की समीक्षा करते हैं, तो उस डॉक्यूमेंट टाइप के एक से अधिक कॉलम में <code>R</code> चिह्नित किया जा सकता है — यह अपवाद नहीं, ज़रूरत के अनुसार स्वाभाविक है।</div>
     </section>
 
     <section id="hi-security">
@@ -2034,12 +2127,13 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 
     <section id="hi-nonconformance">
       <div class="eyebrow">१३</div>
-      <h2>नॉन-कन्फॉर्मेंस व करेक्टिव एक्शन</h2>
-      <p>नॉन-कन्फॉर्मेंस वह कुछ भी है जो इस SOP द्वारा सुरक्षित की जाने वाली ट्रेसेबिलिटी को तोड़ता है: बिना नंबर के जारी दस्तावेज़, अब भी सर्कुलेशन में मौजूद सुपरसीडेड कॉपी, गुम ट्रांसमिटल, अनधिकृत वितरण, समय पर फ्लैग न हुआ समाप्त सैंक्शन।</p>
+      <h2>DC प्रोसेस डेविएशन व सुधारात्मक कार्रवाई</h2>
+      <p>DC प्रोसेस डेविएशन वह कोई भी घटना है जो इस SOP द्वारा सुरक्षित ट्रेसेबिलिटी को तोड़ती है — बिना नंबर के जारी दस्तावेज़, अब भी सर्कुलेशन में मौजूद सुपरसीडेड कॉपी, गुम ट्रांसमिटल, अनधिकृत वितरण, या समय पर फ्लैग न हुआ मियाद-समाप्त सैंक्शन।</p>
+      <div class="callout"><b>NCR से अलग —</b> यह §६.३ के NCR (नॉन-कन्फ़ॉर्मेंस रिपोर्ट) से पूरी तरह पृथक एक लॉग है। NCR साइट/कंस्ट्रक्शन क्वालिटी इशू ट्रैक करता है; यह लॉग Document Control प्रक्रिया की अपनी चूक ट्रैक करता है।</div>
       <ul>
-        <li>जो भी DC कोई नॉन-कन्फॉर्मेंस पहचानता है, वह उसी दिन क्या मिला व कहाँ मिला यह लॉग कर HOD को बताता है।</li>
-        <li>HOD करेक्टिव एक्शन (रिकॉल, दोबारा जारी करना, एक्सेस समीक्षा, त्वरित रिन्यूअल) तय करते हैं और नॉन-कन्फॉर्मेंस लॉग में एक तारीख़ वाले रेज़ोल्यूशन के साथ उसे बंद करते हैं — मौखिक रूप से कुछ बंद नहीं किया जाता।</li>
-        <li>एक ही तरह का नॉन-कन्फॉर्मेंस बार-बार हो, तो सिर्फ उस घटना को ही नहीं, बल्कि प्रोसीजर में ही बदलाव ज़रूरी है या नहीं, यह अगली टीम मीटिंग में समीक्षा की जाती है।</li>
+        <li>जो DC कोई प्रोसेस डेविएशन पहचानता है, वह उसी दिन उसे लॉग करता है — क्या मिला और कहाँ — और HOD को बताता है।</li>
+        <li>HOD सुधारात्मक कार्रवाई (रिकॉल, दोबारा जारी करना, एक्सेस समीक्षा, त्वरित रिन्यूअल) तय करते हैं और तारीख़ सहित रेज़ोल्यूशन के साथ डेविएशन लॉग में उसे बंद करते हैं — मौखिक रूप से कुछ बंद नहीं किया जाता।</li>
+        <li>एक ही तरह के बार-बार होने वाले डेविएशन अगली टीम मीटिंग में समीक्षित किए जाते हैं, ताकि जाँचा जा सके कि सिर्फ़ वह घटना नहीं बल्कि प्रोसीजर में ही बदलाव ज़रूरी है या नहीं।</li>
       </ul>
     </section>
 
@@ -2065,10 +2159,11 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
             <tr><td>2 कार्यदिवस के भीतर सुपरसीडेड कॉपी वापसी</td><td class="num">100%</td></tr>
             <tr><td>इंटरनल ऑडिट में MDL सटीकता (सैंपल जाँच)</td><td class="num">100%</td></tr>
             <tr><td>स्टैट्यूटरी सैंक्शन पर लाइव रिन्यूअल अलर्ट सेट होना</td><td class="num">100%</td></tr>
-            <tr><td>14 दिन से पुराने खुले नॉन-कन्फॉर्मेंस</td><td class="num">0</td></tr>
+            <tr><td>14 दिन से पुराने खुले DC प्रोसेस डेविएशन</td><td class="num">0</td></tr>
           </tbody>
         </table>
       </div>
+      <div class="callout"><b>एक ही दिन लॉगिंग का अर्थ —</b> कार्य-घंटों के बाहर, सप्ताहांत या छुट्टी के दिन प्राप्त दस्तावेज़ों के लिए "एक ही दिन लॉगिंग" का अर्थ है अगले कार्यदिवस की शुरुआत में लॉग करना — उसी रात नहीं।</div>
       <p>HOD हर महीने इनकी समीक्षा कर सीनियर मैनेजमेंट को सारांश रिपोर्ट देते हैं।</p>
     </section>
 
@@ -2081,6 +2176,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
         <li>ACC यूज़र एक्सेस व पर्मिशन प्रोसीजर</li>
         <li>कंपनी रिकॉर्ड्स रिटेंशन पॉलिसी</li>
         <li>QA/QC नॉन-कन्फॉर्मेंस प्रोसीजर</li>
+        <li>रजिस्टर टेम्पलेट (लाइव लिंक)</li>
       </ul>
 
       <h3>रजिस्टर टेम्पलेट (लाइव लिंक)</h3>
@@ -2099,11 +2195,11 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
             <tr><td>RFI Register</td><td class="mono">RFI · §6.3</td><td><a href="https://docs.google.com/spreadsheets/d/1MXPYjnmwvFEEZbslLjVNV8uqzbsyWjUPMMApIafa-dU/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
             <tr><td>Sanction Document &amp; Drawings Register</td><td class="mono">§8</td><td><a href="https://docs.google.com/spreadsheets/d/1HNHZ-ZoqKYoofcJOjyAyZVxdaIFqIQDQNuxvqLvDT_o/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
             <tr><td>KMC Sanction Register</td><td class="mono">KMC · §8</td><td><a href="https://docs.google.com/spreadsheets/d/1Jghm5OhNgxZqpAF7wYTLx5X4zF1ejXkaPGO1KLCsYfA/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
-            <tr class="suggested"><td>Method Statement Register <span class="tag suggested">सुझाया गया</span></td><td class="mono">§9.2</td><td><a href="https://docs.google.com/spreadsheets/d/1wXcLl3v8TbvKLsSb5qnZy47WBn0xSCgdEvLQT-cycPU/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
-            <tr class="suggested"><td>Consultant Masters <span class="tag suggested">सुझाया गया</span></td><td class="mono">§11</td><td><a href="https://docs.google.com/spreadsheets/d/1g7K3NgQb8lfC-zv1UdbYYtUvbBkQ-8tX3xmTtASOJfY/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
-            <tr class="suggested"><td>File Name &amp; Location Index <span class="tag suggested">सुझाया गया</span></td><td class="mono">§9.6</td><td><a href="https://docs.google.com/spreadsheets/d/1gU1h8jh-e7qR1ZJPkpH1eLkFL74OSIGymToAM2tjwUc/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
-            <tr class="suggested"><td>Insurance Policy Tracker <span class="tag suggested">सुझाया गया</span></td><td class="mono">§16</td><td><a href="https://docs.google.com/spreadsheets/d/1BRqBkAVUkybl9VycpndTIY51daIRL9WkXokHe7SxcRg/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
-            <tr class="suggested"><td>Land Owner Email Register <span class="tag suggested">सुझाया गया</span></td><td class="mono">§16</td><td><a href="https://docs.google.com/spreadsheets/d/1ixNkpaCmGkGzZz9TgL9UbqCbMwF88rGwnXdl0ZnnT40/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr><td>Method Statement Register <span class="tag suggested">सुझाया गया</span></td><td class="mono">§9.2</td><td><a href="https://docs.google.com/spreadsheets/d/1wXcLl3v8TbvKLsSb5qnZy47WBn0xSCgdEvLQT-cycPU/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr><td>Consultant Masters <span class="tag suggested">सुझाया गया</span></td><td class="mono">§11</td><td><a href="https://docs.google.com/spreadsheets/d/1g7K3NgQb8lfC-zv1UdbYYtUvbBkQ-8tX3xmTtASOJfY/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr><td>File Name &amp; Location Index <span class="tag suggested">सुझाया गया</span></td><td class="mono">§9.6</td><td><a href="https://docs.google.com/spreadsheets/d/1gU1h8jh-e7qR1ZJPkpH1eLkFL74OSIGymToAM2tjwUc/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr><td>Insurance Policy Tracker <span class="tag suggested">सुझाया गया</span></td><td class="mono">§16</td><td><a href="https://docs.google.com/spreadsheets/d/1BRqBkAVUkybl9VycpndTIY51daIRL9WkXokHe7SxcRg/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr><td>Land Owner Email Register <span class="tag suggested">सुझाया गया</span></td><td class="mono">§16</td><td><a href="https://docs.google.com/spreadsheets/d/1ixNkpaCmGkGzZz9TgL9UbqCbMwF88rGwnXdl0ZnnT40/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
           </tbody>
         </table>
       </div>
