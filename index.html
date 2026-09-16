@@ -22,7 +22,7 @@
   --gold:#8A6D1F;
   --gold-bg:rgba(138,109,31,.10);
   --shadow: 0 1px 2px rgba(33,38,43,.06), 0 6px 20px rgba(33,38,43,.05);
-  --art-veil:rgba(238,237,230,.52);
+  --art-veil:rgba(238,237,230,.76);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -32,7 +32,7 @@
     --structural:#8FB2D2; --structural-bg:rgba(143,178,210,.10); --code-bg:rgba(143,178,210,.08);
     --suggest:#7FB284; --suggest-bg:rgba(127,178,132,.12);
     --gold:#D9B45C; --gold-bg:rgba(217,180,92,.14);
-    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-veil:rgba(20,23,25,.62);
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-veil:rgba(20,23,25,.82);
   }
 }
 :root[data-theme="dark"]{
@@ -42,7 +42,7 @@
   --structural:#8FB2D2; --structural-bg:rgba(143,178,210,.10); --code-bg:rgba(143,178,210,.08);
   --suggest:#7FB284; --suggest-bg:rgba(127,178,132,.12);
   --gold:#D9B45C; --gold-bg:rgba(217,180,92,.14);
-  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-veil:rgba(20,23,25,.62);
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-veil:rgba(20,23,25,.82);
 }
 
 *{box-sizing:border-box;}
@@ -136,9 +136,9 @@ h1,h2,h3{ text-wrap:balance; color:var(--ink); }
 
 /* ---------- Shell ---------- */
 .shell{
-  max-width:1180px; margin:0 auto; padding-block:36px 80px; padding-inline:22px;
+  max-width:1260px; margin:0 auto; padding-block:36px 80px; padding-inline:22px;
   box-sizing:border-box;
-  display:grid; grid-template-columns:270px minmax(0,760px); gap:48px; justify-content:center;
+  display:grid; grid-template-columns:252px minmax(0,850px); gap:42px; justify-content:center;
 }
 @media (max-width:900px){
   .shell{grid-template-columns:minmax(0,1fr); gap:28px;}
@@ -204,10 +204,10 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
 /* Thumbnails made the rows tall enough that 17 sections overflow a laptop
    screen; without its own scroll the sticky sidebar would strand the last
    few items out of reach. */
-.toc{position:sticky; top:78px; align-self:start; grid-column:1; grid-row:1; max-height:calc(100vh - 96px); overflow-y:auto;}
+.toc{position:sticky; top:78px; align-self:start; grid-column:1; grid-row:1; max-height:calc(100vh - 96px); overflow-y:auto; scrollbar-width:thin;}
 .toc-eyebrow{ font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:12px; }
 .toc ol{list-style:none; margin:0; padding:0; counter-reset:toc;}
-.toc li{counter-increment:toc; margin-bottom:9px;}
+.toc li{counter-increment:toc; margin-bottom:4px;}
 .toc a{ display:flex; align-items:center; gap:9px; color:var(--ink-soft); text-decoration:none; font-size:13.5px; line-height:1.5; padding:3px 6px 3px 8px; border-radius:4px; border-left:2px solid transparent; }
 .toc a::before{ content:counter(toc); font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--structural); flex:none; width:1.4em; }
 .toc a:hover{ color:var(--ink); }
@@ -215,7 +215,7 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
 .toc-home-link{
   display:flex; align-items:center; gap:9px; color:var(--ink-soft); text-decoration:none;
   font-size:13.5px; line-height:1.5; padding:3px 6px 3px 8px; border-radius:4px;
-  border-left:2px solid transparent; margin-bottom:12px;
+  border-left:2px solid transparent; margin-bottom:6px;
 }
 /* Home sits outside the numbered <ol>, so the shared .toc a::before counter
    would stamp it with a meaningless "0". */
@@ -271,9 +271,13 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
    baked in was tried and is unreadable. */
 article > section::before,
 .home-view::before{
-  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  content:""; position:fixed; inset:-10px; z-index:-1; pointer-events:none;
   background-image:linear-gradient(var(--art-veil), var(--art-veil)), var(--art-src);
   background-position:center; background-size:cover; background-repeat:no-repeat;
+  /* A wide monitor blows a 336px source up enormously, turning its shapes
+     into slabs that fight the text for attention. A light blur settles it
+     back into a backdrop; the negative inset hides the blur's soft edge. */
+  filter:blur(7px);
 }
 /* The menu screen shows no section, so nothing would paint a background
    there — give it the Home artwork so it isn't the one bare page. Scoped to
@@ -290,7 +294,7 @@ body.nav-landing .doc-view.active .toc::before{
 .toc-home-link::after,
 .toc ol a::after{
   content:""; margin-left:auto; flex:none;
-  width:44px; height:36px; border-radius:6px;
+  width:34px; height:28px; border-radius:5px;
   background-image:var(--art-src);
   background-position:center; background-size:cover; background-repeat:no-repeat;
   border:1px solid var(--rule);
@@ -308,6 +312,10 @@ article > section, .home-view, article > .footline{
 }
 @media (max-width:900px){
   article > section, .home-view, article > .footline{ padding:18px 16px; }
+  /* Wide tables already scroll sideways inside .twrap; letting that scroller
+     reach the card's edges buys back the padding so less of the table is
+     hidden before the reader has to swipe. */
+  article > section .twrap{ margin-inline:-16px; padding-inline:16px; }
   /* The phone menu is already a stack of cards — a card around the cards
      just adds a second frame. */
   body.nav-landing .doc-view.active .toc{
