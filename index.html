@@ -553,7 +553,9 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
        invisible against the always-light card (confirmed on a real phone
        in dark mode: the heading rendered almost white-on-white). -->
   <div class="welcome-card">
-    <span class="platecard" style="display:inline-block; background:#fff; border-radius:8px; padding:12px 20px; box-shadow:0 1px 2px rgba(33,38,43,.06), 0 6px 20px rgba(33,38,43,.05); margin-bottom:22px;">
+    <!-- The logo PNG is already transparent, so it sits straight on the card:
+         no white plate, which only read as a box drawn around the mark. -->
+    <span style="display:inline-block; margin-bottom:22px;">
       <img src="alcove-logo.png" alt="Alcove Realty" width="170" height="98" style="display:block;">
     </span>
     <h1 style="font-family:'Fraunces','Georgia',serif; font-size:1.55rem; font-weight:600; margin:0 0 6px; color:#21262B;">Welcome to Alcove Documentation System</h1>
