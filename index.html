@@ -194,6 +194,9 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
   font-size:13.5px; line-height:1.5; padding:3px 6px 3px 8px; border-radius:4px;
   border-left:2px solid transparent; margin-bottom:12px;
 }
+/* Home sits outside the numbered <ol>, so the shared .toc a::before counter
+   would stamp it with a meaningless "0". */
+.toc-home-link::before{ content:none !important; }
 .toc-home-link:hover{ color:var(--ink); }
 .toc-home-link.active{ color:var(--ink); font-weight:600; border-left-color:var(--gold); background:var(--structural-bg); }
 
@@ -217,6 +220,16 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
   }
   .toc.mobile-open{ display:block; }
   body.toc-open .toc-backdrop{ display:block; }
+  /* Landing state (nothing picked yet) — on a phone the drawer meant the
+     screen said "choose from the menu" while no menu was anywhere in sight.
+     Here the menu IS the screen: the TOC drops out of its fixed-drawer
+     styling and sits inline, so opening the app lands straight on it. */
+  body.nav-landing .doc-view.active .toc{
+    display:block; position:static; inset:auto; max-width:none; z-index:auto;
+    background:transparent; padding:0; box-shadow:none; overflow-y:visible;
+  }
+  body.nav-landing .toc-fab{ display:none; }
+  body.nav-landing .empty-hint{ display:none !important; }
   .toc-close{
     display:flex; align-items:center; justify-content:center; width:30px; height:30px;
     border-radius:50%; border:1px solid var(--rule-strong); background:transparent; color:var(--ink);
@@ -2092,11 +2105,13 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
   if(fab){ fab.addEventListener('click', openToc); }
   if(backdrop){ backdrop.addEventListener('click', closeToc); }
 
+  function setLanding(on){ document.body.classList.toggle('nav-landing', on); }
+
   var backFab = document.getElementById('back-fab');
   if(backFab){
     backFab.addEventListener('click', function(){
       var doc = activeDoc();
-      if(doc){ goHome(doc); }
+      if(doc){ goLanding(doc); }
     });
   }
 
@@ -2122,7 +2137,8 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     clearActiveLinks(doc);
     var homeLink = doc.querySelector('.toc-home-link');
     if(homeLink){ homeLink.classList.add('active'); }
-    setBackFabVisible(false);
+    setBackFabVisible(true, doc.className.match(/doc-(en|bn|hi)/)[1]);
+    setLanding(false);
     window.scrollTo(0, 0);
   }
   function showSection(doc, id, link){
@@ -2139,6 +2155,23 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     clearActiveLinks(doc);
     if(link){ link.classList.add('active'); }
     setBackFabVisible(true, doc.className.match(/doc-(en|bn|hi)/)[1]);
+    setLanding(false);
+    window.scrollTo(0, 0);
+  }
+
+  // The menu screen: nothing open, every link cleared, and on a phone the
+  // TOC is inline and visible (see body.nav-landing in the stylesheet).
+  // This is both the state the app opens on and where "Back" returns to.
+  function goLanding(doc){
+    var home = doc.querySelector('.home-view');
+    if(home){ home.classList.add('js-hidden'); }
+    doc.querySelectorAll('article > section, article > .footline').forEach(function(s){ s.classList.add('js-hidden'); });
+    var hint = doc.querySelector('.empty-hint');
+    if(hint){ hint.classList.remove('js-hidden'); }
+    clearActiveLinks(doc);
+    setBackFabVisible(false);
+    setLanding(true);
+    closeToc();
     window.scrollTo(0, 0);
   }
 
@@ -2162,9 +2195,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     // Initial state: nothing selected — Home behaves exactly like any other
     // menu item (Purpose, Scope, ...): its content only appears once it is
     // actually clicked, not automatically on load.
-    var home = doc.querySelector('.home-view');
-    if(home){ home.classList.add('js-hidden'); }
-    doc.querySelectorAll('article > section, article > .footline').forEach(function(s){ s.classList.add('js-hidden'); });
+    goLanding(doc);
   }
 
   document.querySelectorAll('.doc-view').forEach(function(doc){ wireDoc(doc); });
