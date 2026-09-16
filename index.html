@@ -259,6 +259,42 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
   }
 }
 
+/* ---------- Section hero images ----------
+   One picture per section, supplied by the user and served from /pages. They
+   carry their own baked-in captions and are only ~336px wide, so they sit as
+   a capped-width banner above the text rather than as a full-bleed page
+   background — which would both blur them badly and bury the SOP text. */
+article > section::before,
+.home-view::before{
+  content:""; display:block;
+  width:100%; max-width:430px; aspect-ratio:336/287;
+  margin:0 0 24px;
+  background-position:center; background-size:cover; background-repeat:no-repeat;
+  border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow);
+}
+.home-view::before{ max-width:560px; aspect-ratio:1100/943; background-image:url('pages/home.jpg'); }
+section[id$="-purpose"]::before{ background-image:url('pages/purpose.jpg'); }
+section[id$="-scope"]::before{ background-image:url('pages/scope.jpg'); }
+section[id$="-definitions"]::before{ background-image:url('pages/definitions.jpg'); }
+section[id$="-projects"]::before{ background-image:url('pages/projects.jpg'); }
+section[id$="-roles"]::before{ background-image:url('pages/roles.jpg'); }
+section[id$="-numbering"]::before{ background-image:url('pages/numbering.jpg'); }
+section[id$="-status"]::before{ background-image:url('pages/status.jpg'); }
+section[id$="-sanctions"]::before{ background-image:url('pages/sanctions.jpg'); }
+section[id$="-procedure"]::before{ background-image:url('pages/procedure.jpg'); }
+section[id$="-mdl"]::before{ background-image:url('pages/mdl.jpg'); }
+section[id$="-distribution"]::before{ background-image:url('pages/distribution.jpg'); }
+section[id$="-security"]::before{ background-image:url('pages/security.jpg'); }
+section[id$="-nonconformance"]::before{ background-image:url('pages/nonconformance.jpg'); }
+section[id$="-kpi"]::before{ background-image:url('pages/kpi.jpg'); }
+section[id$="-references"]::before{ background-image:url('pages/references.jpg'); }
+section[id$="-history"]::before{ background-image:url('pages/history.jpg'); }
+/* No image supplied for §14 Training & competency — drop the empty banner
+   rather than showing a blank bordered box. */
+section[id$="-training"]::before{ display:none; }
+/* The PDF is the controlled document; decorative art stays out of it. */
+@media print{ article > section::before, .home-view::before{ display:none !important; } }
+
 /* ---------- Quick-reference code chips ---------- */
 .quickref{
   grid-column:1/-1; max-width:900px; margin:0 auto 8px; border:1px solid var(--rule-strong);
