@@ -286,12 +286,10 @@ section[id$="-mdl"]::before{ background-image:url('pages/mdl.jpg'); }
 section[id$="-distribution"]::before{ background-image:url('pages/distribution.jpg'); }
 section[id$="-security"]::before{ background-image:url('pages/security.jpg'); }
 section[id$="-nonconformance"]::before{ background-image:url('pages/nonconformance.jpg'); }
+section[id$="-training"]::before{ background-image:url('pages/training.jpg'); }
 section[id$="-kpi"]::before{ background-image:url('pages/kpi.jpg'); }
 section[id$="-references"]::before{ background-image:url('pages/references.jpg'); }
 section[id$="-history"]::before{ background-image:url('pages/history.jpg'); }
-/* No image supplied for §14 Training & competency — drop the empty banner
-   rather than showing a blank bordered box. */
-section[id$="-training"]::before{ display:none; }
 /* The PDF is the controlled document; decorative art stays out of it. */
 @media print{ article > section::before, .home-view::before{ display:none !important; } }
 
