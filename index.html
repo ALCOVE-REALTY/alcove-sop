@@ -370,7 +370,12 @@ section[id$="-history"],        .toc a[href$="-history"]{ --art-src:url('pages/h
    menu. Back and Refresh move up into the toolbar row for the same reason
    the menu did: everything that steers the page now lives at the top. */
 @media (min-width:901px){
-  .shell{ display:block; max-width:1320px; }
+  /* Column flex rather than block, purely so the nav can be ordered first:
+     in the markup .home-view comes before <nav class="toc">, which the old
+     grid placement hid. Under normal flow the bar would sit below the whole
+     Home page — invisible until you happened to scroll past it. */
+  .shell{ display:flex; flex-direction:column; max-width:1320px; }
+  .toc{ order:-1; }
   /* A real navigation bar, not a floating card: full-bleed to both window
      edges, flush under the hint bar, no radius and no shadow. The negative
      inline margins break it out of .shell's max-width; the matching inline
@@ -480,10 +485,6 @@ section[id$="-history"],        .toc a[href$="-history"]{ --art-src:url('pages/h
     background-position:center; background-size:cover; background-repeat:no-repeat;
     border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow);
   }
-  /* §14's own artwork is already the page background behind the menu; showing
-     it again beside its text is just the same picture twice. */
-  section[id$="-training"]::after{ display:none; }
-  section[id$="-training"]{ display:block; }
 }
 @media print{
   article > section::after{ display:none !important; }
@@ -537,7 +538,7 @@ section[id$="-history"],        .toc a[href$="-history"]{ --art-src:url('pages/h
 .changelog-item{ display:flex; gap:12px; padding:10px 0; border-bottom:1px solid var(--rule); font-size:13.5px; }
 .changelog-item:last-child{ border-bottom:none; }
 .changelog-date{ font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-faint); white-space:nowrap; flex:none; padding-top:1px; }
-@media print{ .quickref, .changelog, #welcome-screen, #back-fab, #refresh-fab, #update-banner{ display:none !important; } }
+@media print{ .quickref, .changelog, #back-fab, #refresh-fab, #update-banner{ display:none !important; } }
 
 article{min-width:0; grid-column:2; grid-row:1;}
 section{margin-bottom:52px; scroll-margin-top:90px;}
@@ -678,67 +679,39 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 });
 </script>
 
-<!-- ============================= WELCOME SCREEN ============================= -->
+<!-- The welcome/language overlay was removed: language is switchable from the
+     toolbar on any page, so a gate whose only job was to ask for it up front
+     was a step for nothing. Its greeting now opens the Home view instead. -->
 <style>
-#welcome-screen{
-  position:fixed; inset:0; z-index:1000; display:flex; align-items:center; justify-content:center; padding:24px;
-  background-image:linear-gradient(rgba(22,28,36,.28),rgba(22,28,36,.28)), url('welcome-bg.jpg');
-  background-size:cover; background-position:center;
+.home-welcome{
+  margin:0 0 22px; padding:22px 26px;
+  border-left:4px solid var(--gold); border-radius:10px;
+  background:var(--structural-bg);
 }
-.welcome-card{
-  text-align:center; max-width:380px; width:100%; background:rgba(251,250,246,.97);
-  border-radius:14px; padding:32px 28px; box-shadow:0 12px 40px rgba(0,0,0,.35);
+.home-welcome .hw-hello{
+  font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--ink-faint); margin:0 0 6px;
 }
+.home-welcome .hw-title{
+  font-family:"Fraunces","Georgia",serif; font-size:1.35rem; font-weight:600;
+  color:var(--ink); margin:0 0 10px; padding:0; border:none;
+}
+.home-welcome .hw-lead{ margin:0 0 10px; color:var(--ink); }
+.home-welcome .hw-hint{ margin:0; font-size:14.5px; color:var(--ink-soft); }
+@media (max-width:900px){ .home-welcome{ padding:16px 16px; } }
 </style>
-
-<div id="welcome-screen">
-  <!-- This card is a fixed light panel over a photo (by design, regardless
-       of the device's light/dark setting) — every color here is a literal
-       hex value, NOT the --ink/--paper/etc. theme variables used elsewhere
-       on the page. Those variables flip to light-on-dark under
-       prefers-color-scheme:dark, which would make this text nearly
-       invisible against the always-light card (confirmed on a real phone
-       in dark mode: the heading rendered almost white-on-white). -->
-  <div class="welcome-card">
-    <!-- The logo PNG is already transparent, so it sits straight on the card:
-         no white plate, which only read as a box drawn around the mark. -->
-    <span style="display:inline-block; margin-bottom:22px;">
-      <img src="alcove-logo.png" alt="Alcove Realty" width="170" height="98" style="display:block;">
-    </span>
-    <h1 style="font-family:'Fraunces','Georgia',serif; font-size:1.55rem; font-weight:600; margin:0 0 6px; color:#21262B;">Welcome to Alcove Documentation System</h1>
-    <p style="font-family:'Noto Serif Bengali','Source Serif 4',serif; font-size:14px; color:#5B6570; margin:0 0 3px;">আলকোভ ডকুমেন্টেশন সিস্টেমে স্বাগতম</p>
-    <p style="font-family:'Noto Serif Devanagari','Source Serif 4',serif; font-size:14px; color:#5B6570; margin:0 0 10px;">अल्कोव डॉक्यूमेंटेशन सिस्टम में आपका स्वागत है</p>
-    <p style="font-size:12.5px; color:#8A9096; margin:0 0 22px;">Your central source for project information</p>
-
-    <div style="text-align:left; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:#8A9096; margin-bottom:6px;">Select language</div>
-    <select id="welcome-lang-select" style="width:100%; padding:11px 12px; font-size:15px; border:1px solid #B9B4A2; border-radius:6px; background:#FBFAF6; color:#21262B; margin-bottom:16px;">
-      <option value="en">English</option>
-      <option value="bn">বাংলা (Bengali)</option>
-      <option value="hi">हिंदी (Hindi)</option>
-    </select>
-
-    <button type="button" id="welcome-go-btn" style="width:100%; padding:13px; font-size:15px; font-weight:600; border:none; border-radius:6px; background:#2E4F6E; color:#fff; cursor:pointer;">
-      Go / যান / जाएँ
-    </button>
-  </div>
-</div>
-<script>
-(function(){
-  var screen = document.getElementById('welcome-screen');
-  var select = document.getElementById('welcome-lang-select');
-  document.getElementById('welcome-go-btn').addEventListener('click', function(){
-    var lang = select.value;
-    if (window.AlcoveSetLang) { window.AlcoveSetLang(lang); }
-    screen.style.display = 'none';
-  });
-})();
-</script>
 
 <!-- ============================= ENGLISH ============================= -->
 <div id="doc-en" class="doc-view doc-en active">
 <div class="shell">
 
 <div class="home-view" id="home-en">
+<div class="home-welcome">
+<p class="hw-hello">Welcome</p>
+<h2 class="hw-title">Alcove Documentation System</h2>
+<p class="hw-lead">This is the current, single source for how Document Control works at Alcove Realty — how every drawing, statutory sanction and site record is numbered, reviewed, issued, tracked and archived across Duets, Crown, Luxuria and The Curve. If a question about a document has an answer, it is in here.</p>
+<p class="hw-hint">Pick a section from the menu to read it. You can switch between English, বাংলা and हिंदी at any time from the language list in the toolbar, and "Save PDF" keeps a copy of the whole document.</p>
+</div>
   <div class="control-block">
     <div class="brandrow">
       <div class="brandmark">
@@ -1290,6 +1263,12 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 <div class="shell">
 
 <div class="home-view" id="home-bn">
+<div class="home-welcome">
+<p class="hw-hello">স্বাগতম</p>
+<h2 class="hw-title">অ্যালকোভ ডকুমেন্টেশন সিস্টেম</h2>
+<p class="hw-lead">অ্যালকোভ রিয়েলটিতে ডকুমেন্ট কন্ট্রোল কীভাবে চলে — প্রতিটি ড্রয়িং, স্ট্যাটুটরি স্যাংশন ও সাইট রেকর্ড কীভাবে নম্বর পায়, পর্যালোচিত হয়, ইস্যু হয়, ট্র্যাক ও আর্কাইভ করা হয় — Duets, Crown, Luxuria ও The Curve, সব প্রজেক্টের জন্য তার একমাত্র ও সর্বশেষ উৎস এটি। ডকুমেন্ট নিয়ে কোনো প্রশ্নের উত্তর থাকলে, তা এখানেই আছে।</p>
+<p class="hw-hint">মেনু থেকে যেকোনো সেকশন বেছে নিয়ে পড়ুন। টুলবারের ভাষা তালিকা থেকে যেকোনো সময় English, বাংলা বা हिंदी-তে বদলাতে পারেন, আর "PDF সেভ করুন" দিয়ে পুরো ডকুমেন্টের একটি কপি রেখে দিতে পারেন।</p>
+</div>
   <div class="control-block">
     <div class="brandrow">
       <div class="brandmark">
@@ -1841,6 +1820,12 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 <div class="shell">
 
 <div class="home-view" id="home-hi">
+<div class="home-welcome">
+<p class="hw-hello">स्वागत है</p>
+<h2 class="hw-title">अल्कोव डॉक्यूमेंटेशन सिस्टम</h2>
+<p class="hw-lead">अल्कोव रियल्टी में डॉक्यूमेंट कंट्रोल कैसे चलता है — हर ड्रॉइंग, स्टैट्यूटरी सैंक्शन और साइट रिकॉर्ड को कैसे नंबर दिया जाता है, समीक्षा, जारी, ट्रैक व आर्काइव किया जाता है — Duets, Crown, Luxuria और The Curve, सभी प्रोजेक्ट के लिए इसका एकमात्र और नवीनतम स्रोत यही है। दस्तावेज़ से जुड़े किसी सवाल का जवाब अगर कहीं है, तो यहीं है।</p>
+<p class="hw-hint">मेनू से कोई भी सेक्शन चुनकर पढ़ें। टूलबार की भाषा सूची से किसी भी समय English, বাংলা या हिंदी में बदल सकते हैं, और "PDF सेव करें" से पूरे दस्तावेज़ की एक कॉपी रख सकते हैं।</p>
+</div>
   <div class="control-block">
     <div class="brandrow">
       <div class="brandmark">
@@ -2535,13 +2520,17 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
         showSection(doc, id, a);
       });
     });
-    // Initial state: nothing selected — Home behaves exactly like any other
-    // menu item (Purpose, Scope, ...): its content only appears once it is
-    // actually clicked, not automatically on load.
-    goLanding(doc);
+    // Open on Home. That used to be the welcome overlay's job; with the
+    // overlay gone, landing on the bare menu would hide the greeting behind
+    // a click nobody would know to make.
+    goHome(doc);
   }
 
   document.querySelectorAll('.doc-view').forEach(function(doc){ wireDoc(doc); });
+  // wireDoc opens Home on every language in turn, and each one relabels the
+  // single shared Back button — so the last one wired would otherwise leave
+  // its label behind. Settle it on whichever language is actually showing.
+  (function(){ var doc = activeDoc(); if(doc){ goHome(doc); } })();
 
   // Clicking the toolbar logo always returns whichever language is active
   // to its Home view — a common, expected "brand mark goes home" pattern.
