@@ -22,7 +22,7 @@
   --gold:#8A6D1F;
   --gold-bg:rgba(138,109,31,.10);
   --shadow: 0 1px 2px rgba(33,38,43,.06), 0 6px 20px rgba(33,38,43,.05);
-  --art-veil:rgba(238,237,230,.76);
+  --art-alpha:.15;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -32,7 +32,7 @@
     --structural:#8FB2D2; --structural-bg:rgba(143,178,210,.10); --code-bg:rgba(143,178,210,.08);
     --suggest:#7FB284; --suggest-bg:rgba(127,178,132,.12);
     --gold:#D9B45C; --gold-bg:rgba(217,180,92,.14);
-    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-veil:rgba(20,23,25,.82);
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-alpha:.22;
   }
 }
 :root[data-theme="dark"]{
@@ -42,7 +42,7 @@
   --structural:#8FB2D2; --structural-bg:rgba(143,178,210,.10); --code-bg:rgba(143,178,210,.08);
   --suggest:#7FB284; --suggest-bg:rgba(127,178,132,.12);
   --gold:#D9B45C; --gold-bg:rgba(217,180,92,.14);
-  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-veil:rgba(20,23,25,.82);
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-alpha:.22;
 }
 
 *{box-sizing:border-box;}
@@ -262,35 +262,28 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
   }
 }
 
-/* ---------- Section artwork as the page background ----------
-   Built the way the Welcome screen is: the picture fills the viewport behind
-   everything, a translucent veil in the paper colour knocks it back, and the
-   text never sits on the photo itself — it sits on opaque cards above it (see
-   the card rules below). That is what makes a full-strength background work
-   here; laying body text directly over artwork that has its own captions
-   baked in was tried and is unreadable. */
+/* ---------- Section tint as the page background ----------
+   The artwork was tried as a full-bleed background and could not be made to
+   work: the section images are only ~336px wide, so filling a desktop
+   viewport upscales them more than five times and they read as blurry no
+   matter how they are veiled or blurred. Each section now shows a flat wash
+   of a colour sampled from its own picture instead — no upscaling, nothing
+   to go soft, and every section still has its own character. The pictures
+   themselves live on in the menu thumbnails below, where they are small
+   enough to stay sharp. */
 article > section::before,
-.home-view::before{
-  content:""; position:fixed; inset:-10px; z-index:-1; pointer-events:none;
-  background-image:linear-gradient(var(--art-veil), var(--art-veil)), var(--art-src);
-  background-position:center; background-size:cover; background-repeat:no-repeat;
-  /* A wide monitor blows a 336px source up enormously, turning its shapes
-     into slabs that fight the text for attention. A light blur settles it
-     back into a backdrop; the negative inset hides the blur's soft edge. */
-  filter:blur(7px);
-}
-/* The menu screen shows no section, so nothing would paint a background
-   there — give it the Home artwork so it isn't the one bare page. Scoped to
-   the landing state, where the sidebar is the whole screen and no section
-   background can compete with it. */
+.home-view::before,
 body.nav-landing .doc-view.active .toc::before{
   content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
-  background-image:linear-gradient(var(--art-veil), var(--art-veil)), url('pages/home.jpg');
-  background-position:center; background-size:cover; background-repeat:no-repeat;
+  background-color:var(--art-tint);
+  opacity:var(--art-alpha);
 }
+/* The menu screen shows no section, so nothing else would paint a background
+   there — give it the Home tint so it isn't the one bare page. */
+body.nav-landing .doc-view.active .toc::before{ background-color:#C6B853; }
 
-/* Each picture also rides along as the menu thumbnail for its section — same
-   --art-src, so one rule per section below feeds both. */
+/* The picture survives as the menu thumbnail for its section, fed by
+   --art-src from the same per-section rule that sets --art-tint. */
 .toc-home-link::after,
 .toc ol a::after{
   content:""; margin-left:auto; flex:none;
@@ -323,24 +316,24 @@ article > section, .home-view, article > .footline{
   }
 }
 
-.home-view, .toc-home-link{ --art-src:url('pages/home.jpg'); }
-section[id$="-purpose"],        .toc a[href$="-purpose"]{ --art-src:url('pages/purpose.jpg'); }
-section[id$="-scope"],          .toc a[href$="-scope"]{ --art-src:url('pages/scope.jpg'); }
-section[id$="-definitions"],    .toc a[href$="-definitions"]{ --art-src:url('pages/definitions.jpg'); }
-section[id$="-projects"],       .toc a[href$="-projects"]{ --art-src:url('pages/projects.jpg'); }
-section[id$="-roles"],          .toc a[href$="-roles"]{ --art-src:url('pages/roles.jpg'); }
-section[id$="-numbering"],      .toc a[href$="-numbering"]{ --art-src:url('pages/numbering.jpg'); }
-section[id$="-status"],         .toc a[href$="-status"]{ --art-src:url('pages/status.jpg'); }
-section[id$="-sanctions"],      .toc a[href$="-sanctions"]{ --art-src:url('pages/sanctions.jpg'); }
-section[id$="-procedure"],      .toc a[href$="-procedure"]{ --art-src:url('pages/procedure.jpg'); }
-section[id$="-mdl"],            .toc a[href$="-mdl"]{ --art-src:url('pages/mdl.jpg'); }
-section[id$="-distribution"],   .toc a[href$="-distribution"]{ --art-src:url('pages/distribution.jpg'); }
-section[id$="-security"],       .toc a[href$="-security"]{ --art-src:url('pages/security.jpg'); }
-section[id$="-nonconformance"], .toc a[href$="-nonconformance"]{ --art-src:url('pages/nonconformance.jpg'); }
-section[id$="-training"],       .toc a[href$="-training"]{ --art-src:url('pages/training.jpg'); }
-section[id$="-kpi"],            .toc a[href$="-kpi"]{ --art-src:url('pages/kpi.jpg'); }
-section[id$="-references"],     .toc a[href$="-references"]{ --art-src:url('pages/references.jpg'); }
-section[id$="-history"],        .toc a[href$="-history"]{ --art-src:url('pages/history.jpg'); }
+.home-view, .toc-home-link{ --art-src:url('pages/home.jpg'); --art-tint:#C6B853; }
+section[id$="-purpose"],        .toc a[href$="-purpose"]{ --art-src:url('pages/purpose.jpg'); --art-tint:#C65E53; }
+section[id$="-scope"],          .toc a[href$="-scope"]{ --art-src:url('pages/scope.jpg'); --art-tint:#53C690; }
+section[id$="-definitions"],    .toc a[href$="-definitions"]{ --art-src:url('pages/definitions.jpg'); --art-tint:#63C653; }
+section[id$="-projects"],       .toc a[href$="-projects"]{ --art-src:url('pages/projects.jpg'); --art-tint:#77C653; }
+section[id$="-roles"],          .toc a[href$="-roles"]{ --art-src:url('pages/roles.jpg'); --art-tint:#C66853; }
+section[id$="-numbering"],      .toc a[href$="-numbering"]{ --art-src:url('pages/numbering.jpg'); --art-tint:#53C69C; }
+section[id$="-status"],         .toc a[href$="-status"]{ --art-src:url('pages/status.jpg'); --art-tint:#C2C653; }
+section[id$="-sanctions"],      .toc a[href$="-sanctions"]{ --art-src:url('pages/sanctions.jpg'); --art-tint:#53C6B3; }
+section[id$="-procedure"],      .toc a[href$="-procedure"]{ --art-src:url('pages/procedure.jpg'); --art-tint:#53B9C6; }
+section[id$="-mdl"],            .toc a[href$="-mdl"]{ --art-src:url('pages/mdl.jpg'); --art-tint:#53B6C6; }
+section[id$="-distribution"],   .toc a[href$="-distribution"]{ --art-src:url('pages/distribution.jpg'); --art-tint:#538DC6; }
+section[id$="-security"],       .toc a[href$="-security"]{ --art-src:url('pages/security.jpg'); --art-tint:#5374C6; }
+section[id$="-nonconformance"], .toc a[href$="-nonconformance"]{ --art-src:url('pages/nonconformance.jpg'); --art-tint:#C653A0; }
+section[id$="-training"],       .toc a[href$="-training"]{ --art-src:url('pages/training.jpg'); --art-tint:#536FC6; }
+section[id$="-kpi"],            .toc a[href$="-kpi"]{ --art-src:url('pages/kpi.jpg'); --art-tint:#5F53C6; }
+section[id$="-references"],     .toc a[href$="-references"]{ --art-src:url('pages/references.jpg'); --art-tint:#7953C6; }
+section[id$="-history"],        .toc a[href$="-history"]{ --art-src:url('pages/history.jpg'); --art-tint:#8353C6; }
 /* The PDF is the controlled document: no artwork, and none of the on-screen
    card chrome either — printed pages want plain paper, not bordered panels. */
 @media print{
