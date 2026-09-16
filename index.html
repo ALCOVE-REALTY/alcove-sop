@@ -370,14 +370,30 @@ section[id$="-history"],        .toc a[href$="-history"]{ --art-src:url('pages/h
    the menu did: everything that steers the page now lives at the top. */
 @media (min-width:901px){
   .shell{ display:block; max-width:1120px; }
+  /* A real navigation bar, not a floating card: full-bleed to both window
+     edges, flush under the hint bar, no radius and no shadow. The negative
+     inline margins break it out of .shell's max-width; the matching inline
+     padding puts the chips back in line with the column below. The negative
+     top margin cancels .shell's own 36px of top padding so nothing shows
+     between the hint bar and the nav. */
   .toc{
     position:static; max-height:none; overflow:visible;
     display:flex; flex-wrap:wrap; align-items:center; gap:6px;
-    margin:0 0 24px; padding:12px 16px 14px;
+    width:100vw; margin:-36px calc(50% - 50vw) 28px;
+    padding:11px max(22px, calc(50vw - 538px)) 13px;
+    background:var(--paper-raised);
+    border:none; border-bottom:1px solid var(--rule-strong);
+    border-radius:0; box-shadow:none;
   }
-  .toc-eyebrow{ width:100%; margin:0 0 9px; }
+  /* "CONTENTS" above a row of links reads as a card heading; a nav bar
+     doesn't label itself. */
+  .toc-eyebrow{ display:none; }
   .toc-home-link{ margin:0; }
-  .toc ol{ display:flex; flex-wrap:wrap; gap:6px; }
+  /* display:contents dissolves the <ol> box so the list items become flex
+     children of .toc itself — that is what lets Home sit on the same
+     wrapping row as the numbered sections instead of being pushed above
+     the whole list. The counter still increments on the <li>. */
+  .toc ol{ display:contents; }
   .toc li{ margin:0; }
   .toc a, .toc-home-link{
     padding:6px 12px; border-radius:999px;
