@@ -22,7 +22,7 @@
   --gold:#8A6D1F;
   --gold-bg:rgba(138,109,31,.10);
   --shadow: 0 1px 2px rgba(33,38,43,.06), 0 6px 20px rgba(33,38,43,.05);
-  --art-opacity:.075;
+  --art-veil:rgba(238,237,230,.52);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -32,7 +32,7 @@
     --structural:#8FB2D2; --structural-bg:rgba(143,178,210,.10); --code-bg:rgba(143,178,210,.08);
     --suggest:#7FB284; --suggest-bg:rgba(127,178,132,.12);
     --gold:#D9B45C; --gold-bg:rgba(217,180,92,.14);
-    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-opacity:.06;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-veil:rgba(20,23,25,.62);
   }
 }
 :root[data-theme="dark"]{
@@ -42,7 +42,7 @@
   --structural:#8FB2D2; --structural-bg:rgba(143,178,210,.10); --code-bg:rgba(143,178,210,.08);
   --suggest:#7FB284; --suggest-bg:rgba(127,178,132,.12);
   --gold:#D9B45C; --gold-bg:rgba(217,180,92,.14);
-  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-opacity:.06;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-veil:rgba(20,23,25,.62);
 }
 
 *{box-sizing:border-box;}
@@ -262,51 +262,86 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
   }
 }
 
-/* ---------- Section artwork as a page watermark ----------
-   These started as a banner above each section, but at content width that
-   reads as a big decorative slab you have to scroll past before the text
-   begins. They now sit behind the page instead: faint, fixed, and slightly
-   blurred, so the artwork is present on every page while its baked-in
-   captions fade out of legibility and the low-resolution ones stop looking
-   stretched. Opacity is a token because a photo needs to be fainter over a
-   dark ground than a light one to read as texture rather than grime. */
+/* ---------- Section artwork as the page background ----------
+   Built the way the Welcome screen is: the picture fills the viewport behind
+   everything, a translucent veil in the paper colour knocks it back, and the
+   text never sits on the photo itself — it sits on opaque cards above it (see
+   the card rules below). That is what makes a full-strength background work
+   here; laying body text directly over artwork that has its own captions
+   baked in was tried and is unreadable. */
 article > section::before,
 .home-view::before{
   content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background-image:linear-gradient(var(--art-veil), var(--art-veil)), var(--art-src);
   background-position:center; background-size:cover; background-repeat:no-repeat;
-  opacity:var(--art-opacity); filter:blur(14px);
 }
-/* Each picture also rides along as the menu thumbnail for its section, which
-   is where it is actually legible — the watermark behind the page is texture,
-   this is the picture. Both are driven by the one rule per section below. */
+/* The menu screen shows no section, so nothing would paint a background
+   there — give it the Home artwork so it isn't the one bare page. Scoped to
+   the landing state, where the sidebar is the whole screen and no section
+   background can compete with it. */
+body.nav-landing .doc-view.active .toc::before{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background-image:linear-gradient(var(--art-veil), var(--art-veil)), url('pages/home.jpg');
+  background-position:center; background-size:cover; background-repeat:no-repeat;
+}
+
+/* Each picture also rides along as the menu thumbnail for its section — same
+   --art-src, so one rule per section below feeds both. */
 .toc-home-link::after,
 .toc ol a::after{
   content:""; margin-left:auto; flex:none;
   width:44px; height:36px; border-radius:6px;
+  background-image:var(--art-src);
   background-position:center; background-size:cover; background-repeat:no-repeat;
   border:1px solid var(--rule);
 }
 
-.home-view::before, .toc-home-link::after{ background-image:url('pages/home.jpg'); }
-section[id$="-purpose"]::before,        .toc a[href$="-purpose"]::after{ background-image:url('pages/purpose.jpg'); }
-section[id$="-scope"]::before,          .toc a[href$="-scope"]::after{ background-image:url('pages/scope.jpg'); }
-section[id$="-definitions"]::before,    .toc a[href$="-definitions"]::after{ background-image:url('pages/definitions.jpg'); }
-section[id$="-projects"]::before,       .toc a[href$="-projects"]::after{ background-image:url('pages/projects.jpg'); }
-section[id$="-roles"]::before,          .toc a[href$="-roles"]::after{ background-image:url('pages/roles.jpg'); }
-section[id$="-numbering"]::before,      .toc a[href$="-numbering"]::after{ background-image:url('pages/numbering.jpg'); }
-section[id$="-status"]::before,         .toc a[href$="-status"]::after{ background-image:url('pages/status.jpg'); }
-section[id$="-sanctions"]::before,      .toc a[href$="-sanctions"]::after{ background-image:url('pages/sanctions.jpg'); }
-section[id$="-procedure"]::before,      .toc a[href$="-procedure"]::after{ background-image:url('pages/procedure.jpg'); }
-section[id$="-mdl"]::before,            .toc a[href$="-mdl"]::after{ background-image:url('pages/mdl.jpg'); }
-section[id$="-distribution"]::before,   .toc a[href$="-distribution"]::after{ background-image:url('pages/distribution.jpg'); }
-section[id$="-security"]::before,       .toc a[href$="-security"]::after{ background-image:url('pages/security.jpg'); }
-section[id$="-nonconformance"]::before, .toc a[href$="-nonconformance"]::after{ background-image:url('pages/nonconformance.jpg'); }
-section[id$="-training"]::before,       .toc a[href$="-training"]::after{ background-image:url('pages/training.jpg'); }
-section[id$="-kpi"]::before,            .toc a[href$="-kpi"]::after{ background-image:url('pages/kpi.jpg'); }
-section[id$="-references"]::before,     .toc a[href$="-references"]::after{ background-image:url('pages/references.jpg'); }
-section[id$="-history"]::before,        .toc a[href$="-history"]::after{ background-image:url('pages/history.jpg'); }
-/* The PDF is the controlled document; decorative art stays out of it. */
-@media print{ article > section::before, .home-view::before{ display:none !important; } }
+/* Content sits on its own opaque surface so the background stays a backdrop
+   rather than something the reader has to see through. */
+article > section, .home-view, article > .footline{
+  background:var(--paper-raised); border:1px solid var(--rule);
+  border-radius:14px; padding:26px 28px; box-shadow:var(--shadow);
+}
+.toc{
+  background:var(--paper-raised); border:1px solid var(--rule);
+  border-radius:14px; padding:18px 16px; box-shadow:var(--shadow);
+}
+@media (max-width:900px){
+  article > section, .home-view, article > .footline{ padding:18px 16px; }
+  /* The phone menu is already a stack of cards — a card around the cards
+     just adds a second frame. */
+  body.nav-landing .doc-view.active .toc{
+    background:transparent; border:none; box-shadow:none; padding:0;
+  }
+}
+
+.home-view, .toc-home-link{ --art-src:url('pages/home.jpg'); }
+section[id$="-purpose"],        .toc a[href$="-purpose"]{ --art-src:url('pages/purpose.jpg'); }
+section[id$="-scope"],          .toc a[href$="-scope"]{ --art-src:url('pages/scope.jpg'); }
+section[id$="-definitions"],    .toc a[href$="-definitions"]{ --art-src:url('pages/definitions.jpg'); }
+section[id$="-projects"],       .toc a[href$="-projects"]{ --art-src:url('pages/projects.jpg'); }
+section[id$="-roles"],          .toc a[href$="-roles"]{ --art-src:url('pages/roles.jpg'); }
+section[id$="-numbering"],      .toc a[href$="-numbering"]{ --art-src:url('pages/numbering.jpg'); }
+section[id$="-status"],         .toc a[href$="-status"]{ --art-src:url('pages/status.jpg'); }
+section[id$="-sanctions"],      .toc a[href$="-sanctions"]{ --art-src:url('pages/sanctions.jpg'); }
+section[id$="-procedure"],      .toc a[href$="-procedure"]{ --art-src:url('pages/procedure.jpg'); }
+section[id$="-mdl"],            .toc a[href$="-mdl"]{ --art-src:url('pages/mdl.jpg'); }
+section[id$="-distribution"],   .toc a[href$="-distribution"]{ --art-src:url('pages/distribution.jpg'); }
+section[id$="-security"],       .toc a[href$="-security"]{ --art-src:url('pages/security.jpg'); }
+section[id$="-nonconformance"], .toc a[href$="-nonconformance"]{ --art-src:url('pages/nonconformance.jpg'); }
+section[id$="-training"],       .toc a[href$="-training"]{ --art-src:url('pages/training.jpg'); }
+section[id$="-kpi"],            .toc a[href$="-kpi"]{ --art-src:url('pages/kpi.jpg'); }
+section[id$="-references"],     .toc a[href$="-references"]{ --art-src:url('pages/references.jpg'); }
+section[id$="-history"],        .toc a[href$="-history"]{ --art-src:url('pages/history.jpg'); }
+/* The PDF is the controlled document: no artwork, and none of the on-screen
+   card chrome either — printed pages want plain paper, not bordered panels. */
+@media print{
+  article > section::before, .home-view::before{ display:none !important; }
+  article > section, .home-view, .toc, article > .footline{
+    background:none !important; border:none !important; border-radius:0 !important;
+    box-shadow:none !important; padding:0 !important;
+  }
+}
 
 /* ---------- Quick-reference code chips ---------- */
 .quickref{
