@@ -376,17 +376,14 @@ tbody tr.suggested td:first-child{color:var(--suggest);}
     <span class="platecard"><img src="alcove-logo.png" alt="Alcove Realty" width="120" height="69"></span>
   </div>
   <div class="toolbar-mid">
-    <button type="button" class="dlbtn" id="change-lang-btn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/></svg>
-      <span id="change-lang-label">Language</span>
-    </button>
+    <select id="toolbar-lang-select" class="dlbtn" style="cursor:pointer;">
+      <option value="en">🌐 English</option>
+      <option value="bn">🌐 বাংলা</option>
+      <option value="hi">🌐 हिंदी</option>
+    </select>
     <button type="button" class="dlbtn" id="save-pdf-btn">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-2M6 14h12v7H6z"/></svg>
       <span id="save-pdf-label">Save PDF</span>
-    </button>
-    <button type="button" class="dlbtn" id="print-now-btn">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-2M6 14h12v7H6z"/><rect x="6" y="14" width="12" height="7"/></svg>
-      <span id="print-now-label">Print</span>
     </button>
     <a class="dlbtn" href="formats.html" style="text-decoration:none;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-4M9 15l11-11M14 4h6v6"/></svg>
@@ -395,7 +392,7 @@ tbody tr.suggested td:first-child{color:var(--suggest);}
   </div>
   <div class="toolbar-updated">Last updated / সর্বশেষ আপডেট: <span id="updated-stamp">15 September 2026</span></div>
 </div>
-<div class="toolbar-hint">"Save PDF" saves the file directly · "Print" opens the print dialog / "Save PDF" সরাসরি ফাইল সেভ করে · "Print" প্রিন্ট ডায়ালগ খোলে</div>
+<div class="toolbar-hint" id="toolbar-hint-text">"Save PDF" saves the file directly / "Save PDF" সরাসরি ফাইল সেভ করে</div>
 
 <div class="toc-backdrop" id="toc-backdrop"></div>
 <button type="button" class="toc-fab" id="toc-fab">
@@ -2021,21 +2018,18 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 (function(){
   var LANGS = ['en','bn','hi'];
   var LABELS = {
-    changeLang: { en: 'Language', bn: 'ভাষা', hi: 'भाषा' },
-    savePdf: { en: 'Save PDF', bn: 'PDF সেভ করুন', hi: 'PDF सेव करें' },
-    printNow: { en: 'Print', bn: 'প্রিন্ট', hi: 'प्रिंट' }
+    savePdf: { en: 'Save PDF', bn: 'PDF সেভ করুন', hi: 'PDF सेव करें' }
   };
 
   function setLang(lang){
     LANGS.forEach(function(l){ document.getElementById('doc-'+l).classList.toggle('active', l===lang); });
     try{ localStorage.setItem('alcove-sop-lang', lang); }catch(e){}
-    document.getElementById('change-lang-label').textContent = LABELS.changeLang[lang];
     document.getElementById('save-pdf-label').textContent = LABELS.savePdf[lang];
-    document.getElementById('print-now-label').textContent = LABELS.printNow[lang];
+    var sel = document.getElementById('toolbar-lang-select');
+    if(sel){ sel.value = lang; }
   }
-  // Exposed so the Welcome screen and the "Change language" toolbar button
-  // (defined further down the page) can switch language without needing
-  // access to this closure's internals.
+  // Exposed so the Welcome screen (and anything else outside this closure)
+  // can switch language without needing access to this closure's internals.
   window.AlcoveSetLang = setLang;
 
   var savedLang = 'en';
@@ -2047,6 +2041,16 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     return LANGS.filter(function(l){ return document.getElementById('doc-'+l).classList.contains('active'); })[0];
   }
 
+  // The toolbar's language dropdown switches language immediately — and,
+  // since a fresh doc-view otherwise starts with nothing selected (see the
+  // Home/Menu navigation script below), also jumps that language straight
+  // to its Home view so picking a language always shows "the SOP" right
+  // away rather than a blank "select a section" screen.
+  document.getElementById('toolbar-lang-select').addEventListener('change', function(){
+    setLang(this.value);
+    if(window.AlcoveGoHome){ window.AlcoveGoHome(); }
+  });
+
   /* "Save PDF": in the app, AndroidPrint.print() renders straight to a PDF
      file in Downloads with no dialog at all. In a plain browser tab there
      is no such bridge, so it falls back to window.print() (the same
@@ -2055,17 +2059,6 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
   document.getElementById('save-pdf-btn').addEventListener('click', function(){
     var lang = activeLang();
     if(window.AndroidPrint && window.AndroidPrint.print){ window.AndroidPrint.print(lang); }
-    else { window.print(); }
-  });
-
-  /* "Print": opens an actual print dialog (a real printer can be picked,
-     not just PDF). In the app this uses Android's own PrintManager via a
-     second bridge method — a normal, dialog-driven print, unlike the
-     silent direct-to-PDF bridge above. In a browser, window.print() already
-     is that dialog, so it's the same call as Save PDF there. */
-  document.getElementById('print-now-btn').addEventListener('click', function(){
-    var lang = activeLang();
-    if(window.AndroidPrint && window.AndroidPrint.printDialog){ window.AndroidPrint.printDialog(lang); }
     else { window.print(); }
   });
 })();
@@ -2186,17 +2179,14 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     });
   });
 
-  var changeLangBtn = document.getElementById('change-lang-btn');
-  if(changeLangBtn){
-    changeLangBtn.addEventListener('click', function(){
-      closeToc();
-      var current = ['en','bn','hi'].filter(function(l){ return document.getElementById('doc-'+l).classList.contains('active'); })[0];
-      var welcome = document.getElementById('welcome-screen');
-      var select = document.getElementById('welcome-lang-select');
-      if(select && current){ select.value = current; }
-      if(welcome){ welcome.style.display = 'flex'; }
-    });
-  }
+  // Exposed so the toolbar language <select> (defined earlier in the page)
+  // can send a freshly-switched language straight to its Home view, instead
+  // of leaving it on the "nothing selected yet" state a doc-view otherwise
+  // starts in.
+  window.AlcoveGoHome = function(){
+    var doc = activeDoc();
+    if(doc){ goHome(doc); }
+  };
 })();
 </script>
 
