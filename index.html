@@ -716,22 +716,55 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
      toolbar on any page, so a gate whose only job was to ask for it up front
      was a step for nothing. Its greeting now opens the Home view instead. -->
 <style>
+/* The first thing anyone sees, so it carries the brand rather than just
+   introducing the document: centred mark, the company's own line, then the
+   title. The logo PNG is transparent and sits on the panel directly — no
+   white plate, which only ever read as a box drawn around the mark. */
 .home-welcome{
-  margin:0 0 22px; padding:22px 26px;
-  border-left:4px solid var(--gold); border-radius:10px;
-  background:var(--structural-bg);
+  margin:0 0 26px; padding:36px 30px 30px; text-align:center;
+  border:1px solid var(--rule); border-radius:14px;
+  background:
+    radial-gradient(130% 100% at 50% 0%, var(--structural-bg), transparent 68%),
+    var(--paper-raised);
 }
+.home-welcome .hw-logo{ width:200px; height:auto; display:block; margin:0 auto 20px; }
 .home-welcome .hw-hello{
-  font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.14em;
-  text-transform:uppercase; color:var(--ink-faint); margin:0 0 6px;
+  font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--gold); margin:0 0 12px;
 }
 .home-welcome .hw-title{
-  font-family:"Fraunces","Georgia",serif; font-size:1.35rem; font-weight:600;
-  color:var(--ink); margin:0 0 10px; padding:0; border:none;
+  font-family:"Fraunces","Georgia",serif; font-size:2rem; font-weight:600;
+  line-height:1.2; color:var(--ink); margin:0 0 16px; padding:0; border:none;
 }
-.home-welcome .hw-lead{ margin:0 0 10px; color:var(--ink); }
-.home-welcome .hw-hint{ margin:0; font-size:14.5px; color:var(--ink-soft); }
-@media (max-width:900px){ .home-welcome{ padding:16px 16px; } }
+.home-welcome .hw-lead{
+  max-width:760px; margin:0 auto 20px; color:var(--ink);
+}
+.home-welcome .hw-facts{
+  display:flex; justify-content:center; flex-wrap:wrap; gap:10px 14px;
+  margin:0 0 20px; padding:16px 0 0; border-top:1px solid var(--rule);
+}
+.home-welcome .hw-facts span{
+  font-size:14px; color:var(--ink-soft);
+}
+.home-welcome .hw-facts b{
+  font-family:"IBM Plex Mono",monospace; font-size:17px;
+  color:var(--structural); margin-right:5px;
+}
+.home-welcome .hw-hint{
+  max-width:720px; margin:0 auto; font-size:14.5px; color:var(--ink-soft);
+}
+/* The printed document keeps the mark, the line and the title; the counts
+   and the "pick a section from the menu" pointer are screen furniture. */
+@media print{
+  .home-welcome{ border:none !important; background:none !important; padding:0 0 10px !important; }
+  .home-welcome .hw-facts, .home-welcome .hw-hint{ display:none !important; }
+}
+@media (max-width:900px){
+  .home-welcome{ padding:24px 16px 20px; }
+  .home-welcome .hw-logo{ width:150px; margin-bottom:14px; }
+  .home-welcome .hw-title{ font-size:1.45rem; }
+  .home-welcome .hw-facts{ gap:8px 12px; }
+}
 </style>
 
 <!-- ============================= ENGLISH ============================= -->
@@ -740,23 +773,15 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 
 <div class="home-view" id="home-en">
 <div class="home-welcome">
-<p class="hw-hello">Welcome</p>
+<img class="hw-logo" src="alcove-logo.png" alt="Alcove Realty" width="200" height="115">
+<p class="hw-hello">Building ideas. Organizing tomorrow.</p>
 <h2 class="hw-title">Alcove Documentation System</h2>
 <p class="hw-lead">This is the current, single source for how Document Control works at Alcove Realty — how every drawing, statutory sanction and site record is numbered, reviewed, issued, tracked and archived across Duets, Crown, Luxuria and The Curve. If a question about a document has an answer, it is in here.</p>
+<div class="hw-facts"><span><b>4</b>live projects</span><span><b>17</b>sections</span><span><b>3</b>languages</span></div>
 <p class="hw-hint">Pick a section from the menu to read it. You can switch between English, বাংলা and हिंदी at any time from the language list in the toolbar, and "Save PDF" keeps a copy of the whole document.</p>
 </div>
   <div class="control-block">
-    <div class="brandrow">
-      <div class="brandmark">
-        <span class="platecard"><img src="alcove-logo.png" alt="Alcove Realty" width="200" height="115"></span>
-      </div>
-      <span class="stampmark">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>
-        Controlled Document
-      </span>
-    </div>
-
-    <h1 class="title">Document Control — Standard Operating Procedure</h1>
+        <h1 class="title">Document Control — Standard Operating Procedure</h1>
     <p class="subtitle">Governs the numbering, review, distribution, revision, statutory-sanction tracking and archival of all documents handled by the Document Control department across Alcove Realty's live projects.</p>
 
     <div class="docfields">
@@ -1303,23 +1328,15 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 
 <div class="home-view" id="home-bn">
 <div class="home-welcome">
-<p class="hw-hello">স্বাগতম</p>
+<img class="hw-logo" src="alcove-logo.png" alt="Alcove Realty" width="200" height="115">
+<p class="hw-hello">ভাবনা গড়ি। আগামীকে সাজাই।</p>
 <h2 class="hw-title">অ্যালকোভ ডকুমেন্টেশন সিস্টেম</h2>
 <p class="hw-lead">অ্যালকোভ রিয়েলটিতে ডকুমেন্ট কন্ট্রোল কীভাবে চলে — প্রতিটি ড্রয়িং, স্ট্যাটুটরি স্যাংশন ও সাইট রেকর্ড কীভাবে নম্বর পায়, পর্যালোচিত হয়, ইস্যু হয়, ট্র্যাক ও আর্কাইভ করা হয় — Duets, Crown, Luxuria ও The Curve, সব প্রজেক্টের জন্য তার একমাত্র ও সর্বশেষ উৎস এটি। ডকুমেন্ট নিয়ে কোনো প্রশ্নের উত্তর থাকলে, তা এখানেই আছে।</p>
+<div class="hw-facts"><span><b>৪</b>টি চলমান প্রজেক্ট</span><span><b>১৭</b>টি সেকশন</span><span><b>৩</b>টি ভাষা</span></div>
 <p class="hw-hint">মেনু থেকে যেকোনো সেকশন বেছে নিয়ে পড়ুন। টুলবারের ভাষা তালিকা থেকে যেকোনো সময় English, বাংলা বা हिंदी-তে বদলাতে পারেন, আর "PDF সেভ করুন" দিয়ে পুরো ডকুমেন্টের একটি কপি রেখে দিতে পারেন।</p>
 </div>
   <div class="control-block">
-    <div class="brandrow">
-      <div class="brandmark">
-        <span class="platecard"><img src="alcove-logo.png" alt="Alcove Realty" width="200" height="115"></span>
-      </div>
-      <span class="stampmark">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>
-        কন্ট্রোলড ডকুমেন্ট
-      </span>
-    </div>
-
-    <h1 class="title">ডকুমেন্ট কন্ট্রোল — স্ট্যান্ডার্ড অপারেটিং প্রসিডিউর (SOP)</h1>
+        <h1 class="title">ডকুমেন্ট কন্ট্রোল — স্ট্যান্ডার্ড অপারেটিং প্রসিডিউর (SOP)</h1>
     <p class="subtitle">অ্যালকোভ রিয়েলটির সক্রিয় প্রজেক্টগুলোতে ডকুমেন্ট কন্ট্রোল ডিপার্টমেন্ট যেসব ডকুমেন্ট হ্যান্ডল করে, তাদের নম্বরকরণ, পর্যালোচনা, বিতরণ, রিভিশন, স্ট্যাটুটরি-স্যাংশন ট্র্যাকিং এবং আর্কাইভাল-এর নিয়ম নির্ধারণ করে এই SOP।</p>
 
     <div class="docfields">
@@ -1866,23 +1883,15 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 
 <div class="home-view" id="home-hi">
 <div class="home-welcome">
-<p class="hw-hello">स्वागत है</p>
+<img class="hw-logo" src="alcove-logo.png" alt="Alcove Realty" width="200" height="115">
+<p class="hw-hello">विचार गढ़ते हैं। कल को सँवारते हैं।</p>
 <h2 class="hw-title">अल्कोव डॉक्यूमेंटेशन सिस्टम</h2>
 <p class="hw-lead">अल्कोव रियल्टी में डॉक्यूमेंट कंट्रोल कैसे चलता है — हर ड्रॉइंग, स्टैट्यूटरी सैंक्शन और साइट रिकॉर्ड को कैसे नंबर दिया जाता है, समीक्षा, जारी, ट्रैक व आर्काइव किया जाता है — Duets, Crown, Luxuria और The Curve, सभी प्रोजेक्ट के लिए इसका एकमात्र और नवीनतम स्रोत यही है। दस्तावेज़ से जुड़े किसी सवाल का जवाब अगर कहीं है, तो यहीं है।</p>
+<div class="hw-facts"><span><b>4</b>सक्रिय प्रोजेक्ट</span><span><b>17</b>सेक्शन</span><span><b>3</b>भाषाएँ</span></div>
 <p class="hw-hint">मेनू से कोई भी सेक्शन चुनकर पढ़ें। टूलबार की भाषा सूची से किसी भी समय English, বাংলা या हिंदी में बदल सकते हैं, और "PDF सेव करें" से पूरे दस्तावेज़ की एक कॉपी रख सकते हैं।</p>
 </div>
   <div class="control-block">
-    <div class="brandrow">
-      <div class="brandmark">
-        <span class="platecard"><img src="alcove-logo.png" alt="Alcove Realty" width="200" height="115"></span>
-      </div>
-      <span class="stampmark">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>
-        कंट्रोल्ड डॉक्यूमेंट
-      </span>
-    </div>
-
-    <h1 class="title">डॉक्यूमेंट कंट्रोल — स्टैंडर्ड ऑपरेटिंग प्रोसीजर (SOP)</h1>
+        <h1 class="title">डॉक्यूमेंट कंट्रोल — स्टैंडर्ड ऑपरेटिंग प्रोसीजर (SOP)</h1>
     <p class="subtitle">अल्कोव रियल्टी के सक्रिय प्रोजेक्ट्स में डॉक्यूमेंट कंट्रोल डिपार्टमेंट जिन दस्तावेज़ों को संभालता है, उनकी नंबरिंग, समीक्षा, वितरण, रिवीज़न, स्टैट्यूटरी-सैंक्शन ट्रैकिंग और आर्काइवल के नियम यह SOP तय करता है।</p>
 
     <div class="docfields">
