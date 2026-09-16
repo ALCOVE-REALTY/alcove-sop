@@ -370,7 +370,7 @@ section[id$="-history"],        .toc a[href$="-history"]{ --art-src:url('pages/h
    menu. Back and Refresh move up into the toolbar row for the same reason
    the menu did: everything that steers the page now lives at the top. */
 @media (min-width:901px){
-  .shell{ display:block; max-width:1120px; }
+  .shell{ display:block; max-width:1320px; }
   /* A real navigation bar, not a floating card: full-bleed to both window
      edges, flush under the hint bar, no radius and no shadow. The negative
      inline margins break it out of .shell's max-width; the matching inline
@@ -385,7 +385,7 @@ section[id$="-history"],        .toc a[href$="-history"]{ --art-src:url('pages/h
     overflow:visible;
     display:flex; flex-wrap:nowrap; align-items:stretch; gap:0;
     width:100vw; margin:-36px calc(50% - 50vw) 30px;
-    padding:0 max(18px, calc(50vw - 548px));
+    padding:0 max(18px, calc(50vw - 638px));
     background:rgba(20,24,29,.82);
     border:none; border-radius:0; box-shadow:none;
   }
@@ -454,6 +454,40 @@ section[id$="-history"],        .toc a[href$="-history"]{ --art-src:url('pages/h
   }
   #back-fab{ right:142px !important; }
   #refresh-fab{ right:18px !important; }
+}
+
+/* ---------- Wide desktop: the section's picture alongside its text ----------
+   The user's own idea, and it is the right home for this artwork: at ~340px
+   the images sit near their native 336px, so they are finally crisp instead
+   of upscaled. The whole panel is drawn by ::after off --art-src, so no
+   markup changes — and it sticks while the text scrolls past it. */
+@media (min-width:1100px){
+  article > section{
+    display:grid; grid-template-columns:minmax(0,1fr) 340px;
+    column-gap:34px; align-items:start;
+  }
+  article > section > *{ grid-column:1; min-width:0; }
+  article > section::after{
+    /* Spanning every row is what stops the picture from inflating row 1 and
+       shoving the heading down past its own height; align-self keeps it at
+       the top of that tall area, and sticky then carries it down the text.
+       It has to be an explicit span: the rows here are implicit, so -1
+       resolves back to row 1 and the gap comes straight back. */
+    content:""; grid-column:2; grid-row:1 / span 50; align-self:start;
+    position:sticky; top:104px;
+    width:340px; aspect-ratio:336/287;
+    background-image:var(--art-src);
+    background-position:center; background-size:cover; background-repeat:no-repeat;
+    border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow);
+  }
+  /* §14's own artwork is already the page background behind the menu; showing
+     it again beside its text is just the same picture twice. */
+  section[id$="-training"]::after{ display:none; }
+  section[id$="-training"]{ display:block; }
+}
+@media print{
+  article > section::after{ display:none !important; }
+  article > section{ display:block !important; }
 }
 
 /* ---------- Quick-reference code chips ---------- */
