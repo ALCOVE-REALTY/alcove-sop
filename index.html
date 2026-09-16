@@ -200,41 +200,13 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
 .toc-home-link:hover{ color:var(--ink); }
 .toc-home-link.active{ color:var(--ink); font-weight:600; border-left-color:var(--gold); background:var(--structural-bg); }
 
-/* ---------- Mobile Contents drawer (replaces the plain "hide below 900px"
-   the TOC used to get — narrow screens, phones especially, had NO way to
-   jump to a section at all before this) ---------- */
-.toc-fab{
-  display:none; position:fixed; left:18px; bottom:18px; z-index:500;
-  align-items:center; gap:7px; background:var(--structural); color:#fff; border:none;
-  border-radius:999px; padding:11px 16px; font-size:13.5px; font-weight:600; font-family:inherit;
-  box-shadow:var(--shadow); cursor:pointer;
-}
-.toc-fab svg{width:16px;height:16px;flex:none;}
-.toc-backdrop{ display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:590; }
+/* ---------- Mobile menu ----------
+   There is no drawer and no "Contents" button below 900px: the TOC *is* the
+   landing screen (body.nav-landing, set by the navigation script), and it is
+   simply hidden while a section is open — "Back" is what returns to it. */
 @media (max-width:900px){
-  .toc-fab{ display:flex; }
-  .toc{
-    display:none; position:fixed; inset:0 12% 0 0; max-width:340px; z-index:600;
-    background:var(--paper-raised); padding:24px 22px; overflow-y:auto;
-    box-shadow:0 0 30px rgba(0,0,0,.3);
-  }
-  .toc.mobile-open{ display:block; }
-  body.toc-open .toc-backdrop{ display:block; }
-  /* Landing state (nothing picked yet) — on a phone the drawer meant the
-     screen said "choose from the menu" while no menu was anywhere in sight.
-     Here the menu IS the screen: the TOC drops out of its fixed-drawer
-     styling and sits inline, so opening the app lands straight on it. */
-  body.nav-landing .doc-view.active .toc{
-    display:block; position:static; inset:auto; max-width:none; z-index:auto;
-    background:transparent; padding:0; box-shadow:none; overflow-y:visible;
-  }
-  body.nav-landing .toc-fab{ display:none; }
+  body.nav-landing .doc-view.active .toc{ display:block; position:static; }
   body.nav-landing .empty-hint{ display:none !important; }
-  .toc-close{
-    display:flex; align-items:center; justify-content:center; width:30px; height:30px;
-    border-radius:50%; border:1px solid var(--rule-strong); background:transparent; color:var(--ink);
-    position:absolute; top:16px; right:16px; cursor:pointer;
-  }
 }
 
 /* ---------- Quick-reference code chips ---------- */
@@ -284,7 +256,7 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
 .changelog-item{ display:flex; gap:12px; padding:10px 0; border-bottom:1px solid var(--rule); font-size:13.5px; }
 .changelog-item:last-child{ border-bottom:none; }
 .changelog-date{ font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-faint); white-space:nowrap; flex:none; padding-top:1px; }
-@media print{ .toc-fab, .toc-backdrop, .quickref, .changelog, #welcome-screen, #back-fab{ display:none !important; } }
+@media print{ .quickref, .changelog, #welcome-screen, #back-fab{ display:none !important; } }
 
 article{min-width:0; grid-column:2; grid-row:1;}
 section{margin-bottom:52px; scroll-margin-top:90px;}
@@ -406,12 +378,6 @@ tbody tr.suggested td:first-child{color:var(--suggest);}
   <div class="toolbar-updated">Last updated / সর্বশেষ আপডেট: <span id="updated-stamp">15 September 2026</span></div>
 </div>
 <div class="toolbar-hint" id="toolbar-hint-text">"Save PDF" saves the file directly / "Save PDF" সরাসরি ফাইল সেভ করে</div>
-
-<div class="toc-backdrop" id="toc-backdrop"></div>
-<button type="button" class="toc-fab" id="toc-fab">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h10"/></svg>
-  Contents
-</button>
 
 <button type="button" id="refresh-fab" title="Reload latest content / সর্বশেষ কনটেন্ট রিলোড করুন" style="position:fixed;right:18px;bottom:18px;z-index:500;display:flex;align-items:center;gap:7px;background:#1f6f4a;color:#fff;border:none;border-radius:999px;padding:11px 18px;font-size:13.5px;font-weight:600;box-shadow:0 3px 10px rgba(0,0,0,0.25);cursor:pointer;">
   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-2.64-6.36M21 3v6h-6"/></svg>
@@ -2086,24 +2052,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
      of whatever is open on screen when it's generated. -->
 <script>
 (function(){
-  var fab = document.getElementById('toc-fab');
-  var backdrop = document.getElementById('toc-backdrop');
-
   function activeDoc(){ return document.querySelector('.doc-view.active'); }
-
-  function closeToc(){
-    document.querySelectorAll('.toc.mobile-open').forEach(function(t){ t.classList.remove('mobile-open'); });
-    document.body.classList.remove('toc-open');
-  }
-  function openToc(){
-    var doc = activeDoc();
-    var toc = doc ? doc.querySelector('.toc') : null;
-    if(!toc) return;
-    toc.classList.add('mobile-open');
-    document.body.classList.add('toc-open');
-  }
-  if(fab){ fab.addEventListener('click', openToc); }
-  if(backdrop){ backdrop.addEventListener('click', closeToc); }
 
   function setLanding(on){ document.body.classList.toggle('nav-landing', on); }
 
@@ -2171,7 +2120,6 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     clearActiveLinks(doc);
     setBackFabVisible(false);
     setLanding(true);
-    closeToc();
     window.scrollTo(0, 0);
   }
 
@@ -2181,7 +2129,6 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       homeLink.addEventListener('click', function(ev){
         ev.preventDefault();
         goHome(doc);
-        closeToc();
       });
     }
     doc.querySelectorAll('.toc ol a').forEach(function(a){
@@ -2189,7 +2136,6 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
         ev.preventDefault();
         var id = a.getAttribute('href').slice(1);
         showSection(doc, id, a);
-        closeToc();
       });
     });
     // Initial state: nothing selected — Home behaves exactly like any other
