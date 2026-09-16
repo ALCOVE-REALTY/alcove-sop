@@ -22,7 +22,7 @@
   --gold:#8A6D1F;
   --gold-bg:rgba(138,109,31,.10);
   --shadow: 0 1px 2px rgba(33,38,43,.06), 0 6px 20px rgba(33,38,43,.05);
-  --art-alpha:.15;
+  --art-alpha:.15; --landing-veil:rgba(236,234,225,.42);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -32,7 +32,7 @@
     --structural:#8FB2D2; --structural-bg:rgba(143,178,210,.10); --code-bg:rgba(143,178,210,.08);
     --suggest:#7FB284; --suggest-bg:rgba(127,178,132,.12);
     --gold:#D9B45C; --gold-bg:rgba(217,180,92,.14);
-    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-alpha:.22;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-alpha:.22; --landing-veil:rgba(14,17,19,.62);
   }
 }
 :root[data-theme="dark"]{
@@ -42,7 +42,7 @@
   --structural:#8FB2D2; --structural-bg:rgba(143,178,210,.10); --code-bg:rgba(143,178,210,.08);
   --suggest:#7FB284; --suggest-bg:rgba(127,178,132,.12);
   --gold:#D9B45C; --gold-bg:rgba(217,180,92,.14);
-  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-alpha:.22;
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-alpha:.22; --landing-veil:rgba(14,17,19,.62);
 }
 
 *{box-sizing:border-box;}
@@ -93,7 +93,7 @@ h1,h2,h3{ text-wrap:balance; color:var(--ink); }
 }
 .toolbar-hint{
   text-align:center; font-size:12px; color:var(--ink-soft);
-  padding:6px 20px; background:var(--structural-bg); border-bottom:1px solid var(--rule-strong);
+  padding:6px 20px; background:linear-gradient(var(--structural-bg), var(--structural-bg)), var(--paper); border-bottom:1px solid var(--rule-strong);
 }
 .btn-short{ display:none; }
 /* Phone toolbar: two deliberate rows — logo + language on top, the two
@@ -229,7 +229,7 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
    simply hidden while a section is open — "Back" is what returns to it. */
 @media (max-width:900px){
   body.nav-landing .doc-view.active .toc{ display:block; position:static; max-height:none; overflow:visible; }
-  body.nav-landing .empty-hint{ display:none !important; }
+
 
   /* The menu screen is the first thing seen after the Welcome card, so on a
      phone the bare link list becomes tappable cards. Scoped to the landing
@@ -272,15 +272,25 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
    themselves live on in the menu thumbnails below, where they are small
    enough to stay sharp. */
 article > section::before,
-.home-view::before,
-body.nav-landing .doc-view.active .toc::before{
+.home-view::before{
   content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
   background-color:var(--art-tint);
   opacity:var(--art-alpha);
 }
-/* The menu screen shows no section, so nothing else would paint a background
-   there — give it the Home tint so it isn't the one bare page. */
-body.nav-landing .doc-view.active .toc::before{ background-color:#C6B853; }
+/* The menu screen is the exception that can carry a real photograph: it uses
+   the Training & competency artwork, which the user supplied at 1354px, so
+   it stays sharp filling a desktop viewport where the ~336px section images
+   cannot. Same construction as the Welcome screen — photo behind, a
+   translucent veil over it, and the menu's own opaque cards on top.
+   It hangs off body, not .toc: .toc is position:sticky, which makes it a
+   stacking context, so a z-index:-1 child of it paints above the sidebar's
+   own card background and blots the menu out. */
+body.nav-landing .empty-hint{ display:none !important; }
+body.nav-landing::before{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background-image:linear-gradient(var(--landing-veil), var(--landing-veil)), url('pages/training.jpg');
+  background-position:center; background-size:cover; background-repeat:no-repeat;
+}
 
 /* The picture survives as the menu thumbnail for its section, fed by
    --art-src from the same per-section rule that sets --art-tint. */
