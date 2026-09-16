@@ -22,6 +22,7 @@
   --gold:#8A6D1F;
   --gold-bg:rgba(138,109,31,.10);
   --shadow: 0 1px 2px rgba(33,38,43,.06), 0 6px 20px rgba(33,38,43,.05);
+  --art-opacity:.075;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -31,7 +32,7 @@
     --structural:#8FB2D2; --structural-bg:rgba(143,178,210,.10); --code-bg:rgba(143,178,210,.08);
     --suggest:#7FB284; --suggest-bg:rgba(127,178,132,.12);
     --gold:#D9B45C; --gold-bg:rgba(217,180,92,.14);
-    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28);
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-opacity:.06;
   }
 }
 :root[data-theme="dark"]{
@@ -41,7 +42,7 @@
   --structural:#8FB2D2; --structural-bg:rgba(143,178,210,.10); --code-bg:rgba(143,178,210,.08);
   --suggest:#7FB284; --suggest-bg:rgba(127,178,132,.12);
   --gold:#D9B45C; --gold-bg:rgba(217,180,92,.14);
-  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28);
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-opacity:.06;
 }
 
 *{box-sizing:border-box;}
@@ -137,7 +138,7 @@ h1,h2,h3{ text-wrap:balance; color:var(--ink); }
 .shell{
   max-width:1180px; margin:0 auto; padding-block:36px 80px; padding-inline:22px;
   box-sizing:border-box;
-  display:grid; grid-template-columns:220px minmax(0,760px); gap:56px; justify-content:center;
+  display:grid; grid-template-columns:270px minmax(0,760px); gap:48px; justify-content:center;
 }
 @media (max-width:900px){
   .shell{grid-template-columns:minmax(0,1fr); gap:28px;}
@@ -200,11 +201,14 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
 .approval-meta{ font-size:11.5px; color:var(--ink-faint); }
 .doc-bn .approval-role, .doc-hi .approval-role{ letter-spacing:normal; text-transform:none; }
 
-.toc{position:sticky; top:78px; align-self:start; grid-column:1; grid-row:1;}
+/* Thumbnails made the rows tall enough that 17 sections overflow a laptop
+   screen; without its own scroll the sticky sidebar would strand the last
+   few items out of reach. */
+.toc{position:sticky; top:78px; align-self:start; grid-column:1; grid-row:1; max-height:calc(100vh - 96px); overflow-y:auto;}
 .toc-eyebrow{ font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:12px; }
 .toc ol{list-style:none; margin:0; padding:0; counter-reset:toc;}
 .toc li{counter-increment:toc; margin-bottom:9px;}
-.toc a{ display:flex; gap:9px; color:var(--ink-soft); text-decoration:none; font-size:13.5px; line-height:1.5; padding:3px 6px 3px 8px; border-radius:4px; border-left:2px solid transparent; }
+.toc a{ display:flex; align-items:center; gap:9px; color:var(--ink-soft); text-decoration:none; font-size:13.5px; line-height:1.5; padding:3px 6px 3px 8px; border-radius:4px; border-left:2px solid transparent; }
 .toc a::before{ content:counter(toc); font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--structural); flex:none; width:1.4em; }
 .toc a:hover{ color:var(--ink); }
 .toc a.active{ color:var(--ink); font-weight:600; border-left-color:var(--gold); background:var(--structural-bg); }
@@ -224,7 +228,7 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
    landing screen (body.nav-landing, set by the navigation script), and it is
    simply hidden while a section is open — "Back" is what returns to it. */
 @media (max-width:900px){
-  body.nav-landing .doc-view.active .toc{ display:block; position:static; }
+  body.nav-landing .doc-view.active .toc{ display:block; position:static; max-height:none; overflow:visible; }
   body.nav-landing .empty-hint{ display:none !important; }
 
   /* The menu screen is the first thing seen after the Welcome card, so on a
@@ -254,42 +258,53 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
   }
   body.nav-landing .toc-home-link::after,
   body.nav-landing .toc ol a::after{
-    content:"\203A"; margin-left:auto; padding-left:8px;
-    color:var(--ink-faint); font-size:22px; line-height:1;
+    width:64px; height:52px; border-radius:8px;
   }
 }
 
-/* ---------- Section hero images ----------
-   One picture per section, supplied by the user and served from /pages. They
-   carry their own baked-in captions and are only ~336px wide, so they sit as
-   a capped-width banner above the text rather than as a full-bleed page
-   background — which would both blur them badly and bury the SOP text. */
+/* ---------- Section artwork as a page watermark ----------
+   These started as a banner above each section, but at content width that
+   reads as a big decorative slab you have to scroll past before the text
+   begins. They now sit behind the page instead: faint, fixed, and slightly
+   blurred, so the artwork is present on every page while its baked-in
+   captions fade out of legibility and the low-resolution ones stop looking
+   stretched. Opacity is a token because a photo needs to be fainter over a
+   dark ground than a light one to read as texture rather than grime. */
 article > section::before,
 .home-view::before{
-  content:""; display:block;
-  width:100%; max-width:430px; aspect-ratio:336/287;
-  margin:0 0 24px;
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
   background-position:center; background-size:cover; background-repeat:no-repeat;
-  border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow);
+  opacity:var(--art-opacity); filter:blur(14px);
 }
-.home-view::before{ max-width:560px; aspect-ratio:1100/943; background-image:url('pages/home.jpg'); }
-section[id$="-purpose"]::before{ background-image:url('pages/purpose.jpg'); }
-section[id$="-scope"]::before{ background-image:url('pages/scope.jpg'); }
-section[id$="-definitions"]::before{ background-image:url('pages/definitions.jpg'); }
-section[id$="-projects"]::before{ background-image:url('pages/projects.jpg'); }
-section[id$="-roles"]::before{ background-image:url('pages/roles.jpg'); }
-section[id$="-numbering"]::before{ background-image:url('pages/numbering.jpg'); }
-section[id$="-status"]::before{ background-image:url('pages/status.jpg'); }
-section[id$="-sanctions"]::before{ background-image:url('pages/sanctions.jpg'); }
-section[id$="-procedure"]::before{ background-image:url('pages/procedure.jpg'); }
-section[id$="-mdl"]::before{ background-image:url('pages/mdl.jpg'); }
-section[id$="-distribution"]::before{ background-image:url('pages/distribution.jpg'); }
-section[id$="-security"]::before{ background-image:url('pages/security.jpg'); }
-section[id$="-nonconformance"]::before{ background-image:url('pages/nonconformance.jpg'); }
-section[id$="-training"]::before{ background-image:url('pages/training.jpg'); }
-section[id$="-kpi"]::before{ background-image:url('pages/kpi.jpg'); }
-section[id$="-references"]::before{ background-image:url('pages/references.jpg'); }
-section[id$="-history"]::before{ background-image:url('pages/history.jpg'); }
+/* Each picture also rides along as the menu thumbnail for its section, which
+   is where it is actually legible — the watermark behind the page is texture,
+   this is the picture. Both are driven by the one rule per section below. */
+.toc-home-link::after,
+.toc ol a::after{
+  content:""; margin-left:auto; flex:none;
+  width:44px; height:36px; border-radius:6px;
+  background-position:center; background-size:cover; background-repeat:no-repeat;
+  border:1px solid var(--rule);
+}
+
+.home-view::before, .toc-home-link::after{ background-image:url('pages/home.jpg'); }
+section[id$="-purpose"]::before,        .toc a[href$="-purpose"]::after{ background-image:url('pages/purpose.jpg'); }
+section[id$="-scope"]::before,          .toc a[href$="-scope"]::after{ background-image:url('pages/scope.jpg'); }
+section[id$="-definitions"]::before,    .toc a[href$="-definitions"]::after{ background-image:url('pages/definitions.jpg'); }
+section[id$="-projects"]::before,       .toc a[href$="-projects"]::after{ background-image:url('pages/projects.jpg'); }
+section[id$="-roles"]::before,          .toc a[href$="-roles"]::after{ background-image:url('pages/roles.jpg'); }
+section[id$="-numbering"]::before,      .toc a[href$="-numbering"]::after{ background-image:url('pages/numbering.jpg'); }
+section[id$="-status"]::before,         .toc a[href$="-status"]::after{ background-image:url('pages/status.jpg'); }
+section[id$="-sanctions"]::before,      .toc a[href$="-sanctions"]::after{ background-image:url('pages/sanctions.jpg'); }
+section[id$="-procedure"]::before,      .toc a[href$="-procedure"]::after{ background-image:url('pages/procedure.jpg'); }
+section[id$="-mdl"]::before,            .toc a[href$="-mdl"]::after{ background-image:url('pages/mdl.jpg'); }
+section[id$="-distribution"]::before,   .toc a[href$="-distribution"]::after{ background-image:url('pages/distribution.jpg'); }
+section[id$="-security"]::before,       .toc a[href$="-security"]::after{ background-image:url('pages/security.jpg'); }
+section[id$="-nonconformance"]::before, .toc a[href$="-nonconformance"]::after{ background-image:url('pages/nonconformance.jpg'); }
+section[id$="-training"]::before,       .toc a[href$="-training"]::after{ background-image:url('pages/training.jpg'); }
+section[id$="-kpi"]::before,            .toc a[href$="-kpi"]::after{ background-image:url('pages/kpi.jpg'); }
+section[id$="-references"]::before,     .toc a[href$="-references"]::after{ background-image:url('pages/references.jpg'); }
+section[id$="-history"]::before,        .toc a[href$="-history"]::after{ background-image:url('pages/history.jpg'); }
 /* The PDF is the controlled document; decorative art stays out of it. */
 @media print{ article > section::before, .home-view::before{ display:none !important; } }
 
