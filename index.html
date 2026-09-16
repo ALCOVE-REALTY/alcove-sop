@@ -315,6 +315,13 @@ article > section, .home-view, article > .footline{
 }
 @media (max-width:900px){
   article > section, .home-view, article > .footline{ padding:18px 16px; }
+  /* On a phone the card fills almost the whole width, so a full-screen tint
+     only ever shows as a muddy frame around it. Drop it and let the section's
+     colour do something useful instead — mark the number badge and the
+     heading rule, where it reads as deliberate rather than as spill. */
+  article > section::before, .home-view::before{ display:none; }
+  article > section .eyebrow{ background:var(--art-tint); color:#1A1E22; }
+  article > section h2{ border-left-color:var(--art-tint); }
   /* Wide tables already scroll sideways inside .twrap; letting that scroller
      reach the card's edges buys back the padding so less of the table is
      hidden before the reader has to swipe. */
