@@ -435,23 +435,30 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 </style>
 
 <div id="welcome-screen">
+  <!-- This card is a fixed light panel over a photo (by design, regardless
+       of the device's light/dark setting) — every color here is a literal
+       hex value, NOT the --ink/--paper/etc. theme variables used elsewhere
+       on the page. Those variables flip to light-on-dark under
+       prefers-color-scheme:dark, which would make this text nearly
+       invisible against the always-light card (confirmed on a real phone
+       in dark mode: the heading rendered almost white-on-white). -->
   <div class="welcome-card">
-    <span class="platecard" style="display:inline-block; background:#fff; border-radius:8px; padding:12px 20px; box-shadow:var(--shadow); margin-bottom:22px;">
+    <span class="platecard" style="display:inline-block; background:#fff; border-radius:8px; padding:12px 20px; box-shadow:0 1px 2px rgba(33,38,43,.06), 0 6px 20px rgba(33,38,43,.05); margin-bottom:22px;">
       <img src="alcove-logo.png" alt="Alcove Realty" width="170" height="98" style="display:block;">
     </span>
-    <h1 style="font-family:'Fraunces','Georgia',serif; font-size:1.55rem; font-weight:600; margin:0 0 6px; color:var(--ink);">Welcome to Alcove Documentation System</h1>
-    <p style="font-family:'Noto Serif Bengali','Source Serif 4',serif; font-size:14px; color:var(--ink-soft); margin:0 0 3px;">আলকোভ ডকুমেন্টেশন সিস্টেমে স্বাগতম</p>
-    <p style="font-family:'Noto Serif Devanagari','Source Serif 4',serif; font-size:14px; color:var(--ink-soft); margin:0 0 10px;">अल्कोव डॉक्यूमेंटेशन सिस्टम में आपका स्वागत है</p>
-    <p style="font-size:12.5px; color:var(--ink-faint); margin:0 0 22px;">Your central source for project information</p>
+    <h1 style="font-family:'Fraunces','Georgia',serif; font-size:1.55rem; font-weight:600; margin:0 0 6px; color:#21262B;">Welcome to Alcove Documentation System</h1>
+    <p style="font-family:'Noto Serif Bengali','Source Serif 4',serif; font-size:14px; color:#5B6570; margin:0 0 3px;">আলকোভ ডকুমেন্টেশন সিস্টেমে স্বাগতম</p>
+    <p style="font-family:'Noto Serif Devanagari','Source Serif 4',serif; font-size:14px; color:#5B6570; margin:0 0 10px;">अल्कोव डॉक्यूमेंटेशन सिस्टम में आपका स्वागत है</p>
+    <p style="font-size:12.5px; color:#8A9096; margin:0 0 22px;">Your central source for project information</p>
 
-    <div style="text-align:left; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:6px;">Select language</div>
-    <select id="welcome-lang-select" style="width:100%; padding:11px 12px; font-size:15px; border:1px solid var(--rule-strong); border-radius:6px; background:var(--paper-raised); color:var(--ink); margin-bottom:16px;">
+    <div style="text-align:left; font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:#8A9096; margin-bottom:6px;">Select language</div>
+    <select id="welcome-lang-select" style="width:100%; padding:11px 12px; font-size:15px; border:1px solid #B9B4A2; border-radius:6px; background:#FBFAF6; color:#21262B; margin-bottom:16px;">
       <option value="en">English</option>
       <option value="bn">বাংলা (Bengali)</option>
       <option value="hi">हिंदी (Hindi)</option>
     </select>
 
-    <button type="button" id="welcome-go-btn" style="width:100%; padding:13px; font-size:15px; font-weight:600; border:none; border-radius:6px; background:var(--structural); color:#fff; cursor:pointer;">
+    <button type="button" id="welcome-go-btn" style="width:100%; padding:13px; font-size:15px; font-weight:600; border:none; border-radius:6px; background:#2E4F6E; color:#fff; cursor:pointer;">
       Go / যান / जाएँ
     </button>
   </div>
