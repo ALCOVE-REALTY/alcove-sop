@@ -3061,3 +3061,24 @@ html[data-bg]:not([data-bg="off"]) article > .footline{ background:transparent; 
     .catch(function(){});
 })();
 </script>
+<div id="bgpick">
+  <b>পিছনের ছবি</b>
+  <button type="button" data-v="off">নেই</button>
+  <button type="button" data-v="faint">হালকা</button>
+  <button type="button" data-v="medium">মাঝারি</button>
+  <button type="button" data-v="strong">গাঢ়</button>
+</div>
+<script>
+(function(){
+  var root = document.documentElement, box = document.getElementById('bgpick');
+  function set(v){
+    root.setAttribute('data-bg', v);
+    var b = box.querySelectorAll('button');
+    for(var i=0;i<b.length;i++){ b[i].setAttribute('aria-pressed', b[i].dataset.v === v ? 'true' : 'false'); }
+    try{ localStorage.setItem('alcove-bg-preview', v); }catch(e){}
+  }
+  box.addEventListener('click', function(e){ if(e.target.dataset.v){ set(e.target.dataset.v); } });
+  var saved = null; try{ saved = localStorage.getItem('alcove-bg-preview'); }catch(e){}
+  set(saved || 'medium');
+})();
+</script>
