@@ -424,7 +424,11 @@ section[id$="-history"],        .toc a[href$="-history"]{ --art-src:url('pages/h
    the bar would sit below the whole Home page — invisible until scrolled to. */
 .toc{ order:-1; }
 .toc{
-  position:static; max-height:none;
+  /* Sticks under the toolbar so the menu stays put while the document
+     scrolls past it. --nav-top is measured in JS because the toolbar is two
+     rows tall on a phone and one on the desktop, and the hint strip is
+     hidden below 640px. */
+  position:sticky; top:var(--nav-top, 0px); z-index:25; max-height:none;
   /* Must stay visible or it clips the More dropdown, which hangs below the
      bar. Nothing actually spills: the fit script moves every item that
      would overflow into that dropdown. */
@@ -540,7 +544,7 @@ section[id$="-projects"]::after{ display:none; }
        It has to be an explicit span: the rows here are implicit, so -1
        resolves back to row 1 and the gap comes straight back. */
     grid-column:2; grid-row:1 / span 50; align-self:start;
-    position:sticky; top:104px;
+    position:sticky; top:calc(var(--below-nav, 104px) + 18px);
     width:340px; margin:0;
   }
 }
@@ -854,7 +858,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 <div class="home-welcome">
 <img class="hw-logo" src="alcove-logo.png" alt="Alcove Realty" width="200" height="115">
 <p class="hw-hello">Building ideas. Organizing tomorrow.</p>
-<h2 class="hw-title">Alcove Documentation System</h2>
+<h2 class="hw-title">Alcove Realty Documentation System</h2>
 <p class="hw-lead">This is the current, single source for how Document Control works at Alcove Realty — how every drawing, statutory sanction and site record is numbered, reviewed, issued, tracked and archived across Duets, Crown, Luxuria and The Curve. If a question about a document has an answer, it is in here.</p>
 <div class="hw-facts"><span><b>4</b>live projects</span><span><b>17</b>sections</span><span><b>3</b>languages</span></div>
 <p class="hw-hint">Pick a section from the menu to read it. You can switch between English, বাংলা and हिंदी at any time from the language list in the toolbar, and "Save PDF" keeps a copy of the whole document.</p>
@@ -1417,7 +1421,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 <div class="home-welcome">
 <img class="hw-logo" src="alcove-logo.png" alt="Alcove Realty" width="200" height="115">
 <p class="hw-hello">ভাবনা গড়ি। আগামীকে সাজাই।</p>
-<h2 class="hw-title">অ্যালকোভ ডকুমেন্টেশন সিস্টেম</h2>
+<h2 class="hw-title">অ্যালকোভ রিয়েলটি ডকুমেন্টেশন সিস্টেম</h2>
 <p class="hw-lead">অ্যালকোভ রিয়েলটিতে ডকুমেন্ট কন্ট্রোল কীভাবে চলে — প্রতিটি ড্রয়িং, স্ট্যাটুটরি স্যাংশন ও সাইট রেকর্ড কীভাবে নম্বর পায়, পর্যালোচিত হয়, ইস্যু হয়, ট্র্যাক ও আর্কাইভ করা হয় — Duets, Crown, Luxuria ও The Curve, সব প্রজেক্টের জন্য তার একমাত্র ও সর্বশেষ উৎস এটি। ডকুমেন্ট নিয়ে কোনো প্রশ্নের উত্তর থাকলে, তা এখানেই আছে।</p>
 <div class="hw-facts"><span><b>৪</b>টি চলমান প্রজেক্ট</span><span><b>১৭</b>টি সেকশন</span><span><b>৩</b>টি ভাষা</span></div>
 <p class="hw-hint">মেনু থেকে যেকোনো সেকশন বেছে নিয়ে পড়ুন। টুলবারের ভাষা তালিকা থেকে যেকোনো সময় English, বাংলা বা हिंदी-তে বদলাতে পারেন, আর "PDF সেভ করুন" দিয়ে পুরো ডকুমেন্টের একটি কপি রেখে দিতে পারেন।</p>
@@ -1980,7 +1984,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 <div class="home-welcome">
 <img class="hw-logo" src="alcove-logo.png" alt="Alcove Realty" width="200" height="115">
 <p class="hw-hello">विचार गढ़ते हैं। कल को सँवारते हैं।</p>
-<h2 class="hw-title">अल्कोव डॉक्यूमेंटेशन सिस्टम</h2>
+<h2 class="hw-title">अल्कोव रियल्टी डॉक्यूमेंटेशन सिस्टम</h2>
 <p class="hw-lead">अल्कोव रियल्टी में डॉक्यूमेंट कंट्रोल कैसे चलता है — हर ड्रॉइंग, स्टैट्यूटरी सैंक्शन और साइट रिकॉर्ड को कैसे नंबर दिया जाता है, समीक्षा, जारी, ट्रैक व आर्काइव किया जाता है — Duets, Crown, Luxuria और The Curve, सभी प्रोजेक्ट के लिए इसका एकमात्र और नवीनतम स्रोत यही है। दस्तावेज़ से जुड़े किसी सवाल का जवाब अगर कहीं है, तो यहीं है।</p>
 <div class="hw-facts"><span><b>4</b>सक्रिय प्रोजेक्ट</span><span><b>17</b>सेक्शन</span><span><b>3</b>भाषाएँ</span></div>
 <p class="hw-hint">मेनू से कोई भी सेक्शन चुनकर पढ़ें। टूलबार की भाषा सूची से किसी भी समय English, বাংলা या हिंदी में बदल सकते हैं, और "PDF सेव करें" से पूरे दस्तावेज़ की एक कॉपी रख सकते हैं।</p>
@@ -2551,6 +2555,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     // Each language has its own nav with its own label widths, and the one
     // just revealed measured zero while it was hidden — re-fit it now.
     if(window.AlcoveLayoutNav){ window.AlcoveLayoutNav(); }
+    if(window.AlcoveMeasureNav){ window.AlcoveMeasureNav(); }
   }
   // Exposed so the Welcome screen (and anything else outside this closure)
   // can switch language without needing access to this closure's internals.
@@ -2897,7 +2902,10 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     if(!panel.children.length){ more.classList.remove('has-items'); }
     else if(wasOpen){ more.classList.add('open'); }
   }
-  function fitAll(){ document.querySelectorAll('.toc').forEach(fit); }
+  function fitAll(){
+    document.querySelectorAll('.toc').forEach(fit);
+    if(window.AlcoveMeasureNav){ window.AlcoveMeasureNav(); }
+  }
   window.AlcoveLayoutNav = fitAll;
 
   document.addEventListener('click', function(ev){
@@ -2951,5 +2959,36 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       });
     });
   });
+})();
+</script>
+<!-- The nav sticks under the toolbar, and the toolbar's height is not a
+     constant: two rows on a phone, one on the desktop, with the hint strip
+     hidden below 640px. Measure it and hand the numbers to the stylesheet. -->
+<script>
+(function(){
+  function visibleHeight(el){
+    if(!el) return 0;
+    if(getComputedStyle(el).display === 'none') return 0;
+    return el.offsetHeight;
+  }
+  function measure(){
+    // Only the toolbar is sticky — the hint strip below it scrolls away,
+    // so counting its height would leave a gap under the toolbar.
+    var top = visibleHeight(document.querySelector('.toolbar'));
+    var nav = 0;
+    var toc = document.querySelector('.doc-view.active .toc');
+    if(toc){ nav = toc.offsetHeight; }
+    var root = document.documentElement.style;
+    root.setProperty('--nav-top', top + 'px');
+    root.setProperty('--below-nav', (top + nav) + 'px');
+  }
+  window.AlcoveMeasureNav = measure;
+  var pending;
+  window.addEventListener('resize', function(){
+    clearTimeout(pending); pending = setTimeout(measure, 120);
+  });
+  measure();
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(measure); }
+  setTimeout(measure, 600);
 })();
 </script>
