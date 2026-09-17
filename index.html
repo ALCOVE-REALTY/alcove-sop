@@ -815,6 +815,18 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     radial-gradient(130% 100% at 50% 0%, var(--structural-bg), transparent 68%),
     var(--paper-raised);
 }
+/* The greeting the panel opened with before the brand line took the eyebrow
+   slot — brought back as its own badge so "Welcome" still reads first. */
+.home-welcome .hw-greet{
+  display:inline-block; margin:0 0 18px; padding:5px 18px;
+  border:1px solid var(--gold); border-radius:999px;
+  background:var(--gold-bg); color:var(--gold);
+  font-family:"IBM Plex Mono",monospace; font-size:11px;
+  letter-spacing:.18em; text-transform:uppercase;
+}
+.doc-bn .home-welcome .hw-greet, .doc-hi .home-welcome .hw-greet{
+  letter-spacing:normal; text-transform:none; font-size:13px;
+}
 .home-welcome .hw-logo{ width:200px; height:auto; display:block; margin:0 auto 20px; }
 .home-welcome .hw-hello{
   font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.2em;
@@ -852,7 +864,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
    and the "pick a section from the menu" pointer are screen furniture. */
 @media print{
   .home-welcome{ border:none !important; background:none !important; padding:0 0 10px !important; }
-  .home-welcome .hw-facts, .home-welcome .hw-hint{ display:none !important; }
+  .home-welcome .hw-greet, .home-welcome .hw-facts, .home-welcome .hw-hint{ display:none !important; }
 }
 @media (max-width:900px){
   .home-welcome{ padding:24px 16px 20px; }
@@ -868,7 +880,8 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 
 <div class="home-view" id="home-en">
 <div class="home-welcome">
-<img class="hw-logo" src="alcove-logo.png" alt="Alcove Realty" width="200" height="115">
+<div class="hw-greet">Welcome</div>
+        <img class="hw-logo" src="alcove-logo.png" alt="Alcove Realty" width="200" height="115">
 <p class="hw-hello">Building ideas. Organizing tomorrow.</p>
 <h2 class="hw-title">Alcove Realty Documentation System</h2>
 <p class="hw-lead">This is the current, single source for how Document Control works at Alcove Realty — how every drawing, statutory sanction and site record is numbered, reviewed, issued, tracked and archived across Duets, Crown, Luxuria and The Curve. If a question about a document has an answer, it is in here.</p>
@@ -1431,7 +1444,8 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 
 <div class="home-view" id="home-bn">
 <div class="home-welcome">
-<img class="hw-logo" src="alcove-logo.png" alt="Alcove Realty" width="200" height="115">
+<div class="hw-greet">স্বাগতম</div>
+        <img class="hw-logo" src="alcove-logo.png" alt="Alcove Realty" width="200" height="115">
 <p class="hw-hello">ভাবনা গড়ি। আগামীকে সাজাই।</p>
 <h2 class="hw-title">অ্যালকোভ রিয়েলটি ডকুমেন্টেশন সিস্টেম</h2>
 <p class="hw-lead">অ্যালকোভ রিয়েলটিতে ডকুমেন্ট কন্ট্রোল কীভাবে চলে — প্রতিটি ড্রয়িং, স্ট্যাটুটরি স্যাংশন ও সাইট রেকর্ড কীভাবে নম্বর পায়, পর্যালোচিত হয়, ইস্যু হয়, ট্র্যাক ও আর্কাইভ করা হয় — Duets, Crown, Luxuria ও The Curve, সব প্রজেক্টের জন্য তার একমাত্র ও সর্বশেষ উৎস এটি। ডকুমেন্ট নিয়ে কোনো প্রশ্নের উত্তর থাকলে, তা এখানেই আছে।</p>
@@ -1994,7 +2008,8 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 
 <div class="home-view" id="home-hi">
 <div class="home-welcome">
-<img class="hw-logo" src="alcove-logo.png" alt="Alcove Realty" width="200" height="115">
+<div class="hw-greet">स्वागत है</div>
+        <img class="hw-logo" src="alcove-logo.png" alt="Alcove Realty" width="200" height="115">
 <p class="hw-hello">विचार गढ़ते हैं। कल को सँवारते हैं।</p>
 <h2 class="hw-title">अल्कोव रियल्टी डॉक्यूमेंटेशन सिस्टम</h2>
 <p class="hw-lead">अल्कोव रियल्टी में डॉक्यूमेंट कंट्रोल कैसे चलता है — हर ड्रॉइंग, स्टैट्यूटरी सैंक्शन और साइट रिकॉर्ड को कैसे नंबर दिया जाता है, समीक्षा, जारी, ट्रैक व आर्काइव किया जाता है — Duets, Crown, Luxuria और The Curve, सभी प्रोजेक्ट के लिए इसका एकमात्र और नवीनतम स्रोत यही है। दस्तावेज़ से जुड़े किसी सवाल का जवाब अगर कहीं है, तो यहीं है।</p>
