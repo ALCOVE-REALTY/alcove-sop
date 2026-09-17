@@ -200,7 +200,7 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
 .approval-block{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin-top:14px; }
 @media (max-width:720px){ .approval-block{grid-template-columns:1fr;} }
 .approval-cell{ border:1px solid var(--rule-strong); border-radius:6px; background:var(--paper-raised); padding:14px 16px 28px; }
-.approval-role{ font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:24px; }
+.approval-role{ font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:14px; }
 /* The sign-off lines are real inputs so the HOD can type into them; they are
    styled to stay the plain rule they were, with the box chrome stripped. */
 .approval-line{
@@ -222,6 +222,52 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
   .approval-line::placeholder{ color:transparent !important; }
 }
 .approval-meta{ font-size:11.5px; color:var(--ink-faint); }
+.sig-field{ display:block; margin-bottom:11px; }
+.sig-field:last-child{ margin-bottom:0; }
+.sig-field > span{
+  display:block; font-family:"IBM Plex Mono",monospace; font-size:9.5px;
+  letter-spacing:.07em; text-transform:uppercase; color:var(--ink-faint);
+  margin-bottom:1px;
+}
+.doc-bn .sig-field > span, .doc-hi .sig-field > span{
+  letter-spacing:normal; text-transform:none; font-size:11px;
+}
+
+/* ---------- Read-and-acknowledge slip (§14) ----------
+   A new DC fills this in after reading the SOP, then prints or saves a PDF
+   and signs it by hand — which is why the signature is a ruled space and not
+   another input. */
+.ack-block{
+  margin-top:20px; padding:18px 20px;
+  border:1px solid var(--rule-strong); border-radius:8px;
+  background:var(--paper-raised);
+}
+.ack-title{
+  font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--suggest); margin-bottom:6px;
+}
+.doc-bn .ack-title, .doc-hi .ack-title{ letter-spacing:normal; text-transform:none; font-size:12.5px; }
+.ack-note{ font-size:13.5px; color:var(--ink-soft); margin:0 0 16px; text-align:left !important; }
+.ack-grid{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(170px,1fr));
+  gap:6px 18px; margin-bottom:6px;
+}
+.ack-line{
+  display:block; width:100%; box-sizing:border-box;
+  font:inherit; font-size:14.5px; color:var(--ink);
+  background:transparent; border:none; border-radius:0;
+  border-bottom:1px solid var(--rule-strong);
+  padding:2px 2px 4px;
+}
+.ack-line:focus{ outline:none; border-bottom-color:var(--structural); background:var(--structural-bg); }
+.ack-sign{ margin-top:22px; max-width:280px; }
+.ack-sign-line{ border-bottom:1px solid var(--rule-strong); height:34px; }
+.ack-sign-label{
+  font-family:"IBM Plex Mono",monospace; font-size:9.5px; letter-spacing:.07em;
+  text-transform:uppercase; color:var(--ink-faint); margin-top:4px;
+}
+.doc-bn .ack-sign-label, .doc-hi .ack-sign-label{ letter-spacing:normal; text-transform:none; font-size:11px; }
+@media print{ .ack-line{ background:none !important; } }
 .doc-bn .approval-role, .doc-hi .approval-role{ letter-spacing:normal; text-transform:none; }
 
 /* Thumbnails made the rows tall enough that 17 sections overflow a laptop
@@ -807,18 +853,15 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     <div class="approval-block">
       <div class="approval-cell">
         <div class="approval-role">Prepared by</div>
-        <input type="text" class="approval-line" data-sig="prepared" placeholder="Type here" autocomplete="off" spellcheck="false">
-        <div class="approval-meta">Name · Designation · Date</div>
+        <label class="sig-field"><span>Name</span><input type="text" class="approval-line" data-sig="prepared-name"  autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>Designation</span><input type="text" class="approval-line" data-sig="prepared-desig" autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>Date</span><input type="date" class="approval-line" data-sig="prepared-date"></label>
       </div>
       <div class="approval-cell">
         <div class="approval-role">Reviewed by</div>
-        <input type="text" class="approval-line" data-sig="reviewed" placeholder="Type here" autocomplete="off" spellcheck="false">
-        <div class="approval-meta">Name · Designation · Date</div>
+        <label class="sig-field"><span>Name</span><input type="text" class="approval-line" data-sig="reviewed-name"  autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>Designation</span><input type="text" class="approval-line" data-sig="reviewed-desig" autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>Date</span><input type="date" class="approval-line" data-sig="reviewed-date"></label>
       </div>
       <div class="approval-cell">
         <div class="approval-role">Approved by</div>
-        <input type="text" class="approval-line" data-sig="approved" placeholder="Type here" autocomplete="off" spellcheck="false">
-        <div class="approval-meta">Name · Designation · Date</div>
+        <label class="sig-field"><span>Name</span><input type="text" class="approval-line" data-sig="approved-name"  autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>Designation</span><input type="text" class="approval-line" data-sig="approved-desig" autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>Date</span><input type="date" class="approval-line" data-sig="approved-date"></label>
       </div>
     </div>
   </div>
@@ -1248,6 +1291,17 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
         <li>The HOD shadows a new DC's first two weeks of transmittals and register entries before they operate unsupervised.</li>
         <li>This SOP is reviewed with the full team whenever it is revised, and refreshed annually regardless.</li>
       </ul>
+      <div class="ack-block">
+        <div class="ack-title">Acknowledgement — read and understood</div>
+        <p class="ack-note">To be completed by a new Document Controller after reading this SOP. Fill it in, then use "Save PDF" and sign the printed copy.</p>
+        <div class="ack-grid">
+          <label class="sig-field"><span>Name</span><input type="text" class="ack-line" data-ack="name" autocomplete="off"></label>
+          <label class="sig-field"><span>Designation</span><input type="text" class="ack-line" data-ack="desig" autocomplete="off"></label>
+          <label class="sig-field"><span>Project</span><select class="ack-line" data-ack="project"><option value=""></option><option>The Curve</option><option>Alcove Duets</option><option>Alcove Crown</option><option>Alcove Luxuria</option></select></label>
+          <label class="sig-field"><span>Date</span><input type="date" class="ack-line" data-ack="date"></label>
+        </div>
+        <div class="ack-sign"><div class="ack-sign-line"></div><div class="ack-sign-label">Signature</div></div>
+      </div>
     </section>
 
     <section id="en-kpi">
@@ -1362,18 +1416,15 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     <div class="approval-block">
       <div class="approval-cell">
         <div class="approval-role">প্রস্তুতকারী</div>
-        <input type="text" class="approval-line" data-sig="prepared" placeholder="এখানে লিখুন" autocomplete="off" spellcheck="false">
-        <div class="approval-meta">নাম · পদবি · তারিখ</div>
+        <label class="sig-field"><span>নাম</span><input type="text" class="approval-line" data-sig="prepared-name"  autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>পদবি</span><input type="text" class="approval-line" data-sig="prepared-desig" autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>তারিখ</span><input type="date" class="approval-line" data-sig="prepared-date"></label>
       </div>
       <div class="approval-cell">
         <div class="approval-role">পর্যালোচনাকারী</div>
-        <input type="text" class="approval-line" data-sig="reviewed" placeholder="এখানে লিখুন" autocomplete="off" spellcheck="false">
-        <div class="approval-meta">নাম · পদবি · তারিখ</div>
+        <label class="sig-field"><span>নাম</span><input type="text" class="approval-line" data-sig="reviewed-name"  autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>পদবি</span><input type="text" class="approval-line" data-sig="reviewed-desig" autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>তারিখ</span><input type="date" class="approval-line" data-sig="reviewed-date"></label>
       </div>
       <div class="approval-cell">
         <div class="approval-role">অনুমোদনকারী</div>
-        <input type="text" class="approval-line" data-sig="approved" placeholder="এখানে লিখুন" autocomplete="off" spellcheck="false">
-        <div class="approval-meta">নাম · পদবি · তারিখ</div>
+        <label class="sig-field"><span>নাম</span><input type="text" class="approval-line" data-sig="approved-name"  autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>পদবি</span><input type="text" class="approval-line" data-sig="approved-desig" autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>তারিখ</span><input type="date" class="approval-line" data-sig="approved-date"></label>
       </div>
     </div>
   </div>
@@ -1803,6 +1854,17 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
         <li>নতুন DC নিজে থেকে কাজ শুরু করার আগে, প্রথম দুই সপ্তাহের ট্রান্সমিটাল ও রেজিস্টার এন্ট্রি HOD পাশে থেকে দেখিয়ে দেন।</li>
         <li>এই SOP সংশোধিত হলে পুরো টিমের সাথে রিভিউ করা হয়, এবং তা না হলেও প্রতি বছর নতুন করে রিফ্রেশ করা হয়।</li>
       </ul>
+      <div class="ack-block">
+        <div class="ack-title">স্বীকৃতি — পড়েছি ও বুঝেছি</div>
+        <p class="ack-note">নতুন ডকুমেন্ট কন্ট্রোলার এই SOP পড়ার পর এটি পূরণ করবেন। পূরণ করে "PDF সেভ করুন" দিয়ে প্রিন্ট করে সই করুন।</p>
+        <div class="ack-grid">
+          <label class="sig-field"><span>নাম</span><input type="text" class="ack-line" data-ack="name" autocomplete="off"></label>
+          <label class="sig-field"><span>পদবি</span><input type="text" class="ack-line" data-ack="desig" autocomplete="off"></label>
+          <label class="sig-field"><span>প্রজেক্ট</span><select class="ack-line" data-ack="project"><option value=""></option><option>The Curve</option><option>Alcove Duets</option><option>Alcove Crown</option><option>Alcove Luxuria</option></select></label>
+          <label class="sig-field"><span>তারিখ</span><input type="date" class="ack-line" data-ack="date"></label>
+        </div>
+        <div class="ack-sign"><div class="ack-sign-line"></div><div class="ack-sign-label">স্বাক্ষর</div></div>
+      </div>
     </section>
 
     <section id="bn-kpi">
@@ -1917,18 +1979,15 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     <div class="approval-block">
       <div class="approval-cell">
         <div class="approval-role">तैयार किया गया</div>
-        <input type="text" class="approval-line" data-sig="prepared" placeholder="यहाँ लिखें" autocomplete="off" spellcheck="false">
-        <div class="approval-meta">नाम · पदनाम · तारीख</div>
+        <label class="sig-field"><span>नाम</span><input type="text" class="approval-line" data-sig="prepared-name"  autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>पदनाम</span><input type="text" class="approval-line" data-sig="prepared-desig" autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>तारीख</span><input type="date" class="approval-line" data-sig="prepared-date"></label>
       </div>
       <div class="approval-cell">
         <div class="approval-role">समीक्षक</div>
-        <input type="text" class="approval-line" data-sig="reviewed" placeholder="यहाँ लिखें" autocomplete="off" spellcheck="false">
-        <div class="approval-meta">नाम · पदनाम · तारीख</div>
+        <label class="sig-field"><span>नाम</span><input type="text" class="approval-line" data-sig="reviewed-name"  autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>पदनाम</span><input type="text" class="approval-line" data-sig="reviewed-desig" autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>तारीख</span><input type="date" class="approval-line" data-sig="reviewed-date"></label>
       </div>
       <div class="approval-cell">
         <div class="approval-role">अनुमोदक</div>
-        <input type="text" class="approval-line" data-sig="approved" placeholder="यहाँ लिखें" autocomplete="off" spellcheck="false">
-        <div class="approval-meta">नाम · पदनाम · तारीख</div>
+        <label class="sig-field"><span>नाम</span><input type="text" class="approval-line" data-sig="approved-name"  autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>पदनाम</span><input type="text" class="approval-line" data-sig="approved-desig" autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>तारीख</span><input type="date" class="approval-line" data-sig="approved-date"></label>
       </div>
     </div>
   </div>
@@ -2358,6 +2417,17 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
         <li>नया DC खुद से काम शुरू करने से पहले, पहले दो हफ्तों के ट्रांसमिटल व रजिस्टर एंट्री HOD साथ में देखकर सिखाते हैं।</li>
         <li>यह SOP संशोधित होने पर पूरी टीम के साथ समीक्षा की जाती है, और वरना भी हर साल नए सिरे से रीफ्रेश की जाती है।</li>
       </ul>
+      <div class="ack-block">
+        <div class="ack-title">पावती — पढ़ा और समझा</div>
+        <p class="ack-note">नया डॉक्यूमेंट कंट्रोलर इस SOP को पढ़ने के बाद इसे भरेगा। भरकर "PDF सेव करें" से प्रिंट कर हस्ताक्षर करें।</p>
+        <div class="ack-grid">
+          <label class="sig-field"><span>नाम</span><input type="text" class="ack-line" data-ack="name" autocomplete="off"></label>
+          <label class="sig-field"><span>पदनाम</span><input type="text" class="ack-line" data-ack="desig" autocomplete="off"></label>
+          <label class="sig-field"><span>प्रोजेक्ट</span><select class="ack-line" data-ack="project"><option value=""></option><option>The Curve</option><option>Alcove Duets</option><option>Alcove Crown</option><option>Alcove Luxuria</option></select></label>
+          <label class="sig-field"><span>तारीख</span><input type="date" class="ack-line" data-ack="date"></label>
+        </div>
+        <div class="ack-sign"><div class="ack-sign-line"></div><div class="ack-sign-label">हस्ताक्षर</div></div>
+      </div>
     </section>
 
     <section id="hi-kpi">
@@ -2840,14 +2910,17 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
   var KEY = 'alcove-sop-signoff';
   var store = {};
   try{ store = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; }catch(e){ store = {}; }
-  var fields = document.querySelectorAll('.approval-line');
+  var fields = document.querySelectorAll('.approval-line, .ack-line');
   fields.forEach(function(el){
-    var role = el.getAttribute('data-sig');
+    var role = el.getAttribute('data-sig') || ('ack-' + el.getAttribute('data-ack'));
     if(store[role]){ el.value = store[role]; }
     el.addEventListener('input', function(){
       store[role] = el.value;
       try{ localStorage.setItem(KEY, JSON.stringify(store)); }catch(e){}
-      document.querySelectorAll('.approval-line[data-sig="' + role + '"]').forEach(function(other){
+      var sel = role.indexOf('ack-') === 0
+        ? '.ack-line[data-ack="' + role.slice(4) + '"]'
+        : '.approval-line[data-sig="' + role + '"]';
+      document.querySelectorAll(sel).forEach(function(other){
         if(other !== el){ other.value = el.value; }
       });
     });
