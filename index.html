@@ -199,6 +199,20 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
 .docfields .cell:nth-child(4n){border-right:none;}
 .docfields .label{ font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.06em; color:var(--ink-faint); margin-bottom:4px; }
 .docfields .value{font-size:14.5px; font-weight:500;}
+/* The header values are inputs so the HOD can revise the doc number,
+   revision, owner and so on without a code change. Styled to read as the
+   plain text they replaced — no box until you focus one. */
+.docfields .doc-line{
+  display:block; width:100%; box-sizing:border-box;
+  font-family:inherit; font-size:14.5px; font-weight:500; color:var(--ink);
+  background:transparent; border:none; border-radius:0; padding:0;
+}
+.docfields .doc-line.mono{ font-family:"IBM Plex Mono",monospace; }
+.docfields .doc-line:focus{
+  outline:none; background:var(--structural-bg);
+  box-shadow:0 1px 0 var(--structural);
+}
+@media print{ .docfields .doc-line{ background:none !important; box-shadow:none !important; } }
 
 .approval-block{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin-top:14px; }
 @media (max-width:720px){ .approval-block{grid-template-columns:1fr;} }
@@ -843,14 +857,14 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     <p class="subtitle">Governs the numbering, review, distribution, revision, statutory-sanction tracking and archival of all documents handled by the Document Control department across Alcove Realty's live projects.</p>
 
     <div class="docfields">
-      <div class="cell"><div class="label">Doc No.</div><div class="value mono">ALC-DC-SOP-001</div></div>
-      <div class="cell"><div class="label">Revision</div><div class="value mono">Rev 0</div></div>
-      <div class="cell"><div class="label">Effective Date</div><div class="value mono">To be set on approval</div></div>
-      <div class="cell"><div class="label">Review Cycle</div><div class="value mono">Annual</div></div>
-      <div class="cell"><div class="label">Department</div><div class="value">Document Control, Alcove Realty</div></div>
-      <div class="cell"><div class="label">Process Owner</div><div class="value">HOD, Document Control</div></div>
-      <div class="cell"><div class="label">Team</div><div class="value">HOD + 4 Document Controllers</div></div>
-      <div class="cell"><div class="label">Classification</div><div class="value">Internal</div></div>
+      <div class="cell"><div class="label">Doc No.</div><input type="text" class="value mono doc-line" data-doc="en-docno" value="ALC-DC-SOP-001" autocomplete="off" spellcheck="false"></div>
+      <div class="cell"><div class="label">Revision</div><input type="text" class="value mono doc-line" data-doc="en-revision" value="Rev 0" autocomplete="off" spellcheck="false"></div>
+      <div class="cell"><div class="label">Effective Date</div><input type="date" class="value mono doc-line" data-doc="en-effdate"></div>
+      <div class="cell"><div class="label">Review Cycle</div><input type="text" class="value mono doc-line" data-doc="en-cycle" value="Annual" autocomplete="off" spellcheck="false"></div>
+      <div class="cell"><div class="label">Department</div><input type="text" class="value doc-line" data-doc="en-department" value="Document Control, Alcove Realty" autocomplete="off" spellcheck="false"></div>
+      <div class="cell"><div class="label">Process Owner</div><input type="text" class="value doc-line" data-doc="en-owner" value="HOD, Document Control" autocomplete="off" spellcheck="false"></div>
+      <div class="cell"><div class="label">Team</div><input type="text" class="value doc-line" data-doc="en-team" value="HOD + 4 Document Controllers" autocomplete="off" spellcheck="false"></div>
+      <div class="cell"><div class="label">Classification</div><input type="text" class="value doc-line" data-doc="en-classification" value="Internal" autocomplete="off" spellcheck="false"></div>
     </div>
 
     <div class="approval-block">
@@ -1406,14 +1420,14 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     <p class="subtitle">অ্যালকোভ রিয়েলটির সক্রিয় প্রজেক্টগুলোতে ডকুমেন্ট কন্ট্রোল ডিপার্টমেন্ট যেসব ডকুমেন্ট হ্যান্ডল করে, তাদের নম্বরকরণ, পর্যালোচনা, বিতরণ, রিভিশন, স্ট্যাটুটরি-স্যাংশন ট্র্যাকিং এবং আর্কাইভাল-এর নিয়ম নির্ধারণ করে এই SOP।</p>
 
     <div class="docfields">
-      <div class="cell"><div class="label">ডক নং</div><div class="value mono">ALC-DC-SOP-001</div></div>
-      <div class="cell"><div class="label">রিভিশন</div><div class="value mono">Rev 0</div></div>
-      <div class="cell"><div class="label">কার্যকর তারিখ</div><div class="value mono">অনুমোদনের পর নির্ধারিত হবে</div></div>
-      <div class="cell"><div class="label">পর্যালোচনা চক্র</div><div class="value mono">বার্ষিক</div></div>
-      <div class="cell"><div class="label">ডিপার্টমেন্ট</div><div class="value">ডকুমেন্ট কন্ট্রোল, অ্যালকোভ রিয়েলটি</div></div>
-      <div class="cell"><div class="label">প্রসেস ওনার</div><div class="value">HOD, ডকুমেন্ট কন্ট্রোল</div></div>
-      <div class="cell"><div class="label">টিম</div><div class="value">HOD + ৪ জন ডকুমেন্ট কন্ট্রোলার</div></div>
-      <div class="cell"><div class="label">শ্রেণী</div><div class="value">ইন্টারনাল</div></div>
+      <div class="cell"><div class="label">ডক নং</div><input type="text" class="value mono doc-line" data-doc="bn-docno" value="ALC-DC-SOP-001" autocomplete="off" spellcheck="false"></div>
+      <div class="cell"><div class="label">রিভিশন</div><input type="text" class="value mono doc-line" data-doc="bn-revision" value="Rev 0" autocomplete="off" spellcheck="false"></div>
+      <div class="cell"><div class="label">কার্যকর তারিখ</div><input type="date" class="value mono doc-line" data-doc="bn-effdate"></div>
+      <div class="cell"><div class="label">পর্যালোচনা চক্র</div><input type="text" class="value mono doc-line" data-doc="bn-cycle" value="বার্ষিক" autocomplete="off" spellcheck="false"></div>
+      <div class="cell"><div class="label">ডিপার্টমেন্ট</div><input type="text" class="value doc-line" data-doc="bn-department" value="ডকুমেন্ট কন্ট্রোল, অ্যালকোভ রিয়েলটি" autocomplete="off" spellcheck="false"></div>
+      <div class="cell"><div class="label">প্রসেস ওনার</div><input type="text" class="value doc-line" data-doc="bn-owner" value="HOD, ডকুমেন্ট কন্ট্রোল" autocomplete="off" spellcheck="false"></div>
+      <div class="cell"><div class="label">টিম</div><input type="text" class="value doc-line" data-doc="bn-team" value="HOD + ৪ জন ডকুমেন্ট কন্ট্রোলার" autocomplete="off" spellcheck="false"></div>
+      <div class="cell"><div class="label">শ্রেণী</div><input type="text" class="value doc-line" data-doc="bn-classification" value="ইন্টারনাল" autocomplete="off" spellcheck="false"></div>
     </div>
 
     <div class="approval-block">
@@ -1969,14 +1983,14 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     <p class="subtitle">अल्कोव रियल्टी के सक्रिय प्रोजेक्ट्स में डॉक्यूमेंट कंट्रोल डिपार्टमेंट जिन दस्तावेज़ों को संभालता है, उनकी नंबरिंग, समीक्षा, वितरण, रिवीज़न, स्टैट्यूटरी-सैंक्शन ट्रैकिंग और आर्काइवल के नियम यह SOP तय करता है।</p>
 
     <div class="docfields">
-      <div class="cell"><div class="label">डॉक्यूमेंट सं.</div><div class="value mono">ALC-DC-SOP-001</div></div>
-      <div class="cell"><div class="label">रिवीज़न</div><div class="value mono">Rev 0</div></div>
-      <div class="cell"><div class="label">प्रभावी तिथि</div><div class="value mono">अनुमोदन के बाद तय होगी</div></div>
-      <div class="cell"><div class="label">समीक्षा चक्र</div><div class="value mono">वार्षिक</div></div>
-      <div class="cell"><div class="label">डिपार्टमेंट</div><div class="value">डॉक्यूमेंट कंट्रोल, अल्कोव रियल्टी</div></div>
-      <div class="cell"><div class="label">प्रोसेस ओनर</div><div class="value">HOD, डॉक्यूमेंट कंट्रोल</div></div>
-      <div class="cell"><div class="label">टीम</div><div class="value">HOD + 4 डॉक्यूमेंट कंट्रोलर</div></div>
-      <div class="cell"><div class="label">वर्गीकरण</div><div class="value">इंटरनल</div></div>
+      <div class="cell"><div class="label">डॉक्यूमेंट सं.</div><input type="text" class="value mono doc-line" data-doc="hi-docno" value="ALC-DC-SOP-001" autocomplete="off" spellcheck="false"></div>
+      <div class="cell"><div class="label">रिवीज़न</div><input type="text" class="value mono doc-line" data-doc="hi-revision" value="Rev 0" autocomplete="off" spellcheck="false"></div>
+      <div class="cell"><div class="label">प्रभावी तिथि</div><input type="date" class="value mono doc-line" data-doc="hi-effdate"></div>
+      <div class="cell"><div class="label">समीक्षा चक्र</div><input type="text" class="value mono doc-line" data-doc="hi-cycle" value="वार्षिक" autocomplete="off" spellcheck="false"></div>
+      <div class="cell"><div class="label">डिपार्टमेंट</div><input type="text" class="value doc-line" data-doc="hi-department" value="डॉक्यूमेंट कंट्रोल, अल्कोव रियल्टी" autocomplete="off" spellcheck="false"></div>
+      <div class="cell"><div class="label">प्रोसेस ओनर</div><input type="text" class="value doc-line" data-doc="hi-owner" value="HOD, डॉक्यूमेंट कंट्रोल" autocomplete="off" spellcheck="false"></div>
+      <div class="cell"><div class="label">टीम</div><input type="text" class="value doc-line" data-doc="hi-team" value="HOD + 4 डॉक्यूमेंट कंट्रोलर" autocomplete="off" spellcheck="false"></div>
+      <div class="cell"><div class="label">वर्गीकरण</div><input type="text" class="value doc-line" data-doc="hi-classification" value="इंटरनल" autocomplete="off" spellcheck="false"></div>
     </div>
 
     <div class="approval-block">
@@ -2913,15 +2927,17 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
   var KEY = 'alcove-sop-signoff';
   var store = {};
   try{ store = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; }catch(e){ store = {}; }
-  var fields = document.querySelectorAll('.approval-line, .ack-line');
+  var fields = document.querySelectorAll('.approval-line, .ack-line, .doc-line');
   fields.forEach(function(el){
-    var role = el.getAttribute('data-sig') || ('ack-' + el.getAttribute('data-ack'));
+    var role = el.getAttribute('data-sig')
+      || (el.getAttribute('data-ack') && 'ack-' + el.getAttribute('data-ack'))
+      || ('doc-' + el.getAttribute('data-doc'));
     if(store[role]){ el.value = store[role]; }
     el.addEventListener('input', function(){
       store[role] = el.value;
       try{ localStorage.setItem(KEY, JSON.stringify(store)); }catch(e){}
-      var sel = role.indexOf('ack-') === 0
-        ? '.ack-line[data-ack="' + role.slice(4) + '"]'
+      var sel = role.indexOf('ack-') === 0 ? '.ack-line[data-ack="' + role.slice(4) + '"]'
+        : role.indexOf('doc-') === 0 ? '.doc-line[data-doc="' + role.slice(4) + '"]'
         : '.approval-line[data-sig="' + role + '"]';
       document.querySelectorAll(sel).forEach(function(other){
         if(other !== el){ other.value = el.value; }
