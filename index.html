@@ -185,7 +185,7 @@ h1,h2,h3{ text-wrap:balance; color:var(--ink); }
 .stampmark svg.icon{width:13px;height:13px;flex:none;}
 
 h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px; line-height:1.2; }
-.subtitle{ color:var(--ink-soft); font-size:1.05rem; max-width:58ch; margin:0 0 28px; }
+.subtitle{ color:var(--ink-soft); font-size:1.05rem; margin:0 0 28px; }
 
 .docfields{
   border:1px solid var(--rule-strong); border-radius:6px; background:var(--paper-raised); box-shadow:var(--shadow);
@@ -476,10 +476,12 @@ section[id$="-projects"]::after{ display:none; }
    scripts usefully anyway. */
 article > section p,
 article > section li,
-article > section .callout{ text-align:justify; text-justify:inter-word; }
+article > section .callout,
+.control-block .subtitle{ text-align:justify; text-justify:inter-word; }
 .doc-en article > section p,
 .doc-en article > section li,
-.doc-en article > section .callout{ -webkit-hyphens:auto; hyphens:auto; }
+.doc-en article > section .callout,
+.doc-en .control-block .subtitle{ -webkit-hyphens:auto; hyphens:auto; }
 /* Table cells stay ragged — justifying a narrow column is all gaps. */
 article > section td, article > section th{ text-align:left; }
 
