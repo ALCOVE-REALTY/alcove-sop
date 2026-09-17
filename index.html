@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260917-172320">
+<meta name="sop-build" content="20260917-172943">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -28,7 +28,7 @@
   --gold:#8A6D1F;
   --gold-bg:rgba(138,109,31,.10);
   --shadow: 0 1px 2px rgba(33,38,43,.06), 0 6px 20px rgba(33,38,43,.05);
-  --art-alpha:.34; --landing-veil:rgba(236,234,225,.42); --hero-veil-core:rgba(252,251,247,.96); --hero-veil-edge:rgba(252,251,247,.30);
+  --art-alpha:.34; --landing-veil:rgba(238,237,230,.76); --hero-veil-core:rgba(252,251,247,.84); --hero-veil-edge:rgba(252,251,247,.30);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -38,7 +38,7 @@
     --structural:#8FB2D2; --structural-bg:rgba(143,178,210,.10); --code-bg:rgba(143,178,210,.08);
     --suggest:#7FB284; --suggest-bg:rgba(127,178,132,.12);
     --gold:#D9B45C; --gold-bg:rgba(217,180,92,.14);
-    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-alpha:.30; --landing-veil:rgba(14,17,19,.62); --hero-veil-core:rgba(22,26,28,.95); --hero-veil-edge:rgba(22,26,28,.45);
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-alpha:.30; --landing-veil:rgba(14,17,19,.84); --hero-veil-core:rgba(22,26,28,.86); --hero-veil-edge:rgba(22,26,28,.45);
   }
 }
 :root[data-theme="dark"]{
@@ -48,7 +48,7 @@
   --structural:#8FB2D2; --structural-bg:rgba(143,178,210,.10); --code-bg:rgba(143,178,210,.08);
   --suggest:#7FB284; --suggest-bg:rgba(127,178,132,.12);
   --gold:#D9B45C; --gold-bg:rgba(217,180,92,.14);
-  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-alpha:.30; --landing-veil:rgba(14,17,19,.62); --hero-veil-core:rgba(22,26,28,.95); --hero-veil-edge:rgba(22,26,28,.45);
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-alpha:.30; --landing-veil:rgba(14,17,19,.84); --hero-veil-core:rgba(22,26,28,.86); --hero-veil-edge:rgba(22,26,28,.45);
 }
 
 *{box-sizing:border-box;}
@@ -348,10 +348,11 @@ article > section::before,
    unrelated tint. Every property is restated because this must fully
    replace the shared flat-tint rule above, not layer under it. */
 .home-view::before{
+  inset:-60px;
   background-color:transparent; opacity:1;
   background-image:linear-gradient(var(--landing-veil), var(--landing-veil)), url('pages/home-banner.jpg');
   background-position:center; background-size:cover; background-repeat:no-repeat;
-  filter:blur(3px);
+  filter:blur(18px) saturate(.58);
 }
 /* The menu screen is the exception that can carry a real photograph: it uses
    the Training & competency artwork, which the user supplied at 1354px, so
@@ -839,7 +840,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
    leaving the scene readable out at the edges. The artwork carries no text
    of its own, so nothing is duplicated. */
 .home-welcome{
-  margin:-26px -28px 30px; padding:52px 30px 44px; text-align:center;
+  margin:-26px -28px 30px; padding:74px 30px 58px; text-align:center;
   border:none; border-radius:14px 14px 0 0;
   background-image:
     radial-gradient(ellipse 72% 130% at 50% 50%, var(--hero-veil-core) 0%, var(--hero-veil-core) 42%, var(--hero-veil-edge) 88%),
