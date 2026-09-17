@@ -462,6 +462,22 @@ section[id$="-projects"]::after{ display:none; }
   article > section{ display:block !important; }
 }
 
+/* ---------- Justified body text ----------
+   The setting the user asked for, matching their reference document: prose
+   flush to both margins. Hyphenation is what stops justification opening
+   rivers of white space, but it is enabled for English only — inserting
+   breaks inside Bengali or Devanagari risks exactly the conjunct damage that
+   `word-break` caused here before, and browsers do not hyphenate those
+   scripts usefully anyway. */
+article > section p,
+article > section li,
+article > section .callout{ text-align:justify; text-justify:inter-word; }
+.doc-en article > section p,
+.doc-en article > section li,
+.doc-en article > section .callout{ -webkit-hyphens:auto; hyphens:auto; }
+/* Table cells stay ragged — justifying a narrow column is all gaps. */
+article > section td, article > section th{ text-align:left; }
+
 /* ---------- Project gallery (§4) ----------
    Renders of the live projects, supplied by the user. Crown and Luxuria have
    no render yet and share the branded "Coming soon" banner — that one is a
@@ -735,7 +751,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 </style>
 
 <!-- ============================= ENGLISH ============================= -->
-<div id="doc-en" class="doc-view doc-en active">
+<div id="doc-en" class="doc-view doc-en active" lang="en">
 <div class="shell">
 
 <div class="home-view" id="home-en">
@@ -1290,7 +1306,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 <!-- =========================== END ENGLISH =========================== -->
 
 <!-- ============================= BENGALI ============================= -->
-<div id="doc-bn" class="doc-view doc-bn">
+<div id="doc-bn" class="doc-view doc-bn" lang="bn">
 <div class="shell">
 
 <div class="home-view" id="home-bn">
@@ -1845,7 +1861,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 <!-- =========================== END BENGALI =========================== -->
 
 <!-- ============================== HINDI =============================== -->
-<div id="doc-hi" class="doc-view doc-hi">
+<div id="doc-hi" class="doc-view doc-hi" lang="hi">
 <div class="shell">
 
 <div class="home-view" id="home-hi">
