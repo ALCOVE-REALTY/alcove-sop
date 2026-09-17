@@ -398,6 +398,15 @@ article > section, .home-view, article > .footline{
 }
 
 .home-view, .toc-home-link{ --art-src:url('pages/home.jpg'); --art-tint:#C6B853; }
+/* Home takes the Welcome photograph rather than a flat tint — it is 1600px
+   wide, so it stays sharp filling the viewport, and the Home card sits
+   opaque on top of it exactly as the Welcome card used to. */
+.home-view::before{
+  background-color:transparent;
+  background-image:linear-gradient(var(--landing-veil), var(--landing-veil)), url('welcome-bg.jpg');
+  background-position:center; background-size:cover; background-repeat:no-repeat;
+  opacity:1;
+}
 section[id$="-purpose"],        .toc a[href$="-purpose"]{ --art-src:url('pages/purpose.jpg'); --art-tint:#C65E53; }
 section[id$="-scope"],          .toc a[href$="-scope"]{ --art-src:url('pages/scope.jpg'); --art-tint:#53C690; }
 section[id$="-definitions"],    .toc a[href$="-definitions"]{ --art-src:url('pages/definitions.jpg'); --art-tint:#63C653; }
