@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260917-132504">
+<meta name="sop-build" content="20260917-133140">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -818,12 +818,13 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
    introducing the document: centred mark, the company's own line, then the
    title. The logo PNG is transparent and sits on the panel directly — no
    white plate, which only ever read as a box drawn around the mark. */
+/* No panel of its own — the greeting sits directly on the Home card, so the
+   corner no longer reads as a box drawn inside a box. A rule at the foot is
+   all that separates it from the document proper. */
 .home-welcome{
-  margin:0 0 26px; padding:36px 30px 30px; text-align:center;
-  border:1px solid var(--rule); border-radius:14px;
-  background:
-    radial-gradient(130% 100% at 50% 0%, var(--structural-bg), transparent 68%),
-    var(--paper-raised);
+  margin:0 0 30px; padding:10px 0 28px; text-align:center;
+  border:none; border-bottom:1px solid var(--rule); border-radius:0;
+  background:none;
 }
 /* The greeting the panel opened with before the brand line took the eyebrow
    slot — brought back as its own badge so "Welcome" still reads first. */
@@ -888,11 +889,11 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 /* The printed document keeps the mark, the line and the title; the counts
    and the "pick a section from the menu" pointer are screen furniture. */
 @media print{
-  .home-welcome{ border:none !important; background:none !important; padding:0 0 10px !important; }
+  .home-welcome{ border:none !important; background:none !important; padding:0 0 10px !important; border-bottom:none !important; }
   .home-welcome .hw-greet, .home-welcome .hw-facts, .home-welcome .hw-hint{ display:none !important; }
 }
 @media (max-width:900px){
-  .home-welcome{ padding:24px 16px 20px; }
+  .home-welcome{ padding:6px 0 20px; }
   .home-welcome .hw-logo{ width:150px; margin-bottom:14px; }
   .home-welcome .hw-title{ font-size:1.45rem; }
   .home-welcome .hw-facts{ gap:8px 12px; }
@@ -3061,7 +3062,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     .then(function(res){ return res.ok ? res.text() : null; })
     .then(function(html){
       if(!html) return;
-      var m = html.match(/name="sop-build" content="([^"]+)"/);
+      var m = html.match(/name="sop-build" content="20260917-133140"]+)"/);
       if(!m || m[1] === mine) { try{ sessionStorage.removeItem(FLAG); }catch(e){} return; }
       var already;
       try{ already = sessionStorage.getItem(FLAG); }catch(e){ already = null; }
