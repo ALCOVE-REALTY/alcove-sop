@@ -817,15 +817,30 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 }
 /* The greeting the panel opened with before the brand line took the eyebrow
    slot — brought back as its own badge so "Welcome" still reads first. */
+/* The greeting is the first thing read, so it is set as a piece of design
+   rather than a label: display serif in gold, flanked by rules that fade
+   out, with a small diamond either side. */
 .home-welcome .hw-greet{
-  display:inline-block; margin:0 0 18px; padding:5px 18px;
-  border:1px solid var(--gold); border-radius:999px;
-  background:var(--gold-bg); color:var(--gold);
-  font-family:"IBM Plex Mono",monospace; font-size:11px;
-  letter-spacing:.18em; text-transform:uppercase;
+  display:flex; align-items:center; justify-content:center; gap:14px;
+  margin:0 0 22px; padding:0; border:none; background:none;
+  font-family:"Fraunces","Georgia",serif;
+  font-size:1.15rem; font-weight:600; line-height:1;
+  letter-spacing:.26em; text-transform:uppercase; color:var(--gold);
 }
+.home-welcome .hw-greet::before,
+.home-welcome .hw-greet::after{
+  content:""; height:1px; flex:0 1 96px; min-width:36px;
+}
+.home-welcome .hw-greet::before{ background:linear-gradient(90deg, transparent, var(--gold)); }
+.home-welcome .hw-greet::after{ background:linear-gradient(90deg, var(--gold), transparent); }
 .doc-bn .home-welcome .hw-greet, .doc-hi .home-welcome .hw-greet{
-  letter-spacing:normal; text-transform:none; font-size:13px;
+  letter-spacing:.04em; text-transform:none; font-size:1.25rem;
+}
+.doc-bn .home-welcome .hw-greet{ font-family:"Tiro Bangla","Noto Serif Bengali",serif; }
+.doc-hi .home-welcome .hw-greet{ font-family:"Tiro Devanagari Hindi","Noto Serif Devanagari",serif; }
+@media (max-width:900px){
+  .home-welcome .hw-greet{ font-size:1rem; gap:10px; letter-spacing:.18em; }
+  .home-welcome .hw-greet::before, .home-welcome .hw-greet::after{ flex:0 1 46px; min-width:20px; }
 }
 .home-welcome .hw-logo{ width:200px; height:auto; display:block; margin:0 auto 20px; }
 .home-welcome .hw-hello{
@@ -880,7 +895,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 
 <div class="home-view" id="home-en">
 <div class="home-welcome">
-<div class="hw-greet">Welcome</div>
+<div class="hw-greet"><span>Welcome</span></div>
         <img class="hw-logo" src="alcove-logo.png" alt="Alcove Realty" width="200" height="115">
 <p class="hw-hello">Building ideas. Organizing tomorrow.</p>
 <h2 class="hw-title">Alcove Realty Documentation System</h2>
@@ -1444,7 +1459,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 
 <div class="home-view" id="home-bn">
 <div class="home-welcome">
-<div class="hw-greet">স্বাগতম</div>
+<div class="hw-greet"><span>স্বাগতম</span></div>
         <img class="hw-logo" src="alcove-logo.png" alt="Alcove Realty" width="200" height="115">
 <p class="hw-hello">ভাবনা গড়ি। আগামীকে সাজাই।</p>
 <h2 class="hw-title">অ্যালকোভ রিয়েলটি ডকুমেন্টেশন সিস্টেম</h2>
@@ -2008,7 +2023,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 
 <div class="home-view" id="home-hi">
 <div class="home-welcome">
-<div class="hw-greet">स्वागत है</div>
+<div class="hw-greet"><span>स्वागत है</span></div>
         <img class="hw-logo" src="alcove-logo.png" alt="Alcove Realty" width="200" height="115">
 <p class="hw-hello">विचार गढ़ते हैं। कल को सँवारते हैं।</p>
 <h2 class="hw-title">अल्कोव रियल्टी डॉक्यूमेंटेशन सिस्टम</h2>
