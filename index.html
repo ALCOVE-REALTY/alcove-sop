@@ -4,6 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="sop-build" content="20260917-132504">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -3041,5 +3042,33 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
   measure();
   if(document.fonts && document.fonts.ready){ document.fonts.ready.then(measure); }
   setTimeout(measure, 600);
+})();
+</script>
+<!-- Stale-copy guard. GitHub Pages sends Cache-Control: max-age=600, so a
+     browser can sit on an old copy of this page for ten minutes — and
+     closing the browser does not clear that. Readers were seeing edits that
+     had already gone live. On load we fetch the page again bypassing the
+     cache, compare its build stamp with ours, and if the server has a newer
+     one, reload through a unique URL the cache cannot answer. Guarded by a
+     sessionStorage flag so it can never loop. -->
+<script>
+(function(){
+  var meta = document.querySelector('meta[name="sop-build"]');
+  if(!meta || !window.fetch) return;
+  var mine = meta.getAttribute('content');
+  var FLAG = 'alcove-sop-reloaded';
+  fetch(location.pathname + '?cb=' + Date.now(), { cache: 'no-store' })
+    .then(function(res){ return res.ok ? res.text() : null; })
+    .then(function(html){
+      if(!html) return;
+      var m = html.match(/name="sop-build" content="([^"]+)"/);
+      if(!m || m[1] === mine) { try{ sessionStorage.removeItem(FLAG); }catch(e){} return; }
+      var already;
+      try{ already = sessionStorage.getItem(FLAG); }catch(e){ already = null; }
+      if(already === m[1]) return;          // already tried this build; don't loop
+      try{ sessionStorage.setItem(FLAG, m[1]); }catch(e){}
+      location.replace(location.pathname + '?v=' + m[1]);
+    })
+    .catch(function(){});
 })();
 </script>
