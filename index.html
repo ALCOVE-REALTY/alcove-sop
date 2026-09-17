@@ -166,7 +166,7 @@ h1,h2,h3{ text-wrap:balance; color:var(--ink); }
 .empty-hint{ text-align:center; padding:70px 20px; color:var(--ink-faint); font-size:14.5px; }
 
 .control-block{
-  grid-column:1/-1; max-width:900px; margin:0 auto 8px; position:relative; padding:22px 24px 4px;
+  grid-column:1/-1; max-width:none; margin:0 auto 8px; position:relative; padding:22px 24px 4px;
   background-image:
     radial-gradient(ellipse 620px 220px at 18% -30%, rgba(242,169,0,.10), transparent 65%),
     radial-gradient(ellipse 480px 200px at 92% -20%, rgba(224,51,44,.07), transparent 65%);
@@ -184,7 +184,10 @@ h1,h2,h3{ text-wrap:balance; color:var(--ink); }
 }
 .stampmark svg.icon{width:13px;height:13px;flex:none;}
 
-h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px; line-height:1.2; }
+/* text-wrap:balance (set on every h1/h2/h3) splits this into two even lines
+   long before the column runs out, which reads as an arbitrary early break.
+   The document title should use the width it has. */
+h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px; line-height:1.2; text-wrap:normal; }
 .subtitle{ color:var(--ink-soft); font-size:1.05rem; margin:0 0 28px; }
 
 .docfields{
@@ -581,7 +584,7 @@ article > section td, article > section th{ text-align:left; }
 
 /* ---------- Quick-reference code chips ---------- */
 .quickref{
-  grid-column:1/-1; max-width:900px; margin:0 auto 8px; border:1px solid var(--rule-strong);
+  grid-column:1/-1; max-width:none; margin:0 auto 8px; border:1px solid var(--rule-strong);
   border-radius:8px; background:var(--paper-raised); box-shadow:var(--shadow); overflow:hidden;
 }
 .quickref summary{
@@ -610,7 +613,7 @@ article > section td, article > section th{ text-align:left; }
 
 /* ---------- What's new changelog strip ---------- */
 .changelog{
-  grid-column:1/-1; max-width:900px; margin:0 auto 20px; border:1px solid var(--rule-strong);
+  grid-column:1/-1; max-width:none; margin:0 auto 20px; border:1px solid var(--rule-strong);
   border-radius:8px; background:var(--paper-raised); box-shadow:var(--shadow); overflow:hidden;
 }
 .changelog summary{
@@ -1416,15 +1419,15 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     <div class="approval-block">
       <div class="approval-cell">
         <div class="approval-role">প্রস্তুতকারী</div>
-        <label class="sig-field"><span>নাম</span><input type="text" class="approval-line" data-sig="prepared-name"  autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>পদবি</span><input type="text" class="approval-line" data-sig="prepared-desig" autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>তারিখ</span><input type="date" class="approval-line" data-sig="prepared-date"></label>
+        <label class="sig-field"><span>নাম</span><input type="text" class="approval-line" data-sig="prepared-name"  autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>Designation</span><input type="text" class="approval-line" data-sig="prepared-desig" autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>তারিখ</span><input type="date" class="approval-line" data-sig="prepared-date"></label>
       </div>
       <div class="approval-cell">
         <div class="approval-role">পর্যালোচনাকারী</div>
-        <label class="sig-field"><span>নাম</span><input type="text" class="approval-line" data-sig="reviewed-name"  autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>পদবি</span><input type="text" class="approval-line" data-sig="reviewed-desig" autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>তারিখ</span><input type="date" class="approval-line" data-sig="reviewed-date"></label>
+        <label class="sig-field"><span>নাম</span><input type="text" class="approval-line" data-sig="reviewed-name"  autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>Designation</span><input type="text" class="approval-line" data-sig="reviewed-desig" autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>তারিখ</span><input type="date" class="approval-line" data-sig="reviewed-date"></label>
       </div>
       <div class="approval-cell">
         <div class="approval-role">অনুমোদনকারী</div>
-        <label class="sig-field"><span>নাম</span><input type="text" class="approval-line" data-sig="approved-name"  autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>পদবি</span><input type="text" class="approval-line" data-sig="approved-desig" autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>তারিখ</span><input type="date" class="approval-line" data-sig="approved-date"></label>
+        <label class="sig-field"><span>নাম</span><input type="text" class="approval-line" data-sig="approved-name"  autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>Designation</span><input type="text" class="approval-line" data-sig="approved-desig" autocomplete="off" spellcheck="false"></label>         <label class="sig-field"><span>তারিখ</span><input type="date" class="approval-line" data-sig="approved-date"></label>
       </div>
     </div>
   </div>
@@ -1859,7 +1862,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
         <p class="ack-note">নতুন ডকুমেন্ট কন্ট্রোলার এই SOP পড়ার পর এটি পূরণ করবেন। পূরণ করে "PDF সেভ করুন" দিয়ে প্রিন্ট করে সই করুন।</p>
         <div class="ack-grid">
           <label class="sig-field"><span>নাম</span><input type="text" class="ack-line" data-ack="name" autocomplete="off"></label>
-          <label class="sig-field"><span>পদবি</span><input type="text" class="ack-line" data-ack="desig" autocomplete="off"></label>
+          <label class="sig-field"><span>Designation</span><input type="text" class="ack-line" data-ack="desig" autocomplete="off"></label>
           <label class="sig-field"><span>প্রজেক্ট</span><select class="ack-line" data-ack="project"><option value=""></option><option>The Curve</option><option>Alcove Duets</option><option>Alcove Crown</option><option>Alcove Luxuria</option></select></label>
           <label class="sig-field"><span>তারিখ</span><input type="date" class="ack-line" data-ack="date"></label>
         </div>
