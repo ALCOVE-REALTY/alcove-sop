@@ -142,7 +142,6 @@ h1,h2,h3{ text-wrap:balance; color:var(--ink); }
 }
 @media (max-width:900px){
   .shell{grid-template-columns:minmax(0,1fr); gap:28px;}
-  .toc{display:none;}
   /* Only one grid column track exists at this width — without resetting
      these, grid-column:2 (set for the wide-layout sidebar-beside-content
      arrangement) would create a stray implicit second column and push
@@ -224,43 +223,8 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
 .toc-home-link:hover{ color:var(--ink); }
 .toc-home-link.active{ color:var(--ink); font-weight:600; border-left-color:var(--gold); background:var(--structural-bg); }
 
-/* ---------- Mobile menu ----------
-   There is no drawer and no "Contents" button below 900px: the TOC *is* the
-   landing screen (body.nav-landing, set by the navigation script), and it is
-   simply hidden while a section is open — "Back" is what returns to it. */
 @media (max-width:900px){
-  body.nav-landing .doc-view.active .toc{ display:block; position:static; max-height:none; overflow:visible; }
-
-
-  /* The menu screen is the first thing seen after the Welcome card, so on a
-     phone the bare link list becomes tappable cards. Scoped to the landing
-     state — the desktop sidebar keeps its compact plain-text styling. */
   .shell{ padding-block:18px 96px; }
-  body.nav-landing .toc-eyebrow{
-    margin:0 0 16px; padding-bottom:12px;
-    border-bottom:1px solid var(--rule); font-size:11px; letter-spacing:.16em;
-  }
-  body.nav-landing .toc li{ margin-bottom:0; }
-  body.nav-landing .toc-home-link,
-  body.nav-landing .toc ol a{
-    align-items:center; gap:12px; margin-bottom:9px;
-    padding:14px; font-size:15px; line-height:1.35;
-    background:var(--paper-raised); color:var(--ink);
-    border:1px solid var(--rule); border-radius:11px; box-shadow:var(--shadow);
-  }
-  body.nav-landing .toc-home-link{
-    border-left:3px solid var(--gold); background:var(--gold-bg); font-weight:600;
-  }
-  body.nav-landing .toc ol a::before{
-    display:flex; align-items:center; justify-content:center;
-    width:28px; height:28px; border-radius:50%;
-    background:var(--structural-bg); color:var(--structural);
-    font-size:12px; font-weight:600;
-  }
-  body.nav-landing .toc-home-link::after,
-  body.nav-landing .toc ol a::after{
-    width:64px; height:52px; border-radius:8px;
-  }
 }
 
 /* ---------- Section tint as the page background ----------
@@ -362,97 +326,95 @@ section[id$="-history"],        .toc a[href$="-history"]{ --art-src:url('pages/h
   }
 }
 
-/* ---------- Desktop: menu across the top, not down the side ----------
-   The sidebar is gone above 900px: the shell collapses to a single column
-   and the TOC becomes a full-width strip of chips under the toolbar, so the
-   document gets the whole width. Thumbnails are dropped here — 18 pictures
-   in a horizontal strip is noise, and they still do their job in the phone
-   menu. Back and Refresh move up into the toolbar row for the same reason
-   the menu did: everything that steers the page now lives at the top. */
-@media (min-width:901px){
-  /* Column flex rather than block, purely so the nav can be ordered first:
-     in the markup .home-view comes before <nav class="toc">, which the old
-     grid placement hid. Under normal flow the bar would sit below the whole
-     Home page — invisible until you happened to scroll past it. */
-  .shell{ display:flex; flex-direction:column; max-width:1320px; }
-  .toc{ order:-1; }
-  /* A real navigation bar, not a floating card: full-bleed to both window
-     edges, flush under the hint bar, no radius and no shadow. The negative
-     inline margins break it out of .shell's max-width; the matching inline
-     padding puts the chips back in line with the column below. The negative
-     top margin cancels .shell's own 36px of top padding so nothing shows
-     between the hint bar and the nav. */
-  .toc{
-    position:static; max-height:none;
-    /* Must stay visible or it clips the More dropdown, which hangs below the
-       bar. Nothing actually spills: the fit script moves every item that
-       would overflow into that dropdown. */
-    overflow:visible;
-    display:flex; flex-wrap:nowrap; align-items:stretch; gap:0;
-    width:100vw; margin:-36px calc(50% - 50vw) 30px;
-    padding:0 max(18px, calc(50vw - 638px));
-    background:rgba(20,24,29,.82);
-    border:none; border-radius:0; box-shadow:none;
-  }
-  /* "CONTENTS" above a row of links reads as a card heading; a nav bar
-     doesn't label itself. */
-  .toc-eyebrow{ display:none; }
-  /* display:contents dissolves the <ol> box so the list items become flex
-     children of .toc itself — that is what lets Home sit on the same row as
-     the sections instead of being stranded on a line above them. */
-  .toc ol{ display:contents; }
-  .toc li{ margin:0; }
-  .toc a, .toc-home-link{
-    display:flex; align-items:center; white-space:nowrap;
-    font-family:"Segoe UI",system-ui,-apple-system,sans-serif;
-    font-size:14px; font-weight:600; line-height:1.2;
-    color:rgba(255,255,255,.86);
-    margin:0; padding:15px 13px;
-    border:none; border-bottom:3px solid transparent; border-radius:0;
-  }
-  .toc a:hover, .toc-home-link:hover{ color:#fff; background:rgba(255,255,255,.08); }
-  .toc a.active, .toc-home-link.active{
-    color:#fff; background:transparent; border-bottom-color:var(--gold);
-  }
-  /* Section numbers belong on the page, not in the nav — the reference the
-     user asked for is plain named links. */
-  .toc a::before{ content:none; }
-  .toc a::after, .toc-home-link::after{ display:none; }
+/* ---------- Navigation bar ----------
+   One bar at every width, so the phone and the desktop are the same site.
+   It is full-bleed to both window edges and flush under the hint bar: the
+   negative inline margins break it out of .shell's max-width, the matching
+   inline padding puts the links back in line with the column below, and the
+   negative top margin cancels .shell's own top padding. */
+.shell{ display:flex; flex-direction:column; max-width:1320px; }
+/* In the markup .home-view comes before <nav class="toc">, so without this
+   the bar would sit below the whole Home page — invisible until scrolled to. */
+.toc{ order:-1; }
+.toc{
+  position:static; max-height:none;
+  /* Must stay visible or it clips the More dropdown, which hangs below the
+     bar. Nothing actually spills: the fit script moves every item that
+     would overflow into that dropdown. */
+  overflow:visible;
+  display:flex; flex-wrap:nowrap; align-items:stretch; gap:0;
+  width:100vw; margin:-36px calc(50% - 50vw) 30px;
+  padding:0 max(18px, calc(50vw - 638px));
+  background:rgba(20,24,29,.82);
+  border:none; border-radius:0; box-shadow:none;
+}
+/* "CONTENTS" above a row of links reads as a card heading; a nav bar
+   doesn't label itself. */
+.toc-eyebrow{ display:none; }
+/* display:contents dissolves the <ol> box so the list items become flex
+   children of .toc itself — that is what lets Home sit on the same row as
+   the sections instead of being stranded on a line above them. */
+.toc ol{ display:contents; }
+.toc li{ margin:0; }
+.toc a, .toc-home-link{
+  display:flex; align-items:center; white-space:nowrap;
+  font-family:"Segoe UI",system-ui,-apple-system,sans-serif;
+  font-size:14px; font-weight:600; line-height:1.2;
+  color:rgba(255,255,255,.86);
+  margin:0; padding:15px 13px;
+  border:none; border-bottom:3px solid transparent; border-radius:0;
+}
+.toc a:hover, .toc-home-link:hover{ color:#fff; background:rgba(255,255,255,.08); }
+.toc a.active, .toc-home-link.active{
+  color:#fff; background:transparent; border-bottom-color:var(--gold);
+}
+/* Section numbers belong on the page, not in the nav. */
+.toc a::before{ content:none; }
+.toc a::after, .toc-home-link::after{ display:none; }
 
-  /* Overflow menu. The nav never wraps; whatever will not fit on one line is
-     moved in here by the layout script, which also adds .has-items. */
-  .toc-more{ position:relative; display:none; }
-  .toc-more.has-items{ display:block; }
-  .toc-more-btn{
-    display:flex; align-items:center; gap:6px; height:100%;
-    font-family:"Segoe UI",system-ui,-apple-system,sans-serif;
-    font-size:14px; font-weight:600; color:rgba(255,255,255,.86);
-    background:transparent; border:none; padding:15px 13px;
-    cursor:pointer; white-space:nowrap;
-  }
-  .toc-more-btn:hover{ color:#fff; background:rgba(255,255,255,.08); }
-  .toc-more-btn .caret{ font-size:11px; opacity:.8; }
-  .toc-more-panel{
-    display:none; position:absolute; right:0; top:100%; z-index:60;
-    min-width:260px; max-height:70vh; overflow-y:auto;
-    padding:6px 0; background:rgba(20,24,29,.97);
-    box-shadow:0 14px 34px rgba(0,0,0,.4);
-  }
-  .toc-more.open .toc-more-panel{ display:block; }
-  .toc-more-panel li{ display:block; }
-  .toc-more-panel a{
-    padding:10px 18px; border-bottom:none;
-    border-left:3px solid transparent;
-  }
-  .toc-more-panel a.active{ border-left-color:var(--gold); color:#fff; }
-  .toc a::before{ width:auto; margin-right:3px; }
-  /* Reserve the right end of the toolbar for the two buttons now pinned
-     there, so they never land on top of "Document Formats". */
+/* Overflow menu. The nav never wraps; whatever will not fit on one line is
+   moved in here by the layout script, which also adds .has-items. On a phone
+   that is almost everything, which is exactly how a mobile nav should behave. */
+.toc-more{ position:relative; display:none; }
+.toc-more.has-items{ display:block; }
+.toc-more-btn{
+  display:flex; align-items:center; gap:6px; height:100%;
+  font-family:"Segoe UI",system-ui,-apple-system,sans-serif;
+  font-size:14px; font-weight:600; color:rgba(255,255,255,.86);
+  background:transparent; border:none; padding:15px 13px;
+  cursor:pointer; white-space:nowrap;
+}
+.toc-more-btn:hover{ color:#fff; background:rgba(255,255,255,.08); }
+.toc-more-btn .caret{ font-size:11px; opacity:.8; }
+.toc-more-panel{
+  display:none; position:absolute; right:0; top:100%; z-index:60;
+  min-width:260px; max-height:70vh; overflow-y:auto;
+  padding:6px 0; background:rgba(20,24,29,.97);
+  box-shadow:0 14px 34px rgba(0,0,0,.4);
+}
+.toc-more.open .toc-more-panel{ display:block; }
+.toc-more-panel li{ display:block; }
+.toc-more-panel a{
+  padding:10px 18px; border-bottom:none;
+  border-left:3px solid transparent;
+}
+.toc-more-panel a.active{ border-left-color:var(--gold); color:#fff; }
+
+@media (max-width:900px){
+  /* .shell's top padding is 18px here, not 36px, so the pull-up matches. */
+  .toc{ margin:-18px calc(50% - 50vw) 22px; padding:0 12px; }
+  .toc a, .toc-home-link, .toc-more-btn{ font-size:13.5px; padding:13px 11px; }
+  .toc-more-panel{ min-width:230px; }
+}
+
+@media (min-width:901px){
+  /* Reserve the right end of the toolbar for the two buttons pinned there,
+     so they never land on top of "Document Formats". */
   .toolbar{ padding-right:280px; }
   .toolbar-updated{ display:none; }
-  /* Both buttons carry their geometry in a style attribute, so the desktop
-     override has to out-rank it — without !important the inline bottom/left
-     stay put and the pill stretches across the whole viewport. */
+  /* Both buttons carry their geometry in a style attribute, so the override
+     has to out-rank it — without !important the inline bottom/left stay put
+     and the pill stretches across the whole viewport. */
   #back-fab, #refresh-fab{
     top:9px !important; bottom:auto !important; left:auto !important;
     z-index:40; padding:9px 15px !important; font-size:12.5px;
@@ -461,33 +423,38 @@ section[id$="-history"],        .toc a[href$="-history"]{ --art-src:url('pages/h
   #refresh-fab{ right:18px !important; }
 }
 
-/* ---------- Wide desktop: the section's picture alongside its text ----------
-   The user's own idea, and it is the right home for this artwork: at ~340px
-   the images sit near their native 336px, so they are finally crisp instead
-   of upscaled. The whole panel is drawn by ::after off --art-src, so no
-   markup changes — and it sticks while the text scrolls past it. */
+/* ---------- The section's own picture ----------
+   The right home for this artwork: around 340px the images sit near their
+   native 336px, so they are crisp rather than upscaled. Drawn by ::after off
+   --art-src, so no markup changes. On a phone it closes the section at full
+   width; from 1100px up it moves alongside the text and sticks there. */
+article > section::after{
+  content:""; display:block; width:100%; aspect-ratio:336/287;
+  margin:24px 0 0;
+  background-image:var(--art-src);
+  background-position:center; background-size:cover; background-repeat:no-repeat;
+  border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow);
+}
+/* §4 carries its own gallery of project renders, so it never shows the
+   single picture. */
+section[id$="-projects"]::after{ display:none; }
+
 @media (min-width:1100px){
   article > section{
     display:grid; grid-template-columns:minmax(0,1fr) 340px;
     column-gap:34px; align-items:start;
   }
   article > section > *{ grid-column:1; min-width:0; }
-  /* §4 carries its own gallery of project renders, so it keeps the full
-     width and drops the single side picture. */
   section[id$="-projects"]{ display:block; }
-  section[id$="-projects"]::after{ display:none; }
   article > section::after{
     /* Spanning every row is what stops the picture from inflating row 1 and
        shoving the heading down past its own height; align-self keeps it at
        the top of that tall area, and sticky then carries it down the text.
        It has to be an explicit span: the rows here are implicit, so -1
        resolves back to row 1 and the gap comes straight back. */
-    content:""; grid-column:2; grid-row:1 / span 50; align-self:start;
+    grid-column:2; grid-row:1 / span 50; align-self:start;
     position:sticky; top:104px;
-    width:340px; aspect-ratio:336/287;
-    background-image:var(--art-src);
-    background-position:center; background-size:cover; background-repeat:no-repeat;
-    border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow);
+    width:340px; margin:0;
   }
 }
 @media print{
@@ -2778,9 +2745,11 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     var ol = toc.querySelector('ol');
     if(!more || !ol) return;
     var panel = more.querySelector('.toc-more-panel');
+    // A late re-fit (web fonts landing, a rotate) must not slam the dropdown
+    // shut under someone who has it open.
+    var wasOpen = more.classList.contains('open');
     while(panel.firstChild){ ol.appendChild(panel.firstChild); }
     more.classList.remove('has-items', 'open');
-    if(window.innerWidth < 901) return;
     // Measure with the button present, or the last item would be pushed out
     // by the button appearing afterwards.
     more.classList.add('has-items');
@@ -2790,6 +2759,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       panel.insertBefore(items[i], panel.firstChild);
     }
     if(!panel.children.length){ more.classList.remove('has-items'); }
+    else if(wasOpen){ more.classList.add('open'); }
   }
   function fitAll(){ document.querySelectorAll('.toc').forEach(fit); }
   window.AlcoveLayoutNav = fitAll;
