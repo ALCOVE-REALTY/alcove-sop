@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260917-164125">
+<meta name="sop-build" content="20260917-165832">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -2798,94 +2798,13 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 })();
 </script>
 
-<!-- Live-content sync: the six prose-only sections (Purpose, Scope, Procedure,
-     Confidentiality & security, Non-conformance, Training) are refreshed from
-     a Google Sheet on load, so editing that Sheet updates the app without a
-     rebuild. Table/colour-bearing sections are NOT touched by this and stay
-     bundled in this file as before. If the fetch fails (offline, sheet not
-     shared, etc.) nothing is changed and the bundled static text above stays
-     exactly as shipped — this script never removes content until it has a
-     successful replacement ready. -->
-<script>
-(function(){
-  var SHEET_ID = '1vqC40j9XeAojak6jJNilBnPqNXvOGtMo2D8XHJbVoD0';
-  var CSV_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv&sheet=Sheet1';
-  var LANG_COL = { en: 1, bn: 2, hi: 3 };
-
-  function inlineMd(s){
-    return s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-  }
-
-  function markupToHtml(text){
-    var lines = text.replace(/\r\n/g, '\n').split('\n');
-    var html = '', ulOpen = false, para = [];
-    function flushPara(){ if(para.length){ html += '<p>' + para.join(' ') + '</p>'; para = []; } }
-    function closeUl(){ if(ulOpen){ html += '</ul>'; ulOpen = false; } }
-    for(var i = 0; i < lines.length; i++){
-      var line = lines[i].trim();
-      if(line === ''){ flushPara(); closeUl(); continue; }
-      if(line.indexOf('## ') === 0){ flushPara(); closeUl(); html += '<h3>' + inlineMd(line.slice(3)) + '</h3>'; continue; }
-      if(line.indexOf('- ') === 0){ flushPara(); if(!ulOpen){ html += '<ul>'; ulOpen = true; } html += '<li>' + inlineMd(line.slice(2)) + '</li>'; continue; }
-      para.push(inlineMd(line));
-    }
-    flushPara(); closeUl();
-    return html;
-  }
-
-  function parseCSV(text){
-    var rows = [], row = [], field = '', inQuotes = false;
-    for(var i = 0; i < text.length; i++){
-      var c = text[i];
-      if(inQuotes){
-        if(c === '"'){ if(text[i+1] === '"'){ field += '"'; i++; } else { inQuotes = false; } }
-        else { field += c; }
-      } else {
-        if(c === '"'){ inQuotes = true; }
-        else if(c === ','){ row.push(field); field = ''; }
-        else if(c === '\n'){ row.push(field); rows.push(row); row = []; field = ''; }
-        else if(c === '\r'){ /* skip */ }
-        else { field += c; }
-      }
-    }
-    if(field.length || row.length){ row.push(field); rows.push(row); }
-    return rows;
-  }
-
-  function applyLiveContent(rows){
-    for(var r = 1; r < rows.length; r++){
-      var row = rows[r];
-      if(!row || !row[0]) continue;
-      var key = row[0].trim();
-      ['en', 'bn', 'hi'].forEach(function(lang){
-        var el = document.getElementById(lang + '-' + key);
-        if(!el) return;
-        var raw = row[LANG_COL[lang]];
-        if(raw === undefined || raw.trim() === '') return;
-        var eyebrow = el.querySelector('.eyebrow');
-        var h2 = el.querySelector('h2');
-        var rendered = markupToHtml(raw);
-        el.innerHTML = '';
-        if(eyebrow) el.appendChild(eyebrow);
-        if(h2) el.appendChild(h2);
-        var wrap = document.createElement('div');
-        wrap.innerHTML = rendered;
-        while(wrap.firstChild) el.appendChild(wrap.firstChild);
-      });
-    }
-  }
-
-  if(window.fetch){
-    fetch(CSV_URL).then(function(resp){
-      if(!resp.ok) throw new Error('sheet fetch failed: ' + resp.status);
-      return resp.text();
-    }).then(function(text){
-      applyLiveContent(parseCSV(text));
-    }).catch(function(){
-      /* offline or sheet not shared yet — bundled static content stays as-is */
-    });
-  }
-})();
-</script>
+<!-- Live-content sync REMOVED 2026-09-17. This block used to re-fetch six prose
+     sections (Purpose, Scope, Procedure, Confidentiality, Non-conformance,
+     Training) from a Google Sheet after load and overwrite the markup below.
+     The Sheet had drifted behind this file, so it was silently reverting
+     approved edits on screen (e.g. the 9.8 retention clause and the section 1
+     wording) even though the served HTML was correct. This file is now the
+     single source of truth; edit it and republish. -->
 
 <!-- Check-for-update: this app has no Play Store auto-update since it is
      sideloaded, so this reads a tiny separate Sheet for the newest available
