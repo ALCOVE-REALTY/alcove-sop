@@ -213,6 +213,18 @@ h1.title{ font-size:clamp(1.8rem,4.4vw,2.7rem); font-weight:600; margin:0 0 8px;
   box-shadow:0 1px 0 var(--structural);
 }
 @media print{ .docfields .doc-line{ background:none !important; box-shadow:none !important; } }
+/* Same treatment inside a table cell — used by the revision history, which
+   the HOD fills in as the document is revised. */
+tbody td > .doc-line{
+  display:block; width:100%; box-sizing:border-box;
+  font-family:inherit; font-size:inherit; color:var(--ink);
+  background:transparent; border:none; border-radius:0; padding:0;
+}
+tbody td > .doc-line.mono{ font-family:"IBM Plex Mono",monospace; }
+tbody td > .doc-line:focus{
+  outline:none; background:var(--structural-bg); box-shadow:0 1px 0 var(--structural);
+}
+@media print{ tbody td > .doc-line{ background:none !important; box-shadow:none !important; } }
 
 .approval-block{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin-top:14px; }
 @media (max-width:720px){ .approval-block{grid-template-columns:1fr;} }
@@ -1395,9 +1407,9 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       <h2>Revision history</h2>
       <div class="twrap">
         <table>
-          <thead><tr><th style="width:70px">Rev</th><th style="width:120px">Date</th><th style="width:160px">Prepared by</th><th>Description</th></tr></thead>
+          <thead><tr><th style="width:66px">Rev</th><th style="width:132px">Date</th><th style="width:140px">Name</th><th style="width:205px">Designation</th><th>Description</th></tr></thead>
           <tbody>
-            <tr><td class="num">0</td><td class="num">—</td><td>HOD, Document Control</td><td>Initial issue</td></tr>
+            <tr><td><input type="text" class="doc-line mono" data-doc="en-rev0-num" value="0" autocomplete="off"></td><td><input type="date" class="doc-line mono" data-doc="en-rev0-date"></td><td><input type="text" class="doc-line" data-doc="en-rev0-name" autocomplete="off"></td><td><input type="text" class="doc-line" data-doc="en-rev0-desig" value="HOD, Document Control" autocomplete="off"></td><td><input type="text" class="doc-line" data-doc="en-rev0-desc" value="Initial issue" autocomplete="off"></td></tr>
           </tbody>
         </table>
       </div>
@@ -1958,9 +1970,9 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       <h2>রিভিশন হিস্ট্রি</h2>
       <div class="twrap">
         <table>
-          <thead><tr><th style="width:80px">রিভিশন</th><th style="width:130px">তারিখ</th><th style="width:170px">প্রস্তুতকারী</th><th>বিবরণ</th></tr></thead>
+          <thead><tr><th style="width:66px">রিভিশন</th><th style="width:132px">তারিখ</th><th style="width:140px">নাম</th><th style="width:205px">Designation</th><th>বিবরণ</th></tr></thead>
           <tbody>
-            <tr><td class="num">0</td><td class="num">—</td><td>HOD, Document Control</td><td>প্রাথমিক ইস্যু</td></tr>
+            <tr><td><input type="text" class="doc-line mono" data-doc="bn-rev0-num" value="0" autocomplete="off"></td><td><input type="date" class="doc-line mono" data-doc="bn-rev0-date"></td><td><input type="text" class="doc-line" data-doc="bn-rev0-name" autocomplete="off"></td><td><input type="text" class="doc-line" data-doc="bn-rev0-desig" value="HOD, Document Control" autocomplete="off"></td><td><input type="text" class="doc-line" data-doc="bn-rev0-desc" value="প্রাথমিক ইস্যু" autocomplete="off"></td></tr>
           </tbody>
         </table>
       </div>
@@ -2521,9 +2533,9 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
       <h2>रिवीज़न हिस्ट्री</h2>
       <div class="twrap">
         <table>
-          <thead><tr><th style="width:80px">रिवीज़न</th><th style="width:130px">तारीख</th><th style="width:170px">तैयार किया गया</th><th>विवरण</th></tr></thead>
+          <thead><tr><th style="width:66px">रिवीज़न</th><th style="width:132px">तारीख</th><th style="width:140px">नाम</th><th style="width:205px">Designation</th><th>विवरण</th></tr></thead>
           <tbody>
-            <tr><td class="num">0</td><td class="num">—</td><td>HOD, Document Control</td><td>प्रारंभिक जारी</td></tr>
+            <tr><td><input type="text" class="doc-line mono" data-doc="hi-rev0-num" value="0" autocomplete="off"></td><td><input type="date" class="doc-line mono" data-doc="hi-rev0-date"></td><td><input type="text" class="doc-line" data-doc="hi-rev0-name" autocomplete="off"></td><td><input type="text" class="doc-line" data-doc="hi-rev0-desig" value="HOD, Document Control" autocomplete="off"></td><td><input type="text" class="doc-line" data-doc="hi-rev0-desc" value="प्रारंभिक जारी" autocomplete="off"></td></tr>
           </tbody>
         </table>
       </div>
