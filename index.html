@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260917-135649">
+<meta name="sop-build" content="20260917-140732">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -28,7 +28,7 @@
   --gold:#8A6D1F;
   --gold-bg:rgba(138,109,31,.10);
   --shadow: 0 1px 2px rgba(33,38,43,.06), 0 6px 20px rgba(33,38,43,.05);
-  --art-alpha:.15; --landing-veil:rgba(236,234,225,.42); --home-solid:rgba(251,250,246,.90); --home-frost:rgba(251,250,246,.62);
+  --art-alpha:.15; --landing-veil:rgba(236,234,225,.42); --hero-veil-core:rgba(252,251,247,.96); --hero-veil-edge:rgba(252,251,247,.30);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -38,7 +38,7 @@
     --structural:#8FB2D2; --structural-bg:rgba(143,178,210,.10); --code-bg:rgba(143,178,210,.08);
     --suggest:#7FB284; --suggest-bg:rgba(127,178,132,.12);
     --gold:#D9B45C; --gold-bg:rgba(217,180,92,.14);
-    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-alpha:.22; --landing-veil:rgba(14,17,19,.62); --home-solid:rgba(30,34,36,.90); --home-frost:rgba(26,30,32,.60);
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-alpha:.22; --landing-veil:rgba(14,17,19,.62); --hero-veil-core:rgba(22,26,28,.95); --hero-veil-edge:rgba(22,26,28,.45);
   }
 }
 :root[data-theme="dark"]{
@@ -48,7 +48,7 @@
   --structural:#8FB2D2; --structural-bg:rgba(143,178,210,.10); --code-bg:rgba(143,178,210,.08);
   --suggest:#7FB284; --suggest-bg:rgba(127,178,132,.12);
   --gold:#D9B45C; --gold-bg:rgba(217,180,92,.14);
-  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-alpha:.22; --landing-veil:rgba(14,17,19,.62); --home-solid:rgba(30,34,36,.90); --home-frost:rgba(26,30,32,.60);
+  --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.28); --art-alpha:.22; --landing-veil:rgba(14,17,19,.62); --hero-veil-core:rgba(22,26,28,.95); --hero-veil-edge:rgba(22,26,28,.45);
 }
 
 *{box-sizing:border-box;}
@@ -379,14 +379,7 @@ article > section, .home-view, article > .footline{
    see-through frosted panel, and those that cannot fall back to a lighter
    but still opaque-enough card — without the blur, a thin card would let the
    photograph's detail run straight through the text. */
-.home-view{ background:var(--home-solid); }
-@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))){
-  .home-view{
-    background:var(--home-frost);
-    -webkit-backdrop-filter:blur(16px) saturate(1.1);
-    backdrop-filter:blur(16px) saturate(1.1);
-  }
-}
+
 .toc{
   background:var(--paper-raised); border:1px solid var(--rule);
   border-radius:14px; padding:18px 16px; box-shadow:var(--shadow);
@@ -415,12 +408,7 @@ article > section, .home-view, article > .footline{
 /* Home takes the Welcome photograph rather than a flat tint — it is 1600px
    wide, so it stays sharp filling the viewport, and the Home card sits
    opaque on top of it exactly as the Welcome card used to. */
-.home-view::before{
-  background-color:transparent;
-  background-image:linear-gradient(var(--landing-veil), var(--landing-veil)), url('welcome-bg.jpg');
-  background-position:center; background-size:cover; background-repeat:no-repeat;
-  opacity:1;
-}
+
 section[id$="-purpose"],        .toc a[href$="-purpose"]{ --art-src:url('pages/purpose.jpg'); --art-tint:#C65E53; }
 section[id$="-scope"],          .toc a[href$="-scope"]{ --art-src:url('pages/scope.jpg'); --art-tint:#53C690; }
 section[id$="-definitions"],    .toc a[href$="-definitions"]{ --art-src:url('pages/definitions.jpg'); --art-tint:#63C653; }
@@ -834,10 +822,19 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 /* No panel of its own — the greeting sits directly on the Home card, so the
    corner no longer reads as a box drawn inside a box. A rule at the foot is
    all that separates it from the document proper. */
+/* The greeting sits on the banner artwork the user supplied: binders and a
+   laptop on the left, towers and rolled drawings on the right, open sky in
+   between. A veil that is strongest in the middle keeps the text crisp while
+   leaving the scene readable out at the edges. The artwork carries no text
+   of its own, so nothing is duplicated. */
 .home-welcome{
-  margin:0 0 30px; padding:10px 0 28px; text-align:center;
-  border:none; border-bottom:1px solid var(--rule); border-radius:0;
-  background:none;
+  margin:-26px -28px 30px; padding:52px 30px 44px; text-align:center;
+  border:none; border-radius:14px 14px 0 0;
+  background-image:
+    radial-gradient(ellipse 72% 130% at 50% 50%, var(--hero-veil-core) 0%, var(--hero-veil-core) 42%, var(--hero-veil-edge) 88%),
+    url('pages/home-banner.jpg');
+  background-size:cover; background-position:center;
+  border-bottom:1px solid var(--rule);
 }
 /* The greeting the panel opened with before the brand line took the eyebrow
    slot — brought back as its own badge so "Welcome" still reads first. */
@@ -879,7 +876,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
    like the rest of the document, which is what the user asked for. They keep
    their centred measure — only the text inside them is flush both sides. */
 .home-welcome .hw-lead{
-  max-width:none; margin:0 0 20px; color:var(--ink);
+  max-width:min(780px, 68%); margin:0 auto 20px; color:var(--ink);
   text-align:justify; text-justify:inter-word;
 }
 .home-welcome .hw-facts{
@@ -894,7 +891,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
   color:var(--structural); margin-right:5px;
 }
 .home-welcome .hw-hint{
-  max-width:none; margin:0; font-size:14.5px; color:var(--ink-soft);
+  max-width:min(740px, 66%); margin:0 auto; font-size:14.5px; color:var(--ink-soft);
   text-align:justify; text-justify:inter-word;
 }
 .doc-en .home-welcome .hw-lead,
@@ -906,7 +903,10 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
   .home-welcome .hw-greet, .home-welcome .hw-facts, .home-welcome .hw-hint{ display:none !important; }
 }
 @media (max-width:900px){
-  .home-welcome{ padding:6px 0 20px; }
+  /* The banner crops to its middle on a phone, so the centre column that
+     keeps the artwork clear on a wide screen would only squeeze the text. */
+  .home-welcome{ margin:-18px -16px 22px; padding:26px 16px 24px; }
+  .home-welcome .hw-lead, .home-welcome .hw-hint{ max-width:none; }
   .home-welcome .hw-logo{ width:150px; margin-bottom:14px; }
   .home-welcome .hw-title{ font-size:1.45rem; }
   .home-welcome .hw-facts{ gap:8px 12px; }
@@ -3075,7 +3075,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
     .then(function(res){ return res.ok ? res.text() : null; })
     .then(function(html){
       if(!html) return;
-      var m = html.match(/name="sop-build" content="20260917-135649"]+)"/);
+      var m = html.match(/name="sop-build" content="20260917-140732"]+)"/);
       if(!m || m[1] === mine) { try{ sessionStorage.removeItem(FLAG); }catch(e){} return; }
       var already;
       try{ already = sessionStorage.getItem(FLAG); }catch(e){ already = null; }
