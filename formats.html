@@ -12,6 +12,7 @@
     --blue:#0f6fb8; --red:#e0332c; --gold:#f2a900; --card:#ffffff;
   }
   *{box-sizing:border-box;}
+  [hidden]{ display:none !important; }
   body{
     margin:0; background:var(--paper); color:var(--ink);
     font-family:'Source Sans 3', system-ui, sans-serif;
@@ -33,12 +34,17 @@
     margin:0 0 4px 0; line-height:1.2;
   }
   header p{ margin:0; color:var(--muted); font-size:14.5px; max-width:520px; }
+  header p a{ color:var(--blue); font-weight:600; }
+
   h2.group-title{
     font-family:'Merriweather', serif; font-weight:700; font-size:17px;
     margin:34px 0 12px 0; padding-bottom:6px; border-bottom:1px solid var(--line);
-    color:var(--blue);
+    color:var(--blue); display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;
   }
   h2.group-title:first-of-type{ margin-top:0; }
+  h2.group-title .count{ font-family:'Source Sans 3',sans-serif; font-size:12.5px; font-weight:600; color:var(--muted); }
+  h2.group-title .folder{ font-family:'Source Sans 3',sans-serif; font-size:12.5px; font-weight:600; margin-left:auto; }
+
   .grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:12px; }
   a.card{
     display:block; background:var(--card); border:1px solid var(--line); border-radius:10px;
@@ -52,8 +58,21 @@
     text-transform:uppercase; color:#fff; background:var(--red); border-radius:4px;
     padding:2px 7px; margin-right:6px;
   }
+  .card .tag[data-kind="Sheet"], .card .tag[data-kind="Excel"]{ background:#137333; }
+  .card .tag[data-kind="Doc"],   .card .tag[data-kind="Word"] { background:#2b579a; }
+  .card .tag[data-kind="Slides"]{ background:#b3591a; }
+  .card .tag[data-kind="Form"]  { background:#673ab7; }
+  .card .tag[data-kind="Image"], .card .tag[data-kind="DWG"]  { background:#6b6b63; }
   .card .desc{ font-size:12.5px; color:var(--muted); margin-top:5px; line-height:1.4; }
   .card .open{ font-size:12px; color:var(--blue); font-weight:600; margin-top:8px; display:inline-block; }
+
+  .note{
+    font-size:13.5px; color:var(--muted); background:#fff; border:1px solid var(--line);
+    border-left:4px solid var(--gold); border-radius:6px; padding:12px 14px; margin:0 0 22px;
+  }
+  .note b{ color:var(--ink); }
+  .empty{ font-size:13.5px; color:var(--muted); font-style:italic; padding:4px 0 8px; }
+
   footer{
     margin-top:44px; padding-top:16px; border-top:1px solid var(--line);
     font-size:12.5px; color:var(--muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
@@ -71,115 +90,131 @@
     <img src="alcove-logo.png" alt="Alcove Realty">
     <div>
       <h1>Document Formats Menu</h1>
-      <p>Live, editable register &amp; transmittal templates used by the Document Control team — click any format to open the real working spreadsheet in Google Sheets.</p>
+      <p>The live register, transmittal and reference formats used by Document Control. This page reads the
+         <a href="https://drive.google.com/drive/folders/1nhtdBeC_y_G8gJkqjLq9a_8H7kel54qS" target="_blank" rel="noopener">Document Formats folder</a>
+         on Drive, so anything uploaded there appears here on its own.</p>
     </div>
   </header>
 
-  <h2 class="group-title">General registers &amp; trackers</h2>
-  <div class="grid">
-    <a class="card" href="https://docs.google.com/spreadsheets/d/1pD5_5o2bNKWm4eYW-w-9EwOVmZ8gC4KkJpK43Guwf-Q/edit" target="_blank" rel="noopener">
-      <span class="tag">TRN</span>
-      <div class="name">Document Transmittal Register</div>
-      <div class="desc">Logs every transmittal — number, date, recipients, documents issued.</div>
-      <span class="open">Open sheet ↗</span>
-    </a>
-    <a class="card" href="https://docs.google.com/spreadsheets/d/1gU1h8jh-e7qR1ZJPkpH1eLkFL74OSIGymToAM2tjwUc/edit" target="_blank" rel="noopener">
-      <span class="tag">MDL</span>
-      <div class="name">File Name &amp; Location Index</div>
-      <div class="desc">Master list of files/folders — physical or shared-drive location reference.</div>
-      <span class="open">Open sheet ↗</span>
-    </a>
-    <a class="card" href="https://docs.google.com/spreadsheets/d/1HNHZ-ZoqKYoofcJOjyAyZVxdaIFqIQDQNuxvqLvDT_o/edit" target="_blank" rel="noopener">
-      <span class="tag">KMC</span>
-      <div class="name">Sanction Document &amp; Drawings Register</div>
-      <div class="desc">Tracks statutory-sanctioned drawings and documents by type and date.</div>
-      <span class="open">Open sheet ↗</span>
-    </a>
-    <a class="card" href="https://docs.google.com/spreadsheets/d/1Jghm5OhNgxZqpAF7wYTLx5X4zF1ejXkaPGO1KLCsYfA/edit" target="_blank" rel="noopener">
-      <span class="tag">KMC</span>
-      <div class="name">Letter Register with KMC</div>
-      <div class="desc">Correspondence log — letters sent/received to and from KMC.</div>
-      <span class="open">Open sheet ↗</span>
-    </a>
-    <a class="card" href="https://docs.google.com/spreadsheets/d/1wXcLl3v8TbvKLsSb5qnZy47WBn0xSCgdEvLQT-cycPU/edit" target="_blank" rel="noopener">
-      <span class="tag">MST</span>
-      <div class="name">Method Statement Register</div>
-      <div class="desc">Method statements — reference number, revision, approver, circulation date.</div>
-      <span class="open">Open sheet ↗</span>
-    </a>
-    <a class="card" href="https://docs.google.com/spreadsheets/d/1g7K3NgQb8lfC-zv1UdbYYtUvbBkQ-8tX3xmTtASOJfY/edit" target="_blank" rel="noopener">
-      <span class="tag">PD</span>
-      <div class="name">Consultant Masters &amp; Shared Email List</div>
-      <div class="desc">Project consultant directory and shared-project email contact list.</div>
-      <span class="open">Open sheet ↗</span>
-    </a>
-    <a class="card" href="https://docs.google.com/spreadsheets/d/1BRqBkAVUkybl9VycpndTIY51daIRL9WkXokHe7SxcRg/edit" target="_blank" rel="noopener">
-      <span class="tag">INS</span>
-      <div class="name">Insurance Policy Tracker</div>
-      <div class="desc">CAR/other policy register with auto-calculated expiry tracking.</div>
-      <span class="open">Open sheet ↗</span>
-    </a>
-    <a class="card" href="https://docs.google.com/spreadsheets/d/1MXPYjnmwvFEEZbslLjVNV8uqzbsyWjUPMMApIafa-dU/edit" target="_blank" rel="noopener">
-      <span class="tag">RFI</span>
-      <div class="name">RFI Register</div>
-      <div class="desc">Request-for-Information log — discipline, response, pending days.</div>
-      <span class="open">Open sheet ↗</span>
-    </a>
-    <a class="card" href="https://docs.google.com/spreadsheets/d/1ixNkpaCmGkGzZz9TgL9UbqCbMwF88rGwnXdl0ZnnT40/edit" target="_blank" rel="noopener">
-      <span class="tag">PD</span>
-      <div class="name">Land Owner Email Register</div>
-      <div class="desc">Contact log for land-owner correspondence.</div>
-      <span class="open">Open sheet ↗</span>
-    </a>
-  </div>
+  <!-- Filled from the Drive feed. Stays empty and hidden if the feed is not reachable. -->
+  <div id="live" hidden></div>
 
-  <h2 class="group-title">Drawing registers (by discipline)</h2>
-  <div class="grid">
-    <a class="card" href="https://docs.google.com/spreadsheets/d/1H_sYTs3zI8di7fDIAIwllzkFm6qZ-Pug5LozYgTf8qk/edit" target="_blank" rel="noopener">
-      <span class="tag">ARC</span>
-      <div class="name">Architecture Drawing Register</div>
-      <div class="desc">Current-revision tracker for all architectural drawings.</div>
-      <span class="open">Open sheet ↗</span>
-    </a>
-    <a class="card" href="https://docs.google.com/spreadsheets/d/1zFdejXZCBO3mlPzhxqykMRvZFTqDN5RfxVNnNr-7_uE/edit" target="_blank" rel="noopener">
-      <span class="tag">MEP</span>
-      <div class="name">MEP Drawing Register</div>
-      <div class="desc">Current-revision tracker for Electrical/Plumbing/HVAC/FF drawings.</div>
-      <span class="open">Open sheet ↗</span>
-    </a>
-    <a class="card" href="https://docs.google.com/spreadsheets/d/1G9-Xl5irzO6oy0mXL5ktfC7bChnyLsLbzUHxSkZAofY/edit" target="_blank" rel="noopener">
-      <span class="tag">STR</span>
-      <div class="name">Structure Drawing Register</div>
-      <div class="desc">Current-revision tracker for all structural drawings.</div>
-      <span class="open">Open sheet ↗</span>
-    </a>
-  </div>
+  <div id="loading" class="note">Reading the Document Formats folder on Drive&hellip;</div>
 
-  <h2 class="group-title">Drawings transmittal (by discipline)</h2>
-  <div class="grid">
-    <a class="card" href="https://docs.google.com/spreadsheets/d/1F8s0PnxgHvjNE9CEBUNGTE6rACK8MnS1bOWYzNrEysA/edit" target="_blank" rel="noopener">
-      <span class="tag">ARC</span>
-      <div class="name">Architecture Drawings Transmittal</div>
-      <div class="desc">Transmittal log specific to architectural drawing issues.</div>
-      <span class="open">Open sheet ↗</span>
-    </a>
-    <a class="card" href="https://docs.google.com/spreadsheets/d/1rZ7GK1jqwVHlzCMGT_uAKjn5COb9_HwiQ3PoHekm6PM/edit" target="_blank" rel="noopener">
-      <span class="tag">MEP</span>
-      <div class="name">MEP Drawings Transmittal</div>
-      <div class="desc">Transmittal log specific to MEP drawing issues.</div>
-      <span class="open">Open sheet ↗</span>
-    </a>
-    <a class="card" href="https://docs.google.com/spreadsheets/d/1du5yhdILTzH_el7O16jtI1IsN9YWcIgLyEpuqmWlSO4/edit" target="_blank" rel="noopener">
-      <span class="tag">STR</span>
-      <div class="name">Structure Drawings Transmittal</div>
-      <div class="desc">Transmittal log specific to structural drawing issues.</div>
-      <span class="open">Open sheet ↗</span>
-    </a>
+  <!-- The hand-kept list. It is what the page showed before the Drive feed existed, and it
+       stays here as the fallback so the page is never blank if the feed is unreachable. -->
+  <div id="static-list" hidden>
+    <div class="note" id="static-note" hidden>
+      <b>Showing the saved list.</b> The live Drive folder could not be read just now, so these are the
+      formats as last recorded. Open the Drive folder above to see everything.
+    </div>
+
+    <h2 class="group-title">General registers &amp; trackers</h2>
+    <div class="grid">
+      <a class="card" href="https://docs.google.com/spreadsheets/d/1pD5_5o2bNKWm4eYW-w-9EwOVmZ8gC4KkJpK43Guwf-Q/edit" target="_blank" rel="noopener">
+        <span class="tag" data-kind="Sheet">TRN</span>
+        <div class="name">Document Transmittal Register</div>
+        <div class="desc">Logs every transmittal — number, date, recipients, documents issued.</div>
+        <span class="open">Open sheet &#8599;</span>
+      </a>
+      <a class="card" href="https://docs.google.com/spreadsheets/d/1gU1h8jh-e7qR1ZJPkpH1eLkFL74OSIGymToAM2tjwUc/edit" target="_blank" rel="noopener">
+        <span class="tag" data-kind="Sheet">MDL</span>
+        <div class="name">File Name &amp; Location Index</div>
+        <div class="desc">Master list of files/folders — physical or shared-drive location reference.</div>
+        <span class="open">Open sheet &#8599;</span>
+      </a>
+      <a class="card" href="https://docs.google.com/spreadsheets/d/1HNHZ-ZoqKYoofcJOjyAyZVxdaIFqIQDQNuxvqLvDT_o/edit" target="_blank" rel="noopener">
+        <span class="tag" data-kind="Sheet">KMC</span>
+        <div class="name">Sanction Document &amp; Drawings Register</div>
+        <div class="desc">Tracks statutory-sanctioned drawings and documents by type and date.</div>
+        <span class="open">Open sheet &#8599;</span>
+      </a>
+      <a class="card" href="https://docs.google.com/spreadsheets/d/1Jghm5OhNgxZqpAF7wYTLx5X4zF1ejXkaPGO1KLCsYfA/edit" target="_blank" rel="noopener">
+        <span class="tag" data-kind="Sheet">KMC</span>
+        <div class="name">Letter Register with KMC</div>
+        <div class="desc">Correspondence log — letters sent/received to and from KMC.</div>
+        <span class="open">Open sheet &#8599;</span>
+      </a>
+      <a class="card" href="https://docs.google.com/spreadsheets/d/1wXcLl3v8TbvKLsSb5qnZy47WBn0xSCgdEvLQT-cycPU/edit" target="_blank" rel="noopener">
+        <span class="tag" data-kind="Sheet">MST</span>
+        <div class="name">Method Statement Register</div>
+        <div class="desc">Method statements — reference number, revision, approver, circulation date.</div>
+        <span class="open">Open sheet &#8599;</span>
+      </a>
+      <a class="card" href="https://docs.google.com/spreadsheets/d/1g7K3NgQb8lfC-zv1UdbYYtUvbBkQ-8tX3xmTtASOJfY/edit" target="_blank" rel="noopener">
+        <span class="tag" data-kind="Sheet">PD</span>
+        <div class="name">Consultant Masters &amp; Shared Email List</div>
+        <div class="desc">Project consultant directory and shared-project email contact list.</div>
+        <span class="open">Open sheet &#8599;</span>
+      </a>
+      <a class="card" href="https://docs.google.com/spreadsheets/d/1BRqBkAVUkybl9VycpndTIY51daIRL9WkXokHe7SxcRg/edit" target="_blank" rel="noopener">
+        <span class="tag" data-kind="Sheet">INS</span>
+        <div class="name">Insurance Policy Tracker</div>
+        <div class="desc">CAR/other policy register with auto-calculated expiry tracking.</div>
+        <span class="open">Open sheet &#8599;</span>
+      </a>
+      <a class="card" href="https://docs.google.com/spreadsheets/d/1MXPYjnmwvFEEZbslLjVNV8uqzbsyWjUPMMApIafa-dU/edit" target="_blank" rel="noopener">
+        <span class="tag" data-kind="Sheet">RFI</span>
+        <div class="name">RFI Register</div>
+        <div class="desc">Request-for-Information log — discipline, response, pending days.</div>
+        <span class="open">Open sheet &#8599;</span>
+      </a>
+      <a class="card" href="https://docs.google.com/spreadsheets/d/1ixNkpaCmGkGzZz9TgL9UbqCbMwF88rGwnXdl0ZnnT40/edit" target="_blank" rel="noopener">
+        <span class="tag" data-kind="Sheet">PD</span>
+        <div class="name">Land Owner Email Register</div>
+        <div class="desc">Contact log for land-owner correspondence.</div>
+        <span class="open">Open sheet &#8599;</span>
+      </a>
+    </div>
+
+    <h2 class="group-title">Drawing registers (by discipline)</h2>
+    <div class="grid">
+      <a class="card" href="https://docs.google.com/spreadsheets/d/1H_sYTs3zI8di7fDIAIwllzkFm6qZ-Pug5LozYgTf8qk/edit" target="_blank" rel="noopener">
+        <span class="tag" data-kind="Sheet">ARC</span>
+        <div class="name">Architecture Drawing Register</div>
+        <div class="desc">Current-revision tracker for all architectural drawings.</div>
+        <span class="open">Open sheet &#8599;</span>
+      </a>
+      <a class="card" href="https://docs.google.com/spreadsheets/d/1zFdejXZCBO3mlPzhxqykMRvZFTqDN5RfxVNnNr-7_uE/edit" target="_blank" rel="noopener">
+        <span class="tag" data-kind="Sheet">MEP</span>
+        <div class="name">MEP Drawing Register</div>
+        <div class="desc">Current-revision tracker for Electrical/Plumbing/HVAC/FF drawings.</div>
+        <span class="open">Open sheet &#8599;</span>
+      </a>
+      <a class="card" href="https://docs.google.com/spreadsheets/d/1G9-Xl5irzO6oy0mXL5ktfC7bChnyLsLbzUHxSkZAofY/edit" target="_blank" rel="noopener">
+        <span class="tag" data-kind="Sheet">STR</span>
+        <div class="name">Structure Drawing Register</div>
+        <div class="desc">Current-revision tracker for all structural drawings.</div>
+        <span class="open">Open sheet &#8599;</span>
+      </a>
+    </div>
+
+    <h2 class="group-title">Drawings transmittal (by discipline)</h2>
+    <div class="grid">
+      <a class="card" href="https://docs.google.com/spreadsheets/d/1F8s0PnxgHvjNE9CEBUNGTE6rACK8MnS1bOWYzNrEysA/edit" target="_blank" rel="noopener">
+        <span class="tag" data-kind="Sheet">ARC</span>
+        <div class="name">Architecture Drawings Transmittal</div>
+        <div class="desc">Transmittal log specific to architectural drawing issues.</div>
+        <span class="open">Open sheet &#8599;</span>
+      </a>
+      <a class="card" href="https://docs.google.com/spreadsheets/d/1rZ7GK1jqwVHlzCMGT_uAKjn5COb9_HwiQ3PoHekm6PM/edit" target="_blank" rel="noopener">
+        <span class="tag" data-kind="Sheet">MEP</span>
+        <div class="name">MEP Drawings Transmittal</div>
+        <div class="desc">Transmittal log specific to MEP drawing issues.</div>
+        <span class="open">Open sheet &#8599;</span>
+      </a>
+      <a class="card" href="https://docs.google.com/spreadsheets/d/1du5yhdILTzH_el7O16jtI1IsN9YWcIgLyEpuqmWlSO4/edit" target="_blank" rel="noopener">
+        <span class="tag" data-kind="Sheet">STR</span>
+        <div class="name">Structure Drawings Transmittal</div>
+        <div class="desc">Transmittal log specific to structural drawing issues.</div>
+        <span class="open">Open sheet &#8599;</span>
+      </a>
+    </div>
   </div>
 
   <footer>
-    <span>Alcove Realty · Document Control</span>
-    <span>All formats live in Google Drive — edits there reflect here automatically.</span>
+    <span>Alcove Realty &middot; Document Control</span>
+    <span id="stamp">All formats live in Google Drive — edits there reflect here automatically.</span>
   </footer>
 </div>
 
@@ -187,10 +222,120 @@
   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-2.64-6.36M21 3v6h-6"/></svg>
   Refresh
 </button>
+
 <script>
 document.getElementById('refresh-fab').addEventListener('click', function(){
   location.href = location.pathname + '?t=' + Date.now();
 });
+</script>
+
+<script>
+/* ------------------------------------------------------------------
+   Live listing of the Drive "Document Formats" folder.
+
+   FEED_URL is the /exec address of the Apps Script web app that reads the
+   folder and returns JSON (see Alcove_Formats_Feed.gs). Leave it empty and the
+   page simply shows the hand-kept list below, exactly as it did before — so
+   this file is safe to publish before the script is deployed.
+   ------------------------------------------------------------------ */
+(function(){
+  var FEED_URL = '';
+
+  var live    = document.getElementById('live');
+  var loading = document.getElementById('loading');
+  var stat    = document.getElementById('static-list');
+  var note    = document.getElementById('static-note');
+  var stamp   = document.getElementById('stamp');
+
+  function showSaved(withNote){
+    loading.hidden = true;
+    stat.hidden = false;
+    if (withNote) { note.hidden = false; }
+  }
+
+  if (!FEED_URL) { showSaved(false); return; }
+
+  function el(tag, cls, text){
+    var n = document.createElement(tag);
+    if (cls)  { n.className = cls; }
+    if (text != null) { n.textContent = text; }
+    return n;
+  }
+
+  function shortDate(iso){
+    var d = new Date(iso);
+    if (isNaN(d)) { return ''; }
+    var m = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    return d.getDate() + ' ' + m[d.getMonth()] + ' ' + d.getFullYear();
+  }
+
+  function render(data){
+    var groups = (data && data.groups) || [];
+    var total  = 0;
+
+    groups.forEach(function(g){
+      var files = g.files || [];
+      total += files.length;
+
+      var h = el('h2', 'group-title');
+      h.appendChild(el('span', null, g.name));
+      h.appendChild(el('span', 'count', files.length + (files.length === 1 ? ' file' : ' files')));
+      if (g.url) {
+        var fl = el('a', 'folder', 'Open folder ↗');
+        fl.href = g.url; fl.target = '_blank'; fl.rel = 'noopener';
+        h.appendChild(fl);
+      }
+      live.appendChild(h);
+
+      if (!files.length) {
+        live.appendChild(el('div', 'empty', 'Nothing in this folder yet.'));
+        return;
+      }
+
+      var grid = el('div', 'grid');
+      files.forEach(function(f){
+        var a = el('a', 'card');
+        a.href = f.url; a.target = '_blank'; a.rel = 'noopener';
+
+        var tag = el('span', 'tag', f.kind || 'File');
+        tag.setAttribute('data-kind', f.kind || 'File');
+        a.appendChild(tag);
+        a.appendChild(el('div', 'name', f.name));
+
+        var when = shortDate(f.updated);
+        if (when) { a.appendChild(el('div', 'desc', 'Last updated ' + when)); }
+        a.appendChild(el('span', 'open', 'Open ↗'));
+
+        grid.appendChild(a);
+      });
+      live.appendChild(grid);
+    });
+
+    if (!total) { return false; }
+
+    loading.hidden = true;
+    live.hidden = false;
+    if (data.generated) {
+      stamp.textContent = 'Read from Google Drive on ' + shortDate(data.generated) +
+                          ' — upload to the folder and it appears here.';
+    }
+    return true;
+  }
+
+  fetch(FEED_URL, { cache: 'no-store' })
+    .then(function(r){
+      if (!r.ok) { throw new Error('feed ' + r.status); }
+      return r.json();
+    })
+    .then(function(data){
+      if (data && data.error) { throw new Error(data.error); }
+      if (!render(data)) { live.innerHTML = ''; showSaved(true); }
+    })
+    .catch(function(){
+      live.innerHTML = '';
+      showSaved(true);
+    });
+})();
 </script>
 </body>
 </html>
