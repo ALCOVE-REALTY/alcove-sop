@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260921-140226">
+<meta name="sop-build" content="20260921-141235">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -787,7 +787,7 @@ tbody tr.suggested td:first-child{color:var(--suggest);}
     <span class="platecard"><img src="alcove-logo.png" alt="Alcove Realty" width="120" height="69"></span>
     <a class="dlbtn" id="get-app-btn" href="DC_SOP.apk" download title="DC_SOP v1.9 - Android 10 or newer">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-      <span class="btn-long">Get the app</span><span class="btn-short">App</span>
+      <span class="btn-long" id="get-app-long">Get the app</span><span class="btn-short" id="get-app-short">App</span>
     </a>
   </div>
   <select id="toolbar-lang-select" class="dlbtn" style="cursor:pointer;">
@@ -2648,13 +2648,24 @@ article > section h2{ border-left-color:var(--art-tint); }
 (function(){
   var LANGS = ['en','bn','hi'];
   var LABELS = {
-    savePdf: { en: 'Save PDF', bn: 'PDF সেভ করুন', hi: 'PDF सेव करें' }
+    savePdf:     { en: 'Save PDF', bn: 'PDF সেভ করুন', hi: 'PDF सेव करें' },
+    getApp:      { en: 'Get the app', bn: 'অ্যাপ ডাউনলোড', hi: 'ऐप डाउनलोड' },
+    getAppShort: { en: 'App', bn: 'অ্যাপ', hi: 'ऐप' },
+    getAppTitle: { en: 'DC_SOP v1.9 \u2014 Android 10 or newer',
+                   bn: 'DC_SOP v1.9 \u2014 অ্যান্ড্রয়েড ১০ বা তার পরে',
+                   hi: 'DC_SOP v1.9 \u2014 एंड्रॉइड 10 या उसके बाद' }
   };
 
   function setLang(lang){
     LANGS.forEach(function(l){ document.getElementById('doc-'+l).classList.toggle('active', l===lang); });
     try{ localStorage.setItem('alcove-sop-lang', lang); }catch(e){}
     document.getElementById('save-pdf-label').textContent = LABELS.savePdf[lang];
+    var appLong = document.getElementById('get-app-long');
+    if(appLong){
+      appLong.textContent = LABELS.getApp[lang];
+      document.getElementById('get-app-short').textContent = LABELS.getAppShort[lang];
+      document.getElementById('get-app-btn').title = LABELS.getAppTitle[lang];
+    }
     var sel = document.getElementById('toolbar-lang-select');
     if(sel){ sel.value = lang; }
     // Each language has its own nav with its own label widths, and the one
