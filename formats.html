@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- build 20260921-112650 -->
+<!-- build 20260921-132204 -->
 <title>Document Formats — Alcove Realty</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Source+Sans+3:wght@400;500;600;700&display=swap');
@@ -74,6 +74,18 @@
   .note b{ color:var(--ink); }
   .empty{ font-size:13.5px; color:var(--muted); font-style:italic; padding:4px 0 8px; }
 
+  .search{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:0 0 24px; }
+  .search input{
+    flex:1 1 300px; min-width:0; font:inherit; font-size:15px;
+    padding:11px 14px; border:1px solid var(--line); border-radius:8px;
+    background:#fff; color:var(--ink);
+  }
+  .search input:focus{
+    outline:none; border-color:var(--blue); box-shadow:0 0 0 3px rgba(15,111,184,.14);
+  }
+  .search .qcount{ font-size:13px; font-weight:600; color:var(--muted); }
+  .search .hint{ font-size:12px; color:var(--muted); }
+
   footer{
     margin-top:44px; padding-top:16px; border-top:1px solid var(--line);
     font-size:12.5px; color:var(--muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
@@ -96,6 +108,13 @@
          on Drive, so anything uploaded there appears here on its own.</p>
     </div>
   </header>
+
+  <!-- Revealed once there is a list to search, whether it came from Drive or from the saved list. -->
+  <div class="search" id="search" hidden>
+    <input id="q" type="search" placeholder="Search a format — name, type or folder&hellip;" autocomplete="off" spellcheck="false">
+    <span class="qcount" id="qcount"></span>
+    <span class="hint">Press / to jump here, Esc to clear</span>
+  </div>
 
   <!-- Filled from the Drive feed. Stays empty and hidden if the feed is not reachable. -->
   <div id="live" hidden></div>
@@ -248,10 +267,62 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
   var note    = document.getElementById('static-note');
   var stamp   = document.getElementById('stamp');
 
+  /* Filters whichever list is on screen — the Drive one or the saved one. A group
+     heading and its grid disappear together once nothing under them matches, so the
+     page never shows a heading with nothing beneath it. */
+  function wireSearch(){
+    var box  = document.getElementById('search');
+    var q    = document.getElementById('q');
+    var info = document.getElementById('qcount');
+    box.hidden = false;
+
+    function apply(){
+      var term = q.value.trim().toLowerCase();
+      var host = live.hidden ? stat : live;
+      var kids = host.children;
+      var heading = null, inGroup = 0, total = 0;
+
+      function closeGroup(){
+        if (heading) { heading.hidden = (term !== '' && inGroup === 0); }
+      }
+
+      for (var i = 0; i < kids.length; i++){
+        var el = kids[i];
+        if (el.classList.contains('group-title')) { closeGroup(); heading = el; inGroup = 0; continue; }
+        if (el.classList.contains('empty'))       { el.hidden = (term !== ''); continue; }
+        if (el.classList.contains('grid')){
+          var cards = el.querySelectorAll('.card');
+          var inHeading = heading ? heading.textContent.toLowerCase().indexOf(term) > -1 : false;
+          for (var k = 0; k < cards.length; k++){
+            var hit = !term || inHeading || cards[k].textContent.toLowerCase().indexOf(term) > -1;
+            cards[k].hidden = !hit;
+            if (hit) { inGroup++; total++; }
+          }
+          el.hidden = (term !== '' && inGroup === 0);
+        }
+      }
+      closeGroup();
+
+      if (!term)            { info.textContent = ''; }
+      else if (total === 0) { info.textContent = 'Nothing matches “' + q.value.trim() + '”'; }
+      else                  { info.textContent = total + (total === 1 ? ' match' : ' matches'); }
+    }
+
+    q.addEventListener('input', apply);
+    q.addEventListener('keydown', function(e){
+      if (e.key === 'Escape') { q.value = ''; apply(); }
+    });
+    document.addEventListener('keydown', function(e){
+      if (e.key === '/' && document.activeElement !== q) { e.preventDefault(); q.focus(); }
+    });
+    apply();
+  }
+
   function showSaved(withNote){
     loading.hidden = true;
     stat.hidden = false;
     if (withNote) { note.hidden = false; }
+    wireSearch();
   }
 
   if (!FEED_URL) { showSaved(false); return; }
@@ -316,6 +387,7 @@ document.getElementById('refresh-fab').addEventListener('click', function(){
 
     loading.hidden = true;
     live.hidden = false;
+    wireSearch();
     if (data.generated) {
       stamp.textContent = 'Read from Google Drive on ' + shortDate(data.generated) +
                           ' — upload to the folder and it appears here.';
