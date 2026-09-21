@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260917-173743">
+<meta name="sop-build" content="20260921-135757">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -939,7 +939,27 @@ article > section, .home-view, article > .footline{
 }
 .home-welcome{ border-radius:0; }
 article > section .eyebrow{ background:var(--art-tint); color:#1A1E22; }
-article > section h2{ border-left-color:var(--art-tint); }</style>
+article > section h2{ border-left-color:var(--art-tint); }
+/* -- Android app download, on the Home hero -----------------------------------
+   The APK is published beside this page, so the link is a plain same-origin
+   download. It is hidden inside the app itself and in print, where it is screen
+   furniture like the counts above it. */
+.home-welcome .hw-app{
+  max-width:min(740px, 66%); margin:26px auto 0; padding-top:22px;
+  border-top:1px solid var(--rule);
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+}
+.home-welcome .hw-get{
+  display:inline-flex; align-items:center; gap:9px;
+  padding:11px 22px; border-radius:999px; text-decoration:none;
+  font-weight:600; font-size:15px; line-height:1.2;
+  background:var(--structural); color:var(--paper-raised); box-shadow:var(--shadow);
+}
+.home-welcome .hw-get:hover{ filter:brightness(1.08); }
+.home-welcome .hw-get svg{ flex:none; }
+.home-welcome .hw-app-note{ font-size:13px; line-height:1.55; color:var(--ink-soft); text-align:center; }
+@media (max-width:900px){ .home-welcome .hw-app{ max-width:none; } }
+@media print{ .home-welcome .hw-app{ display:none !important; } }</style>
 
 <!-- ============================= ENGLISH ============================= -->
 <div id="doc-en" class="doc-view doc-en active" lang="en">
@@ -954,6 +974,7 @@ article > section h2{ border-left-color:var(--art-tint); }</style>
 <p class="hw-lead">This is the current, single source for how Document Control works at Alcove Realty — how every drawing, statutory sanction and site record is numbered, reviewed, issued, tracked and archived across Duets, Crown, Luxuria and The Curve. If a question about a document has an answer, it is in here.</p>
 <div class="hw-facts"><span><b>4</b>live projects</span><span><b>17</b>sections</span><span><b>3</b>languages</span></div>
 <p class="hw-hint">Pick a section from the menu to read it. You can switch between English, বাংলা and हिंदी at any time from the language list in the toolbar, and "Save PDF" keeps a copy of the whole document.</p>
+<div class="hw-app"><a class="hw-get" href="DC_SOP.apk" download><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>Download the Android app</span></a><span class="hw-app-note">DC_SOP v1.9 &middot; 329 KB &middot; Android 10 or newer. The first time, your phone asks for permission to install from this source &mdash; allow it once.</span></div>
 </div>
   <div class="control-block">
         <h1 class="title">Document Control — Standard Operating Procedure</h1>
@@ -1518,6 +1539,7 @@ article > section h2{ border-left-color:var(--art-tint); }</style>
 <p class="hw-lead">অ্যালকোভ রিয়েলটিতে ডকুমেন্ট কন্ট্রোল কীভাবে চলে — প্রতিটি ড্রয়িং, স্ট্যাটুটরি স্যাংশন ও সাইট রেকর্ড কীভাবে নম্বর পায়, পর্যালোচিত হয়, ইস্যু হয়, ট্র্যাক ও আর্কাইভ করা হয় — Duets, Crown, Luxuria ও The Curve, সব প্রজেক্টের জন্য তার একমাত্র ও সর্বশেষ উৎস এটি। ডকুমেন্ট নিয়ে কোনো প্রশ্নের উত্তর থাকলে, তা এখানেই আছে।</p>
 <div class="hw-facts"><span><b>৪</b>টি চলমান প্রজেক্ট</span><span><b>১৭</b>টি সেকশন</span><span><b>৩</b>টি ভাষা</span></div>
 <p class="hw-hint">মেনু থেকে যেকোনো সেকশন বেছে নিয়ে পড়ুন। টুলবারের ভাষা তালিকা থেকে যেকোনো সময় English, বাংলা বা हिंदी-তে বদলাতে পারেন, আর "PDF সেভ করুন" দিয়ে পুরো ডকুমেন্টের একটি কপি রেখে দিতে পারেন।</p>
+<div class="hw-app"><a class="hw-get" href="DC_SOP.apk" download><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>অ্যান্ড্রয়েড অ্যাপ ডাউনলোড করুন</span></a><span class="hw-app-note">DC_SOP v1.9 &middot; 329 KB &middot; অ্যান্ড্রয়েড ১০ বা তার পরের ভার্সন। প্রথমবার ফোন এই উৎস থেকে ইনস্টলের অনুমতি চাইবে &mdash; একবার দিলেই হবে।</span></div>
 </div>
   <div class="control-block">
         <h1 class="title">ডকুমেন্ট কন্ট্রোল — স্ট্যান্ডার্ড অপারেটিং প্রসিডিউর (SOP)</h1>
@@ -2082,6 +2104,7 @@ article > section h2{ border-left-color:var(--art-tint); }</style>
 <p class="hw-lead">अल्कोव रियल्टी में डॉक्यूमेंट कंट्रोल कैसे चलता है — हर ड्रॉइंग, स्टैट्यूटरी सैंक्शन और साइट रिकॉर्ड को कैसे नंबर दिया जाता है, समीक्षा, जारी, ट्रैक व आर्काइव किया जाता है — Duets, Crown, Luxuria और The Curve, सभी प्रोजेक्ट के लिए इसका एकमात्र और नवीनतम स्रोत यही है। दस्तावेज़ से जुड़े किसी सवाल का जवाब अगर कहीं है, तो यहीं है।</p>
 <div class="hw-facts"><span><b>4</b>सक्रिय प्रोजेक्ट</span><span><b>17</b>सेक्शन</span><span><b>3</b>भाषाएँ</span></div>
 <p class="hw-hint">मेनू से कोई भी सेक्शन चुनकर पढ़ें। टूलबार की भाषा सूची से किसी भी समय English, বাংলা या हिंदी में बदल सकते हैं, और "PDF सेव करें" से पूरे दस्तावेज़ की एक कॉपी रख सकते हैं।</p>
+<div class="hw-app"><a class="hw-get" href="DC_SOP.apk" download><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg><span>एंड्रॉइड ऐप डाउनलोड करें</span></a><span class="hw-app-note">DC_SOP v1.9 &middot; 329 KB &middot; एंड्रॉइड 10 या उसके बाद। पहली बार फ़ोन इस स्रोत से इंस्टॉल करने की अनुमति माँगेगा &mdash; एक बार दे दें।</span></div>
 </div>
   <div class="control-block">
         <h1 class="title">डॉक्यूमेंट कंट्रोल — स्टैंडर्ड ऑपरेटिंग प्रोसीजर (SOP)</h1>
@@ -3031,5 +3054,14 @@ article > section h2{ border-left-color:var(--art-tint); }</style>
       location.replace(location.pathname + '?v=' + m[1]);
     })
     .catch(function(){});
+})();
+</script>
+<script>
+/* Inside the Android app the download button is pointless. The print bridge is
+   only injected there, so it doubles as a reliable "am I in the app" test. */
+(function(){
+  if (!window.AndroidPrint) { return; }
+  var n = document.querySelectorAll('.hw-app');
+  for (var i = 0; i < n.length; i++) { n[i].style.display = 'none'; }
 })();
 </script>
