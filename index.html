@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260922-145146">
+<meta name="sop-build" content="20260922-145919">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -1133,6 +1133,7 @@ body.dmx-open .dmx-print{ display:none; }
   <details class="changelog">
     <summary>What's new <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§9.1 and §10 — a received document keeps its originator's number rather than being renumbered, and the MDL is described as it is kept: one register per discipline, with the fields each must carry set out.</span></div>
         <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§7 — registers record status with the status codes rather than free text, with the wording used in older registers mapped across (<i>Advance Copy</i> and <i>For Info.</i> → <span class="tag">IFI</span>, <i>Void</i> → <span class="tag">SUP</span>).</span></div>
         <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§6.2 — stated that the project element of a number is always the three-letter code from §4 (<span class="tag">TCV</span>, <span class="tag">DUE</span>, <span class="tag">CRN</span>, <span class="tag">LUX</span>), never the project name or a short form made up for one register.</span></div>
         <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§16 — removed the "suggested" tag from the Method Statement Register, Consultant Masters, File Name &amp; Location Index, Insurance Policy Tracker and Land Owner Email Register. All five are in use, and the tag left it unclear whether they were.</span></div>
@@ -1474,7 +1475,8 @@ body.dmx-open .dmx-print{ display:none; }
       <ul>
         <li>Every incoming document (email, hand delivery, Forma upload, courier) is logged in the register <strong>the same working day</strong> it is received, with source, date received, and revision.</li>
         <li>Internally originated documents are numbered by the DC assigned to that project before they are sent for review — never after.</li>
-        <li>The DC verifies the document carries the correct project code, discipline, revision box and status before accepting it into the register; incomplete title blocks are returned to the originator, not corrected by Document Control.</li>
+                <li>A document received from a consultant, contractor or authority keeps the number its originator gave it — that is the number they will quote, and renumbering it breaks the trail back to them. The register records the originator's number, and the project's own reference beside it where the document also needs one.</li>
+        <li>Before accepting a document into the register the DC verifies its title block is complete — for an internally originated document, the correct project code, discipline, revision box and status; for a received one, the originator's number, a revision and a status. Incomplete title blocks are returned to the originator, not corrected by Document Control.</li>
       </ul>
 
       <h3>9.2 Review &amp; approval workflow</h3>
@@ -1529,7 +1531,8 @@ body.dmx-open .dmx-print{ display:none; }
     <section id="en-mdl">
       <div class="eyebrow">10</div>
       <h2>Master document list</h2>
-      <p>The MDL is the register of record — every controlled document, its current revision, status, originator, and last transmittal, in one place per project. It is maintained continuously, not reconstructed periodically, and is what the HOD reviews at each internal audit.</p>
+      <p>The MDL is the register of record — every controlled document, its current revision, status, originator and last transmittal. It is held as one register per discipline (Structural, Architecture, MEP) rather than as a single sheet, and those registers together are the project's MDL. It is maintained continuously, not reconstructed periodically, and is what the HOD reviews at each internal audit.</p>
+      <div class="callout"><b>What each discipline register must carry —</b> the document number, the title, the revision history with the date each revision was received, the current status as a §7 code, the originator, and the transmittal each revision went out on. A register missing any of these cannot answer the question the MDL exists to answer: which revision is current, and on whose authority.</div>
       <div class="twrap">
         <table>
           <thead><tr><th>Doc no.</th><th>Title</th><th style="width:60px">Rev</th><th style="width:70px">Status</th><th style="width:130px">Originator</th><th style="width:110px">Date issued</th><th style="width:110px">Transmittal</th></tr></thead>
@@ -1749,6 +1752,7 @@ body.dmx-open .dmx-print{ display:none; }
   <details class="changelog">
     <summary>নতুন কী যোগ হলো <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§৯.১ ও §১০ — বাইরে থেকে পাওয়া ডকুমেন্ট অরিজিনেটরের নম্বরই ধরে রাখে, নতুন করে নম্বর দেওয়া হয় না; আর MDL যেভাবে সত্যিই রাখা হয় সেভাবেই বর্ণনা করা হয়েছে — ডিসিপ্লিন অনুযায়ী আলাদা রেজিস্টার, সঙ্গে প্রতিটিতে যা থাকতেই হবে তার তালিকা।</span></div>
         <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§৭ — রেজিস্টারে স্ট্যাটাস নিজের ভাষায় নয়, স্ট্যাটাস কোড দিয়ে লেখা হবে; পুরোনো রেজিস্টারের শব্দগুলোর রূপান্তরও দেওয়া হয়েছে (<i>Advance Copy</i> ও <i>For Info.</i> → <span class="tag">IFI</span>, <i>Void</i> → <span class="tag">SUP</span>)।</span></div>
         <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§৬.২ — স্পষ্ট করা হয়েছে যে নম্বরের প্রজেক্ট অংশটি সবসময় §৪-এর তিন-অক্ষরের কোড (<span class="tag">TCV</span>, <span class="tag">DUE</span>, <span class="tag">CRN</span>, <span class="tag">LUX</span>), প্রজেক্টের নাম বা কোনো রেজিস্টারের জন্য বানানো সংক্ষিপ্ত রূপ নয়।</span></div>
         <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§১৬ — মেথড স্টেটমেন্ট রেজিস্টার, কনসালট্যান্ট মাস্টারস, ফাইল নেম ও লোকেশন ইনডেক্স, ইনস্যুরেন্স পলিসি ট্র্যাকার ও ল্যান্ড ওনার ইমেল রেজিস্টার থেকে "সাজেস্টেড" চিহ্নটি সরানো হয়েছে। পাঁচটিই ব্যবহার হচ্ছে; চিহ্নটি থাকায় সেটা স্পষ্ট ছিল না।</span></div>
@@ -2090,7 +2094,8 @@ body.dmx-open .dmx-print{ display:none; }
       <ul>
         <li>প্রতিটি ইনকামিং ডকুমেন্ট (ইমেইল, হাতে-ডেলিভারি, Forma আপলোড, কুরিয়ার) প্রাপ্তির <strong>একই কর্মদিবসে</strong> সোর্স, প্রাপ্তির তারিখ ও রিভিশনসহ রেজিস্টারে লগ করা হয়।</li>
         <li>ইন্টারনালি তৈরি ডকুমেন্ট রিভিউয়ে পাঠানোর আগেই সংশ্লিষ্ট প্রজেক্টের DC নম্বর দেন — পরে নয়।</li>
-        <li>রেজিস্টারে গ্রহণ করার আগে DC যাচাই করেন ডকুমেন্টে সঠিক প্রজেক্ট কোড, ডিসিপ্লিন, রিভিশন বক্স ও স্ট্যাটাস আছে কিনা; অসম্পূর্ণ টাইটেল ব্লক অরিজিনেটরকে ফেরত পাঠানো হয়, Document Control নিজে ঠিক করে না।</li>
+                <li>কনসালট্যান্ট, কন্ট্রাক্টর বা অথরিটির কাছ থেকে পাওয়া ডকুমেন্ট তার অরিজিনেটরের দেওয়া নম্বরই ধরে রাখে — ওই নম্বরেই তাঁরা ডকুমেন্টটির উল্লেখ করবেন, আর নম্বর বদলে দিলে তাঁদের সঙ্গে যোগসূত্র ছিঁড়ে যায়। রেজিস্টারে অরিজিনেটরের নম্বর লেখা হয়, আর প্রয়োজন হলে তার পাশে প্রজেক্টের নিজস্ব রেফারেন্সও রাখা হয়।</li>
+        <li>রেজিস্টারে গ্রহণ করার আগে DC যাচাই করেন টাইটেল ব্লক সম্পূর্ণ কিনা — ইন্টারনালি তৈরি ডকুমেন্টে সঠিক প্রজেক্ট কোড, ডিসিপ্লিন, রিভিশন বক্স ও স্ট্যাটাস; আর বাইরে থেকে পাওয়া ডকুমেন্টে অরিজিনেটরের নম্বর, রিভিশন ও স্ট্যাটাস। অসম্পূর্ণ টাইটেল ব্লক অরিজিনেটরকে ফেরত পাঠানো হয়, Document Control নিজে ঠিক করে না।</li>
       </ul>
 
       <h3>৯.২ রিভিউ ও অ্যাপ্রুভাল ওয়ার্কফ্লো</h3>
@@ -2145,7 +2150,8 @@ body.dmx-open .dmx-print{ display:none; }
     <section id="bn-mdl">
       <div class="eyebrow">১০</div>
       <h2>মাস্টার ডকুমেন্ট লিস্ট</h2>
-      <p>MDL হলো রেকর্ডের রেজিস্টার — প্রতিটি কন্ট্রোলড ডকুমেন্ট, তার বর্তমান রিভিশন, স্ট্যাটাস, অরিজিনেটর এবং সর্বশেষ ট্রান্সমিটাল, প্রতিটি প্রজেক্টের জন্য একটি জায়গায়। এটি নিয়মিতভাবে আপডেট রাখা হয়, মাঝেমধ্যে বানিয়ে নেওয়া হয় না, এবং প্রতিটি ইন্টারনাল অডিটে HOD এটিই পর্যালোচনা করেন।</p>
+      <p>MDL হলো রেকর্ডের রেজিস্টার — প্রতিটি কন্ট্রোলড ডকুমেন্ট, তার বর্তমান রিভিশন, স্ট্যাটাস, অরিজিনেটর এবং সর্বশেষ ট্রান্সমিটাল। এটি একটি একক শিট হিসেবে নয়, ডিসিপ্লিন অনুযায়ী আলাদা রেজিস্টার হিসেবে রাখা হয় (স্ট্রাকচারাল, আর্কিটেকচার, MEP); ওই রেজিস্টারগুলো একসঙ্গেই প্রজেক্টের MDL। এটি নিয়মিতভাবে আপডেট রাখা হয়, মাঝেমধ্যে বানিয়ে নেওয়া হয় না, এবং প্রতিটি ইন্টারনাল অডিটে HOD এটিই পর্যালোচনা করেন।</p>
+      <div class="callout"><b>প্রতিটি ডিসিপ্লিন রেজিস্টারে যা থাকতেই হবে —</b> ডকুমেন্ট নম্বর, শিরোনাম, প্রতিটি রিভিশন কবে পাওয়া গেছে তার তারিখসহ রিভিশন ইতিহাস, §৭-এর কোডে বর্তমান স্ট্যাটাস, অরিজিনেটর, এবং প্রতিটি রিভিশন যে ট্রান্সমিটালে গেছে তার নম্বর। এর কোনো একটি না থাকলে রেজিস্টার সেই প্রশ্নেরই উত্তর দিতে পারে না যার জন্য MDL রাখা হয় — কোন রিভিশনটি বর্তমান, আর কার অনুমোদনে।</div>
       <div class="twrap">
         <table>
           <thead><tr><th>ডক নং</th><th>শিরোনাম</th><th style="width:60px">রিভিশন</th><th style="width:70px">স্ট্যাটাস</th><th style="width:130px">Originator</th><th style="width:110px">ইস্যুর তারিখ</th><th style="width:110px">ট্রান্সমিটাল</th></tr></thead>
@@ -2365,6 +2371,7 @@ body.dmx-open .dmx-print{ display:none; }
   <details class="changelog">
     <summary>नया क्या जुड़ा <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§९.१ व §१० — बाहर से मिला दस्तावेज़ अपने ओरिजिनेटर का नंबर ही रखता है, उसे दोबारा नंबर नहीं दिया जाता; और MDL को वैसे ही बताया गया है जैसे वह वास्तव में रखा जाता है — डिसिप्लिन के अनुसार अलग रजिस्टर, साथ में हर एक में क्या होना चाहिए उसकी सूची।</span></div>
         <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§७ — रजिस्टर में स्टेटस अपने शब्दों में नहीं, स्टेटस कोड से लिखा जाएगा; पुराने रजिस्टरों के शब्दों का रूपांतरण भी दिया गया (<i>Advance Copy</i> व <i>For Info.</i> → <span class="tag">IFI</span>, <i>Void</i> → <span class="tag">SUP</span>)।</span></div>
         <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§६.२ — स्पष्ट किया गया कि नंबर का प्रोजेक्ट वाला हिस्सा हमेशा §४ का तीन-अक्षर कोड होता है (<span class="tag">TCV</span>, <span class="tag">DUE</span>, <span class="tag">CRN</span>, <span class="tag">LUX</span>), प्रोजेक्ट का नाम या किसी रजिस्टर के लिए बनाया गया संक्षिप्त रूप नहीं।</span></div>
         <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§१६ — मेथड स्टेटमेंट रजिस्टर, कंसल्टेंट मास्टर्स, फ़ाइल नेम व लोकेशन इंडेक्स, इंश्योरेंस पॉलिसी ट्रैकर और लैंड ओनर ईमेल रजिस्टर से "सुझाया गया" चिह्न हटाया गया। पाँचों इस्तेमाल में हैं; चिह्न रहने से यह स्पष्ट नहीं था।</span></div>
@@ -2706,7 +2713,8 @@ body.dmx-open .dmx-print{ display:none; }
       <ul>
         <li>हर इनकमिंग दस्तावेज़ (ईमेल, हाथों-हाथ डिलीवरी, Forma अपलोड, कूरियर) प्राप्ति के <strong>उसी कार्यदिवस</strong> स्रोत, प्राप्ति तिथि व रिवीज़न के साथ रजिस्टर में लॉग किया जाता है।</li>
         <li>आंतरिक रूप से बनाए गए दस्तावेज़ को समीक्षा के लिए भेजने से पहले ही संबंधित प्रोजेक्ट का DC नंबर देता है — बाद में नहीं।</li>
-        <li>रजिस्टर में स्वीकार करने से पहले DC जाँचते हैं कि दस्तावेज़ में सही प्रोजेक्ट कोड, डिसिप्लिन, रिवीज़न बॉक्स व स्टेटस है या नहीं; अधूरे टाइटल ब्लॉक ओरिजिनेटर को वापस भेजे जाते हैं, डॉक्यूमेंट कंट्रोल खुद ठीक नहीं करता।</li>
+                <li>कंसल्टेंट, कॉन्ट्रैक्टर या अथॉरिटी से मिला दस्तावेज़ अपने ओरिजिनेटर का दिया नंबर ही रखता है — वे उसी नंबर से उसका ज़िक्र करेंगे, और नंबर बदल देने से उन तक का सूत्र टूट जाता है। रजिस्टर में ओरिजिनेटर का नंबर दर्ज होता है, और ज़रूरत हो तो उसके साथ प्रोजेक्ट का अपना संदर्भ भी।</li>
+        <li>रजिस्टर में स्वीकार करने से पहले DC जाँचते हैं कि टाइटल ब्लॉक पूरा है या नहीं — आंतरिक रूप से बनाए दस्तावेज़ में सही प्रोजेक्ट कोड, डिसिप्लिन, रिवीज़न बॉक्स व स्टेटस; और बाहर से मिले दस्तावेज़ में ओरिजिनेटर का नंबर, रिवीज़न व स्टेटस। अधूरे टाइटल ब्लॉक ओरिजिनेटर को वापस भेजे जाते हैं, डॉक्यूमेंट कंट्रोल खुद ठीक नहीं करता।</li>
       </ul>
 
       <h3>9.2 समीक्षा व अनुमोदन वर्कफ़्लो</h3>
@@ -2761,7 +2769,8 @@ body.dmx-open .dmx-print{ display:none; }
     <section id="hi-mdl">
       <div class="eyebrow">१०</div>
       <h2>मास्टर डॉक्यूमेंट लिस्ट</h2>
-      <p>MDL रिकॉर्ड का रजिस्टर है — हर कंट्रोल्ड दस्तावेज़, उसका मौजूदा रिवीज़न, स्टेटस, ओरिजिनेटर, और आखिरी ट्रांसमिटल, हर प्रोजेक्ट के लिए एक ही जगह। इसे लगातार अपडेट रखा जाता है, कभी-कभार बनाया नहीं जाता, और हर इंटरनल ऑडिट में HOD इसी की समीक्षा करते हैं।</p>
+      <p>MDL रिकॉर्ड का रजिस्टर है — हर कंट्रोल्ड दस्तावेज़, उसका मौजूदा रिवीज़न, स्टेटस, ओरिजिनेटर और आखिरी ट्रांसमिटल। इसे एक ही शीट के रूप में नहीं, डिसिप्लिन के अनुसार अलग रजिस्टरों के रूप में रखा जाता है (स्ट्रक्चरल, आर्किटेक्चर, MEP); वे रजिस्टर मिलकर ही प्रोजेक्ट का MDL हैं। इसे लगातार अपडेट रखा जाता है, कभी-कभार बनाया नहीं जाता, और हर इंटरनल ऑडिट में HOD इसी की समीक्षा करते हैं।</p>
+      <div class="callout"><b>हर डिसिप्लिन रजिस्टर में क्या होना ही चाहिए —</b> दस्तावेज़ नंबर, शीर्षक, हर रिवीज़न कब मिला उसकी तिथि सहित रिवीज़न इतिहास, §७ के कोड में मौजूदा स्टेटस, ओरिजिनेटर, और हर रिवीज़न जिस ट्रांसमिटल से गया उसका नंबर। इनमें से कोई भी न हो तो रजिस्टर उसी सवाल का जवाब नहीं दे पाता जिसके लिए MDL रखा जाता है — कौन-सा रिवीज़न मौजूदा है, और किसके अधिकार से।</div>
       <div class="twrap">
         <table>
           <thead><tr><th>डॉक्यूमेंट सं.</th><th>शीर्षक</th><th style="width:60px">रिवीज़न</th><th style="width:70px">स्टेटस</th><th style="width:130px">Originator</th><th style="width:110px">जारी तिथि</th><th style="width:110px">ट्रांसमिटल</th></tr></thead>
