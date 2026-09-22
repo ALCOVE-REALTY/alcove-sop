@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260922-152209">
+<meta name="sop-build" content="20260922-155442">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -1147,6 +1147,7 @@ tr[hidden]{ display:none !important; }
   <details class="changelog">
     <summary>What's new <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>Tidied six loose ends: the §10 example now shows received documents carrying their originator's number, §9.1 says what to do when an originator will not fix a title block, §9.6 names where the weekly export goes and §15 measures it, §9.1 maps the eight workflow steps onto the sub-sections, and §4 no longer calls the project codes "proposed".</span></div>
         <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§16 — added the <b>SPOC Query &amp; Coordination Register</b>, and put a search box above the template table so a register can be found by name or code without reading the whole list.</span></div>
         <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§16 — the register list now matches the Document Formats folder exactly: added the <span class="tag">WIR</span> Register, and renamed "KMC Sanction Register" to <b>Letter Register with KMC</b>, which is what that spreadsheet actually is — the sanction register is the separate row above it.</span></div>
         <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§9.1 and §10 — a received document keeps its originator's number rather than being renumbered, and the MDL is described as it is kept: one register per discipline, with the fields each must carry set out.</span></div>
@@ -1338,7 +1339,7 @@ tr[hidden]{ display:none !important; }
     <section id="en-projects">
       <div class="eyebrow">04</div>
       <h2>Active projects</h2>
-      <p>Every controlled document belongs to exactly one project code. The four codes below are proposed for adoption — confirm and freeze them with the HOD before the first document is numbered against them.</p>
+      <p>Every controlled document belongs to exactly one project code. The four codes below are the codes in use; they are fixed, and are not changed once a document has been numbered against them.</p>
 <div class="proj-gallery">
 <figure class="proj-card"><div class="shot" style="background-image:url('pages/curve.webp');"></div><figcaption><span class="pname">The Curve</span><span class="pcode">TCV</span></figcaption></figure>
 <figure class="proj-card"><div class="shot" style="background-image:url('pages/duets.jpg');"></div><figcaption><span class="pname">Alcove Duets</span><span class="pcode">DUE</span></figcaption></figure>
@@ -1487,12 +1488,13 @@ tr[hidden]{ display:none !important; }
       <h2>Procedure</h2>
 
       <h3>9.1 Receipt &amp; origination</h3>
-      <div class="callout"><b>Workflow order —</b> receipt → initial check → numbering → registration → review/approval → status update → transmittal → distribution. Every document follows these eight steps in the same order; no step is skipped and the order is not varied.</div>
+      <div class="callout"><b>Workflow order —</b> receipt → initial check → numbering → registration → review/approval → status update → transmittal → distribution. Every document follows these eight steps in the same order; no step is skipped and the order is not varied. The first four steps are covered by §9.1, review/approval and the status update by §9.2, and transmittal and distribution by §9.3; §9.4 onward covers what happens to a document after it has been issued.</div>
       <ul>
         <li>Every incoming document (email, hand delivery, Forma upload, courier) is logged in the register <strong>the same working day</strong> it is received, with source, date received, and revision.</li>
         <li>Internally originated documents are numbered by the DC assigned to that project before they are sent for review — never after.</li>
                 <li>A document received from a consultant, contractor or authority keeps the number its originator gave it — that is the number they will quote, and renumbering it breaks the trail back to them. The register records the originator's number, and the project's own reference beside it where the document also needs one.</li>
         <li>Before accepting a document into the register the DC verifies its title block is complete — for an internally originated document, the correct project code, discipline, revision box and status; for a received one, the originator's number, a revision and a status. Incomplete title blocks are returned to the originator, not corrected by Document Control.</li>
+                <li>Where an originator will not correct an incomplete title block, the DC neither accepts the document nor corrects it. It stays out of the register and the HOD is told the same day, so the delay is visible rather than quietly absorbed by Document Control.</li>
       </ul>
 
       <h3>9.2 Review &amp; approval workflow</h3>
@@ -1527,7 +1529,7 @@ tr[hidden]{ display:none !important; }
       <ul>
         <li>Forma is the single source of truth. Local copies on a DC's own machine are working copies only and are never treated as the master record.</li>
         <li>Folder structure mirrors the numbering scheme — by project, then discipline or register, then sequence — so any document's location is predictable from its number alone.</li>
-        <li>Forma's automated backup/versioning covers the day‑to‑day; a DC additionally exports the register and current‑revision files to a separate location every Friday as a secondary safeguard.</li>
+        <li>Forma's automated backup/versioning covers the day‑to‑day; a DC additionally exports the register and current‑revision files every Friday to the backup location named in that project's Document Control Plan, as a secondary safeguard.</li>
         <li>Physical/hard copies, where still required, are logged with a location reference (cabinet/shelf) in the register, and access to the physical registry is limited to Document Control staff.</li>
       </ul>
 
@@ -1553,14 +1555,14 @@ tr[hidden]{ display:none !important; }
         <table>
           <thead><tr><th>Doc no.</th><th>Title</th><th style="width:60px">Rev</th><th style="width:70px">Status</th><th style="width:130px">Originator</th><th style="width:110px">Date issued</th><th style="width:110px">Transmittal</th></tr></thead>
           <tbody>
-            <tr><td class="num">DUE-ARC-DRG-0001</td><td>Typical Floor Plan — Tower A</td><td class="num">2</td><td class="status">AFC</td><td>ABC Architects</td><td class="num">2026-04-11</td><td class="num">DRT-0042</td></tr>
-            <tr><td class="num">CRN-STR-DRG-0014</td><td>Foundation Layout</td><td class="num">1</td><td class="status">IFA</td><td>XYZ Structural Consultants</td><td class="num">2026-06-02</td><td class="num">DRT-0058</td></tr>
-            <tr><td class="num">LUX-FF-DRG-0006</td><td>Fire Fighting Riser Diagram</td><td class="num">0</td><td class="status">IFR</td><td>MEP Consultant</td><td class="num">2026-07-19</td><td class="num">DRT-0061</td></tr>
+            <tr><td class="num">ABC-A-1201</td><td>Typical Floor Plan — Tower A</td><td class="num">2</td><td class="status">AFC</td><td>ABC Architects</td><td class="num">2026-04-11</td><td class="num">DRT-0042</td></tr>
+            <tr><td class="num">XYZ-S-0044</td><td>Foundation Layout</td><td class="num">1</td><td class="status">IFA</td><td>XYZ Structural Consultants</td><td class="num">2026-06-02</td><td class="num">DRT-0058</td></tr>
+            <tr><td class="num">MEP-FF-0112</td><td>Fire Fighting Riser Diagram</td><td class="num">0</td><td class="status">IFR</td><td>MEP Consultant</td><td class="num">2026-07-19</td><td class="num">DRT-0061</td></tr>
             <tr><td class="num">TCV-RFI-0009</td><td>Clarification — Podium Waterproofing Detail</td><td class="num">—</td><td class="status">IFI</td><td>Site team</td><td class="num">2026-08-02</td><td class="num">TRN-0011</td></tr>
           </tbody>
         </table>
       </div>
-      <p>Rows above are illustrative — each project's actual MDL is generated from the live register, not typed up separately. <strong>Originator is a mandatory field</strong>: every entry must name the consultant or team that produced the document.</p>
+      <p>The first three rows are documents received from consultants, so they carry the originator's own number (§9.1); the last is internally originated and carries the project's number. Rows above are illustrative — each project's actual MDL is generated from the live register, not typed up separately. <strong>Originator is a mandatory field</strong>: every entry must name the consultant or team that produced the document.</p>
     </section>
 
     <section id="en-distribution">
@@ -1652,6 +1654,7 @@ tr[hidden]{ display:none !important; }
             <tr><td>MDL accuracy at internal audit (sample check)</td><td class="num">100%</td></tr>
             <tr><td>Statutory sanctions with a live renewal alert set</td><td class="num">100%</td></tr>
             <tr><td>Open DC process deviations older than 14 days</td><td class="num">0</td></tr>
+                <tr><td>Weekly register export completed on time</td><td class="num">100%</td></tr>
           </tbody>
         </table>
       </div>
@@ -1771,6 +1774,7 @@ tr[hidden]{ display:none !important; }
   <details class="changelog">
     <summary>নতুন কী যোগ হলো <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>ছয়টি অসম্পূর্ণ জায়গা গোছানো হলো: §১০-এর উদাহরণে এখন বাইরে থেকে পাওয়া ডকুমেন্টে অরিজিনেটরের নম্বর দেখানো হচ্ছে, §৯.১-এ বলা আছে অরিজিনেটর টাইটেল ব্লক ঠিক না করলে কী হবে, §৯.৬-এ সাপ্তাহিক এক্সপোর্ট কোথায় যাবে তা নির্দিষ্ট ও §১৫-এ তা মাপা হচ্ছে, §৯.১-এ আটটি ধাপ কোন উপ-অনুচ্ছেদে আছে তা দেখানো হয়েছে, আর §৪-এ প্রজেক্ট কোড আর "প্রস্তাবিত" নয়।</span></div>
         <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§১৬ — <b>SPOC কোয়েরি ও কোঅর্ডিনেশন রেজিস্টার</b> যোগ করা হয়েছে, আর টেমপ্লেট টেবিলের উপরে একটি সার্চ বাক্স দেওয়া হয়েছে যাতে পুরো তালিকা না পড়েই নাম বা কোড দিয়ে রেজিস্টার খুঁজে নেওয়া যায়।</span></div>
         <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§১৬ — রেজিস্টারের তালিকা এখন Document Formats ফোল্ডারের সঙ্গে হুবহু মেলে: <span class="tag">WIR</span> রেজিস্টার যোগ করা হয়েছে, আর "KMC Sanction Register" নাম বদলে <b>KMC-র সাথে লেটার রেজিস্টার</b> করা হয়েছে — ওই শিটটি আসলে তাই; স্যাংশন রেজিস্টারটি তার ঠিক উপরের সারিতে আলাদা আছে।</span></div>
         <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§৯.১ ও §১০ — বাইরে থেকে পাওয়া ডকুমেন্ট অরিজিনেটরের নম্বরই ধরে রাখে, নতুন করে নম্বর দেওয়া হয় না; আর MDL যেভাবে সত্যিই রাখা হয় সেভাবেই বর্ণনা করা হয়েছে — ডিসিপ্লিন অনুযায়ী আলাদা রেজিস্টার, সঙ্গে প্রতিটিতে যা থাকতেই হবে তার তালিকা।</span></div>
@@ -1962,7 +1966,7 @@ tr[hidden]{ display:none !important; }
     <section id="bn-projects">
       <div class="eyebrow">০৪</div>
       <h2>চলমান প্রজেক্ট</h2>
-      <p>প্রতিটি কন্ট্রোলড ডকুমেন্ট ঠিক একটি প্রজেক্ট কোডের অন্তর্গত হবে। নিচের চারটি কোড প্রস্তাবিত — প্রথম ডকুমেন্ট নম্বর করার আগে HOD-এর সাথে এগুলো নিশ্চিত ও ফিক্সড করে নিন।</p>
+      <p>প্রতিটি কন্ট্রোলড ডকুমেন্ট ঠিক একটি প্রজেক্ট কোডের অন্তর্গত হবে। নিচের চারটি কোডই ব্যবহৃত হচ্ছে; এগুলো নির্ধারিত, এবং কোনো ডকুমেন্ট একবার এই কোডে নম্বর পেয়ে গেলে আর বদলানো হয় না।</p>
 <div class="proj-gallery">
 <figure class="proj-card"><div class="shot" style="background-image:url('pages/curve.webp');"></div><figcaption><span class="pname">The Curve</span><span class="pcode">TCV</span></figcaption></figure>
 <figure class="proj-card"><div class="shot" style="background-image:url('pages/duets.jpg');"></div><figcaption><span class="pname">Alcove Duets</span><span class="pcode">DUE</span></figcaption></figure>
@@ -2111,12 +2115,13 @@ tr[hidden]{ display:none !important; }
       <h2>প্রসিডিউর</h2>
 
       <h3>৯.১ প্রাপ্তি ও উৎপত্তি</h3>
-      <div class="callout"><b>ওয়ার্কফ্লো ক্রম —</b> প্রাপ্তি → প্রাথমিক যাচাই → নম্বরকরণ → রেজিস্ট্রেশন → রিভিউ/অনুমোদন → স্ট্যাটাস আপডেট → ট্রান্সমিটাল → বিতরণ। এই আটটি ধাপ প্রতিটি ডকুমেন্টের জন্য একই ক্রমে অনুসরণ করা হয়; কোনো ধাপ এড়িয়ে যাওয়া বা ক্রম পরিবর্তন করা যাবে না।</div>
+      <div class="callout"><b>ওয়ার্কফ্লো ক্রম —</b> প্রাপ্তি → প্রাথমিক যাচাই → নম্বরকরণ → রেজিস্ট্রেশন → রিভিউ/অনুমোদন → স্ট্যাটাস আপডেট → ট্রান্সমিটাল → বিতরণ। এই আটটি ধাপ প্রতিটি ডকুমেন্টের জন্য একই ক্রমে অনুসরণ করা হয়; কোনো ধাপ এড়িয়ে যাওয়া বা ক্রম পরিবর্তন করা যাবে না। প্রথম চারটি ধাপ §৯.১-এ, রিভিউ/অনুমোদন ও স্ট্যাটাস আপডেট §৯.২-এ, আর ট্রান্সমিটাল ও বিতরণ §৯.৩-এ বর্ণিত; §৯.৪ থেকে পরের অংশ ইস্যু হয়ে যাওয়ার পর ডকুমেন্টের কী হয় তা নিয়ে।</div>
       <ul>
         <li>প্রতিটি ইনকামিং ডকুমেন্ট (ইমেইল, হাতে-ডেলিভারি, Forma আপলোড, কুরিয়ার) প্রাপ্তির <strong>একই কর্মদিবসে</strong> সোর্স, প্রাপ্তির তারিখ ও রিভিশনসহ রেজিস্টারে লগ করা হয়।</li>
         <li>ইন্টারনালি তৈরি ডকুমেন্ট রিভিউয়ে পাঠানোর আগেই সংশ্লিষ্ট প্রজেক্টের DC নম্বর দেন — পরে নয়।</li>
                 <li>কনসালট্যান্ট, কন্ট্রাক্টর বা অথরিটির কাছ থেকে পাওয়া ডকুমেন্ট তার অরিজিনেটরের দেওয়া নম্বরই ধরে রাখে — ওই নম্বরেই তাঁরা ডকুমেন্টটির উল্লেখ করবেন, আর নম্বর বদলে দিলে তাঁদের সঙ্গে যোগসূত্র ছিঁড়ে যায়। রেজিস্টারে অরিজিনেটরের নম্বর লেখা হয়, আর প্রয়োজন হলে তার পাশে প্রজেক্টের নিজস্ব রেফারেন্সও রাখা হয়।</li>
         <li>রেজিস্টারে গ্রহণ করার আগে DC যাচাই করেন টাইটেল ব্লক সম্পূর্ণ কিনা — ইন্টারনালি তৈরি ডকুমেন্টে সঠিক প্রজেক্ট কোড, ডিসিপ্লিন, রিভিশন বক্স ও স্ট্যাটাস; আর বাইরে থেকে পাওয়া ডকুমেন্টে অরিজিনেটরের নম্বর, রিভিশন ও স্ট্যাটাস। অসম্পূর্ণ টাইটেল ব্লক অরিজিনেটরকে ফেরত পাঠানো হয়, Document Control নিজে ঠিক করে না।</li>
+                <li>অরিজিনেটর যদি অসম্পূর্ণ টাইটেল ব্লক ঠিক করে না দেন, DC ডকুমেন্টটি গ্রহণও করেন না, নিজে ঠিকও করেন না। সেটি রেজিস্টারের বাইরে থাকে এবং একই দিনে HOD-কে জানানো হয় — যাতে দেরিটা চোখে পড়ে, Document Control চুপচাপ নিজের ঘাড়ে না নেয়।</li>
       </ul>
 
       <h3>৯.২ রিভিউ ও অ্যাপ্রুভাল ওয়ার্কফ্লো</h3>
@@ -2151,7 +2156,7 @@ tr[hidden]{ display:none !important; }
       <ul>
         <li>Forma-ই একমাত্র সোর্স অফ ট্রুথ। DC-এর নিজের মেশিনের লোকাল কপি শুধু ওয়ার্কিং কপি, কখনো মাস্টার রেকর্ড হিসেবে গণ্য হয় না।</li>
         <li>ফোল্ডার স্ট্রাকচার নম্বরকরণ স্কিম অনুসরণ করে — প্রজেক্ট, তারপর ডিসিপ্লিন বা রেজিস্টার, তারপর সিকোয়েন্স — যাতে যেকোনো ডকুমেন্টের অবস্থান তার নম্বর থেকেই অনুমান করা যায়।</li>
-        <li>Forma-এর নিজস্ব অটোমেটিক ব্যাকআপ/ভার্সনিং প্রতিদিনের কাজ কভার করে; এর পাশাপাশি অতিরিক্ত সুরক্ষা হিসেবে DC প্রতি শুক্রবার রেজিস্টার ও বর্তমান-রিভিশনের ফাইল আলাদা জায়গায় এক্সপোর্ট করেন।</li>
+        <li>Forma-এর নিজস্ব অটোমেটিক ব্যাকআপ/ভার্সনিং প্রতিদিনের কাজ কভার করে; এর পাশাপাশি অতিরিক্ত সুরক্ষা হিসেবে DC প্রতি শুক্রবার রেজিস্টার ও বর্তমান-রিভিশনের ফাইল সেই প্রজেক্টের Document Control Plan-এ উল্লিখিত ব্যাকআপ জায়গায় এক্সপোর্ট করেন।</li>
         <li>ফিজিক্যাল/হার্ড কপি, যেখানে এখনো প্রয়োজন, রেজিস্টারে একটি লোকেশন রেফারেন্স (ক্যাবিনেট/শেলফ্) সহ লগ করা হয়, এবং ফিজিক্যাল রেজিস্ট্রির অ্যাক্সেস শুধু Document Control স্টাফের জন্য সীমাবদ্ধ থাকে।</li>
       </ul>
 
@@ -2177,14 +2182,14 @@ tr[hidden]{ display:none !important; }
         <table>
           <thead><tr><th>ডক নং</th><th>শিরোনাম</th><th style="width:60px">রিভিশন</th><th style="width:70px">স্ট্যাটাস</th><th style="width:130px">Originator</th><th style="width:110px">ইস্যুর তারিখ</th><th style="width:110px">ট্রান্সমিটাল</th></tr></thead>
           <tbody>
-            <tr><td class="num">DUE-ARC-DRG-0001</td><td>টিপিক্যাল ফ্লোর প্ল্যান — টাওয়ার A</td><td class="num">2</td><td class="status">AFC</td><td>ABC Architects</td><td class="num">2026-04-11</td><td class="num">DRT-0042</td></tr>
-            <tr><td class="num">CRN-STR-DRG-0014</td><td>ফাউন্ডেশন লেআউট</td><td class="num">1</td><td class="status">IFA</td><td>XYZ Structural Consultants</td><td class="num">2026-06-02</td><td class="num">DRT-0058</td></tr>
-            <tr><td class="num">LUX-FF-DRG-0006</td><td>ফায়ার ফাইটিং রাইজার ডায়াগ্রাম</td><td class="num">0</td><td class="status">IFR</td><td>MEP Consultant</td><td class="num">2026-07-19</td><td class="num">DRT-0061</td></tr>
+            <tr><td class="num">ABC-A-1201</td><td>টিপিক্যাল ফ্লোর প্ল্যান — টাওয়ার A</td><td class="num">2</td><td class="status">AFC</td><td>ABC Architects</td><td class="num">2026-04-11</td><td class="num">DRT-0042</td></tr>
+            <tr><td class="num">XYZ-S-0044</td><td>ফাউন্ডেশন লেআউট</td><td class="num">1</td><td class="status">IFA</td><td>XYZ Structural Consultants</td><td class="num">2026-06-02</td><td class="num">DRT-0058</td></tr>
+            <tr><td class="num">MEP-FF-0112</td><td>ফায়ার ফাইটিং রাইজার ডায়াগ্রাম</td><td class="num">0</td><td class="status">IFR</td><td>MEP Consultant</td><td class="num">2026-07-19</td><td class="num">DRT-0061</td></tr>
             <tr><td class="num">TCV-RFI-0009</td><td>স্পষ্টীকরণ — পোডিয়াম ওয়াটারপ্রুফিং ডিটেইল</td><td class="num">—</td><td class="status">IFI</td><td>সাইট টিম</td><td class="num">2026-08-02</td><td class="num">TRN-0011</td></tr>
           </tbody>
         </table>
       </div>
-      <p>উপরের সারিগুলো উদাহরণমাত্র — প্রতিটি প্রজেক্টের প্রকৃত MDL লাইভ রেজিস্টার থেকে তৈরি হয়, আলাদাভাবে টাইপ করা হয় না। <strong>"Originator" কলামটি বাধ্যতামূলক ফিল্ড</strong> — কোন কনসালট্যান্ট/দল ডকুমেন্টটি তৈরি করেছে তা প্রতিটি এন্ট্রিতে উল্লেখ করতে হবে।</p>
+      <p>উপরের প্রথম তিনটি সারি কনসালট্যান্টের কাছ থেকে পাওয়া ডকুমেন্ট, তাই সেগুলোতে অরিজিনেটরের নিজের নম্বর আছে (§৯.১); শেষেরটি ইন্টারনালি তৈরি, তাই প্রজেক্টের নিজস্ব নম্বর। উপরের সারিগুলো উদাহরণমাত্র — প্রতিটি প্রজেক্টের প্রকৃত MDL লাইভ রেজিস্টার থেকে তৈরি হয়, আলাদাভাবে টাইপ করা হয় না। <strong>"Originator" কলামটি বাধ্যতামূলক ফিল্ড</strong> — কোন কনসালট্যান্ট/দল ডকুমেন্টটি তৈরি করেছে তা প্রতিটি এন্ট্রিতে উল্লেখ করতে হবে।</p>
     </section>
 
     <section id="bn-distribution">
@@ -2276,6 +2281,7 @@ tr[hidden]{ display:none !important; }
             <tr><td>ইন্টারনাল অডিটে MDL নির্ভুলতা (স্যাম্পল চেক)</td><td class="num">100%</td></tr>
             <tr><td>স্ট্যাটুটরি স্যাংশনে লাইভ রিনিউয়াল অ্যালার্ট সেট করা</td><td class="num">100%</td></tr>
             <tr><td>১৪ দিনের বেশি পুরনো ওপেন DC প্রসেস ডেভিয়েশন</td><td class="num">0</td></tr>
+                <tr><td>সাপ্তাহিক রেজিস্টার এক্সপোর্ট সময়মতো সম্পন্ন</td><td class="num">100%</td></tr>
           </tbody>
         </table>
       </div>
@@ -2395,6 +2401,7 @@ tr[hidden]{ display:none !important; }
   <details class="changelog">
     <summary>नया क्या जुड़ा <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>छह अधूरी जगहें ठीक की गईं: §१० के उदाहरण में अब बाहर से मिले दस्तावेज़ों पर ओरिजिनेटर का नंबर दिखता है, §९.१ बताता है कि ओरिजिनेटर टाइटल ब्लॉक ठीक न करे तो क्या हो, §९.६ में साप्ताहिक एक्सपोर्ट कहाँ जाएगा यह तय है और §१५ में उसे मापा जाता है, §९.१ में आठ चरण किस उप-अनुभाग में हैं यह बताया गया, और §४ में प्रोजेक्ट कोड अब "प्रस्तावित" नहीं हैं।</span></div>
         <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§१६ — <b>SPOC क्वेरी व कोऑर्डिनेशन रजिस्टर</b> जोड़ा गया, और टेम्पलेट तालिका के ऊपर एक सर्च बॉक्स दिया गया ताकि पूरी सूची पढ़े बिना नाम या कोड से रजिस्टर मिल जाए।</span></div>
         <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§१६ — रजिस्टर सूची अब Document Formats फ़ोल्डर से पूरी तरह मेल खाती है: <span class="tag">WIR</span> रजिस्टर जोड़ा गया, और "KMC Sanction Register" का नाम बदलकर <b>KMC के साथ लेटर रजिस्टर</b> किया गया — वह शीट वास्तव में यही है; सैंक्शन रजिस्टर उसके ठीक ऊपर अलग पंक्ति में है।</span></div>
         <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§९.१ व §१० — बाहर से मिला दस्तावेज़ अपने ओरिजिनेटर का नंबर ही रखता है, उसे दोबारा नंबर नहीं दिया जाता; और MDL को वैसे ही बताया गया है जैसे वह वास्तव में रखा जाता है — डिसिप्लिन के अनुसार अलग रजिस्टर, साथ में हर एक में क्या होना चाहिए उसकी सूची।</span></div>
@@ -2586,7 +2593,7 @@ tr[hidden]{ display:none !important; }
     <section id="hi-projects">
       <div class="eyebrow">०४</div>
       <h2>सक्रिय प्रोजेक्ट</h2>
-      <p>हर कंट्रोल्ड दस्तावेज़ ठीक एक प्रोजेक्ट कोड से संबंधित होगा। नीचे दिए गए चार कोड प्रस्तावित हैं — पहला दस्तावेज़ नंबर करने से पहले HOD के साथ इन्हें कन्फर्म व फिक्स कर लें।</p>
+      <p>हर कंट्रोल्ड दस्तावेज़ ठीक एक प्रोजेक्ट कोड से संबंधित होगा। नीचे दिए गए चारों कोड इस्तेमाल में हैं; ये तय हैं, और किसी दस्तावेज़ को एक बार इन पर नंबर मिल जाने के बाद बदले नहीं जाते।</p>
 <div class="proj-gallery">
 <figure class="proj-card"><div class="shot" style="background-image:url('pages/curve.webp');"></div><figcaption><span class="pname">The Curve</span><span class="pcode">TCV</span></figcaption></figure>
 <figure class="proj-card"><div class="shot" style="background-image:url('pages/duets.jpg');"></div><figcaption><span class="pname">Alcove Duets</span><span class="pcode">DUE</span></figcaption></figure>
@@ -2735,12 +2742,13 @@ tr[hidden]{ display:none !important; }
       <h2>प्रोसीजर</h2>
 
       <h3>9.1 प्राप्ति व उत्पत्ति</h3>
-      <div class="callout"><b>वर्कफ़्लो क्रम —</b> प्राप्ति → प्रारंभिक जाँच → नंबरिंग → रजिस्ट्रेशन → रिव्यू/अनुमोदन → स्टेटस अपडेट → ट्रांसमिटल → वितरण। हर दस्तावेज़ के लिए ये आठ चरण इसी क्रम में अपनाए जाते हैं; कोई चरण छोड़ा नहीं जाता और क्रम बदला नहीं जाता।</div>
+      <div class="callout"><b>वर्कफ़्लो क्रम —</b> प्राप्ति → प्रारंभिक जाँच → नंबरिंग → रजिस्ट्रेशन → रिव्यू/अनुमोदन → स्टेटस अपडेट → ट्रांसमिटल → वितरण। हर दस्तावेज़ के लिए ये आठ चरण इसी क्रम में अपनाए जाते हैं; कोई चरण छोड़ा नहीं जाता और क्रम बदला नहीं जाता। पहले चार चरण §९.१ में, रिव्यू/अनुमोदन व स्टेटस अपडेट §९.२ में, और ट्रांसमिटल व वितरण §९.३ में दिए गए हैं; §९.४ से आगे का हिस्सा बताता है कि जारी हो जाने के बाद दस्तावेज़ का क्या होता है।</div>
       <ul>
         <li>हर इनकमिंग दस्तावेज़ (ईमेल, हाथों-हाथ डिलीवरी, Forma अपलोड, कूरियर) प्राप्ति के <strong>उसी कार्यदिवस</strong> स्रोत, प्राप्ति तिथि व रिवीज़न के साथ रजिस्टर में लॉग किया जाता है।</li>
         <li>आंतरिक रूप से बनाए गए दस्तावेज़ को समीक्षा के लिए भेजने से पहले ही संबंधित प्रोजेक्ट का DC नंबर देता है — बाद में नहीं।</li>
                 <li>कंसल्टेंट, कॉन्ट्रैक्टर या अथॉरिटी से मिला दस्तावेज़ अपने ओरिजिनेटर का दिया नंबर ही रखता है — वे उसी नंबर से उसका ज़िक्र करेंगे, और नंबर बदल देने से उन तक का सूत्र टूट जाता है। रजिस्टर में ओरिजिनेटर का नंबर दर्ज होता है, और ज़रूरत हो तो उसके साथ प्रोजेक्ट का अपना संदर्भ भी।</li>
         <li>रजिस्टर में स्वीकार करने से पहले DC जाँचते हैं कि टाइटल ब्लॉक पूरा है या नहीं — आंतरिक रूप से बनाए दस्तावेज़ में सही प्रोजेक्ट कोड, डिसिप्लिन, रिवीज़न बॉक्स व स्टेटस; और बाहर से मिले दस्तावेज़ में ओरिजिनेटर का नंबर, रिवीज़न व स्टेटस। अधूरे टाइटल ब्लॉक ओरिजिनेटर को वापस भेजे जाते हैं, डॉक्यूमेंट कंट्रोल खुद ठीक नहीं करता।</li>
+                <li>यदि ओरिजिनेटर अधूरा टाइटल ब्लॉक ठीक न करे, तो DC न दस्तावेज़ स्वीकार करते हैं और न खुद ठीक करते हैं। वह रजिस्टर से बाहर रहता है और उसी दिन HOD को बताया जाता है — ताकि देरी दिखाई दे, डॉक्यूमेंट कंट्रोल चुपचाप अपने ऊपर न ले ले।</li>
       </ul>
 
       <h3>9.2 समीक्षा व अनुमोदन वर्कफ़्लो</h3>
@@ -2775,7 +2783,7 @@ tr[hidden]{ display:none !important; }
       <ul>
         <li>Forma ही एकमात्र सोर्स ऑफ ट्रुथ है। DC की अपनी मशीन की लोकल कॉपी सिर्फ वर्किंग कॉपी होती है, कभी मास्टर रिकॉर्ड नहीं मानी जाती।</li>
         <li>फोल्डर स्ट्रक्चर नंबरिंग स्कीम को दर्शाता है — प्रोजेक्ट, फिर डिसिप्लिन या रजिस्टर, फिर सीक्वेंस — ताकि किसी भी दस्तावेज़ की जगह उसके नंबर से ही पता चल जाए।</li>
-        <li>Forma की अपनी ऑटोमेटिक बैकअप/वर्ज़निंग रोज़मर्रा का काम संभालती है; इसके अलावा एक अतिरिक्त सुरक्षा के तौर पर DC हर शुक्रवार रजिस्टर व मौजूदा-रिवीज़न फाइलों को अलग जगह एक्सपोर्ट करते हैं।</li>
+        <li>Forma की अपनी ऑटोमेटिक बैकअप/वर्ज़निंग रोज़मर्रा का काम संभालती है; इसके अलावा एक अतिरिक्त सुरक्षा के तौर पर DC हर शुक्रवार रजिस्टर व मौजूदा-रिवीज़न फाइलों को उस प्रोजेक्ट के Document Control Plan में बताई गई बैकअप जगह पर एक्सपोर्ट करते हैं।</li>
         <li>फिज़िकल/हार्ड कॉपी, जहाँ अभी भी ज़रूरी हो, रजिस्टर में एक लोकेशन रेफरेंस (कैबिनेट/शेल्फ़) के साथ लॉग की जाती है, और फिज़िकल रजिस्ट्री तक पहुँच सिर्फ डॉक्यूमेंट कंट्रोल स्टाफ तक सीमित रहती है।</li>
       </ul>
 
@@ -2801,14 +2809,14 @@ tr[hidden]{ display:none !important; }
         <table>
           <thead><tr><th>डॉक्यूमेंट सं.</th><th>शीर्षक</th><th style="width:60px">रिवीज़न</th><th style="width:70px">स्टेटस</th><th style="width:130px">Originator</th><th style="width:110px">जारी तिथि</th><th style="width:110px">ट्रांसमिटल</th></tr></thead>
           <tbody>
-            <tr><td class="num">DUE-ARC-DRG-0001</td><td>टिपिकल फ्लोर प्लान — टावर A</td><td class="num">2</td><td class="status">AFC</td><td>ABC Architects</td><td class="num">2026-04-11</td><td class="num">DRT-0042</td></tr>
-            <tr><td class="num">CRN-STR-DRG-0014</td><td>फाउंडेशन लेआउट</td><td class="num">1</td><td class="status">IFA</td><td>XYZ Structural Consultants</td><td class="num">2026-06-02</td><td class="num">DRT-0058</td></tr>
-            <tr><td class="num">LUX-FF-DRG-0006</td><td>फायर फाइटिंग राइज़र डायग्राम</td><td class="num">0</td><td class="status">IFR</td><td>MEP Consultant</td><td class="num">2026-07-19</td><td class="num">DRT-0061</td></tr>
+            <tr><td class="num">ABC-A-1201</td><td>टिपिकल फ्लोर प्लान — टावर A</td><td class="num">2</td><td class="status">AFC</td><td>ABC Architects</td><td class="num">2026-04-11</td><td class="num">DRT-0042</td></tr>
+            <tr><td class="num">XYZ-S-0044</td><td>फाउंडेशन लेआउट</td><td class="num">1</td><td class="status">IFA</td><td>XYZ Structural Consultants</td><td class="num">2026-06-02</td><td class="num">DRT-0058</td></tr>
+            <tr><td class="num">MEP-FF-0112</td><td>फायर फाइटिंग राइज़र डायग्राम</td><td class="num">0</td><td class="status">IFR</td><td>MEP Consultant</td><td class="num">2026-07-19</td><td class="num">DRT-0061</td></tr>
             <tr><td class="num">TCV-RFI-0009</td><td>स्पष्टीकरण — पोडियम वॉटरप्रूफिंग डिटेल</td><td class="num">—</td><td class="status">IFI</td><td>साइट टीम</td><td class="num">2026-08-02</td><td class="num">TRN-0011</td></tr>
           </tbody>
         </table>
       </div>
-      <p>ऊपर दी गई पंक्तियाँ सिर्फ उदाहरण हैं — हर प्रोजेक्ट की असली MDL लाइव रजिस्टर से बनती है, अलग से टाइप नहीं की जाती। <strong>"Originator" कॉलम अनिवार्य फ़ील्ड है</strong> — किस कंसल्टेंट/टीम ने दस्तावेज़ बनाया, यह हर एंट्री में लिखना होगा।</p>
+      <p>ऊपर की पहली तीन पंक्तियाँ कंसल्टेंट से मिले दस्तावेज़ हैं, इसलिए उनमें ओरिजिनेटर का अपना नंबर है (§९.१); आख़िरी आंतरिक रूप से बना है, इसलिए उसमें प्रोजेक्ट का अपना नंबर है। ऊपर दी गई पंक्तियाँ सिर्फ उदाहरण हैं — हर प्रोजेक्ट की असली MDL लाइव रजिस्टर से बनती है, अलग से टाइप नहीं की जाती। <strong>"Originator" कॉलम अनिवार्य फ़ील्ड है</strong> — किस कंसल्टेंट/टीम ने दस्तावेज़ बनाया, यह हर एंट्री में लिखना होगा।</p>
     </section>
 
     <section id="hi-distribution">
@@ -2900,6 +2908,7 @@ tr[hidden]{ display:none !important; }
             <tr><td>इंटरनल ऑडिट में MDL सटीकता (सैंपल जाँच)</td><td class="num">100%</td></tr>
             <tr><td>स्टैट्यूटरी सैंक्शन पर लाइव रिन्यूअल अलर्ट सेट होना</td><td class="num">100%</td></tr>
             <tr><td>14 दिन से पुराने खुले DC प्रोसेस डेविएशन</td><td class="num">0</td></tr>
+                <tr><td>साप्ताहिक रजिस्टर एक्सपोर्ट समय पर पूरा</td><td class="num">100%</td></tr>
           </tbody>
         </table>
       </div>
