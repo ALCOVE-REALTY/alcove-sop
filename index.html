@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260922-141001">
+<meta name="sop-build" content="20260922-141823">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -1074,8 +1074,12 @@ html{ overflow-x:clip; }
 }
 .dmx:hover{ border-color:var(--rule-strong); background:var(--paper); }
 .dmx:focus{ outline:none; border-color:var(--structural); box-shadow:0 0 0 2px var(--structural-bg); }
-.dmx-print{ display:none; }
-.dmx-tools{ margin:14px 0 0; }
+.dmx{ display:none; }
+.dmx-print{ display:inline; }
+body.dmx-open .dmx{ display:inline-block; }
+body.dmx-open .dmx-print{ display:none; }
+.dmx-tools{ margin:14px 0 0; display:flex; gap:10px; flex-wrap:wrap; }
+.dmx-lock[aria-pressed="true"]{ background:var(--structural); color:var(--paper-raised); }
 @media print{
   .dmx{ display:none !important; }
   .dmx-print{ display:inline !important; }
@@ -1563,8 +1567,8 @@ html{ overflow-x:clip; }
         </table>
       </div>
       <div class="callout"><b>Joint review —</b> where more than one party has to review a document together, more than one column may be marked <code>R</code> for that document type. That is normal where the work calls for it, not an exception.</div>
-      <div class="callout"><b>Editing this matrix —</b> every cell is a dropdown, so the HOD can set <code>R</code>, <code>A</code>, <code>I</code> or <code>–</code> directly. Changes are kept in the browser you make them in — they are not seen by anyone else. Once the matrix is agreed, send the settings to Document Control with the <b>Copy matrix</b> button so they can be published as the approved version.</div>
-      <div class="dmx-tools"><button type="button" class="dlbtn dmx-copy" data-lang="en" data-done="Copied — paste it to Document Control">Copy matrix</button></div>
+      <div class="callout"><b>Editing this matrix —</b> the cells are read-only until <b>Edit matrix</b> is pressed, so no one changes them by accident. That button guards against mistakes; it is not a lock — anyone can press it, and whatever they change is kept only in their own browser and is never seen by anyone else. The values published here are the ones Document Control has approved. To have a change made official, set it, press <b>Copy matrix</b> and send the result to Document Control.</div>
+      <div class="dmx-tools"><button type="button" class="dlbtn dmx-lock" data-on="Edit matrix" data-off="Done editing">Edit matrix</button><button type="button" class="dlbtn dmx-copy" data-lang="en" data-done="Copied — paste it to Document Control">Copy matrix</button></div>
       <div class="callout"><b>Transmittals —</b> <code>TRN</code> and <code>DRT</code> carry other documents rather than having recipients of their own. A transmittal goes to exactly the parties listed for whatever it encloses, in the same capacities.</div>
       <div class="callout"><b>What <code>A</code> means on a query —</b> on <code>RFI</code>, <code>CVA</code> and <code>SI</code> the <code>A</code> marks the party whose answer or instruction is binding — not an approval in the sense used for drawings and materials. A drawing is approved through <code>DAR</code>, and that approval is what later shows on the drawing as <code>AFC</code> (§7).</div>
     </section>
@@ -2174,8 +2178,8 @@ html{ overflow-x:clip; }
         </table>
       </div>
       <div class="callout"><b>জয়েন্ট রিভিউ —</b> একাধিক পক্ষ যদি যৌথভাবে একটি ডকুমেন্ট রিভিউ করেন, সেই ডকুমেন্ট টাইপের একাধিক কলামে <code>R</code> চিহ্নিত করা যেতে পারে — এটি ব্যতিক্রম নয়, প্রয়োজন অনুযায়ী স্বাভাবিক।</div>
-      <div class="callout"><b>এই ম্যাট্রিক্স সম্পাদনা —</b> প্রতিটি ঘরই ড্রপডাউন, তাই HOD সরাসরি <code>R</code>, <code>A</code>, <code>I</code> বা <code>–</code> বেছে নিতে পারেন। পরিবর্তন শুধু যে ব্রাউজারে করা হচ্ছে সেখানেই থাকে — অন্য কেউ দেখতে পান না। ম্যাট্রিক্স চূড়ান্ত হলে <b>ম্যাট্রিক্স কপি করুন</b> বোতাম দিয়ে সেটিংস ডকুমেন্ট কন্ট্রোলে পাঠান, যাতে অনুমোদিত সংস্করণ হিসেবে প্রকাশ করা যায়।</div>
-      <div class="dmx-tools"><button type="button" class="dlbtn dmx-copy" data-lang="bn" data-done="কপি হয়েছে — ডকুমেন্ট কন্ট্রোলে পাঠান">ম্যাট্রিক্স কপি করুন</button></div>
+      <div class="callout"><b>এই ম্যাট্রিক্স সম্পাদনা —</b> <b>ম্যাট্রিক্স সম্পাদনা</b> বোতাম না চাপা পর্যন্ত ঘরগুলো শুধু পড়া যায়, তাই ভুল করে কেউ বদলে ফেলতে পারবেন না। এই বোতামটি ভুল ঠেকানোর জন্য, তালা নয় — যে কেউ চাপতে পারেন, আর যা বদলাবেন তা শুধু তাঁর নিজের ব্রাউজারেই থাকবে, অন্য কেউ কখনও দেখবেন না। এখানে প্রকাশিত মানগুলোই ডকুমেন্ট কন্ট্রোলের অনুমোদিত। কোনো পরিবর্তন সরকারিভাবে করাতে চাইলে সেটি বসিয়ে <b>ম্যাট্রিক্স কপি করুন</b> চেপে ডকুমেন্ট কন্ট্রোলে পাঠান।</div>
+      <div class="dmx-tools"><button type="button" class="dlbtn dmx-lock" data-on="ম্যাট্রিক্স সম্পাদনা" data-off="সম্পাদনা শেষ">ম্যাট্রিক্স সম্পাদনা</button><button type="button" class="dlbtn dmx-copy" data-lang="bn" data-done="কপি হয়েছে — ডকুমেন্ট কন্ট্রোলে পাঠান">ম্যাট্রিক্স কপি করুন</button></div>
       <div class="callout"><b>ট্রান্সমিটাল —</b> <code>TRN</code> ও <code>DRT</code> নিজেরা স্বতন্ত্র ডকুমেন্ট নয়, অন্য ডকুমেন্ট বহন করে। ভিতরে যা পাঠানো হচ্ছে, ট্রান্সমিটাল ঠিক তাঁদের কাছেই যাবে, একই ভূমিকায়।</div>
       <div class="callout"><b>প্রশ্নের ক্ষেত্রে <code>A</code>-র মানে —</b> <code>RFI</code>, <code>CVA</code> ও <code>SI</code>-তে <code>A</code> বোঝায় যাঁর উত্তর বা নির্দেশ চূড়ান্ত — ড্রয়িং বা মালপত্র অনুমোদনের অর্থে নয়। ড্রয়িং অনুমোদিত হয় <code>DAR</code>-এর মাধ্যমে, আর সেই অনুমোদনই পরে ড্রয়িং-এ <code>AFC</code> হিসেবে দেখা যায় (§৭)।</div>
     </section>
@@ -2785,8 +2789,8 @@ html{ overflow-x:clip; }
         </table>
       </div>
       <div class="callout"><b>जॉइंट रिव्यू —</b> यदि एक से अधिक पक्ष मिलकर किसी दस्तावेज़ की समीक्षा करते हैं, तो उस डॉक्यूमेंट टाइप के एक से अधिक कॉलम में <code>R</code> चिह्नित किया जा सकता है — यह अपवाद नहीं, ज़रूरत के अनुसार स्वाभाविक है।</div>
-      <div class="callout"><b>यह मैट्रिक्स संपादित करना —</b> हर सेल एक ड्रॉपडाउन है, इसलिए HOD सीधे <code>R</code>, <code>A</code>, <code>I</code> या <code>–</code> चुन सकते हैं। बदलाव सिर्फ़ उसी ब्राउज़र में रहते हैं जहाँ किए गए — कोई और उन्हें नहीं देखता। मैट्रिक्स तय हो जाने पर <b>मैट्रिक्स कॉपी करें</b> बटन से सेटिंग्स डॉक्यूमेंट कंट्रोल को भेजें, ताकि अनुमोदित संस्करण के रूप में प्रकाशित हो सके।</div>
-      <div class="dmx-tools"><button type="button" class="dlbtn dmx-copy" data-lang="hi" data-done="कॉपी हो गया — डॉक्यूमेंट कंट्रोल को भेजें">मैट्रिक्स कॉपी करें</button></div>
+      <div class="callout"><b>यह मैट्रिक्स संपादित करना —</b> <b>मैट्रिक्स संपादित करें</b> दबाने तक सेल केवल पढ़ने के लिए हैं, ताकि कोई ग़लती से न बदल दे। यह बटन ग़लती रोकने के लिए है, ताला नहीं — कोई भी दबा सकता है, और जो बदलेगा वह सिर्फ़ उसी के ब्राउज़र में रहेगा, कोई और कभी नहीं देखेगा। यहाँ प्रकाशित मान ही डॉक्यूमेंट कंट्रोल द्वारा अनुमोदित हैं। किसी बदलाव को आधिकारिक कराने के लिए उसे सेट करें, <b>मैट्रिक्स कॉपी करें</b> दबाएँ और परिणाम डॉक्यूमेंट कंट्रोल को भेजें।</div>
+      <div class="dmx-tools"><button type="button" class="dlbtn dmx-lock" data-on="मैट्रिक्स संपादित करें" data-off="संपादन पूरा">मैट्रिक्स संपादित करें</button><button type="button" class="dlbtn dmx-copy" data-lang="hi" data-done="कॉपी हो गया — डॉक्यूमेंट कंट्रोल को भेजें">मैट्रिक्स कॉपी करें</button></div>
       <div class="callout"><b>ट्रांसमिटल —</b> <code>TRN</code> व <code>DRT</code> स्वयं स्वतंत्र दस्तावेज़ नहीं, दूसरे दस्तावेज़ों को ले जाते हैं। भीतर जो भेजा जा रहा है, ट्रांसमिटल ठीक उन्हीं के पास जाएगा, उन्हीं भूमिकाओं में।</div>
       <div class="callout"><b>प्रश्न पर <code>A</code> का अर्थ —</b> <code>RFI</code>, <code>CVA</code> व <code>SI</code> में <code>A</code> उस पक्ष को दर्शाता है जिसका उत्तर या निर्देश बाध्यकारी है — ड्रॉइंग या सामग्री के अनुमोदन के अर्थ में नहीं। ड्रॉइंग <code>DAR</code> के ज़रिए अनुमोदित होती है, और वही अनुमोदन बाद में ड्रॉइंग पर <code>AFC</code> के रूप में दिखता है (§७)।</div>
     </section>
@@ -3392,5 +3396,26 @@ html{ overflow-x:clip; }
       });
     })(btns[b]);
   }
+})();
+</script>
+<script>
+/* The matrix is read-only until someone deliberately opens it. This is a guard
+   against accidental edits, not access control -- a static page cannot enforce
+   who edits it, and the callout beside the button says so plainly. */
+(function(){
+  var btns = document.querySelectorAll('.dmx-lock');
+  function setAll(open){
+    document.body.classList.toggle('dmx-open', open);
+    for(var i = 0; i < btns.length; i++){
+      btns[i].textContent = open ? btns[i].getAttribute('data-off') : btns[i].getAttribute('data-on');
+      btns[i].setAttribute('aria-pressed', open ? 'true' : 'false');
+    }
+  }
+  for(var b = 0; b < btns.length; b++){
+    btns[b].addEventListener('click', function(){
+      setAll(!document.body.classList.contains('dmx-open'));
+    });
+  }
+  setAll(false);
 })();
 </script>
