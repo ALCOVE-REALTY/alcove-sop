@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260922-151133">
+<meta name="sop-build" content="20260922-152209">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -1083,7 +1083,21 @@ body.dmx-open .dmx-print{ display:none; }
   .dmx{ display:none !important; }
   .dmx-print{ display:inline !important; }
   .dmx-tools{ display:none !important; }
-}</style>
+}
+/* -- 16 Register templates: find one without reading the list ----------------
+   Sixteen rows is past the point where scanning is quicker than typing. The
+   box filters the table beneath it and is hidden in print, where a partial
+   table would be worse than the whole one. */
+.rsearch{ display:flex; align-items:center; gap:10px; margin:0 0 12px; flex-wrap:wrap; }
+.rsearch input{
+  flex:1 1 280px; min-width:0; font:inherit; font-size:14.5px;
+  padding:8px 12px; border:1px solid var(--rule-strong); border-radius:6px;
+  background:var(--paper-raised); color:var(--ink);
+}
+.rsearch input:focus{ outline:none; border-color:var(--structural); box-shadow:0 0 0 3px var(--structural-bg); }
+.rsearch .rsearch-n{ font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-faint); white-space:nowrap; }
+tr[hidden]{ display:none !important; }
+@media print{ .rsearch{ display:none !important; } }</style>
 
 <!-- ============================= ENGLISH ============================= -->
 <div id="doc-en" class="doc-view doc-en active" lang="en">
@@ -1133,6 +1147,7 @@ body.dmx-open .dmx-print{ display:none; }
   <details class="changelog">
     <summary>What's new <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§16 — added the <b>SPOC Query &amp; Coordination Register</b>, and put a search box above the template table so a register can be found by name or code without reading the whole list.</span></div>
         <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§16 — the register list now matches the Document Formats folder exactly: added the <span class="tag">WIR</span> Register, and renamed "KMC Sanction Register" to <b>Letter Register with KMC</b>, which is what that spreadsheet actually is — the sanction register is the separate row above it.</span></div>
         <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§9.1 and §10 — a received document keeps its originator's number rather than being renumbered, and the MDL is described as it is kept: one register per discipline, with the fields each must carry set out.</span></div>
         <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§7 — registers record status with the status codes rather than free text, with the wording used in older registers mapped across (<i>Advance Copy</i> and <i>For Info.</i> → <span class="tag">IFI</span>, <i>Void</i> → <span class="tag">SUP</span>).</span></div>
@@ -1657,7 +1672,8 @@ body.dmx-open .dmx-print{ display:none; }
       </ul>
 
       <h3>Register templates (live links)</h3>
-      <p>The working spreadsheets below are the actual templates in use — open the one you need directly rather than rebuilding it from scratch. All sit inside the <a href="https://drive.google.com/drive/folders/1_BQjSm4hMCPi0osoiq-wgnYgG1XiP1tt" target="_blank" rel="noopener">Registers</a> folder on Drive; confirm with the HOD that this folder is shared with all DCs before relying on it day‑to‑day.</p>
+      <p>The working spreadsheets below are the actual templates in use — open the one you need directly rather than rebuilding it from scratch. Most sit inside the <a href="https://drive.google.com/drive/folders/1_BQjSm4hMCPi0osoiq-wgnYgG1XiP1tt" target="_blank" rel="noopener">Registers</a> folder on Drive, and a few live with the project that uses them; confirm with the HOD that this folder is shared with all DCs before relying on it day‑to‑day.</p>
+      <div class="rsearch"><input type="search" class="rsearch-in" placeholder="Search a template — name or code…" autocomplete="off" spellcheck="false"><span class="rsearch-n"></span></div>
       <div class="twrap">
         <table>
           <thead><tr><th style="width:210px">Template</th><th style="width:90px">Cross‑ref</th><th>Open</th></tr></thead>
@@ -1671,6 +1687,7 @@ body.dmx-open .dmx-print{ display:none; }
             <tr><td>Drawing Transmittal — MEP</td><td class="mono">DRT · §6.3</td><td><a href="https://docs.google.com/spreadsheets/d/1rZ7GK1jqwVHlzCMGT_uAKjn5COb9_HwiQ3PoHekm6PM/edit" target="_blank" rel="noopener">Open register</a></td></tr>
             <tr><td>RFI Register</td><td class="mono">RFI · §6.3</td><td><a href="https://docs.google.com/spreadsheets/d/1MXPYjnmwvFEEZbslLjVNV8uqzbsyWjUPMMApIafa-dU/edit" target="_blank" rel="noopener">Open register</a></td></tr>
                   <tr><td>WIR Register</td><td class="mono">WIR · §6.3</td><td><a href="https://drive.google.com/file/d/1uZMYztRlu54T6XRWxWT1cQrPB70FxnWo/view" target="_blank" rel="noopener">Open register</a></td></tr>
+                  <tr><td>SPOC Query &amp; Coordination Register</td><td class="mono">—</td><td><a href="https://docs.google.com/spreadsheets/d/1xW-gAmBzBNzpWRv7ZTU6wwm7t2R-p7Kqun18x0ncSuE/edit" target="_blank" rel="noopener">Open register</a></td></tr>
             <tr><td>Sanction Document &amp; Drawings Register</td><td class="mono">§8</td><td><a href="https://docs.google.com/spreadsheets/d/1HNHZ-ZoqKYoofcJOjyAyZVxdaIFqIQDQNuxvqLvDT_o/edit" target="_blank" rel="noopener">Open register</a></td></tr>
             <tr><td>Letter Register with KMC</td><td class="mono">KMC · §8</td><td><a href="https://docs.google.com/spreadsheets/d/1Jghm5OhNgxZqpAF7wYTLx5X4zF1ejXkaPGO1KLCsYfA/edit" target="_blank" rel="noopener">Open register</a></td></tr>
             <tr><td>Method Statement Register</td><td class="mono">§9.2</td><td><a href="https://docs.google.com/spreadsheets/d/1wXcLl3v8TbvKLsSb5qnZy47WBn0xSCgdEvLQT-cycPU/edit" target="_blank" rel="noopener">Open register</a></td></tr>
@@ -1754,6 +1771,7 @@ body.dmx-open .dmx-print{ display:none; }
   <details class="changelog">
     <summary>নতুন কী যোগ হলো <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§১৬ — <b>SPOC কোয়েরি ও কোঅর্ডিনেশন রেজিস্টার</b> যোগ করা হয়েছে, আর টেমপ্লেট টেবিলের উপরে একটি সার্চ বাক্স দেওয়া হয়েছে যাতে পুরো তালিকা না পড়েই নাম বা কোড দিয়ে রেজিস্টার খুঁজে নেওয়া যায়।</span></div>
         <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§১৬ — রেজিস্টারের তালিকা এখন Document Formats ফোল্ডারের সঙ্গে হুবহু মেলে: <span class="tag">WIR</span> রেজিস্টার যোগ করা হয়েছে, আর "KMC Sanction Register" নাম বদলে <b>KMC-র সাথে লেটার রেজিস্টার</b> করা হয়েছে — ওই শিটটি আসলে তাই; স্যাংশন রেজিস্টারটি তার ঠিক উপরের সারিতে আলাদা আছে।</span></div>
         <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§৯.১ ও §১০ — বাইরে থেকে পাওয়া ডকুমেন্ট অরিজিনেটরের নম্বরই ধরে রাখে, নতুন করে নম্বর দেওয়া হয় না; আর MDL যেভাবে সত্যিই রাখা হয় সেভাবেই বর্ণনা করা হয়েছে — ডিসিপ্লিন অনুযায়ী আলাদা রেজিস্টার, সঙ্গে প্রতিটিতে যা থাকতেই হবে তার তালিকা।</span></div>
         <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§৭ — রেজিস্টারে স্ট্যাটাস নিজের ভাষায় নয়, স্ট্যাটাস কোড দিয়ে লেখা হবে; পুরোনো রেজিস্টারের শব্দগুলোর রূপান্তরও দেওয়া হয়েছে (<i>Advance Copy</i> ও <i>For Info.</i> → <span class="tag">IFI</span>, <i>Void</i> → <span class="tag">SUP</span>)।</span></div>
@@ -2278,7 +2296,8 @@ body.dmx-open .dmx-print{ display:none; }
       </ul>
 
       <h3>রেজিস্টার টেমপ্লেট (লাইভ লিংক)</h3>
-      <p>নিচের স্প্রেডশিটগুলো বর্তমানে ব্যবহৃত আসল টেমপ্লেট — নতুন করে বানানোর বদলে দরকারমতো সরাসরি খুলুন। সবগুলো Drive-এর <a href="https://drive.google.com/drive/folders/1_BQjSm4hMCPi0osoiq-wgnYgG1XiP1tt" target="_blank" rel="noopener">Registers</a> ফোল্ডারের ভেতরে আছে — প্রতিদিন ব্যবহারের আগে HOD-এর সাথে নিশ্চিত করে নিন যে এই ফোল্ডারটা সব DC-এর সাথেই শেয়ার করা আছে।</p>
+      <p>নিচের স্প্রেডশিটগুলো বর্তমানে ব্যবহৃত আসল টেমপ্লেট — নতুন করে বানানোর বদলে দরকারমতো সরাসরি খুলুন। বেশিরভাগই Drive-এর <a href="https://drive.google.com/drive/folders/1_BQjSm4hMCPi0osoiq-wgnYgG1XiP1tt" target="_blank" rel="noopener">Registers</a> ফোল্ডারের ভেতরে আছে, আর কয়েকটি যে প্রজেক্টে ব্যবহার হয় সেই প্রজেক্টের ফোল্ডারেই থাকে — প্রতিদিন ব্যবহারের আগে HOD-এর সাথে নিশ্চিত করে নিন যে এই ফোল্ডারটা সব DC-এর সাথেই শেয়ার করা আছে।</p>
+      <div class="rsearch"><input type="search" class="rsearch-in" placeholder="টেমপ্লেট খুঁজুন — নাম বা কোড দিয়ে…" autocomplete="off" spellcheck="false"><span class="rsearch-n"></span></div>
       <div class="twrap">
         <table>
           <thead><tr><th style="width:210px">টেমপ্লেট</th><th style="width:110px">ক্রস-রেফ</th><th>খুলুন</th></tr></thead>
@@ -2292,6 +2311,7 @@ body.dmx-open .dmx-print{ display:none; }
             <tr><td>Drawing Transmittal — MEP</td><td class="mono">DRT · §৬.৩</td><td><a href="https://docs.google.com/spreadsheets/d/1rZ7GK1jqwVHlzCMGT_uAKjn5COb9_HwiQ3PoHekm6PM/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
             <tr><td>RFI Register</td><td class="mono">RFI · §৬.৩</td><td><a href="https://docs.google.com/spreadsheets/d/1MXPYjnmwvFEEZbslLjVNV8uqzbsyWjUPMMApIafa-dU/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
                   <tr><td>WIR Register</td><td class="mono">WIR · §৬.৩</td><td><a href="https://drive.google.com/file/d/1uZMYztRlu54T6XRWxWT1cQrPB70FxnWo/view" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+                  <tr><td>SPOC কোয়েরি ও কোঅর্ডিনেশন রেজিস্টার</td><td class="mono">—</td><td><a href="https://docs.google.com/spreadsheets/d/1xW-gAmBzBNzpWRv7ZTU6wwm7t2R-p7Kqun18x0ncSuE/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
             <tr><td>Sanction Document &amp; Drawings Register</td><td class="mono">§৮</td><td><a href="https://docs.google.com/spreadsheets/d/1HNHZ-ZoqKYoofcJOjyAyZVxdaIFqIQDQNuxvqLvDT_o/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
             <tr><td>KMC-র সাথে লেটার রেজিস্টার</td><td class="mono">KMC · §৮</td><td><a href="https://docs.google.com/spreadsheets/d/1Jghm5OhNgxZqpAF7wYTLx5X4zF1ejXkaPGO1KLCsYfA/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
             <tr><td>Method Statement Register</td><td class="mono">§৯.২</td><td><a href="https://docs.google.com/spreadsheets/d/1wXcLl3v8TbvKLsSb5qnZy47WBn0xSCgdEvLQT-cycPU/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
@@ -2375,6 +2395,7 @@ body.dmx-open .dmx-print{ display:none; }
   <details class="changelog">
     <summary>नया क्या जुड़ा <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§१६ — <b>SPOC क्वेरी व कोऑर्डिनेशन रजिस्टर</b> जोड़ा गया, और टेम्पलेट तालिका के ऊपर एक सर्च बॉक्स दिया गया ताकि पूरी सूची पढ़े बिना नाम या कोड से रजिस्टर मिल जाए।</span></div>
         <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§१६ — रजिस्टर सूची अब Document Formats फ़ोल्डर से पूरी तरह मेल खाती है: <span class="tag">WIR</span> रजिस्टर जोड़ा गया, और "KMC Sanction Register" का नाम बदलकर <b>KMC के साथ लेटर रजिस्टर</b> किया गया — वह शीट वास्तव में यही है; सैंक्शन रजिस्टर उसके ठीक ऊपर अलग पंक्ति में है।</span></div>
         <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§९.१ व §१० — बाहर से मिला दस्तावेज़ अपने ओरिजिनेटर का नंबर ही रखता है, उसे दोबारा नंबर नहीं दिया जाता; और MDL को वैसे ही बताया गया है जैसे वह वास्तव में रखा जाता है — डिसिप्लिन के अनुसार अलग रजिस्टर, साथ में हर एक में क्या होना चाहिए उसकी सूची।</span></div>
         <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§७ — रजिस्टर में स्टेटस अपने शब्दों में नहीं, स्टेटस कोड से लिखा जाएगा; पुराने रजिस्टरों के शब्दों का रूपांतरण भी दिया गया (<i>Advance Copy</i> व <i>For Info.</i> → <span class="tag">IFI</span>, <i>Void</i> → <span class="tag">SUP</span>)।</span></div>
@@ -2899,7 +2920,8 @@ body.dmx-open .dmx-print{ display:none; }
       </ul>
 
       <h3>रजिस्टर टेम्पलेट (लाइव लिंक)</h3>
-      <p>नीचे दिए गए स्प्रेडशीट वही असली टेम्पलेट हैं जो अभी इस्तेमाल हो रहे हैं — नया बनाने के बजाय ज़रूरत के हिसाब से सीधे खोलें। ये सभी Drive के <a href="https://drive.google.com/drive/folders/1_BQjSm4hMCPi0osoiq-wgnYgG1XiP1tt" target="_blank" rel="noopener">Registers</a> फ़ोल्डर के अंदर हैं — रोज़मर्रा इस्तेमाल से पहले HOD के साथ कन्फर्म कर लें कि यह फ़ोल्डर सभी DC के साथ शेयर किया गया है।</p>
+      <p>नीचे दिए गए स्प्रेडशीट वही असली टेम्पलेट हैं जो अभी इस्तेमाल हो रहे हैं — नया बनाने के बजाय ज़रूरत के हिसाब से सीधे खोलें। इनमें से ज़्यादातर Drive के <a href="https://drive.google.com/drive/folders/1_BQjSm4hMCPi0osoiq-wgnYgG1XiP1tt" target="_blank" rel="noopener">Registers</a> फ़ोल्डर के अंदर हैं, और कुछ उसी प्रोजेक्ट के साथ रहते हैं जहाँ वे इस्तेमाल होते हैं — रोज़मर्रा इस्तेमाल से पहले HOD के साथ कन्फर्म कर लें कि यह फ़ोल्डर सभी DC के साथ शेयर किया गया है।</p>
+      <div class="rsearch"><input type="search" class="rsearch-in" placeholder="टेम्पलेट खोजें — नाम या कोड से…" autocomplete="off" spellcheck="false"><span class="rsearch-n"></span></div>
       <div class="twrap">
         <table>
           <thead><tr><th style="width:210px">टेम्पलेट</th><th style="width:110px">क्रॉस-रेफ</th><th>खोलें</th></tr></thead>
@@ -2913,6 +2935,7 @@ body.dmx-open .dmx-print{ display:none; }
             <tr><td>Drawing Transmittal — MEP</td><td class="mono">DRT · §6.3</td><td><a href="https://docs.google.com/spreadsheets/d/1rZ7GK1jqwVHlzCMGT_uAKjn5COb9_HwiQ3PoHekm6PM/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
             <tr><td>RFI Register</td><td class="mono">RFI · §6.3</td><td><a href="https://docs.google.com/spreadsheets/d/1MXPYjnmwvFEEZbslLjVNV8uqzbsyWjUPMMApIafa-dU/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
                   <tr><td>WIR Register</td><td class="mono">WIR · §6.3</td><td><a href="https://drive.google.com/file/d/1uZMYztRlu54T6XRWxWT1cQrPB70FxnWo/view" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+                  <tr><td>SPOC क्वेरी व कोऑर्डिनेशन रजिस्टर</td><td class="mono">—</td><td><a href="https://docs.google.com/spreadsheets/d/1xW-gAmBzBNzpWRv7ZTU6wwm7t2R-p7Kqun18x0ncSuE/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
             <tr><td>Sanction Document &amp; Drawings Register</td><td class="mono">§8</td><td><a href="https://docs.google.com/spreadsheets/d/1HNHZ-ZoqKYoofcJOjyAyZVxdaIFqIQDQNuxvqLvDT_o/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
             <tr><td>KMC के साथ लेटर रजिस्टर</td><td class="mono">KMC · §8</td><td><a href="https://docs.google.com/spreadsheets/d/1Jghm5OhNgxZqpAF7wYTLx5X4zF1ejXkaPGO1KLCsYfA/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
             <tr><td>Method Statement Register</td><td class="mono">§9.2</td><td><a href="https://docs.google.com/spreadsheets/d/1wXcLl3v8TbvKLsSb5qnZy47WBn0xSCgdEvLQT-cycPU/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
@@ -3446,5 +3469,37 @@ body.dmx-open .dmx-print{ display:none; }
     });
   }
   setAll(false);
+})();
+</script>
+<script>
+/* Filters the register-template table that follows each search box. Rows are
+   matched on their whole text, so a code (WIR) finds its row as readily as a
+   name does. */
+(function(){
+  var boxes = document.querySelectorAll('.rsearch');
+  for(var i = 0; i < boxes.length; i++){
+    (function(box){
+      var input = box.querySelector('input');
+      var out   = box.querySelector('.rsearch-n');
+      var wrap  = box.nextElementSibling;
+      if(!input || !wrap){ return; }
+      var all = wrap.querySelectorAll('table tr'), rows = [];
+      for(var r = 0; r < all.length; r++){
+        if(!all[r].querySelector('th')){ rows.push(all[r]); }
+      }
+      function apply(){
+        var q = input.value.replace(/\s+/g,' ').trim().toLowerCase(), n = 0;
+        for(var r = 0; r < rows.length; r++){
+          var hit = !q || rows[r].textContent.toLowerCase().indexOf(q) > -1;
+          rows[r].hidden = !hit;
+          if(hit){ n++; }
+        }
+        out.textContent = q ? (n + ' / ' + rows.length) : '';
+      }
+      input.addEventListener('input', apply);
+      input.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ input.value = ''; apply(); } });
+      apply();
+    })(boxes[i]);
+  }
 })();
 </script>
