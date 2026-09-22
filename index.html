@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260922-171515">
+<meta name="sop-build" content="20260922-180129">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -775,7 +775,31 @@ tbody tr.suggested td:first-child{color:var(--suggest);}
   table{ table-layout:fixed !important; width:100% !important; }
   thead th, tbody td{ white-space:normal !important; }
 }
-</style>
+
+/* ---- SOP search --------------------------------------------------------
+   This page shows one section at a time; every other section is
+   display:none, so the browser's own Ctrl+F searches only whatever
+   happens to be open and silently misses the other seventeen. This bar
+   searches the whole document of the language currently showing, opens
+   the section picked and highlights the match inside it. Hidden in print,
+   where the full document is on the page anyway. */
+.sopsearch{ position:relative; z-index:30; max-width:1260px; margin:12px auto 0; padding:0 22px; box-sizing:border-box; }
+.sopsearch-row{ display:flex; align-items:center; gap:10px; }
+.sopsearch-row input{ flex:1 1 auto; min-width:0; font:inherit; font-size:14.5px; padding:9px 13px; border:1px solid var(--rule-strong); border-radius:7px; background:var(--paper-raised); color:var(--ink); }
+.sopsearch-row input:focus{ outline:none; border-color:var(--structural); box-shadow:0 0 0 3px var(--structural-bg); }
+.sopsearch-n{ flex:0 0 auto; font-size:12px; color:var(--ink-faint); white-space:nowrap; }
+/* Absolute, so a long result list overlays the document instead of
+   shoving the sticky section bar down the page every keystroke. */
+.sopsearch-out{ position:absolute; left:22px; right:22px; top:100%; margin-top:6px; z-index:40; background:var(--paper-raised); border:1px solid var(--rule-strong); border-radius:8px; box-shadow:var(--shadow); max-height:min(58vh,440px); overflow-y:auto; }
+.sopsearch-out button{ display:block; width:100%; text-align:left; font:inherit; background:none; border:none; border-bottom:1px solid var(--rule); padding:11px 14px; cursor:pointer; color:var(--ink); }
+.sopsearch-out button:last-child{ border-bottom:none; }
+.sopsearch-out button:hover, .sopsearch-out button:focus{ background:var(--structural-bg); outline:none; }
+.sopsearch-hit-sec{ display:block; font-size:12.5px; font-weight:600; color:var(--structural); margin-bottom:3px; }
+.sopsearch-hit-txt{ display:block; font-size:13px; line-height:1.55; color:var(--ink-soft); }
+.sopsearch-out mark, mark.sop-hit{ background:var(--gold-bg); color:inherit; border-radius:2px; padding:0 1px; }
+mark.sop-hit.is-first{ background:var(--stamp-bg-strong); }
+@media (max-width:640px){ .sopsearch{ padding:0 14px; } .sopsearch-out{ left:14px; right:14px; } }
+@media print{ .sopsearch{ display:none !important; } mark.sop-hit{ background:none !important; padding:0 !important; } }</style>
 
 <div id="update-banner" style="display:none;background:#1f6f4a;color:#fff;font-size:13px;line-height:1.5;padding:9px 16px;text-align:center;">
   <a id="update-banner-link" href="#" target="_blank" style="color:#fff;text-decoration:underline;font-weight:600;">Update</a>
@@ -809,6 +833,13 @@ tbody tr.suggested td:first-child{color:var(--suggest);}
   <div class="toolbar-updated">Last updated / সর্বশেষ আপডেট: <span id="updated-stamp">22 September 2026</span></div>
 </div>
 <div class="toolbar-hint" id="toolbar-hint-text">"Save PDF" saves the file directly / "Save PDF" সরাসরি ফাইল সেভ করে</div>
+<div class="sopsearch" id="sopsearch">
+  <div class="sopsearch-row">
+    <input type="search" id="sopsearch-in" autocomplete="off" spellcheck="false">
+    <span class="sopsearch-n" id="sopsearch-n"></span>
+  </div>
+  <div class="sopsearch-out" id="sopsearch-out" hidden></div>
+</div>
 
 <button type="button" id="refresh-fab" title="Reload latest content / সর্বশেষ কনটেন্ট রিলোড করুন" style="position:fixed;right:18px;bottom:18px;z-index:500;display:flex;align-items:center;gap:7px;background:#1f6f4a;color:#fff;border:none;border-radius:999px;padding:11px 18px;font-size:13.5px;font-weight:600;box-shadow:0 3px 10px rgba(0,0,0,0.25);cursor:pointer;">
   <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-2.64-6.36M21 3v6h-6"/></svg>
@@ -3850,5 +3881,241 @@ tr[hidden]{ display:none !important; }
       apply();
     })(boxes[i]);
   }
+})();
+</script>
+
+<!-- SOP search. Indexes each language's sections from its own menu links,
+     so a section added to the menu is searchable with no change here. -->
+<script>
+(function(){
+  var LB = {
+  "en": {
+    "ph": "Search the SOP — a word, a code, a section name…",
+    "one": "1 section",
+    "many": "{n} sections",
+    "none": "No match",
+    "short": "Type 2 or more characters",
+    "digits": ""
+  },
+  "bn": {
+    "ph": "SOP-তে খুঁজুন — শব্দ, কোড বা সেকশনের নাম…",
+    "one": "১টি সেকশন",
+    "many": "{n}টি সেকশন",
+    "none": "কিছু পাওয়া যায়নি",
+    "short": "অন্তত ২টি অক্ষর লিখুন",
+    "digits": "০১২৩৪৫৬৭৮৯"
+  },
+  "hi": {
+    "ph": "SOP में खोजें — शब्द, कोड या सेक्शन का नाम…",
+    "one": "१ सेक्शन",
+    "many": "{n} सेक्शन",
+    "none": "कुछ नहीं मिला",
+    "short": "कम से कम २ अक्षर लिखें",
+    "digits": "०१२३४५६७८९"
+  }
+};
+  var box = document.getElementById('sopsearch');
+  if(!box){ return; }
+  var input = document.getElementById('sopsearch-in');
+  var cnt   = document.getElementById('sopsearch-n');
+  var out   = document.getElementById('sopsearch-out');
+  var idx = {}, timer = null;
+
+  function activeDoc(){ return document.querySelector('.doc-view.active'); }
+  function activeLang(){
+    var d = activeDoc(), m = d && d.className.match(/doc-(en|bn|hi)/);
+    return m ? m[1] : 'en';
+  }
+  function lb(){ return LB[activeLang()] || LB.en; }
+  // The document writes its numbers in the script of its own language, so
+  // a count of "3 sections" has to follow suit.
+  function num(n){
+    var d = lb().digits, s = String(n);
+    if(!d){ return s; }
+    return s.replace(/[0-9]/g, function(c){ return d.charAt(Number(c)); });
+  }
+  function norm(s){ return s.toLowerCase(); }
+  function relabel(){
+    input.placeholder = lb().ph;
+    input.setAttribute('aria-label', lb().ph);
+  }
+
+  function buildIndex(doc){
+    if(idx[doc.id]){ return idx[doc.id]; }
+    var list = [];
+    doc.querySelectorAll('.toc ol a').forEach(function(a){
+      var href = a.getAttribute('href');
+      if(!href || href.charAt(0) !== '#'){ return; }
+      var sec = doc.querySelector('#' + CSS.escape(href.slice(1)));
+      if(!sec){ return; }
+      var eye = sec.querySelector('.eyebrow');
+      list.push({
+        link: a,
+        sec: sec,
+        no: eye ? eye.textContent.trim() : '',
+        title: (a.textContent || '').replace(/\s+/g, ' ').trim(),
+        text: (sec.textContent || '').replace(/\s+/g, ' ').trim()
+      });
+    });
+    idx[doc.id] = list;
+    return list;
+  }
+
+  // Never wrap a <mark> inside a <select>/<option> or a script: it would be
+  // invalid markup and would break the distribution-matrix dropdowns.
+  function skippable(node, root){
+    var p = node.parentNode;
+    while(p && p !== root){
+      var n = p.nodeName;
+      if(n === 'SCRIPT' || n === 'STYLE' || n === 'SELECT' || n === 'OPTION' || n === 'TEXTAREA' || n === 'MARK'){ return true; }
+      p = p.parentNode;
+    }
+    return false;
+  }
+
+  function clearMarks(){
+    document.querySelectorAll('mark.sop-hit').forEach(function(m){
+      var p = m.parentNode;
+      if(!p){ return; }
+      p.replaceChild(document.createTextNode(m.textContent), m);
+      p.normalize();
+    });
+  }
+
+  function markIn(sec, q){
+    var nq = norm(q), first = null, nodes = [], n;
+    var w = document.createTreeWalker(sec, NodeFilter.SHOW_TEXT, null, false);
+    while((n = w.nextNode())){
+      if(!n.nodeValue){ continue; }
+      if(norm(n.nodeValue).indexOf(nq) === -1){ continue; }
+      if(skippable(n, sec)){ continue; }
+      nodes.push(n);
+    }
+    nodes.forEach(function(node){
+      var txt = node.nodeValue, low = norm(txt);
+      var frag = document.createDocumentFragment(), at = 0, i;
+      while((i = low.indexOf(nq, at)) !== -1){
+        if(i > at){ frag.appendChild(document.createTextNode(txt.slice(at, i))); }
+        var mk = document.createElement('mark');
+        mk.className = first ? 'sop-hit' : 'sop-hit is-first';
+        mk.appendChild(document.createTextNode(txt.slice(i, i + q.length)));
+        if(!first){ first = mk; }
+        frag.appendChild(mk);
+        at = i + q.length;
+      }
+      if(at < txt.length){ frag.appendChild(document.createTextNode(txt.slice(at))); }
+      if(node.parentNode){ node.parentNode.replaceChild(frag, node); }
+    });
+    return first;
+  }
+
+  function snippet(text, q){
+    var i = norm(text).indexOf(norm(q));
+    if(i === -1){
+      return { pre: text.slice(0, 120) + (text.length > 120 ? ' \u2026' : ''), hit: '', post: '' };
+    }
+    var s = Math.max(0, i - 55), e = Math.min(text.length, i + q.length + 80);
+    return {
+      pre:  (s > 0 ? '\u2026 ' : '') + text.slice(s, i),
+      hit:  text.slice(i, i + q.length),
+      post: text.slice(i + q.length, e) + (e < text.length ? ' \u2026' : '')
+    };
+  }
+
+  function close(){ out.hidden = true; out.innerHTML = ''; }
+
+  function run(){
+    var q = input.value.trim();
+    clearMarks();
+    if(q.length < 2){ cnt.textContent = q.length ? lb().short : ''; close(); return; }
+    var doc = activeDoc();
+    if(!doc){ return; }
+    var nq = norm(q), hits = [];
+    buildIndex(doc).forEach(function(it, order){
+      var inTitle = norm(it.title).indexOf(nq) !== -1;
+      var low = norm(it.text), n = 0, at = 0, k;
+      while((k = low.indexOf(nq, at)) !== -1){ n++; at = k + nq.length; }
+      if(inTitle || n){ hits.push({ it: it, title: inTitle ? 1 : 0, n: n, order: order }); }
+    });
+    // A section named for the word is what the reader almost always wants;
+    // after that, the one that talks about it most.
+    hits.sort(function(a, b){ return (b.title - a.title) || (b.n - a.n) || (a.order - b.order); });
+    cnt.textContent = hits.length
+      ? (hits.length === 1 ? lb().one : lb().many.replace('{n}', num(hits.length)))
+      : lb().none;
+    out.innerHTML = '';
+    if(!hits.length){ close(); return; }
+    hits.forEach(function(hit){
+      var it = hit.it;
+      var b = document.createElement('button');
+      b.type = 'button';
+      var h = document.createElement('span');
+      h.className = 'sopsearch-hit-sec';
+      h.textContent = (it.no ? it.no + ' \u00b7 ' : '') + it.title;
+      b.appendChild(h);
+      var p = document.createElement('span');
+      p.className = 'sopsearch-hit-txt';
+      var sn = snippet(it.text, q);
+      p.appendChild(document.createTextNode(sn.pre));
+      if(sn.hit){
+        var mk = document.createElement('mark');
+        mk.appendChild(document.createTextNode(sn.hit));
+        p.appendChild(mk);
+      }
+      p.appendChild(document.createTextNode(sn.post));
+      b.appendChild(p);
+      b.addEventListener('click', function(){
+        close();
+        it.link.click();           // reuse the menu's own navigation
+        var first = markIn(it.sec, q);
+        if(first && typeof first.scrollIntoView === 'function'){
+          setTimeout(function(){
+            try{ first.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
+            catch(e){ first.scrollIntoView(); }
+          }, 90);
+        }
+      });
+      out.appendChild(b);
+    });
+    out.hidden = false;
+  }
+
+  input.addEventListener('input', function(){
+    clearTimeout(timer);
+    timer = setTimeout(run, 130);
+  });
+  input.addEventListener('keydown', function(ev){
+    if(ev.key === 'Escape'){
+      input.value = ''; cnt.textContent = ''; clearMarks(); close(); input.blur();
+    } else if(ev.key === 'Enter'){
+      var b = out.hidden ? null : out.querySelector('button');
+      if(b){ ev.preventDefault(); b.click(); }
+    }
+  });
+  document.addEventListener('click', function(ev){
+    if(!box.contains(ev.target)){ close(); }
+  });
+  // Leaving old highlights behind after the reader moves on by menu would
+  // be confusing; capture runs before the menu's own click handler, and
+  // the marks this search adds are applied after that handler has run.
+  document.addEventListener('click', function(ev){
+    var a = ev.target && ev.target.closest ? ev.target.closest('.toc a, .toc-home-link') : null;
+    if(a){ clearMarks(); }
+  }, true);
+
+  var sel = document.getElementById('toolbar-lang-select');
+  if(sel){
+    sel.addEventListener('change', function(){
+      input.value = ''; cnt.textContent = ''; clearMarks(); close();
+      setTimeout(relabel, 0);
+    });
+  }
+  // The Welcome screen switches language through this hook rather than the
+  // dropdown, so the placeholder has to follow it too.
+  var origSet = window.AlcoveSetLang;
+  if(typeof origSet === 'function'){
+    window.AlcoveSetLang = function(l){ origSet(l); relabel(); };
+  }
+  relabel();
 })();
 </script>
