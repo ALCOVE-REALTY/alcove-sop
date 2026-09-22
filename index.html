@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260922-101607">
+<meta name="sop-build" content="20260922-103143">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -991,6 +991,73 @@ html{ overflow-x:clip; }
   .home-welcome .hw-title{ font-size:1.85rem; }
   .home-welcome .hw-lead{ font-size:1.06rem; max-width:none; }
   .home-welcome .hw-hint{ font-size:15px; max-width:none; }
+}
+/* -- Home hero: the WELCOME line ---------------------------------------------
+   This is the first thing on the page, so it earns a little craft: gold that
+   deepens down the letterforms, a hairline each side that fades outward and
+   ends in a dot beside the word, and both settling into place as the page
+   opens. Deliberately NOT enlarged much -- it is an eyebrow above the title
+   and should lead the eye there, not compete with it. */
+.home-welcome .hw-greet{
+  --greet-a:#C09A33; --greet-b:#6E5518; --greet-glow:rgba(255,255,255,.55);
+  font-size:1.9rem; letter-spacing:.34em; gap:18px; margin:0 0 26px;
+  animation:hw-greet-in .85s cubic-bezier(.2,.7,.3,1) both;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .home-welcome .hw-greet{
+    --greet-a:#F2D791; --greet-b:#BE9438; --greet-glow:rgba(0,0,0,.45);
+  }
+}
+:root[data-theme="dark"] .home-welcome .hw-greet{
+  --greet-a:#F2D791; --greet-b:#BE9438; --greet-glow:rgba(0,0,0,.45);
+}
+.doc-bn .home-welcome .hw-greet, .doc-hi .home-welcome .hw-greet{ font-size:2rem; letter-spacing:.05em; }
+
+/* Guarded: without the clip, a transparent fill would leave the word invisible. */
+@supports ((-webkit-background-clip:text) or (background-clip:text)){
+  .home-welcome .hw-greet span{
+    background-image:linear-gradient(175deg, var(--greet-a) 8%, var(--greet-b) 92%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:transparent;
+    filter:drop-shadow(0 1px 1px var(--greet-glow));
+  }
+}
+
+/* Each flank is one 6px box carrying two layers: a hairline that fades away
+   from the word, and a dot at the end nearest it. */
+.home-welcome .hw-greet::before,
+.home-welcome .hw-greet::after{
+  height:6px; flex:0 1 150px; min-width:48px; background-repeat:no-repeat;
+  animation:hw-rule-in .8s .12s both ease-out;
+}
+.home-welcome .hw-greet::before{
+  background-image:
+    radial-gradient(circle, var(--greet-a) 0 2.5px, transparent 2.6px),
+    linear-gradient(90deg, transparent, var(--greet-a));
+  background-position:right center, left center;
+  background-size:6px 6px, 100% 1px;
+  transform-origin:right center;
+}
+.home-welcome .hw-greet::after{
+  background-image:
+    radial-gradient(circle, var(--greet-a) 0 2.5px, transparent 2.6px),
+    linear-gradient(90deg, var(--greet-a), transparent);
+  background-position:left center, right center;
+  background-size:6px 6px, 100% 1px;
+  transform-origin:left center;
+}
+
+@keyframes hw-greet-in{ from{ opacity:0; transform:translateY(-7px); } to{ opacity:1; transform:none; } }
+@keyframes hw-rule-in { from{ opacity:0; transform:scaleX(0); }    to{ opacity:1; transform:scaleX(1); } }
+@media (prefers-reduced-motion: reduce){
+  .home-welcome .hw-greet,
+  .home-welcome .hw-greet::before,
+  .home-welcome .hw-greet::after{ animation:none; }
+}
+@media (max-width:900px){
+  .home-welcome .hw-greet{ font-size:1.4rem; letter-spacing:.24em; gap:12px; margin-bottom:18px; }
+  .doc-bn .home-welcome .hw-greet, .doc-hi .home-welcome .hw-greet{ font-size:1.45rem; letter-spacing:.04em; }
+  .home-welcome .hw-greet::before, .home-welcome .hw-greet::after{ flex:0 1 74px; min-width:26px; }
 }</style>
 
 <!-- ============================= ENGLISH ============================= -->
