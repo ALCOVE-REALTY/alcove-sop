@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260922-142623">
+<meta name="sop-build" content="20260922-143020">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -711,7 +711,6 @@ strong{font-weight:700;}
 .callout.warn b{color:var(--stamp);}
 
 code, .tag{ font-family:"IBM Plex Mono",monospace; font-size:.86em; background:var(--code-bg); padding:.12em .4em; border-radius:4px; }
-.tag.suggested{background:var(--suggest-bg); color:var(--suggest); font-weight:600;}
 
 .codestring{ display:flex; flex-wrap:wrap; gap:6px; font-family:"IBM Plex Mono",monospace; font-size:13.5px; margin:14px 0 18px; }
 .codestring span{ background:var(--paper-raised); border:1px solid var(--rule-strong); border-radius:5px; padding:6px 10px; }
@@ -1134,6 +1133,7 @@ body.dmx-open .dmx-print{ display:none; }
   <details class="changelog">
     <summary>What's new <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§16 — removed the "suggested" tag from the Method Statement Register, Consultant Masters, File Name &amp; Location Index, Insurance Policy Tracker and Land Owner Email Register. All five are in use, and the tag left it unclear whether they were.</span></div>
         <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§11 — the distribution matrix is confirmed. The values shown are the agreed ones for all fifteen document types; any change from here goes through Document Control.</span></div>
         <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§11 — completed the distribution matrix. <span class="tag">DAR</span>, <span class="tag">CVA</span>, <span class="tag">SI</span>, <span class="tag">SOR</span>, <span class="tag">MTC</span>, <span class="tag">ABD</span>, <span class="tag">SNL</span>, <span class="tag">HOTO</span> and <span class="tag">PR</span> now have rows, and notes cover transmittals and what A means on a query.</span></div>
         <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>Corrected the document management system throughout: the SOP named <span class="tag">ACC</span> (Autodesk Construction Cloud), but the system actually in use is <span class="tag">Autodesk Forma</span>. All references now read Forma.</span></div>
@@ -1665,11 +1665,11 @@ body.dmx-open .dmx-print{ display:none; }
             <tr><td>RFI Register</td><td class="mono">RFI · §6.3</td><td><a href="https://docs.google.com/spreadsheets/d/1MXPYjnmwvFEEZbslLjVNV8uqzbsyWjUPMMApIafa-dU/edit" target="_blank" rel="noopener">Open register</a></td></tr>
             <tr><td>Sanction Document &amp; Drawings Register</td><td class="mono">§8</td><td><a href="https://docs.google.com/spreadsheets/d/1HNHZ-ZoqKYoofcJOjyAyZVxdaIFqIQDQNuxvqLvDT_o/edit" target="_blank" rel="noopener">Open register</a></td></tr>
             <tr><td>KMC Sanction Register</td><td class="mono">KMC · §8</td><td><a href="https://docs.google.com/spreadsheets/d/1Jghm5OhNgxZqpAF7wYTLx5X4zF1ejXkaPGO1KLCsYfA/edit" target="_blank" rel="noopener">Open register</a></td></tr>
-            <tr><td>Method Statement Register <span class="tag suggested">suggested</span></td><td class="mono">§9.2</td><td><a href="https://docs.google.com/spreadsheets/d/1wXcLl3v8TbvKLsSb5qnZy47WBn0xSCgdEvLQT-cycPU/edit" target="_blank" rel="noopener">Open register</a></td></tr>
-            <tr><td>Consultant Masters <span class="tag suggested">suggested</span></td><td class="mono">§11</td><td><a href="https://docs.google.com/spreadsheets/d/1g7K3NgQb8lfC-zv1UdbYYtUvbBkQ-8tX3xmTtASOJfY/edit" target="_blank" rel="noopener">Open register</a></td></tr>
-            <tr><td>File Name &amp; Location Index <span class="tag suggested">suggested</span></td><td class="mono">§9.6</td><td><a href="https://docs.google.com/spreadsheets/d/1gU1h8jh-e7qR1ZJPkpH1eLkFL74OSIGymToAM2tjwUc/edit" target="_blank" rel="noopener">Open register</a></td></tr>
-            <tr><td>Insurance Policy Tracker <span class="tag suggested">suggested</span></td><td class="mono">—</td><td><a href="https://docs.google.com/spreadsheets/d/1BRqBkAVUkybl9VycpndTIY51daIRL9WkXokHe7SxcRg/edit" target="_blank" rel="noopener">Open register</a></td></tr>
-            <tr><td>Land Owner Email Register <span class="tag suggested">suggested</span></td><td class="mono">—</td><td><a href="https://docs.google.com/spreadsheets/d/1ixNkpaCmGkGzZz9TgL9UbqCbMwF88rGwnXdl0ZnnT40/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr><td>Method Statement Register</td><td class="mono">§9.2</td><td><a href="https://docs.google.com/spreadsheets/d/1wXcLl3v8TbvKLsSb5qnZy47WBn0xSCgdEvLQT-cycPU/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr><td>Consultant Masters</td><td class="mono">§11</td><td><a href="https://docs.google.com/spreadsheets/d/1g7K3NgQb8lfC-zv1UdbYYtUvbBkQ-8tX3xmTtASOJfY/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr><td>File Name &amp; Location Index</td><td class="mono">§9.6</td><td><a href="https://docs.google.com/spreadsheets/d/1gU1h8jh-e7qR1ZJPkpH1eLkFL74OSIGymToAM2tjwUc/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr><td>Insurance Policy Tracker</td><td class="mono">—</td><td><a href="https://docs.google.com/spreadsheets/d/1BRqBkAVUkybl9VycpndTIY51daIRL9WkXokHe7SxcRg/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr><td>Land Owner Email Register</td><td class="mono">—</td><td><a href="https://docs.google.com/spreadsheets/d/1ixNkpaCmGkGzZz9TgL9UbqCbMwF88rGwnXdl0ZnnT40/edit" target="_blank" rel="noopener">Open register</a></td></tr>
           </tbody>
         </table>
       </div>
@@ -1746,6 +1746,7 @@ body.dmx-open .dmx-print{ display:none; }
   <details class="changelog">
     <summary>নতুন কী যোগ হলো <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§১৬ — মেথড স্টেটমেন্ট রেজিস্টার, কনসালট্যান্ট মাস্টারস, ফাইল নেম ও লোকেশন ইনডেক্স, ইনস্যুরেন্স পলিসি ট্র্যাকার ও ল্যান্ড ওনার ইমেল রেজিস্টার থেকে "সাজেস্টেড" চিহ্নটি সরানো হয়েছে। পাঁচটিই ব্যবহার হচ্ছে; চিহ্নটি থাকায় সেটা স্পষ্ট ছিল না।</span></div>
         <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§১১ — ডিস্ট্রিবিউশন ম্যাট্রিক্স চূড়ান্ত হয়েছে। পনেরোটি ডকুমেন্ট টাইপের জন্য এখানে যে মানগুলো দেখানো হচ্ছে সেগুলোই অনুমোদিত; এরপর কোনো পরিবর্তন ডকুমেন্ট কন্ট্রোলের মাধ্যমে হবে।</span></div>
         <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§১১ — ডিস্ট্রিবিউশন ম্যাট্রিক্স সম্পূর্ণ করা হয়েছে। <span class="tag">DAR</span>, <span class="tag">CVA</span>, <span class="tag">SI</span>, <span class="tag">SOR</span>, <span class="tag">MTC</span>, <span class="tag">ABD</span>, <span class="tag">SNL</span>, <span class="tag">HOTO</span> ও <span class="tag">PR</span>-এর সারি যোগ হয়েছে, আর ট্রান্সমিটাল ও প্রশ্নে A-র অর্থ নিয়ে নোট দেওয়া হয়েছে।</span></div>
         <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>পুরো SOP জুড়ে ডকুমেন্ট ম্যানেজমেন্ট সিস্টেমের নাম সংশোধন করা হয়েছে: লেখা ছিল <span class="tag">ACC</span> (Autodesk Construction Cloud), কিন্তু প্রকৃতপক্ষে ব্যবহৃত হয় <span class="tag">Autodesk Forma</span>। সব জায়গায় এখন Forma।</span></div>
@@ -2277,11 +2278,11 @@ body.dmx-open .dmx-print{ display:none; }
             <tr><td>RFI Register</td><td class="mono">RFI · §৬.৩</td><td><a href="https://docs.google.com/spreadsheets/d/1MXPYjnmwvFEEZbslLjVNV8uqzbsyWjUPMMApIafa-dU/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
             <tr><td>Sanction Document &amp; Drawings Register</td><td class="mono">§৮</td><td><a href="https://docs.google.com/spreadsheets/d/1HNHZ-ZoqKYoofcJOjyAyZVxdaIFqIQDQNuxvqLvDT_o/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
             <tr><td>KMC Sanction Register</td><td class="mono">KMC · §৮</td><td><a href="https://docs.google.com/spreadsheets/d/1Jghm5OhNgxZqpAF7wYTLx5X4zF1ejXkaPGO1KLCsYfA/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
-            <tr><td>Method Statement Register <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">§৯.২</td><td><a href="https://docs.google.com/spreadsheets/d/1wXcLl3v8TbvKLsSb5qnZy47WBn0xSCgdEvLQT-cycPU/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
-            <tr><td>Consultant Masters <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">§১১</td><td><a href="https://docs.google.com/spreadsheets/d/1g7K3NgQb8lfC-zv1UdbYYtUvbBkQ-8tX3xmTtASOJfY/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
-            <tr><td>File Name &amp; Location Index <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">§৯.৬</td><td><a href="https://docs.google.com/spreadsheets/d/1gU1h8jh-e7qR1ZJPkpH1eLkFL74OSIGymToAM2tjwUc/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
-            <tr><td>Insurance Policy Tracker <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">—</td><td><a href="https://docs.google.com/spreadsheets/d/1BRqBkAVUkybl9VycpndTIY51daIRL9WkXokHe7SxcRg/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
-            <tr><td>Land Owner Email Register <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">—</td><td><a href="https://docs.google.com/spreadsheets/d/1ixNkpaCmGkGzZz9TgL9UbqCbMwF88rGwnXdl0ZnnT40/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr><td>Method Statement Register</td><td class="mono">§৯.২</td><td><a href="https://docs.google.com/spreadsheets/d/1wXcLl3v8TbvKLsSb5qnZy47WBn0xSCgdEvLQT-cycPU/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr><td>Consultant Masters</td><td class="mono">§১১</td><td><a href="https://docs.google.com/spreadsheets/d/1g7K3NgQb8lfC-zv1UdbYYtUvbBkQ-8tX3xmTtASOJfY/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr><td>File Name &amp; Location Index</td><td class="mono">§৯.৬</td><td><a href="https://docs.google.com/spreadsheets/d/1gU1h8jh-e7qR1ZJPkpH1eLkFL74OSIGymToAM2tjwUc/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr><td>Insurance Policy Tracker</td><td class="mono">—</td><td><a href="https://docs.google.com/spreadsheets/d/1BRqBkAVUkybl9VycpndTIY51daIRL9WkXokHe7SxcRg/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr><td>Land Owner Email Register</td><td class="mono">—</td><td><a href="https://docs.google.com/spreadsheets/d/1ixNkpaCmGkGzZz9TgL9UbqCbMwF88rGwnXdl0ZnnT40/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
           </tbody>
         </table>
       </div>
@@ -2358,6 +2359,7 @@ body.dmx-open .dmx-print{ display:none; }
   <details class="changelog">
     <summary>नया क्या जुड़ा <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§१६ — मेथड स्टेटमेंट रजिस्टर, कंसल्टेंट मास्टर्स, फ़ाइल नेम व लोकेशन इंडेक्स, इंश्योरेंस पॉलिसी ट्रैकर और लैंड ओनर ईमेल रजिस्टर से "सुझाया गया" चिह्न हटाया गया। पाँचों इस्तेमाल में हैं; चिह्न रहने से यह स्पष्ट नहीं था।</span></div>
         <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§११ — डिस्ट्रीब्यूशन मैट्रिक्स तय हो गया। पंद्रह डॉक्यूमेंट टाइप के लिए यहाँ दिखाए गए मान ही स्वीकृत हैं; आगे कोई भी बदलाव डॉक्यूमेंट कंट्रोल के ज़रिए होगा।</span></div>
         <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§११ — डिस्ट्रीब्यूशन मैट्रिक्स पूरा किया गया। <span class="tag">DAR</span>, <span class="tag">CVA</span>, <span class="tag">SI</span>, <span class="tag">SOR</span>, <span class="tag">MTC</span>, <span class="tag">ABD</span>, <span class="tag">SNL</span>, <span class="tag">HOTO</span> व <span class="tag">PR</span> की पंक्तियाँ जोड़ी गईं, और ट्रांसमिटल व प्रश्न पर A के अर्थ पर नोट दिए गए।</span></div>
         <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>पूरे SOP में डॉक्यूमेंट मैनेजमेंट सिस्टम का नाम सुधारा गया: लिखा था <span class="tag">ACC</span> (Autodesk Construction Cloud), पर वास्तव में <span class="tag">Autodesk Forma</span> इस्तेमाल होता है। अब सभी जगह Forma।</span></div>
@@ -2889,11 +2891,11 @@ body.dmx-open .dmx-print{ display:none; }
             <tr><td>RFI Register</td><td class="mono">RFI · §6.3</td><td><a href="https://docs.google.com/spreadsheets/d/1MXPYjnmwvFEEZbslLjVNV8uqzbsyWjUPMMApIafa-dU/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
             <tr><td>Sanction Document &amp; Drawings Register</td><td class="mono">§8</td><td><a href="https://docs.google.com/spreadsheets/d/1HNHZ-ZoqKYoofcJOjyAyZVxdaIFqIQDQNuxvqLvDT_o/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
             <tr><td>KMC Sanction Register</td><td class="mono">KMC · §8</td><td><a href="https://docs.google.com/spreadsheets/d/1Jghm5OhNgxZqpAF7wYTLx5X4zF1ejXkaPGO1KLCsYfA/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
-            <tr><td>Method Statement Register <span class="tag suggested">सुझाया गया</span></td><td class="mono">§9.2</td><td><a href="https://docs.google.com/spreadsheets/d/1wXcLl3v8TbvKLsSb5qnZy47WBn0xSCgdEvLQT-cycPU/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
-            <tr><td>Consultant Masters <span class="tag suggested">सुझाया गया</span></td><td class="mono">§11</td><td><a href="https://docs.google.com/spreadsheets/d/1g7K3NgQb8lfC-zv1UdbYYtUvbBkQ-8tX3xmTtASOJfY/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
-            <tr><td>File Name &amp; Location Index <span class="tag suggested">सुझाया गया</span></td><td class="mono">§9.6</td><td><a href="https://docs.google.com/spreadsheets/d/1gU1h8jh-e7qR1ZJPkpH1eLkFL74OSIGymToAM2tjwUc/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
-            <tr><td>Insurance Policy Tracker <span class="tag suggested">सुझाया गया</span></td><td class="mono">—</td><td><a href="https://docs.google.com/spreadsheets/d/1BRqBkAVUkybl9VycpndTIY51daIRL9WkXokHe7SxcRg/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
-            <tr><td>Land Owner Email Register <span class="tag suggested">सुझाया गया</span></td><td class="mono">—</td><td><a href="https://docs.google.com/spreadsheets/d/1ixNkpaCmGkGzZz9TgL9UbqCbMwF88rGwnXdl0ZnnT40/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr><td>Method Statement Register</td><td class="mono">§9.2</td><td><a href="https://docs.google.com/spreadsheets/d/1wXcLl3v8TbvKLsSb5qnZy47WBn0xSCgdEvLQT-cycPU/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr><td>Consultant Masters</td><td class="mono">§11</td><td><a href="https://docs.google.com/spreadsheets/d/1g7K3NgQb8lfC-zv1UdbYYtUvbBkQ-8tX3xmTtASOJfY/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr><td>File Name &amp; Location Index</td><td class="mono">§9.6</td><td><a href="https://docs.google.com/spreadsheets/d/1gU1h8jh-e7qR1ZJPkpH1eLkFL74OSIGymToAM2tjwUc/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr><td>Insurance Policy Tracker</td><td class="mono">—</td><td><a href="https://docs.google.com/spreadsheets/d/1BRqBkAVUkybl9VycpndTIY51daIRL9WkXokHe7SxcRg/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr><td>Land Owner Email Register</td><td class="mono">—</td><td><a href="https://docs.google.com/spreadsheets/d/1ixNkpaCmGkGzZz9TgL9UbqCbMwF88rGwnXdl0ZnnT40/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
           </tbody>
         </table>
       </div>
