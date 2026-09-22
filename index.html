@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260922-144212">
+<meta name="sop-build" content="20260922-145146">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -1133,6 +1133,7 @@ body.dmx-open .dmx-print{ display:none; }
   <details class="changelog">
     <summary>What's new <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§7 — registers record status with the status codes rather than free text, with the wording used in older registers mapped across (<i>Advance Copy</i> and <i>For Info.</i> → <span class="tag">IFI</span>, <i>Void</i> → <span class="tag">SUP</span>).</span></div>
         <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§6.2 — stated that the project element of a number is always the three-letter code from §4 (<span class="tag">TCV</span>, <span class="tag">DUE</span>, <span class="tag">CRN</span>, <span class="tag">LUX</span>), never the project name or a short form made up for one register.</span></div>
         <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§16 — removed the "suggested" tag from the Method Statement Register, Consultant Masters, File Name &amp; Location Index, Insurance Policy Tracker and Land Owner Email Register. All five are in use, and the tag left it unclear whether they were.</span></div>
         <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§11 — the distribution matrix is confirmed. The values shown are the agreed ones for all fifteen document types; any change from here goes through Document Control.</span></div>
@@ -1436,6 +1437,7 @@ body.dmx-open .dmx-print{ display:none; }
           </tbody>
         </table>
       </div>
+      <div class="callout"><b>Recording status in a register —</b> a register records status with the codes above, never with free text, so that one document's state means the same thing in every register. Wording carried over from older registers maps as: <i>G.F.C.</i> → <code>GFC</code>, <i>Advance Copy</i> and <i>For Info.</i> → <code>IFI</code>, <i>Void</i> → <code>SUP</code>. Entries already made are not rewritten — the codes apply from the next entry onward.</div>
       <div class="callout"><b>How GFC and AFC relate —</b> these are two sequential steps on the same document, not alternatives. GFC issues the document as usable on site; AFC records that the client's or consultant's formal approval of that same document has since been obtained. A document may be issued as GFC first and pick up AFC status later on the same revision — the two are not parallel options.</div>
     </section>
 
@@ -1747,6 +1749,7 @@ body.dmx-open .dmx-print{ display:none; }
   <details class="changelog">
     <summary>নতুন কী যোগ হলো <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§৭ — রেজিস্টারে স্ট্যাটাস নিজের ভাষায় নয়, স্ট্যাটাস কোড দিয়ে লেখা হবে; পুরোনো রেজিস্টারের শব্দগুলোর রূপান্তরও দেওয়া হয়েছে (<i>Advance Copy</i> ও <i>For Info.</i> → <span class="tag">IFI</span>, <i>Void</i> → <span class="tag">SUP</span>)।</span></div>
         <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§৬.২ — স্পষ্ট করা হয়েছে যে নম্বরের প্রজেক্ট অংশটি সবসময় §৪-এর তিন-অক্ষরের কোড (<span class="tag">TCV</span>, <span class="tag">DUE</span>, <span class="tag">CRN</span>, <span class="tag">LUX</span>), প্রজেক্টের নাম বা কোনো রেজিস্টারের জন্য বানানো সংক্ষিপ্ত রূপ নয়।</span></div>
         <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§১৬ — মেথড স্টেটমেন্ট রেজিস্টার, কনসালট্যান্ট মাস্টারস, ফাইল নেম ও লোকেশন ইনডেক্স, ইনস্যুরেন্স পলিসি ট্র্যাকার ও ল্যান্ড ওনার ইমেল রেজিস্টার থেকে "সাজেস্টেড" চিহ্নটি সরানো হয়েছে। পাঁচটিই ব্যবহার হচ্ছে; চিহ্নটি থাকায় সেটা স্পষ্ট ছিল না।</span></div>
         <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§১১ — ডিস্ট্রিবিউশন ম্যাট্রিক্স চূড়ান্ত হয়েছে। পনেরোটি ডকুমেন্ট টাইপের জন্য এখানে যে মানগুলো দেখানো হচ্ছে সেগুলোই অনুমোদিত; এরপর কোনো পরিবর্তন ডকুমেন্ট কন্ট্রোলের মাধ্যমে হবে।</span></div>
@@ -2050,6 +2053,7 @@ body.dmx-open .dmx-print{ display:none; }
           </tbody>
         </table>
       </div>
+      <div class="callout"><b>রেজিস্টারে স্ট্যাটাস লেখা —</b> রেজিস্টারে স্ট্যাটাস লেখা হবে উপরের কোড দিয়ে, নিজের ভাষায় নয় — যাতে একটি ডকুমেন্টের অবস্থা প্রতিটি রেজিস্টারে একই অর্থ বহন করে। পুরোনো রেজিস্টার থেকে চলে আসা শব্দগুলোর রূপান্তর: <i>G.F.C.</i> → <code>GFC</code>, <i>Advance Copy</i> ও <i>For Info.</i> → <code>IFI</code>, <i>Void</i> → <code>SUP</code>। আগে করা এন্ট্রি নতুন করে লেখা হবে না — কোডগুলো পরবর্তী এন্ট্রি থেকে প্রযোজ্য।</div>
       <div class="callout"><b>GFC ও AFC-এর সম্পর্ক —</b> এই দুটি একই ডকুমেন্টের ধারাবাহিক দুটি ধাপ, বিকল্প নয়। GFC ডকুমেন্টটিকে সাইটে ব্যবহারযোগ্য হিসেবে ইস্যু করে; AFC সেই একই ডকুমেন্টের উপর ক্লায়েন্ট/কনসালট্যান্টের আনুষ্ঠানিক অনুমোদন যুক্ত হওয়া নির্দেশ করে। একটি ডকুমেন্ট প্রথমে GFC হিসেবে ইস্যু হতে পারে, পরে একই রিভিশনে AFC স্ট্যাটাস যোগ হতে পারে — দুটো স্ট্যাটাস সমান্তরাল বিকল্প নয়।</div>
     </section>
 
@@ -2361,6 +2365,7 @@ body.dmx-open .dmx-print{ display:none; }
   <details class="changelog">
     <summary>नया क्या जुड़ा <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§७ — रजिस्टर में स्टेटस अपने शब्दों में नहीं, स्टेटस कोड से लिखा जाएगा; पुराने रजिस्टरों के शब्दों का रूपांतरण भी दिया गया (<i>Advance Copy</i> व <i>For Info.</i> → <span class="tag">IFI</span>, <i>Void</i> → <span class="tag">SUP</span>)।</span></div>
         <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§६.२ — स्पष्ट किया गया कि नंबर का प्रोजेक्ट वाला हिस्सा हमेशा §४ का तीन-अक्षर कोड होता है (<span class="tag">TCV</span>, <span class="tag">DUE</span>, <span class="tag">CRN</span>, <span class="tag">LUX</span>), प्रोजेक्ट का नाम या किसी रजिस्टर के लिए बनाया गया संक्षिप्त रूप नहीं।</span></div>
         <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§१६ — मेथड स्टेटमेंट रजिस्टर, कंसल्टेंट मास्टर्स, फ़ाइल नेम व लोकेशन इंडेक्स, इंश्योरेंस पॉलिसी ट्रैकर और लैंड ओनर ईमेल रजिस्टर से "सुझाया गया" चिह्न हटाया गया। पाँचों इस्तेमाल में हैं; चिह्न रहने से यह स्पष्ट नहीं था।</span></div>
         <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§११ — डिस्ट्रीब्यूशन मैट्रिक्स तय हो गया। पंद्रह डॉक्यूमेंट टाइप के लिए यहाँ दिखाए गए मान ही स्वीकृत हैं; आगे कोई भी बदलाव डॉक्यूमेंट कंट्रोल के ज़रिए होगा।</span></div>
@@ -2664,6 +2669,7 @@ body.dmx-open .dmx-print{ display:none; }
           </tbody>
         </table>
       </div>
+      <div class="callout"><b>रजिस्टर में स्टेटस लिखना —</b> रजिस्टर में स्टेटस ऊपर दिए कोड से लिखा जाता है, अपने शब्दों में नहीं — ताकि किसी दस्तावेज़ की स्थिति हर रजिस्टर में एक ही अर्थ रखे। पुराने रजिस्टरों से चले आ रहे शब्दों का रूपांतरण: <i>G.F.C.</i> → <code>GFC</code>, <i>Advance Copy</i> व <i>For Info.</i> → <code>IFI</code>, <i>Void</i> → <code>SUP</code>। पहले की गई प्रविष्टियाँ दोबारा नहीं लिखी जातीं — कोड अगली प्रविष्टि से लागू होते हैं।</div>
       <div class="callout"><b>GFC और AFC का संबंध —</b> ये एक ही दस्तावेज़ के दो क्रमिक चरण हैं, विकल्प नहीं। GFC दस्तावेज़ को साइट पर उपयोग योग्य के रूप में जारी करता है; AFC उसी दस्तावेज़ पर क्लाइंट/कंसल्टेंट का औपचारिक अनुमोदन जुड़ जाने को दर्शाता है। कोई दस्तावेज़ पहले GFC के रूप में जारी हो सकता है और बाद में उसी रिवीज़न पर AFC स्टेटस पा सकता है — दोनों समानांतर विकल्प नहीं हैं।</div>
     </section>
 
