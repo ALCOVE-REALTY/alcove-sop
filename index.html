@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260922-134829">
+<meta name="sop-build" content="20260922-135904">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -1109,6 +1109,7 @@ html{ overflow-x:clip; }
   <details class="changelog">
     <summary>What's new <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§11 — completed the distribution matrix. <span class="tag">DAR</span>, <span class="tag">CVA</span>, <span class="tag">SI</span>, <span class="tag">SOR</span>, <span class="tag">MTC</span>, <span class="tag">ABD</span>, <span class="tag">SNL</span>, <span class="tag">HOTO</span> and <span class="tag">PR</span> now have rows, and notes cover transmittals and what A means on a query.</span></div>
         <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>Corrected the document management system throughout: the SOP named <span class="tag">ACC</span> (Autodesk Construction Cloud), but the system actually in use is <span class="tag">Autodesk Forma</span>. All references now read Forma.</span></div>
         <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§3 — defined <span class="tag">DRG</span> and <span class="tag">Forma</span>, the two terms the SOP used without explaining anywhere.</span></div>
         <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>Quick reference now carries every code in use — the register, status and statutory codes that were missing have been added, and <span class="tag">OTH</span> moved out of the register list into the statutory group where it belongs.</span></div>
@@ -1528,10 +1529,21 @@ html{ overflow-x:clip; }
             <tr><td>WIR</td><td class="num">I</td><td class="num">I</td><td class="num">–</td><td class="num">A</td><td class="num">R</td></tr>
             <tr><td>NCR</td><td class="num">A</td><td class="num">R</td><td class="num">–</td><td class="num">R</td><td class="num">I</td></tr>
             <tr><td>RFI</td><td class="num">I</td><td class="num">A</td><td class="num">–</td><td class="num">I</td><td class="num">R</td></tr>
+              <tr><td>DAR</td><td class="num">I</td><td class="num">A</td><td class="num">–</td><td class="num">I</td><td class="num">I</td></tr>
+              <tr><td>CVA</td><td class="num">I</td><td class="num">A</td><td class="num">–</td><td class="num">I</td><td class="num">R</td></tr>
+              <tr><td>SI</td><td class="num">I</td><td class="num">A</td><td class="num">–</td><td class="num">I</td><td class="num">R</td></tr>
+              <tr><td>SOR</td><td class="num">I</td><td class="num">R</td><td class="num">–</td><td class="num">A</td><td class="num">R</td></tr>
+              <tr><td>MTC</td><td class="num">I</td><td class="num">R</td><td class="num">–</td><td class="num">A</td><td class="num">I</td></tr>
+              <tr><td>ABD</td><td class="num">A</td><td class="num">R</td><td class="num">–</td><td class="num">R</td><td class="num">I</td></tr>
+              <tr><td>SNL</td><td class="num">I</td><td class="num">R</td><td class="num">–</td><td class="num">A</td><td class="num">R</td></tr>
+              <tr><td>HOTO</td><td class="num">A</td><td class="num">I</td><td class="num">I</td><td class="num">R</td><td class="num">R</td></tr>
+              <tr><td>PR</td><td class="num">I</td><td class="num">I</td><td class="num">–</td><td class="num">I</td><td class="num">R</td></tr>
           </tbody>
         </table>
       </div>
       <div class="callout"><b>Joint review —</b> where more than one party has to review a document together, more than one column may be marked <code>R</code> for that document type. That is normal where the work calls for it, not an exception.</div>
+      <div class="callout"><b>Transmittals —</b> <code>TRN</code> and <code>DRT</code> carry other documents rather than having recipients of their own. A transmittal goes to exactly the parties listed for whatever it encloses, in the same capacities.</div>
+      <div class="callout"><b>What <code>A</code> means on a query —</b> on <code>RFI</code>, <code>CVA</code> and <code>SI</code> the <code>A</code> marks the party whose answer or instruction is binding — not an approval in the sense used for drawings and materials. A drawing is approved through <code>DAR</code>, and that approval is what later shows on the drawing as <code>AFC</code> (§7).</div>
     </section>
 
     <section id="en-security">
@@ -1706,6 +1718,7 @@ html{ overflow-x:clip; }
   <details class="changelog">
     <summary>নতুন কী যোগ হলো <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§১১ — ডিস্ট্রিবিউশন ম্যাট্রিক্স সম্পূর্ণ করা হয়েছে। <span class="tag">DAR</span>, <span class="tag">CVA</span>, <span class="tag">SI</span>, <span class="tag">SOR</span>, <span class="tag">MTC</span>, <span class="tag">ABD</span>, <span class="tag">SNL</span>, <span class="tag">HOTO</span> ও <span class="tag">PR</span>-এর সারি যোগ হয়েছে, আর ট্রান্সমিটাল ও প্রশ্নে A-র অর্থ নিয়ে নোট দেওয়া হয়েছে।</span></div>
         <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>পুরো SOP জুড়ে ডকুমেন্ট ম্যানেজমেন্ট সিস্টেমের নাম সংশোধন করা হয়েছে: লেখা ছিল <span class="tag">ACC</span> (Autodesk Construction Cloud), কিন্তু প্রকৃতপক্ষে ব্যবহৃত হয় <span class="tag">Autodesk Forma</span>। সব জায়গায় এখন Forma।</span></div>
         <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§৩ — <span class="tag">DRG</span> ও <span class="tag">Forma</span> সংজ্ঞায়িত করা হয়েছে; এই দুটি শব্দ SOP-তে ব্যবহার হলেও কোথাও ব্যাখ্যা করা ছিল না।</span></div>
         <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>কুইক রেফারেন্সে এখন ব্যবহৃত সব কোড আছে — বাদ পড়া রেজিস্টার, স্ট্যাটাস ও স্ট্যাটুটরি কোডগুলো যোগ করা হয়েছে, আর <span class="tag">OTH</span>-কে রেজিস্টারের তালিকা থেকে সরিয়ে তার নিজের স্ট্যাটুটরি দলে নেওয়া হয়েছে।</span></div>
@@ -2125,10 +2138,21 @@ html{ overflow-x:clip; }
             <tr><td>WIR</td><td class="num">I</td><td class="num">I</td><td class="num">–</td><td class="num">A</td><td class="num">R</td></tr>
             <tr><td>NCR</td><td class="num">A</td><td class="num">R</td><td class="num">–</td><td class="num">R</td><td class="num">I</td></tr>
             <tr><td>RFI</td><td class="num">I</td><td class="num">A</td><td class="num">–</td><td class="num">I</td><td class="num">R</td></tr>
+              <tr><td>DAR</td><td class="num">I</td><td class="num">A</td><td class="num">–</td><td class="num">I</td><td class="num">I</td></tr>
+              <tr><td>CVA</td><td class="num">I</td><td class="num">A</td><td class="num">–</td><td class="num">I</td><td class="num">R</td></tr>
+              <tr><td>SI</td><td class="num">I</td><td class="num">A</td><td class="num">–</td><td class="num">I</td><td class="num">R</td></tr>
+              <tr><td>SOR</td><td class="num">I</td><td class="num">R</td><td class="num">–</td><td class="num">A</td><td class="num">R</td></tr>
+              <tr><td>MTC</td><td class="num">I</td><td class="num">R</td><td class="num">–</td><td class="num">A</td><td class="num">I</td></tr>
+              <tr><td>ABD</td><td class="num">A</td><td class="num">R</td><td class="num">–</td><td class="num">R</td><td class="num">I</td></tr>
+              <tr><td>SNL</td><td class="num">I</td><td class="num">R</td><td class="num">–</td><td class="num">A</td><td class="num">R</td></tr>
+              <tr><td>HOTO</td><td class="num">A</td><td class="num">I</td><td class="num">I</td><td class="num">R</td><td class="num">R</td></tr>
+              <tr><td>PR</td><td class="num">I</td><td class="num">I</td><td class="num">–</td><td class="num">I</td><td class="num">R</td></tr>
           </tbody>
         </table>
       </div>
       <div class="callout"><b>জয়েন্ট রিভিউ —</b> একাধিক পক্ষ যদি যৌথভাবে একটি ডকুমেন্ট রিভিউ করেন, সেই ডকুমেন্ট টাইপের একাধিক কলামে <code>R</code> চিহ্নিত করা যেতে পারে — এটি ব্যতিক্রম নয়, প্রয়োজন অনুযায়ী স্বাভাবিক।</div>
+      <div class="callout"><b>ট্রান্সমিটাল —</b> <code>TRN</code> ও <code>DRT</code> নিজেরা স্বতন্ত্র ডকুমেন্ট নয়, অন্য ডকুমেন্ট বহন করে। ভিতরে যা পাঠানো হচ্ছে, ট্রান্সমিটাল ঠিক তাঁদের কাছেই যাবে, একই ভূমিকায়।</div>
+      <div class="callout"><b>প্রশ্নের ক্ষেত্রে <code>A</code>-র মানে —</b> <code>RFI</code>, <code>CVA</code> ও <code>SI</code>-তে <code>A</code> বোঝায় যাঁর উত্তর বা নির্দেশ চূড়ান্ত — ড্রয়িং বা মালপত্র অনুমোদনের অর্থে নয়। ড্রয়িং অনুমোদিত হয় <code>DAR</code>-এর মাধ্যমে, আর সেই অনুমোদনই পরে ড্রয়িং-এ <code>AFC</code> হিসেবে দেখা যায় (§৭)।</div>
     </section>
 
     <section id="bn-security">
@@ -2303,6 +2327,7 @@ html{ overflow-x:clip; }
   <details class="changelog">
     <summary>नया क्या जुड़ा <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§११ — डिस्ट्रीब्यूशन मैट्रिक्स पूरा किया गया। <span class="tag">DAR</span>, <span class="tag">CVA</span>, <span class="tag">SI</span>, <span class="tag">SOR</span>, <span class="tag">MTC</span>, <span class="tag">ABD</span>, <span class="tag">SNL</span>, <span class="tag">HOTO</span> व <span class="tag">PR</span> की पंक्तियाँ जोड़ी गईं, और ट्रांसमिटल व प्रश्न पर A के अर्थ पर नोट दिए गए।</span></div>
         <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>पूरे SOP में डॉक्यूमेंट मैनेजमेंट सिस्टम का नाम सुधारा गया: लिखा था <span class="tag">ACC</span> (Autodesk Construction Cloud), पर वास्तव में <span class="tag">Autodesk Forma</span> इस्तेमाल होता है। अब सभी जगह Forma।</span></div>
         <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§३ — <span class="tag">DRG</span> व <span class="tag">Forma</span> को परिभाषित किया गया; ये दोनों शब्द SOP में इस्तेमाल तो थे, पर कहीं समझाए नहीं गए थे।</span></div>
         <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>क्विक रेफरेंस में अब इस्तेमाल होने वाले सभी कोड हैं — छूटे हुए रजिस्टर, स्टेटस व स्टैट्यूटरी कोड जोड़े गए, और <span class="tag">OTH</span> को रजिस्टर सूची से हटाकर उसके अपने स्टैट्यूटरी समूह में रखा गया।</span></div>
@@ -2722,10 +2747,21 @@ html{ overflow-x:clip; }
             <tr><td>WIR</td><td class="num">I</td><td class="num">I</td><td class="num">–</td><td class="num">A</td><td class="num">R</td></tr>
             <tr><td>NCR</td><td class="num">A</td><td class="num">R</td><td class="num">–</td><td class="num">R</td><td class="num">I</td></tr>
             <tr><td>RFI</td><td class="num">I</td><td class="num">A</td><td class="num">–</td><td class="num">I</td><td class="num">R</td></tr>
+              <tr><td>DAR</td><td class="num">I</td><td class="num">A</td><td class="num">–</td><td class="num">I</td><td class="num">I</td></tr>
+              <tr><td>CVA</td><td class="num">I</td><td class="num">A</td><td class="num">–</td><td class="num">I</td><td class="num">R</td></tr>
+              <tr><td>SI</td><td class="num">I</td><td class="num">A</td><td class="num">–</td><td class="num">I</td><td class="num">R</td></tr>
+              <tr><td>SOR</td><td class="num">I</td><td class="num">R</td><td class="num">–</td><td class="num">A</td><td class="num">R</td></tr>
+              <tr><td>MTC</td><td class="num">I</td><td class="num">R</td><td class="num">–</td><td class="num">A</td><td class="num">I</td></tr>
+              <tr><td>ABD</td><td class="num">A</td><td class="num">R</td><td class="num">–</td><td class="num">R</td><td class="num">I</td></tr>
+              <tr><td>SNL</td><td class="num">I</td><td class="num">R</td><td class="num">–</td><td class="num">A</td><td class="num">R</td></tr>
+              <tr><td>HOTO</td><td class="num">A</td><td class="num">I</td><td class="num">I</td><td class="num">R</td><td class="num">R</td></tr>
+              <tr><td>PR</td><td class="num">I</td><td class="num">I</td><td class="num">–</td><td class="num">I</td><td class="num">R</td></tr>
           </tbody>
         </table>
       </div>
       <div class="callout"><b>जॉइंट रिव्यू —</b> यदि एक से अधिक पक्ष मिलकर किसी दस्तावेज़ की समीक्षा करते हैं, तो उस डॉक्यूमेंट टाइप के एक से अधिक कॉलम में <code>R</code> चिह्नित किया जा सकता है — यह अपवाद नहीं, ज़रूरत के अनुसार स्वाभाविक है।</div>
+      <div class="callout"><b>ट्रांसमिटल —</b> <code>TRN</code> व <code>DRT</code> स्वयं स्वतंत्र दस्तावेज़ नहीं, दूसरे दस्तावेज़ों को ले जाते हैं। भीतर जो भेजा जा रहा है, ट्रांसमिटल ठीक उन्हीं के पास जाएगा, उन्हीं भूमिकाओं में।</div>
+      <div class="callout"><b>प्रश्न पर <code>A</code> का अर्थ —</b> <code>RFI</code>, <code>CVA</code> व <code>SI</code> में <code>A</code> उस पक्ष को दर्शाता है जिसका उत्तर या निर्देश बाध्यकारी है — ड्रॉइंग या सामग्री के अनुमोदन के अर्थ में नहीं। ड्रॉइंग <code>DAR</code> के ज़रिए अनुमोदित होती है, और वही अनुमोदन बाद में ड्रॉइंग पर <code>AFC</code> के रूप में दिखता है (§७)।</div>
     </section>
 
     <section id="hi-security">
