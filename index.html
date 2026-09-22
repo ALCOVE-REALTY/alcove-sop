@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260922-103143">
+<meta name="sop-build" content="20260922-112000">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -663,6 +663,7 @@ article > section td, article > section th{ text-align:left; }
 .chip-disc{ background:var(--structural-bg); color:var(--structural); border-color:var(--structural); }
 .chip-reg{ background:var(--gold-bg); color:var(--gold); border-color:var(--gold); }
 .chip-status{ background:var(--stamp-bg); color:var(--stamp); border-color:var(--stamp); }
+.chip-sanc{ background:var(--suggest-bg); color:var(--suggest); border-color:var(--suggest); }
 
 /* ---------- What's new changelog strip ---------- */
 .changelog{
@@ -805,7 +806,7 @@ tbody tr.suggested td:first-child{color:var(--suggest);}
       <span class="btn-long">Document Formats</span><span class="btn-short">Formats</span>
     </a>
   </div>
-  <div class="toolbar-updated">Last updated / সর্বশেষ আপডেট: <span id="updated-stamp">17 September 2026</span></div>
+  <div class="toolbar-updated">Last updated / সর্বশেষ আপডেট: <span id="updated-stamp">22 September 2026</span></div>
 </div>
 <div class="toolbar-hint" id="toolbar-hint-text">"Save PDF" saves the file directly / "Save PDF" সরাসরি ফাইল সেভ করে</div>
 
@@ -1085,7 +1086,7 @@ html{ overflow-x:clip; }
       <div class="cell"><div class="label">Review Cycle</div><input type="text" class="value mono doc-line" data-doc="en-cycle" value="Annual" autocomplete="off" spellcheck="false"></div>
       <div class="cell"><div class="label">Department</div><input type="text" class="value doc-line" data-doc="en-department" value="Document Control, Alcove Realty" autocomplete="off" spellcheck="false"></div>
       <div class="cell"><div class="label">Process Owner</div><input type="text" class="value doc-line" data-doc="en-owner" value="HOD, Document Control" autocomplete="off" spellcheck="false"></div>
-      <div class="cell"><div class="label">Team</div><input type="text" class="value doc-line" data-doc="en-team" value="HOD + 4 Document Controllers" autocomplete="off" spellcheck="false"></div>
+      <div class="cell"><div class="label">Team</div><input type="text" class="value doc-line" data-doc="en-team" value="HOD and the Document Control department" autocomplete="off" spellcheck="false"></div>
       <div class="cell"><div class="label">Classification</div><input type="text" class="value doc-line" data-doc="en-classification" value="Internal" autocomplete="off" spellcheck="false"></div>
     </div>
 
@@ -1108,8 +1109,12 @@ html{ overflow-x:clip; }
   <details class="changelog">
     <summary>What's new <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>Quick reference now carries every code in use — the register, status and statutory codes that were missing have been added, and <span class="tag">OTH</span> moved out of the register list into the statutory group where it belongs.</span></div>
+        <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>Defined <span class="tag">DRG</span> in the §6.3 code table; it appeared in the numbering examples but was never listed.</span></div>
+        <div class="changelog-item"><span class="changelog-date">21 Sep 2026</span><span>§9.8 — retention now follows each project's own contract and statutory requirement, confirmed with the HOD where nothing is specified. The fixed 8-year default is withdrawn.</span></div>
+        <div class="changelog-item"><span class="changelog-date">21 Sep 2026</span><span>§1, §5 and the header — the fixed count of Document Controllers is removed; the department is described by role rather than by headcount.</span></div>
       <div class="changelog-item"><span class="changelog-date">15 Sep 2026</span><span>Added a Prepared&nbsp;/&nbsp;Reviewed&nbsp;/&nbsp;Approved sign-off block to the document header.</span></div>
-      <div class="changelog-item"><span class="changelog-date">15 Sep 2026</span><span>Renamed the ambiguous "SOR" code to <span class="tag">OTH</span> (Other Statutory NOC) for clarity.</span></div>
+      <div class="changelog-item"><span class="changelog-date">15 Sep 2026</span><span>Renamed the statutory "SOR" code to <span class="tag">OTH</span> (Other Statutory NOC) for clarity. <span class="tag">SOR</span> still means Site Observation Report in §6.3 — only the statutory use was renamed.</span></div>
       <div class="changelog-item"><span class="changelog-date">15 Sep 2026</span><span>Linked real register &amp; transmittal templates directly into §16 Related Documents.</span></div>
       <div class="changelog-item"><span class="changelog-date">15 Sep 2026</span><span>Added the Document Formats menu — every register template in one place.</span></div>
     </div>
@@ -1141,7 +1146,14 @@ html{ overflow-x:clip; }
           <span class="chip chip-reg">DRT <span class="full">Drawing Transmittal</span></span>
           <span class="chip chip-reg">WIR <span class="full">Work Inspection Report</span></span>
           <span class="chip chip-reg">NCR <span class="full">Non-Conformance Report</span></span>
-          <span class="chip chip-reg">OTH <span class="full">Other Statutory NOC</span></span>
+          <span class="chip chip-reg">DRG <span class="full">Drawing</span></span>
+          <span class="chip chip-reg">SOR <span class="full">Site Observation Report</span></span>
+          <span class="chip chip-reg">SI <span class="full">Site Instruction</span></span>
+          <span class="chip chip-reg">MTC <span class="full">Material Test Certificate</span></span>
+          <span class="chip chip-reg">ABD <span class="full">As-Built Drawing Register</span></span>
+          <span class="chip chip-reg">SNL <span class="full">Snag / Punch List</span></span>
+          <span class="chip chip-reg">HOTO <span class="full">Handover–Takeover Checklist</span></span>
+          <span class="chip chip-reg">PR <span class="full">Progress Report</span></span>
         </div>
       </div>
       <div class="chipgroup">
@@ -1149,9 +1161,26 @@ html{ overflow-x:clip; }
         <div class="chiprow">
           <span class="chip chip-status">IFR <span class="full">Issued For Review</span></span>
           <span class="chip chip-status">IFA <span class="full">Issued For Approval</span></span>
+          <span class="chip chip-status">IFI <span class="full">Issued For Information</span></span>
           <span class="chip chip-status">GFC <span class="full">Good For Construction</span></span>
           <span class="chip chip-status">AFC <span class="full">Approved For Construction</span></span>
+          <span class="chip chip-status">AWC <span class="full">Approved With Comments</span></span>
+          <span class="chip chip-status">RTN <span class="full">Returned — Resubmit</span></span>
           <span class="chip chip-status">SUP <span class="full">Superseded</span></span>
+        </div>
+      </div>
+      <div class="chipgroup">
+        <div class="glabel">Statutory sanction</div>
+        <div class="chiprow">
+          <span class="chip chip-sanc">KMC <span class="full">Building Permit</span></span>
+          <span class="chip chip-sanc">FIRE <span class="full">Fire Permit</span></span>
+          <span class="chip chip-sanc">AAI <span class="full">Height Clearance NOC</span></span>
+          <span class="chip chip-sanc">DFO <span class="full">Forest / Tree NOC</span></span>
+          <span class="chip chip-sanc">PCB <span class="full">Pollution Control Consent</span></span>
+          <span class="chip chip-sanc">ENV <span class="full">Environmental Clearance</span></span>
+          <span class="chip chip-sanc">LIFT <span class="full">Lift Inspectorate NOC</span></span>
+          <span class="chip chip-sanc">OC/CC <span class="full">Occupancy / Completion Certificate</span></span>
+          <span class="chip chip-sanc">OTH <span class="full">Other Statutory NOC</span></span>
         </div>
       </div>
     </div>
@@ -1340,6 +1369,7 @@ html{ overflow-x:clip; }
             <tr><td class="mono">TRN</td><td>Document Transmittal</td><td>Cover record for any document issued to another party</td></tr>
             <tr><td class="mono">RFI</td><td>Request for Information</td><td>Query raised to design/consultant team for clarification</td></tr>
             <tr><td class="mono">DRT</td><td>Drawing Transmittal</td><td>Cover record specifically for drawing issues, kept separate from general TRN so drawing traceability isn't mixed with correspondence</td></tr>
+              <tr><td class="mono">DRG</td><td>Drawing</td><td>The document-type element inside a drawing number (e.g. DUE-STR-DRG-0001, §6.1) — it marks the document as a drawing rather than a register entry, and is not a register in its own right</td></tr>
             <tr><td class="mono">WIR</td><td>Work Inspection Report</td><td>Record of a completed-work inspection before proceeding to the next stage</td></tr>
             <tr><td class="mono">NCR</td><td>Non‑Conformance Report</td><td>Formal record of work or material not meeting the approved specification</td></tr>
             <tr><td class="mono">SOR</td><td>Site Observation Report</td><td>General site observation raised by supervision/consultant staff</td></tr>
@@ -1594,8 +1624,8 @@ html{ overflow-x:clip; }
             <tr><td>Method Statement Register <span class="tag suggested">suggested</span></td><td class="mono">§9.2</td><td><a href="https://docs.google.com/spreadsheets/d/1wXcLl3v8TbvKLsSb5qnZy47WBn0xSCgdEvLQT-cycPU/edit" target="_blank" rel="noopener">Open register</a></td></tr>
             <tr><td>Consultant Masters <span class="tag suggested">suggested</span></td><td class="mono">§11</td><td><a href="https://docs.google.com/spreadsheets/d/1g7K3NgQb8lfC-zv1UdbYYtUvbBkQ-8tX3xmTtASOJfY/edit" target="_blank" rel="noopener">Open register</a></td></tr>
             <tr><td>File Name &amp; Location Index <span class="tag suggested">suggested</span></td><td class="mono">§9.6</td><td><a href="https://docs.google.com/spreadsheets/d/1gU1h8jh-e7qR1ZJPkpH1eLkFL74OSIGymToAM2tjwUc/edit" target="_blank" rel="noopener">Open register</a></td></tr>
-            <tr><td>Insurance Policy Tracker <span class="tag suggested">suggested</span></td><td class="mono">§16</td><td><a href="https://docs.google.com/spreadsheets/d/1BRqBkAVUkybl9VycpndTIY51daIRL9WkXokHe7SxcRg/edit" target="_blank" rel="noopener">Open register</a></td></tr>
-            <tr><td>Land Owner Email Register <span class="tag suggested">suggested</span></td><td class="mono">§16</td><td><a href="https://docs.google.com/spreadsheets/d/1ixNkpaCmGkGzZz9TgL9UbqCbMwF88rGwnXdl0ZnnT40/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr><td>Insurance Policy Tracker <span class="tag suggested">suggested</span></td><td class="mono">—</td><td><a href="https://docs.google.com/spreadsheets/d/1BRqBkAVUkybl9VycpndTIY51daIRL9WkXokHe7SxcRg/edit" target="_blank" rel="noopener">Open register</a></td></tr>
+            <tr><td>Land Owner Email Register <span class="tag suggested">suggested</span></td><td class="mono">—</td><td><a href="https://docs.google.com/spreadsheets/d/1ixNkpaCmGkGzZz9TgL9UbqCbMwF88rGwnXdl0ZnnT40/edit" target="_blank" rel="noopener">Open register</a></td></tr>
           </tbody>
         </table>
       </div>
@@ -1616,7 +1646,7 @@ html{ overflow-x:clip; }
 
     <div class="footline">
       <span>ALC-DC-SOP-001 · Alcove Realty · Document Control</span>
-      <span>Uncontrolled if printed — verify current revision in ACC before use · Last updated <span data-updated="en">17 September 2026</span></span>
+      <span>Uncontrolled if printed — verify current revision in ACC before use · Last updated <span data-updated="en">22 September 2026</span></span>
     </div>
 
   </article>
@@ -1649,7 +1679,7 @@ html{ overflow-x:clip; }
       <div class="cell"><div class="label">পর্যালোচনা চক্র</div><input type="text" class="value mono doc-line" data-doc="bn-cycle" value="বার্ষিক" autocomplete="off" spellcheck="false"></div>
       <div class="cell"><div class="label">ডিপার্টমেন্ট</div><input type="text" class="value doc-line" data-doc="bn-department" value="ডকুমেন্ট কন্ট্রোল, অ্যালকোভ রিয়েলটি" autocomplete="off" spellcheck="false"></div>
       <div class="cell"><div class="label">প্রসেস ওনার</div><input type="text" class="value doc-line" data-doc="bn-owner" value="HOD, ডকুমেন্ট কন্ট্রোল" autocomplete="off" spellcheck="false"></div>
-      <div class="cell"><div class="label">টিম</div><input type="text" class="value doc-line" data-doc="bn-team" value="HOD + ৪ জন ডকুমেন্ট কন্ট্রোলার" autocomplete="off" spellcheck="false"></div>
+      <div class="cell"><div class="label">টিম</div><input type="text" class="value doc-line" data-doc="bn-team" value="HOD ও ডকুমেন্ট কন্ট্রোল ডিপার্টমেন্ট" autocomplete="off" spellcheck="false"></div>
       <div class="cell"><div class="label">শ্রেণী</div><input type="text" class="value doc-line" data-doc="bn-classification" value="ইন্টারনাল" autocomplete="off" spellcheck="false"></div>
     </div>
 
@@ -1672,8 +1702,12 @@ html{ overflow-x:clip; }
   <details class="changelog">
     <summary>নতুন কী যোগ হলো <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>কুইক রেফারেন্সে এখন ব্যবহৃত সব কোড আছে — বাদ পড়া রেজিস্টার, স্ট্যাটাস ও স্ট্যাটুটরি কোডগুলো যোগ করা হয়েছে, আর <span class="tag">OTH</span>-কে রেজিস্টারের তালিকা থেকে সরিয়ে তার নিজের স্ট্যাটুটরি দলে নেওয়া হয়েছে।</span></div>
+        <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§৬.৩-এর কোড টেবিলে <span class="tag">DRG</span> যোগ করা হয়েছে; নম্বরকরণের উদাহরণে এটি ছিল, কিন্তু তালিকায় ছিল না।</span></div>
+        <div class="changelog-item"><span class="changelog-date">২১ সেপ্টেম্বর ২০২৬</span><span>§৯.৮ — রিটেনশন এখন প্রতিটি প্রজেক্টের নিজস্ব চুক্তি ও আইনি প্রয়োজন অনুযায়ী; কিছু নির্দিষ্ট করা না থাকলে HOD-এর সাথে নিশ্চিত করে নিতে হবে। ৮ বছরের নির্দিষ্ট ডিফল্ট তুলে নেওয়া হয়েছে।</span></div>
+        <div class="changelog-item"><span class="changelog-date">২১ সেপ্টেম্বর ২০২৬</span><span>§১, §৫ ও হেডার — ডকুমেন্ট কন্ট্রোলারের নির্দিষ্ট সংখ্যা সরানো হয়েছে; বিভাগটিকে সংখ্যা দিয়ে নয়, ভূমিকা দিয়ে বর্ণনা করা হয়েছে।</span></div>
       <div class="changelog-item"><span class="changelog-date">১৫ সেপ্টেম্বর ২০২৬</span><span>ডকুমেন্ট হেডারে Prepared / Reviewed / Approved সাইন-অফ ব্লক যোগ করা হয়েছে।</span></div>
-      <div class="changelog-item"><span class="changelog-date">১৫ সেপ্টেম্বর ২০২৬</span><span>দ্ব্যর্থক "SOR" কোডটি <span class="tag">OTH</span> (Other Statutory NOC) নামে পরিবর্তন করা হয়েছে, স্পষ্টতার জন্য।</span></div>
+      <div class="changelog-item"><span class="changelog-date">১৫ সেপ্টেম্বর ২০২৬</span><span>স্ট্যাটুটরি "SOR" কোডটির নাম <span class="tag">OTH</span> (Other Statutory NOC) করা হয়েছে, স্পষ্টতার জন্য। §৬.৩-এ <span class="tag">SOR</span> আগের মতোই সাইট অবজারভেশন রিপোর্ট — শুধু স্ট্যাটুটরি ব্যবহারটির নাম বদলেছে।</span></div>
       <div class="changelog-item"><span class="changelog-date">১৫ সেপ্টেম্বর ২০২৬</span><span>§১৬ Related Documents-এ আসল রেজিস্টার ও ট্রান্সমিটাল টেমপ্লেট সরাসরি লিংক করা হয়েছে।</span></div>
       <div class="changelog-item"><span class="changelog-date">১৫ সেপ্টেম্বর ২০২৬</span><span>Document Formats মেনু যোগ করা হয়েছে — সব রেজিস্টার টেমপ্লেট একসাথে।</span></div>
     </div>
@@ -1705,7 +1739,14 @@ html{ overflow-x:clip; }
           <span class="chip chip-reg">DRT <span class="full">ড্রয়িং ট্রান্সমিটাল</span></span>
           <span class="chip chip-reg">WIR <span class="full">ওয়ার্ক ইন্সপেকশন রিপোর্ট</span></span>
           <span class="chip chip-reg">NCR <span class="full">নন-কনফরম্যান্স রিপোর্ট</span></span>
-          <span class="chip chip-reg">OTH <span class="full">আদার স্ট্যাটুটরি NOC</span></span>
+          <span class="chip chip-reg">DRG <span class="full">ড্রয়িং</span></span>
+          <span class="chip chip-reg">SOR <span class="full">সাইট অবজারভেশন রিপোর্ট</span></span>
+          <span class="chip chip-reg">SI <span class="full">সাইট ইনস্ট্রাকশন</span></span>
+          <span class="chip chip-reg">MTC <span class="full">মেটেরিয়াল টেস্ট সার্টিফিকেট</span></span>
+          <span class="chip chip-reg">ABD <span class="full">অ্যাজ-বিল্ট ড্রয়িং রেজিস্টার</span></span>
+          <span class="chip chip-reg">SNL <span class="full">স্ন্যাগ / পাঞ্চ লিস্ট</span></span>
+          <span class="chip chip-reg">HOTO <span class="full">হ্যান্ডওভার–টেকওভার চেকলিস্ট</span></span>
+          <span class="chip chip-reg">PR <span class="full">প্রগ্রেস রিপোর্ট</span></span>
         </div>
       </div>
       <div class="chipgroup">
@@ -1713,9 +1754,26 @@ html{ overflow-x:clip; }
         <div class="chiprow">
           <span class="chip chip-status">IFR <span class="full">ইস্যুড ফর রিভিউ</span></span>
           <span class="chip chip-status">IFA <span class="full">ইস্যুড ফর অ্যাপ্রুভাল</span></span>
+          <span class="chip chip-status">IFI <span class="full">ইস্যুড ফর ইনফরমেশন</span></span>
           <span class="chip chip-status">GFC <span class="full">গুড ফর কনস্ট্রাকশন</span></span>
           <span class="chip chip-status">AFC <span class="full">অ্যাপ্রুভড ফর কনস্ট্রাকশন</span></span>
+          <span class="chip chip-status">AWC <span class="full">অ্যাপ্রুভড উইথ কমেন্টস</span></span>
+          <span class="chip chip-status">RTN <span class="full">রিটার্নড — রিসাবমিট</span></span>
           <span class="chip chip-status">SUP <span class="full">সুপারসিডেড</span></span>
+        </div>
+      </div>
+      <div class="chipgroup">
+        <div class="glabel">স্ট্যাটুটরি স্যাংশন</div>
+        <div class="chiprow">
+          <span class="chip chip-sanc">KMC <span class="full">বিল্ডিং পারমিট</span></span>
+          <span class="chip chip-sanc">FIRE <span class="full">ফায়ার পারমিট</span></span>
+          <span class="chip chip-sanc">AAI <span class="full">হাইট ক্লিয়ারেন্স NOC</span></span>
+          <span class="chip chip-sanc">DFO <span class="full">ফরেস্ট / ট্রি NOC</span></span>
+          <span class="chip chip-sanc">PCB <span class="full">পলিউশন কন্ট্রোল কনসেন্ট</span></span>
+          <span class="chip chip-sanc">ENV <span class="full">এনভায়রনমেন্টাল ক্লিয়ারেন্স</span></span>
+          <span class="chip chip-sanc">LIFT <span class="full">লিফট ইন্সপেক্টরেট NOC</span></span>
+          <span class="chip chip-sanc">OC/CC <span class="full">অকুপেন্সি / কমপ্লিশন সার্টিফিকেট</span></span>
+          <span class="chip chip-sanc">OTH <span class="full">অন্যান্য স্ট্যাটুটরি NOC</span></span>
         </div>
       </div>
     </div>
@@ -1904,6 +1962,7 @@ html{ overflow-x:clip; }
             <tr><td class="mono">TRN</td><td>ডকুমেন্ট ট্রান্সমিটাল</td><td>অন্য কোনো পক্ষকে ইস্যু করা যেকোনো ডকুমেন্টের কভার রেকর্ড</td></tr>
             <tr><td class="mono">RFI</td><td>রিকোয়েস্ট ফর ইনফরমেশন</td><td>ডিজাইন/কনসালট্যান্ট টিমের কাছে স্পষ্টীকরণের জন্য প্রশ্ন</td></tr>
             <tr><td class="mono">DRT</td><td>ড্রয়িং ট্রান্সমিটাল</td><td>শুধু ড্রয়িং ইস্যুর জন্য আলাদা কভার রেকর্ড, যাতে ড্রয়িং-এর ট্রেসেবিলিটি সাধারণ কারেসপন্ডেন্সের সাথে না মেশে</td></tr>
+              <tr><td class="mono">DRG</td><td>ড্রয়িং</td><td>ড্রয়িং নম্বরের ভিতরে থাকা ডকুমেন্ট-টাইপ অংশ (যেমন DUE-STR-DRG-0001, §৬.১) — এটি বোঝায় ডকুমেন্টটি একটি ড্রয়িং, রেজিস্টার এন্ট্রি নয়; এটি নিজে কোনো রেজিস্টার নয়</td></tr>
             <tr><td class="mono">WIR</td><td>ওয়ার্ক ইন্সপেকশন রিপোর্ট</td><td>পরবর্তী পর্যায়ে যাওয়ার আগে সম্পন্ন কাজের ইন্সপেকশনের রেকর্ড</td></tr>
             <tr><td class="mono">NCR</td><td>নন-কনফরম্যান্স রিপোর্ট</td><td>অনুমোদিত স্পেসিফিকেশন মেনে না-চলা কাজ বা মেটেরিয়ালের আনুষ্ঠানিক রেকর্ড</td></tr>
             <tr><td class="mono">SOR</td><td>সাইট অবজারভেশন রিপোর্ট</td><td>সুপারভিশন/কনসালট্যান্ট স্টাফের তোলা সাধারণ সাইট অবজারভেশন</td></tr>
@@ -2158,8 +2217,8 @@ html{ overflow-x:clip; }
             <tr><td>Method Statement Register <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">§৯.২</td><td><a href="https://docs.google.com/spreadsheets/d/1wXcLl3v8TbvKLsSb5qnZy47WBn0xSCgdEvLQT-cycPU/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
             <tr><td>Consultant Masters <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">§১১</td><td><a href="https://docs.google.com/spreadsheets/d/1g7K3NgQb8lfC-zv1UdbYYtUvbBkQ-8tX3xmTtASOJfY/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
             <tr><td>File Name &amp; Location Index <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">§৯.৬</td><td><a href="https://docs.google.com/spreadsheets/d/1gU1h8jh-e7qR1ZJPkpH1eLkFL74OSIGymToAM2tjwUc/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
-            <tr><td>Insurance Policy Tracker <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">§১৬</td><td><a href="https://docs.google.com/spreadsheets/d/1BRqBkAVUkybl9VycpndTIY51daIRL9WkXokHe7SxcRg/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
-            <tr><td>Land Owner Email Register <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">§১৬</td><td><a href="https://docs.google.com/spreadsheets/d/1ixNkpaCmGkGzZz9TgL9UbqCbMwF88rGwnXdl0ZnnT40/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr><td>Insurance Policy Tracker <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">—</td><td><a href="https://docs.google.com/spreadsheets/d/1BRqBkAVUkybl9VycpndTIY51daIRL9WkXokHe7SxcRg/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
+            <tr><td>Land Owner Email Register <span class="tag suggested">সাজেস্টেড</span></td><td class="mono">—</td><td><a href="https://docs.google.com/spreadsheets/d/1ixNkpaCmGkGzZz9TgL9UbqCbMwF88rGwnXdl0ZnnT40/edit" target="_blank" rel="noopener">রেজিস্টার খুলুন</a></td></tr>
           </tbody>
         </table>
       </div>
@@ -2180,7 +2239,7 @@ html{ overflow-x:clip; }
 
     <div class="footline">
       <span>ALC-DC-SOP-001 · অ্যালকোভ রিয়েলটি · Document Control</span>
-      <span>প্রিন্ট করা হলে আনকন্ট্রোলড — ব্যবহারের আগে ACC-তে বর্তমান রিভিশন যাচাই করুন · সর্বশেষ আপডেট <span data-updated="bn">১৭ সেপ্টেম্বর ২০২৬</span></span>
+      <span>প্রিন্ট করা হলে আনকন্ট্রোলড — ব্যবহারের আগে ACC-তে বর্তমান রিভিশন যাচাই করুন · সর্বশেষ আপডেট <span data-updated="bn">২২ সেপ্টেম্বর ২০২৬</span></span>
     </div>
 
   </article>
@@ -2213,7 +2272,7 @@ html{ overflow-x:clip; }
       <div class="cell"><div class="label">समीक्षा चक्र</div><input type="text" class="value mono doc-line" data-doc="hi-cycle" value="वार्षिक" autocomplete="off" spellcheck="false"></div>
       <div class="cell"><div class="label">डिपार्टमेंट</div><input type="text" class="value doc-line" data-doc="hi-department" value="डॉक्यूमेंट कंट्रोल, अल्कोव रियल्टी" autocomplete="off" spellcheck="false"></div>
       <div class="cell"><div class="label">प्रोसेस ओनर</div><input type="text" class="value doc-line" data-doc="hi-owner" value="HOD, डॉक्यूमेंट कंट्रोल" autocomplete="off" spellcheck="false"></div>
-      <div class="cell"><div class="label">टीम</div><input type="text" class="value doc-line" data-doc="hi-team" value="HOD + 4 डॉक्यूमेंट कंट्रोलर" autocomplete="off" spellcheck="false"></div>
+      <div class="cell"><div class="label">टीम</div><input type="text" class="value doc-line" data-doc="hi-team" value="HOD और डॉक्यूमेंट कंट्रोल डिपार्टमेंट" autocomplete="off" spellcheck="false"></div>
       <div class="cell"><div class="label">वर्गीकरण</div><input type="text" class="value doc-line" data-doc="hi-classification" value="इंटरनल" autocomplete="off" spellcheck="false"></div>
     </div>
 
@@ -2236,8 +2295,12 @@ html{ overflow-x:clip; }
   <details class="changelog">
     <summary>नया क्या जुड़ा <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>क्विक रेफरेंस में अब इस्तेमाल होने वाले सभी कोड हैं — छूटे हुए रजिस्टर, स्टेटस व स्टैट्यूटरी कोड जोड़े गए, और <span class="tag">OTH</span> को रजिस्टर सूची से हटाकर उसके अपने स्टैट्यूटरी समूह में रखा गया।</span></div>
+        <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§६.३ की कोड तालिका में <span class="tag">DRG</span> जोड़ा गया; यह नंबरिंग उदाहरणों में था, पर सूची में नहीं।</span></div>
+        <div class="changelog-item"><span class="changelog-date">21 सितंबर 2026</span><span>§९.८ — रिटेंशन अब हर प्रोजेक्ट के अपने अनुबंध व वैधानिक आवश्यकता के अनुसार; कुछ निर्दिष्ट न हो तो HOD से पुष्टि करके। ८ वर्ष का निश्चित डिफ़ॉल्ट हटा दिया गया।</span></div>
+        <div class="changelog-item"><span class="changelog-date">21 सितंबर 2026</span><span>§१, §५ व हेडर — डॉक्यूमेंट कंट्रोलर की निश्चित संख्या हटाई गई; विभाग को संख्या से नहीं, भूमिका से बताया गया है।</span></div>
       <div class="changelog-item"><span class="changelog-date">15 सितंबर 2026</span><span>दस्तावेज़ हेडर में Prepared / Reviewed / Approved साइन-ऑफ ब्लॉक जोड़ा गया।</span></div>
-      <div class="changelog-item"><span class="changelog-date">15 सितंबर 2026</span><span>अस्पष्ट "SOR" कोड का नाम बदलकर <span class="tag">OTH</span> (Other Statutory NOC) किया गया, स्पष्टता के लिए।</span></div>
+      <div class="changelog-item"><span class="changelog-date">15 सितंबर 2026</span><span>स्टैट्यूटरी "SOR" कोड का नाम बदलकर <span class="tag">OTH</span> (Other Statutory NOC) किया गया, स्पष्टता के लिए। §६.३ में <span class="tag">SOR</span> पहले की तरह साइट ऑब्ज़र्वेशन रिपोर्ट ही है — केवल स्टैट्यूटरी उपयोग का नाम बदला है।</span></div>
       <div class="changelog-item"><span class="changelog-date">15 सितंबर 2026</span><span>§16 Related Documents में असली रजिस्टर व ट्रांसमिटल टेम्पलेट सीधे लिंक किए गए।</span></div>
       <div class="changelog-item"><span class="changelog-date">15 सितंबर 2026</span><span>Document Formats मेनू जोड़ा गया — सभी रजिस्टर टेम्पलेट एक जगह।</span></div>
     </div>
@@ -2269,7 +2332,14 @@ html{ overflow-x:clip; }
           <span class="chip chip-reg">DRT <span class="full">ड्रॉइंग ट्रांसमिटल</span></span>
           <span class="chip chip-reg">WIR <span class="full">वर्क इंस्पेक्शन रिपोर्ट</span></span>
           <span class="chip chip-reg">NCR <span class="full">नॉन-कन्फॉर्मेंस रिपोर्ट</span></span>
-          <span class="chip chip-reg">OTH <span class="full">अदर स्टैट्यूटरी NOC</span></span>
+          <span class="chip chip-reg">DRG <span class="full">ड्रॉइंग</span></span>
+          <span class="chip chip-reg">SOR <span class="full">साइट ऑब्ज़र्वेशन रिपोर्ट</span></span>
+          <span class="chip chip-reg">SI <span class="full">साइट इंस्ट्रक्शन</span></span>
+          <span class="chip chip-reg">MTC <span class="full">मटेरियल टेस्ट सर्टिफिकेट</span></span>
+          <span class="chip chip-reg">ABD <span class="full">ऐज़-बिल्ट ड्रॉइंग रजिस्टर</span></span>
+          <span class="chip chip-reg">SNL <span class="full">स्नैग / पंच लिस्ट</span></span>
+          <span class="chip chip-reg">HOTO <span class="full">हैंडओवर–टेकओवर चेकलिस्ट</span></span>
+          <span class="chip chip-reg">PR <span class="full">प्रोग्रेस रिपोर्ट</span></span>
         </div>
       </div>
       <div class="chipgroup">
@@ -2277,9 +2347,26 @@ html{ overflow-x:clip; }
         <div class="chiprow">
           <span class="chip chip-status">IFR <span class="full">इश्यूड फॉर रिव्यू</span></span>
           <span class="chip chip-status">IFA <span class="full">इश्यूड फॉर अप्रूवल</span></span>
+          <span class="chip chip-status">IFI <span class="full">इश्यूड फॉर इन्फॉर्मेशन</span></span>
           <span class="chip chip-status">GFC <span class="full">गुड फॉर कंस्ट्रक्शन</span></span>
           <span class="chip chip-status">AFC <span class="full">अप्रूव्ड फॉर कंस्ट्रक्शन</span></span>
+          <span class="chip chip-status">AWC <span class="full">अप्रूव्ड विद कमेंट्स</span></span>
+          <span class="chip chip-status">RTN <span class="full">रिटर्न्ड — रीसबमिट</span></span>
           <span class="chip chip-status">SUP <span class="full">सुपरसीडेड</span></span>
+        </div>
+      </div>
+      <div class="chipgroup">
+        <div class="glabel">स्टैट्यूटरी सैंक्शन</div>
+        <div class="chiprow">
+          <span class="chip chip-sanc">KMC <span class="full">बिल्डिंग परमिट</span></span>
+          <span class="chip chip-sanc">FIRE <span class="full">फायर परमिट</span></span>
+          <span class="chip chip-sanc">AAI <span class="full">हाइट क्लियरेंस NOC</span></span>
+          <span class="chip chip-sanc">DFO <span class="full">फॉरेस्ट / ट्री NOC</span></span>
+          <span class="chip chip-sanc">PCB <span class="full">पॉल्यूशन कंट्रोल कन्सेंट</span></span>
+          <span class="chip chip-sanc">ENV <span class="full">एनवायरनमेंटल क्लियरेंस</span></span>
+          <span class="chip chip-sanc">LIFT <span class="full">लिफ्ट इंस्पेक्टोरेट NOC</span></span>
+          <span class="chip chip-sanc">OC/CC <span class="full">ऑक्युपेंसी / कम्प्लीशन सर्टिफिकेट</span></span>
+          <span class="chip chip-sanc">OTH <span class="full">अन्य स्टैट्यूटरी NOC</span></span>
         </div>
       </div>
     </div>
@@ -2468,6 +2555,7 @@ html{ overflow-x:clip; }
             <tr><td class="mono">TRN</td><td>डॉक्यूमेंट ट्रांसमिटल</td><td>किसी और पक्ष को जारी किए गए किसी भी दस्तावेज़ का कवर रिकॉर्ड</td></tr>
             <tr><td class="mono">RFI</td><td>रिक्वेस्ट फॉर इन्फॉर्मेशन</td><td>स्पष्टीकरण के लिए डिज़ाइन/कंसल्टेंट टीम से पूछा गया प्रश्न</td></tr>
             <tr><td class="mono">DRT</td><td>ड्रॉइंग ट्रांसमिटल</td><td>सिर्फ ड्रॉइंग इश्यू के लिए अलग कवर रिकॉर्ड, ताकि ड्रॉइंग की ट्रेसेबिलिटी सामान्य कॉरेस्पॉन्डेंस से न मिले</td></tr>
+              <tr><td class="mono">DRG</td><td>ड्रॉइंग</td><td>ड्रॉइंग नंबर के भीतर का डॉक्यूमेंट-टाइप हिस्सा (जैसे DUE-STR-DRG-0001, §६.१) — यह दर्शाता है कि दस्तावेज़ एक ड्रॉइंग है, रजिस्टर एंट्री नहीं; यह स्वयं कोई रजिस्टर नहीं है</td></tr>
             <tr><td class="mono">WIR</td><td>वर्क इंस्पेक्शन रिपोर्ट</td><td>अगले चरण में जाने से पहले पूरे हो चुके काम के इंस्पेक्शन का रिकॉर्ड</td></tr>
             <tr><td class="mono">NCR</td><td>नॉन-कन्फॉर्मेंस रिपोर्ट</td><td>अनुमोदित स्पेसिफिकेशन के अनुरूप न होने वाले काम या मटेरियल का औपचारिक रिकॉर्ड</td></tr>
             <tr><td class="mono">SOR</td><td>साइट ऑब्ज़र्वेशन रिपोर्ट</td><td>सुपरविज़न/कंसल्टेंट स्टाफ द्वारा उठाया गया सामान्य साइट ऑब्ज़र्वेशन</td></tr>
@@ -2722,8 +2810,8 @@ html{ overflow-x:clip; }
             <tr><td>Method Statement Register <span class="tag suggested">सुझाया गया</span></td><td class="mono">§9.2</td><td><a href="https://docs.google.com/spreadsheets/d/1wXcLl3v8TbvKLsSb5qnZy47WBn0xSCgdEvLQT-cycPU/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
             <tr><td>Consultant Masters <span class="tag suggested">सुझाया गया</span></td><td class="mono">§11</td><td><a href="https://docs.google.com/spreadsheets/d/1g7K3NgQb8lfC-zv1UdbYYtUvbBkQ-8tX3xmTtASOJfY/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
             <tr><td>File Name &amp; Location Index <span class="tag suggested">सुझाया गया</span></td><td class="mono">§9.6</td><td><a href="https://docs.google.com/spreadsheets/d/1gU1h8jh-e7qR1ZJPkpH1eLkFL74OSIGymToAM2tjwUc/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
-            <tr><td>Insurance Policy Tracker <span class="tag suggested">सुझाया गया</span></td><td class="mono">§16</td><td><a href="https://docs.google.com/spreadsheets/d/1BRqBkAVUkybl9VycpndTIY51daIRL9WkXokHe7SxcRg/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
-            <tr><td>Land Owner Email Register <span class="tag suggested">सुझाया गया</span></td><td class="mono">§16</td><td><a href="https://docs.google.com/spreadsheets/d/1ixNkpaCmGkGzZz9TgL9UbqCbMwF88rGwnXdl0ZnnT40/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr><td>Insurance Policy Tracker <span class="tag suggested">सुझाया गया</span></td><td class="mono">—</td><td><a href="https://docs.google.com/spreadsheets/d/1BRqBkAVUkybl9VycpndTIY51daIRL9WkXokHe7SxcRg/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
+            <tr><td>Land Owner Email Register <span class="tag suggested">सुझाया गया</span></td><td class="mono">—</td><td><a href="https://docs.google.com/spreadsheets/d/1ixNkpaCmGkGzZz9TgL9UbqCbMwF88rGwnXdl0ZnnT40/edit" target="_blank" rel="noopener">रजिस्टर खोलें</a></td></tr>
           </tbody>
         </table>
       </div>
@@ -2744,7 +2832,7 @@ html{ overflow-x:clip; }
 
     <div class="footline">
       <span>ALC-DC-SOP-001 · अल्कोव रियल्टी · Document Control</span>
-      <span>प्रिंट होने पर अनकंट्रोल्ड — इस्तेमाल से पहले ACC में मौजूदा रिवीज़न जाँच लें · अंतिम अपडेट <span data-updated="hi">17 सितंबर 2026</span></span>
+      <span>प्रिंट होने पर अनकंट्रोल्ड — इस्तेमाल से पहले ACC में मौजूदा रिवीज़न जाँच लें · अंतिम अपडेट <span data-updated="hi">22 सितंबर 2026</span></span>
     </div>
 
   </article>
