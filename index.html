@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260922-162711">
+<meta name="sop-build" content="20260922-163321">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -1148,6 +1148,7 @@ tr[hidden]{ display:none !important; }
   <details class="changelog">
     <summary>What's new <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§18 — added what Transmittals, Reviews, Issues and Reports each track, a warning that Forma's own running ID is not the register number, and a note that the weekly export of §9.6 can be scheduled rather than done by hand.</span></div>
         <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§18 — added what each action on a folder does and which rule it carries out, with a warning that <b>Delete</b> is never how a superseded document is withdrawn.</span></div>
         <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>Added §18 <b>Working in Forma</b> — which Forma module carries out which step of §9, what each project folder holds and the discipline code it matches, and why a Forma version is not a document revision.</span></div>
         <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§11 gains rows for <span class="tag">MOM</span>, <span class="tag">DBR</span>, <span class="tag">LOI</span>, <span class="tag">WO</span>, <span class="tag">NDA</span> and <span class="tag">SPQ</span> so every code in §6.3 has a distribution, and §12 now defines the three classification levels and who sets them.</span></div>
@@ -1806,6 +1807,20 @@ tr[hidden]{ display:none !important; }
         </table>
       </div>
       <div class="callout"><b>Delete is not how a document is withdrawn —</b> §9.5 requires a superseded document to be kept for traceability and marked <code>SUP</code>, not removed. Deleting breaks the trail the register exists to protect and is a process deviation under §13. Where something genuinely has to go — a file uploaded to the wrong project, say — the HOD decides, and the removal is recorded in the deviation log. Note that Forma keeps removed items under <span class="mono">Deleted items</span>, so a mistake can usually be undone if it is caught quickly.</div>
+    
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:130px">Screen</th><th style="width:150px">You create with</th><th>What it then tracks for you</th><th style="width:100px">SOP</th></tr></thead>
+          <tbody>
+              <tr><td class="mono">Transmittals</td><td class="mono">+ Create transmittal</td><td>Forma gives each transmittal its own ID and records who sent it, the sender company, every recipient with their company, and whether it has gone out. <span class="mono">Export all</span> gives the list the register needs.</td><td class="mono">§9.3</td></tr>
+              <tr><td class="mono">Reviews</td><td class="mono">+ Create review</td><td>A review runs on a workflow, in rounds. It shows who initiated it, who the next action sits with, when that action is due and who finally approved — which is where the 5–14 working day due date of §9.2 lives. Closed ones move to <span class="mono">Archived reviews</span>.</td><td class="mono">§9.2</td></tr>
+              <tr><td class="mono">Issues</td><td class="mono">+ Create issue</td><td>Each issue carries a type, an assignee, a start date, a due date and a status; a due date already passed turns red. <span class="mono">Placement</span> pins the issue to the spot on the drawing it is about.</td><td class="mono">§6.3, §13</td></tr>
+              <tr><td class="mono">Reports</td><td class="mono">+ Create report</td><td>Reports run from templates. <span class="mono">Files log</span> is the export §9.6 asks for. A report can be given a schedule and a list of recipients, so it runs and is sent without anyone remembering.</td><td class="mono">§9.6, §15</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout"><b>Forma's ID is not the register number —</b> Forma gives transmittals, reviews and issues its own running number (<span class="mono">1</span>, <span class="mono">2</span>, <span class="mono">3</span> … , <span class="mono">#17</span>). The number quoted to anyone outside Document Control is the one built under §6.2. The register carries both, so an item can be found from either — but only the register number goes on a transmittal or into correspondence.</div>
+      <div class="callout"><b>Let the weekly export run itself —</b> §9.6 asks for a register export every Friday. Rather than doing it by hand, create a report from the <span class="mono">Files log</span> template in <span class="mono">Reports</span>, give it a schedule and name the recipients. Set once per project, it then satisfies the rule whether or not anyone remembers — and the KPI in §15 is met by the report log itself.</div>
     </section>
 
     <div class="footline">
@@ -1866,6 +1881,7 @@ tr[hidden]{ display:none !important; }
   <details class="changelog">
     <summary>নতুন কী যোগ হলো <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§১৮ — Transmittals, Reviews, Issues ও Reports প্রতিটি কী ট্র্যাক করে তা যোগ করা হয়েছে, সঙ্গে সতর্কতা যে Forma-র নিজস্ব ধারাবাহিক ID রেজিস্টারের নম্বর নয়, আর §৯.৬-এর সাপ্তাহিক এক্সপোর্ট হাতে না করে সময়সূচি দিয়ে চালানো যায়।</span></div>
         <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§১৮ — ফোল্ডারের প্রতিটি কাজ কী করে ও কোন নিয়ম পালন করে তা যোগ করা হয়েছে, সঙ্গে সতর্কতা যে <b>Delete</b> কখনোই সুপারসিডেড ডকুমেন্ট প্রত্যাহারের উপায় নয়।</span></div>
         <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§১৮ <b>Forma-তে কাজ</b> যোগ করা হয়েছে — §৯-এর কোন ধাপ Forma-র কোন মডিউলে হয়, প্রতিটি প্রজেক্ট ফোল্ডারে কী থাকে ও তার ডিসিপ্লিন কোড কী, আর Forma-র ভার্সন কেন ডকুমেন্ট রিভিশন নয়।</span></div>
         <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§১১-এ <span class="tag">MOM</span>, <span class="tag">DBR</span>, <span class="tag">LOI</span>, <span class="tag">WO</span>, <span class="tag">NDA</span> ও <span class="tag">SPQ</span>-এর সারি যোগ হয়েছে, ফলে §৬.৩-এর প্রতিটি কোডের বিতরণ নিয়ম এখন লেখা আছে; আর §১২-তে তিনটি শ্রেণি ও কে সেগুলো নির্ধারণ করেন তা সংজ্ঞায়িত হয়েছে।</span></div>
@@ -2524,6 +2540,20 @@ tr[hidden]{ display:none !important; }
         </table>
       </div>
       <div class="callout"><b>Delete দিয়ে ডকুমেন্ট প্রত্যাহার করা হয় না —</b> §৯.৫ অনুযায়ী সুপারসিডেড ডকুমেন্ট ট্রেসেবিলিটির জন্য রেখে দিতে হয় ও <code>SUP</code> চিহ্নিত করতে হয়, মুছে ফেলতে নয়। মুছে ফেললে রেজিস্টার যে সূত্র রক্ষা করার জন্য আছে সেটিই ছিঁড়ে যায়, আর §১৩ অনুযায়ী এটি একটি প্রসেস ডেভিয়েশন। সত্যিই কিছু সরানোর দরকার হলে — যেমন ভুল প্রজেক্টে আপলোড হওয়া ফাইল — HOD সিদ্ধান্ত নেন, আর সরানোটি ডেভিয়েশন লগে লেখা হয়। মনে রাখবেন, Forma মুছে ফেলা জিনিস <span class="mono">Deleted items</span>-এ রাখে, তাই তাড়াতাড়ি ধরা পড়লে ভুল সাধারণত শোধরানো যায়।</div>
+    
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:130px">স্ক্রিন</th><th style="width:150px">যা দিয়ে তৈরি করবেন</th><th>তারপর যা ট্র্যাক করে রাখে</th><th style="width:100px">SOP</th></tr></thead>
+          <tbody>
+              <tr><td class="mono">Transmittals</td><td class="mono">+ Create transmittal</td><td>Forma প্রতিটি ট্রান্সমিটালকে নিজস্ব ID দেয় এবং লিখে রাখে কে পাঠিয়েছেন, প্রেরক কোম্পানি, প্রত্যেক প্রাপক ও তাঁদের কোম্পানি, আর সেটি বেরিয়েছে কি না। <span class="mono">Export all</span> দিলে রেজিস্টারের জন্য দরকারি তালিকাটি পাওয়া যায়।</td><td class="mono">§৯.৩</td></tr>
+              <tr><td class="mono">Reviews</td><td class="mono">+ Create review</td><td>রিভিউ চলে একটি ওয়ার্কফ্লো ধরে, রাউন্ডে রাউন্ডে। কে শুরু করেছেন, পরের কাজ কার কাছে, কবে তার সময়সীমা, আর শেষে কে অনুমোদন করলেন — সবই দেখায়। §৯.২-এর ৫–১৪ কর্মদিবসের সময়সীমা এখানেই থাকে। শেষ হওয়া রিভিউ চলে যায় <span class="mono">Archived reviews</span>-এ।</td><td class="mono">§৯.২</td></tr>
+              <tr><td class="mono">Issues</td><td class="mono">+ Create issue</td><td>প্রতিটি ইস্যুতে থাকে ধরন, দায়িত্বপ্রাপ্ত ব্যক্তি, শুরুর তারিখ, শেষ তারিখ ও স্ট্যাটাস; সময়সীমা পেরিয়ে গেলে তারিখটি লাল হয়ে যায়। <span class="mono">Placement</span> দিয়ে ইস্যুটিকে ড্রয়িং-এর ঠিক যে জায়গার কথা বলছে সেখানে আটকে দেওয়া যায়।</td><td class="mono">§৬.৩, §১৩</td></tr>
+              <tr><td class="mono">Reports</td><td class="mono">+ Create report</td><td>রিপোর্ট তৈরি হয় টেমপ্লেট থেকে। §৯.৬ যে এক্সপোর্ট চায় সেটিই <span class="mono">Files log</span>। রিপোর্টে সময়সূচি ও প্রাপকের তালিকা বসিয়ে দেওয়া যায়, তখন কারও মনে রাখার দরকার হয় না — নিজে থেকেই চলে ও পৌঁছে যায়।</td><td class="mono">§৯.৬, §১৫</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout"><b>Forma-র ID রেজিস্টারের নম্বর নয় —</b> Forma ট্রান্সমিটাল, রিভিউ ও ইস্যুকে নিজের ধারাবাহিক নম্বর দেয় (<span class="mono">1</span>, <span class="mono">2</span>, <span class="mono">3</span> … , <span class="mono">#17</span>)। Document Control-এর বাইরে কাউকে যে নম্বর বলা হয়, সেটি §৬.২ অনুযায়ী তৈরি নম্বর। রেজিস্টারে দুটোই থাকে, তাই যেকোনো একটি দিয়েই খুঁজে পাওয়া যায় — কিন্তু ট্রান্সমিটালে বা চিঠিপত্রে কেবল রেজিস্টারের নম্বরই যায়।</div>
+      <div class="callout"><b>সাপ্তাহিক এক্সপোর্ট নিজে থেকেই চলুক —</b> §৯.৬ প্রতি শুক্রবার রেজিস্টার এক্সপোর্ট চায়। হাতে না করে <span class="mono">Reports</span>-এ <span class="mono">Files log</span> টেমপ্লেট থেকে একটি রিপোর্ট তৈরি করুন, তাতে সময়সূচি দিন ও প্রাপকদের নাম বসান। প্রতিটি প্রজেক্টে একবার সেট করলেই কারও মনে থাকুক বা না থাকুক নিয়ম পালিত হবে — আর §১৫-এর KPI-ও রিপোর্ট লগ দিয়েই প্রমাণ হবে।</div>
     </section>
 
     <div class="footline">
@@ -2584,6 +2614,7 @@ tr[hidden]{ display:none !important; }
   <details class="changelog">
     <summary>नया क्या जुड़ा <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§१८ — Transmittals, Reviews, Issues व Reports में से हर एक क्या ट्रैक करता है यह जोड़ा गया, साथ में चेतावनी कि Forma की अपनी क्रमिक ID रजिस्टर का नंबर नहीं है, और §९.६ का साप्ताहिक एक्सपोर्ट हाथ से करने के बजाय समय-सारणी से चलाया जा सकता है।</span></div>
         <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§१८ — फ़ोल्डर पर हर क्रिया क्या करती है और कौन-सा नियम निभाती है, यह जोड़ा गया, साथ में चेतावनी कि <b>Delete</b> कभी भी सुपरसीडेड दस्तावेज़ वापस लेने का तरीका नहीं है।</span></div>
         <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§१८ <b>Forma में काम</b> जोड़ा गया — §९ का कौन-सा चरण Forma के किस मॉड्यूल में होता है, हर प्रोजेक्ट फ़ोल्डर में क्या रहता है व उसका डिसिप्लिन कोड क्या है, और Forma का वर्ज़न दस्तावेज़ का रिवीज़न क्यों नहीं है।</span></div>
         <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§११ में <span class="tag">MOM</span>, <span class="tag">DBR</span>, <span class="tag">LOI</span>, <span class="tag">WO</span>, <span class="tag">NDA</span> व <span class="tag">SPQ</span> की पंक्तियाँ जुड़ीं, जिससे §६.३ के हर कोड का वितरण तय हो गया; और §१२ में तीन वर्गीकरण स्तर व उन्हें कौन तय करता है, यह परिभाषित हुआ।</span></div>
@@ -3242,6 +3273,20 @@ tr[hidden]{ display:none !important; }
         </table>
       </div>
       <div class="callout"><b>Delete से दस्तावेज़ वापस नहीं लिया जाता —</b> §९.५ के अनुसार सुपरसीडेड दस्तावेज़ को ट्रेसेबिलिटी के लिए रखना और <code>SUP</code> चिह्नित करना होता है, हटाना नहीं। हटा देने से वही सूत्र टूटता है जिसकी रक्षा के लिए रजिस्टर है, और §१३ के अनुसार यह एक प्रोसेस डेविएशन है। यदि सचमुच कुछ हटाना ही पड़े — जैसे ग़लत प्रोजेक्ट में अपलोड हुई फ़ाइल — तो HOD निर्णय लेते हैं और हटाने की बात डेविएशन लॉग में दर्ज होती है। ध्यान रहे, Forma हटाई गई चीज़ें <span class="mono">Deleted items</span> में रखता है, इसलिए जल्दी पकड़ में आने पर ग़लती आमतौर पर सुधारी जा सकती है।</div>
+    
+      <div class="twrap">
+        <table>
+          <thead><tr><th style="width:130px">स्क्रीन</th><th style="width:150px">किससे बनाते हैं</th><th>फिर यह क्या ट्रैक करता है</th><th style="width:100px">SOP</th></tr></thead>
+          <tbody>
+              <tr><td class="mono">Transmittals</td><td class="mono">+ Create transmittal</td><td>Forma हर ट्रांसमिटल को अपनी ID देता है और दर्ज करता है कि किसने भेजा, प्रेषक कंपनी, हर प्राप्तकर्ता व उनकी कंपनी, और वह भेजा गया या नहीं। <span class="mono">Export all</span> से रजिस्टर के लिए ज़रूरी सूची मिल जाती है।</td><td class="mono">§९.३</td></tr>
+              <tr><td class="mono">Reviews</td><td class="mono">+ Create review</td><td>रिव्यू एक वर्कफ़्लो पर, राउंड में चलता है। यह दिखाता है कि किसने शुरू किया, अगला काम किसके पास है, उसकी समय-सीमा कब है और अंत में किसने अनुमोदित किया — §९.२ की ५–१४ कार्यदिवस वाली समय-सीमा यहीं रहती है। पूरे हो चुके रिव्यू <span class="mono">Archived reviews</span> में चले जाते हैं।</td><td class="mono">§९.२</td></tr>
+              <tr><td class="mono">Issues</td><td class="mono">+ Create issue</td><td>हर इशू में प्रकार, ज़िम्मेदार व्यक्ति, आरंभ तिथि, नियत तिथि और स्थिति होती है; नियत तिथि बीत जाने पर वह लाल हो जाती है। <span class="mono">Placement</span> से इशू को ड्रॉइंग की उसी जगह पर पिन किया जा सकता है जिसकी वह बात कर रहा है।</td><td class="mono">§६.३, §१३</td></tr>
+              <tr><td class="mono">Reports</td><td class="mono">+ Create report</td><td>रिपोर्ट टेम्पलेट से बनती है। §९.६ जो एक्सपोर्ट माँगता है वही <span class="mono">Files log</span> है। रिपोर्ट को समय-सारणी और प्राप्तकर्ताओं की सूची दी जा सकती है, फिर किसी को याद रखने की ज़रूरत नहीं — वह अपने आप चलती और पहुँचती है।</td><td class="mono">§९.६, §१५</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout"><b>Forma की ID रजिस्टर का नंबर नहीं है —</b> Forma ट्रांसमिटल, रिव्यू व इशू को अपना क्रमिक नंबर देता है (<span class="mono">1</span>, <span class="mono">2</span>, <span class="mono">3</span> … , <span class="mono">#17</span>)। डॉक्यूमेंट कंट्रोल के बाहर जो नंबर बताया जाता है वह §६.२ के अनुसार बना नंबर होता है। रजिस्टर में दोनों रहते हैं, इसलिए किसी एक से भी खोजा जा सकता है — पर ट्रांसमिटल या पत्राचार में केवल रजिस्टर का नंबर ही जाता है।</div>
+      <div class="callout"><b>साप्ताहिक एक्सपोर्ट खुद चलने दें —</b> §९.६ हर शुक्रवार रजिस्टर एक्सपोर्ट माँगता है। हाथ से करने के बजाय <span class="mono">Reports</span> में <span class="mono">Files log</span> टेम्पलेट से एक रिपोर्ट बनाएँ, उसे समय-सारणी दें और प्राप्तकर्ता तय करें। हर प्रोजेक्ट में एक बार सेट कर देने पर नियम अपने आप निभता रहेगा — और §१५ का KPI भी रिपोर्ट लॉग से ही सिद्ध हो जाएगा।</div>
     </section>
 
     <div class="footline">
