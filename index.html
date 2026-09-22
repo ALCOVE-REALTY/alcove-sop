@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260922-112000">
+<meta name="sop-build" content="20260922-131724">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -1109,6 +1109,7 @@ html{ overflow-x:clip; }
   <details class="changelog">
     <summary>What's new <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>§3 — defined <span class="tag">DRG</span> and <span class="tag">Forma</span>, the two terms the SOP used without explaining anywhere.</span></div>
         <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>Quick reference now carries every code in use — the register, status and statutory codes that were missing have been added, and <span class="tag">OTH</span> moved out of the register list into the statutory group where it belongs.</span></div>
         <div class="changelog-item"><span class="changelog-date">22 Sep 2026</span><span>Defined <span class="tag">DRG</span> in the §6.3 code table; it appeared in the numbering examples but was never listed.</span></div>
         <div class="changelog-item"><span class="changelog-date">21 Sep 2026</span><span>§9.8 — retention now follows each project's own contract and statutory requirement, confirmed with the HOD where nothing is specified. The fixed 8-year default is withdrawn.</span></div>
@@ -1256,7 +1257,9 @@ html{ overflow-x:clip; }
             <tr><td class="mono">DAR</td><td>Document / Drawing Approval Request — formal submission for consultant/client approval</td></tr>
             <tr><td class="mono">DC</td><td>Document Controller</td></tr>
             <tr><td class="mono">DFO</td><td>Divisional Forest Officer — the statutory authority for tree‑felling/transplantation approvals</td></tr>
-            <tr><td class="mono">DRT</td><td>Drawing Transmittal — a separate cover record used only for drawing issues</td></tr>
+            <tr><td class="mono">DRG</td><td>Drawing — the document-type element inside a drawing number (see §6.1); it marks the document as a drawing and is not a register in its own right</td></tr>
+              <tr><td class="mono">DRT</td><td>Drawing Transmittal — a separate cover record used only for drawing issues</td></tr>
+              <tr><td class="mono">Forma</td><td>Autodesk Forma — Autodesk's cloud platform for early-stage design and planning. Where a project runs on Forma, its revision tracking differs from ACC, and that variation is stated separately (§1)</td></tr>
             <tr><td class="mono">GFC</td><td>Good For Construction — the final drawing revision, approved and issued for use on site (a status code, see §7)</td></tr>
             <tr><td class="mono">HOD</td><td>Head of Department — Document Control</td></tr>
             <tr><td class="mono">HOTO</td><td>Handover–Takeover Checklist — formal record of handover to the client or facility team</td></tr>
@@ -1702,6 +1705,7 @@ html{ overflow-x:clip; }
   <details class="changelog">
     <summary>নতুন কী যোগ হলো <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§৩ — <span class="tag">DRG</span> ও <span class="tag">Forma</span> সংজ্ঞায়িত করা হয়েছে; এই দুটি শব্দ SOP-তে ব্যবহার হলেও কোথাও ব্যাখ্যা করা ছিল না।</span></div>
         <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>কুইক রেফারেন্সে এখন ব্যবহৃত সব কোড আছে — বাদ পড়া রেজিস্টার, স্ট্যাটাস ও স্ট্যাটুটরি কোডগুলো যোগ করা হয়েছে, আর <span class="tag">OTH</span>-কে রেজিস্টারের তালিকা থেকে সরিয়ে তার নিজের স্ট্যাটুটরি দলে নেওয়া হয়েছে।</span></div>
         <div class="changelog-item"><span class="changelog-date">২২ সেপ্টেম্বর ২০২৬</span><span>§৬.৩-এর কোড টেবিলে <span class="tag">DRG</span> যোগ করা হয়েছে; নম্বরকরণের উদাহরণে এটি ছিল, কিন্তু তালিকায় ছিল না।</span></div>
         <div class="changelog-item"><span class="changelog-date">২১ সেপ্টেম্বর ২০২৬</span><span>§৯.৮ — রিটেনশন এখন প্রতিটি প্রজেক্টের নিজস্ব চুক্তি ও আইনি প্রয়োজন অনুযায়ী; কিছু নির্দিষ্ট করা না থাকলে HOD-এর সাথে নিশ্চিত করে নিতে হবে। ৮ বছরের নির্দিষ্ট ডিফল্ট তুলে নেওয়া হয়েছে।</span></div>
@@ -1849,7 +1853,9 @@ html{ overflow-x:clip; }
             <tr><td class="mono">DAR</td><td>ডকুমেন্ট / ড্রয়িং অ্যাপ্রুভাল রিকোয়েস্ট — কনসালট্যান্ট/ক্লায়েন্টের অনুমোদনের জন্য আনুষ্ঠানিক সাবমিশন</td></tr>
             <tr><td class="mono">DC</td><td>ডকুমেন্ট কন্ট্রোলার</td></tr>
             <tr><td class="mono">DFO</td><td>ডিভিশনাল ফরেস্ট অফিসার — ট্রি কাটিং/ট্রান্সপ্লান্টেশন সংক্রান্ত অনুমোদনের জন্য দায়ী স্ট্যাটুটরি অথরিটি</td></tr>
-            <tr><td class="mono">DRT</td><td>ড্রয়িং ট্রান্সমিটাল — শুধু ড্রয়িং ইস্যুর জন্য আলাদা কভার রেকর্ড</td></tr>
+            <tr><td class="mono">DRG</td><td>ড্রয়িং — ড্রয়িং নম্বরের ভিতরে থাকা ডকুমেন্ট-টাইপ অংশ (§৬.১ দেখুন); এটি বোঝায় ডকুমেন্টটি একটি ড্রয়িং, এবং এটি নিজে কোনো রেজিস্টার নয়</td></tr>
+              <tr><td class="mono">DRT</td><td>ড্রয়িং ট্রান্সমিটাল — শুধু ড্রয়িং ইস্যুর জন্য আলাদা কভার রেকর্ড</td></tr>
+              <tr><td class="mono">Forma</td><td>Autodesk Forma — প্রাথমিক পর্যায়ের ডিজাইন ও প্ল্যানিংয়ের জন্য অটোডেস্কের ক্লাউড প্ল্যাটফর্ম। কোনো প্রজেক্ট Forma-তে চললে সেখানে রিভিশন ট্র্যাকিং ACC-র চেয়ে আলাদা হয়, এবং সেই পার্থক্য আলাদাভাবে উল্লেখ করা থাকে (§১)</td></tr>
             <tr><td class="mono">GFC</td><td>Good For Construction — অনুমোদিত ও সাইটে ব্যবহারের জন্য ইস্যুকৃত চূড়ান্ত ড্রয়িং রিভিশন (স্ট্যাটাস কোড, §৭ দেখুন)</td></tr>
             <tr><td class="mono">HOD</td><td>হেড অফ ডিপার্টমেন্ট — ডকুমেন্ট কন্ট্রোল</td></tr>
             <tr><td class="mono">HOTO</td><td>হ্যান্ডওভার–টেকওভার চেকলিস্ট — ক্লায়েন্ট/ফ্যাসিলিটি টিমের কাছে হ্যান্ডওভারের আনুষ্ঠানিক রেকর্ড</td></tr>
@@ -2295,6 +2301,7 @@ html{ overflow-x:clip; }
   <details class="changelog">
     <summary>नया क्या जुड़ा <svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg></summary>
     <div class="changelog-body">
+        <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§३ — <span class="tag">DRG</span> व <span class="tag">Forma</span> को परिभाषित किया गया; ये दोनों शब्द SOP में इस्तेमाल तो थे, पर कहीं समझाए नहीं गए थे।</span></div>
         <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>क्विक रेफरेंस में अब इस्तेमाल होने वाले सभी कोड हैं — छूटे हुए रजिस्टर, स्टेटस व स्टैट्यूटरी कोड जोड़े गए, और <span class="tag">OTH</span> को रजिस्टर सूची से हटाकर उसके अपने स्टैट्यूटरी समूह में रखा गया।</span></div>
         <div class="changelog-item"><span class="changelog-date">22 सितंबर 2026</span><span>§६.३ की कोड तालिका में <span class="tag">DRG</span> जोड़ा गया; यह नंबरिंग उदाहरणों में था, पर सूची में नहीं।</span></div>
         <div class="changelog-item"><span class="changelog-date">21 सितंबर 2026</span><span>§९.८ — रिटेंशन अब हर प्रोजेक्ट के अपने अनुबंध व वैधानिक आवश्यकता के अनुसार; कुछ निर्दिष्ट न हो तो HOD से पुष्टि करके। ८ वर्ष का निश्चित डिफ़ॉल्ट हटा दिया गया।</span></div>
@@ -2442,7 +2449,9 @@ html{ overflow-x:clip; }
             <tr><td class="mono">DAR</td><td>डॉक्यूमेंट / ड्रॉइंग अप्रूवल रिक्वेस्ट — कंसल्टेंट/क्लाइंट के अनुमोदन के लिए औपचारिक सबमिशन</td></tr>
             <tr><td class="mono">DC</td><td>डॉक्यूमेंट कंट्रोलर</td></tr>
             <tr><td class="mono">DFO</td><td>डिविजनल फ़ॉरेस्ट ऑफिसर — पेड़ काटने/ट्रांसप्लांटेशन संबंधी अनुमोदन के लिए ज़िम्मेदार स्टैट्यूटरी अथॉरिटी</td></tr>
-            <tr><td class="mono">DRT</td><td>ड्रॉइंग ट्रांसमिटल — केवल ड्रॉइंग इशू के लिए अलग कवर रिकॉर्ड</td></tr>
+            <tr><td class="mono">DRG</td><td>ड्रॉइंग — ड्रॉइंग नंबर के भीतर का डॉक्यूमेंट-टाइप हिस्सा (§६.१ देखें); यह दर्शाता है कि दस्तावेज़ एक ड्रॉइंग है, और यह स्वयं कोई रजिस्टर नहीं है</td></tr>
+              <tr><td class="mono">DRT</td><td>ड्रॉइंग ट्रांसमिटल — केवल ड्रॉइंग इशू के लिए अलग कवर रिकॉर्ड</td></tr>
+              <tr><td class="mono">Forma</td><td>Autodesk Forma — शुरुआती चरण की डिज़ाइन व प्लानिंग के लिए ऑटोडेस्क का क्लाउड प्लेटफ़ॉर्म। कोई प्रोजेक्ट Forma पर चलता हो तो वहाँ रिवीज़न ट्रैकिंग ACC से अलग होती है, और वह अंतर अलग से बताया जाता है (§१)</td></tr>
             <tr><td class="mono">GFC</td><td>Good For Construction — अनुमोदित और साइट पर उपयोग के लिए जारी अंतिम ड्रॉइंग रिवीज़न (स्टेटस कोड, §७ देखें)</td></tr>
             <tr><td class="mono">HOD</td><td>हेड ऑफ डिपार्टमेंट — डॉक्यूमेंट कंट्रोल</td></tr>
             <tr><td class="mono">HOTO</td><td>हैंडओवर–टेकओवर चेकलिस्ट — क्लाइंट/फ़ैसिलिटी टीम को हैंडओवर का औपचारिक रिकॉर्ड</td></tr>
