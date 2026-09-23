@@ -64,12 +64,62 @@ plus a JDK:
 - `C:\Android\Sdk\platforms\android-34\android.jar`
 - JDK 21 (`javac`, `java`, `keytool`)
 
-Before a release, bump **three** numbers so they agree — the update banner
-compares them and silently misbehaves if they drift apart:
+Before a release, bump these so they agree. The update banner compares them and
+silently misbehaves if they drift apart:
 
 1. `android:versionCode` and `android:versionName` in `AndroidManifest.xml`
-2. `CURRENT_VERSION_CODE` in the bundled `assets/sop.html`
+2. `CURRENT_VERSION_CODE` in the bundled `assets/sop.html` (the offline copy)
 3. the `DC_SOP v1.x` strings in the toolbar tooltip in `index.html`
+4. the **version Sheet** the banner reads, described below. This one lives
+   outside the repository, and it was missed at the v1.10 release: months
+   later the Sheet still read `4 / 1.3`.
+
+### The version Sheet
+
+The "a new version is available" banner reads a single row from a Google Sheet:
+
+```
+id    1XvjtwcUpLoJV5GDU4eB0LFdjjvJ63cqxq4_iFYUopjU     (tab: Sheet1)
+row   versionCode | versionName | downloadUrl | note
+```
+
+`index.html` raises the banner only when **both** of these hold:
+
+```js
+latestCode > CURRENT_VERSION_CODE   &&   downloadUrl is not empty
+```
+
+`downloadUrl` has been empty since the beginning, so the banner has never
+actually appeared. That is the only reason the stale row did no harm.
+
+### The banner cannot tell who has what - fix this at the next rebuild
+
+The app loads the **live** `index.html`, so every reader is served the same
+`CURRENT_VERSION_CODE` no matter which APK they installed. That makes the
+comparison unwinnable:
+
+- leave the constant at the old code, and the banner fires for everybody and
+  keeps firing for the people who have already updated;
+- move it to the new code, and `latestCode <= CURRENT_VERSION_CODE` is true for
+  everybody, so it never fires at all, including for the people still on the
+  old build.
+
+The app has to state its own version. It already exposes a JavaScript bridge
+(`AndroidPrint`), so the smallest fix is to publish the installed versionCode
+through that same object and let the page prefer it, falling back to the
+constant when it is absent (a desktop browser, where nothing is installed):
+
+```java
+@JavascriptInterface
+public int versionCode(){
+  try { return getPackageManager().getPackageInfo(getPackageName(), 0).versionCode; }
+  catch (Exception e) { return 0; }
+}
+```
+
+Until that ships, leave `downloadUrl` empty and announce new builds by hand.
+Keeping the Sheet row truthful (`11 / 1.10` today) costs nothing and cannot
+raise the banner, because `11 > 11` is false and `downloadUrl` is still empty
 
 Then, with `$P` the project folder and `$V` a fresh version tag:
 
