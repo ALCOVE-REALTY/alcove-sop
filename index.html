@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260923-145446">
+<meta name="sop-build" content="20260923-151102">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -799,7 +799,24 @@ tbody tr.suggested td:first-child{color:var(--suggest);}
 .sopsearch-out mark, mark.sop-hit{ background:var(--gold-bg); color:inherit; border-radius:2px; padding:0 1px; }
 mark.sop-hit.is-first{ background:var(--stamp-bg-strong); }
 @media (max-width:640px){ .sopsearch{ padding:0 14px; } .sopsearch-out{ left:14px; right:14px; } }
-@media print{ .sopsearch{ display:none !important; } mark.sop-hit{ background:none !important; padding:0 !important; } }</style>
+@media print{ .sopsearch{ display:none !important; } mark.sop-hit{ background:none !important; padding:0 !important; } }
+/* ---- The closing note ---------------------------------------------------
+   Deliberately not a numbered clause. It carries no procedure, the revision
+   history has to stay the last numbered section of a controlled document,
+   and it is dropped from print so the PDF still ends at 18. It therefore
+   sits outside the menu's counter and carries no thumbnail. */
+.toc li.toc-extra{ counter-increment:none; }
+.toc li.toc-extra a::before{ content:none !important; }
+.toc li.toc-extra a::after{ display:none !important; }
+section[id$="-thanks"]{ text-align:center; padding-top:14px; }
+section[id$="-thanks"] h2{ margin-bottom:26px; }
+section[id$="-thanks"] p{ max-width:44ch; margin:0 auto 18px; font-size:16px; line-height:1.85; color:var(--ink-soft); }
+section[id$="-thanks"] .thanks-sign{ max-width:44ch; margin:34px auto 0; padding-top:22px; border-top:1px solid var(--rule); font-family:"Fraunces","Source Serif 4",serif; font-size:17px; font-weight:600; color:var(--ink); }
+@media print{
+  /* Beats the blanket .js-hidden{display:block} above: an element+attribute
+     selector outranks that single class, so the note stays out of the PDF. */
+  section[id$="-thanks"]{ display:none !important; }
+}</style>
 
 <div id="update-banner" style="display:none;background:#1f6f4a;color:#fff;font-size:13px;line-height:1.5;padding:9px 16px;text-align:center;">
   <a id="update-banner-link" href="#" target="_blank" style="color:#fff;text-decoration:underline;font-weight:600;">Update</a>
@@ -1297,6 +1314,7 @@ tr[hidden]{ display:none !important; }
       <li><a href="#en-references">Related documents</a></li>
       <li><a href="#en-forma">Working in Forma</a></li>
       <li><a href="#en-history">Revision history</a></li>
+            <li class="toc-extra"><a href="#en-thanks">Thank you</a></li>
     </ol>
     <div class="toc-more">
       <button type="button" class="toc-more-btn">More <span class="caret">&#9662;</span></button>
@@ -1861,7 +1879,14 @@ tr[hidden]{ display:none !important; }
     </section>
 
 
-    <div class="footline">
+    <section id="en-thanks" class="js-hidden">
+        <h2>Thank you</h2>
+        <p>Nobody sees this work. Nothing goes missing because you do it.</p>
+        <p>Thank you for that care.</p>
+        <p>If something here doesn't feel right, tell Document Control — this SOP is yours, not ours.</p>
+        <div class="thanks-sign">Alcove Realty</div>
+      </section>
+      <div class="footline">
       <span>ALC-DC-SOP-001 · Alcove Realty · Document Control</span>
       <span>Uncontrolled if printed — verify current revision in Forma before use · Last updated <span data-updated="en">22 September 2026</span></span>
     </div>
@@ -2037,6 +2062,7 @@ tr[hidden]{ display:none !important; }
       <li><a href="#bn-references">সম্পর্কিত ডকুমেন্ট</a></li>
       <li><a href="#bn-forma">Forma-তে কাজ</a></li>
       <li><a href="#bn-history">রিভিশন হিস্ট্রি</a></li>
+            <li class="toc-extra"><a href="#bn-thanks">ধন্যবাদ</a></li>
     </ol>
     <div class="toc-more">
       <button type="button" class="toc-more-btn">আরও <span class="caret">&#9662;</span></button>
@@ -2601,7 +2627,14 @@ tr[hidden]{ display:none !important; }
     </section>
 
 
-    <div class="footline">
+    <section id="bn-thanks" class="js-hidden">
+        <h2>ধন্যবাদ</h2>
+        <p>এই কাজটা কেউ দেখে না। আপনারা করেন বলেই কোথাও কিছু হারিয়ে যায় না।</p>
+        <p>সেই যত্নটার জন্য ধন্যবাদ।</p>
+        <p>এখানে কিছু ঠিক মনে না হলে Document Control-কে বলবেন — SOP-টা আপনাদের, আমাদের নয়।</p>
+        <div class="thanks-sign">Alcove Realty</div>
+      </section>
+      <div class="footline">
       <span>ALC-DC-SOP-001 · অ্যালকোভ রিয়েলটি · Document Control</span>
       <span>প্রিন্ট করা হলে আনকন্ট্রোলড — ব্যবহারের আগে Forma-তে বর্তমান রিভিশন যাচাই করুন · সর্বশেষ আপডেট <span data-updated="bn">২২ সেপ্টেম্বর ২০২৬</span></span>
     </div>
@@ -2777,6 +2810,7 @@ tr[hidden]{ display:none !important; }
       <li><a href="#hi-references">संबंधित दस्तावेज़</a></li>
       <li><a href="#hi-forma">Forma में काम</a></li>
       <li><a href="#hi-history">रिवीज़न हिस्ट्री</a></li>
+            <li class="toc-extra"><a href="#hi-thanks">धन्यवाद</a></li>
     </ol>
     <div class="toc-more">
       <button type="button" class="toc-more-btn">और <span class="caret">&#9662;</span></button>
@@ -3341,7 +3375,14 @@ tr[hidden]{ display:none !important; }
     </section>
 
 
-    <div class="footline">
+    <section id="hi-thanks" class="js-hidden">
+        <h2>धन्यवाद</h2>
+        <p>यह काम कोई नहीं देखता। कुछ भी कहीं खोता नहीं, क्योंकि आप इसे करते हैं।</p>
+        <p>उस सावधानी के लिए धन्यवाद।</p>
+        <p>यहाँ कुछ ठीक न लगे तो डॉक्यूमेंट कंट्रोल को बताएँ — यह SOP आपका है, हमारा नहीं।</p>
+        <div class="thanks-sign">Alcove Realty</div>
+      </section>
+      <div class="footline">
       <span>ALC-DC-SOP-001 · अल्कोव रियल्टी · Document Control</span>
       <span>प्रिंट होने पर अनकंट्रोल्ड — इस्तेमाल से पहले Forma में मौजूदा रिवीज़न जाँच लें · अंतिम अपडेट <span data-updated="hi">22 सितंबर 2026</span></span>
     </div>
