@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260923-153153">
+<meta name="sop-build" content="20260923-153927">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -808,31 +808,81 @@ mark.sop-hit.is-first{ background:var(--stamp-bg-strong); }
 .toc li.toc-extra{ counter-increment:none; }
 .toc li.toc-extra a::before{ content:none !important; }
 .toc li.toc-extra a::after{ display:none !important; }
-section[id$="-thanks"]{ text-align:center; padding-top:10px; }
-section[id$="-thanks"] h2.thanks-title{ font-size:clamp(30px,6vw,46px); letter-spacing:.14em; margin:0 0 8px; }
+
+/* The artwork was drawn with an empty middle for exactly this text, so here
+   the picture carries the words instead of sitting in a box beside them:
+   the card, the two-column grid and the section thumbnail all come off. */
+section[id$="-thanks"]{
+  display:block !important;
+  background:transparent !important;
+  border:none !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  padding:clamp(38px,7vh,84px) 20px clamp(44px,8vh,92px) !important;
+  text-align:center;
+}
+section[id$="-thanks"]::after{ display:none !important; }
+/* position:fixed so the picture fills the window rather than just the height
+   of the words, and z-index:-1 to keep it under them. This only works while
+   the section itself stays transparent - an opaque card would paint over it,
+   which is why the rule above clears the background. Same construction as
+   the Welcome screen. */
+section[id$="-thanks"]::before{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background-image:
+    radial-gradient(ellipse 54% 50% at 50% 46%, var(--hero-veil-core), transparent 74%),
+    linear-gradient(var(--thanks-veil), var(--thanks-veil)),
+    url('pages/thanks.jpg');
+  background-position:center; background-size:cover; background-repeat:no-repeat;
+}
+/* The footline is a card too, and it would float on the photograph. :has is
+   the only way to reach it from the open section; where it is unsupported the
+   strip simply keeps its card, which is untidy rather than broken. */
+article:has(> section[id$="-thanks"]:not(.js-hidden)) > .footline{
+  background:transparent !important; border:none !important; box-shadow:none !important;
+}
+/* h2 normally carries a gold rule down its left edge and a line beneath it -
+   section furniture that has no place on a closing page. */
+section[id$="-thanks"] h2.thanks-title{
+  border:none !important; padding:0 !important; margin:0 0 10px !important;
+  font-size:clamp(32px,6.4vw,52px); font-weight:600; letter-spacing:.14em; color:var(--ink);
+}
 /* letter-spacing breaks conjunct shaping in Bengali/Devanagari - the heading
-   is a real word in those two, not the Latin "THANK YOU", so the tracking
-   that suits the English one has to come off here. */
+   is a real word in those two, not the Latin "THANK YOU". */
 .doc-bn section[id$="-thanks"] h2.thanks-title,
 .doc-hi section[id$="-thanks"] h2.thanks-title{ letter-spacing:normal; }
-section[id$="-thanks"] .thanks-sub{ font-style:italic; color:var(--ink-faint); font-size:15px; margin:0 0 32px; }
-section[id$="-thanks"] p{ max-width:52ch; margin:0 auto 20px; font-size:16px; line-height:1.85; color:var(--ink-soft); }
+section[id$="-thanks"] .thanks-sub{
+  max-width:none; margin:0 auto 38px; font-style:italic;
+  color:var(--ink-soft); font-size:15px; letter-spacing:.08em;
+}
+section[id$="-thanks"] p{ max-width:50ch; margin:0 auto 20px; font-size:16px; line-height:1.85; color:var(--ink); }
 /* Part of the sentence around it, not a list - display:block just puts it on
    its own line so the four words carry. */
-section[id$="-thanks"] .thanks-values{ display:block; margin:16px auto; font-weight:700; font-size:17px; color:var(--structural); }
-section[id$="-thanks"] .thanks-sign{ margin:36px auto 0; }
+section[id$="-thanks"] .thanks-values{ display:block; margin:18px auto; font-weight:700; font-size:17px; letter-spacing:.02em; color:var(--structural); }
+section[id$="-thanks"] .thanks-sign{ margin:38px auto 0; }
 section[id$="-thanks"] .thanks-sign span{ display:block; line-height:1.75; }
-section[id$="-thanks"] .thanks-regards{ color:var(--ink-faint); font-size:15px; }
+section[id$="-thanks"] .thanks-regards{ color:var(--ink-soft); font-size:15px; }
 section[id$="-thanks"] .thanks-dept{ font-weight:700; color:var(--ink); font-size:16px; }
 section[id$="-thanks"] .thanks-co{ color:var(--ink-soft); font-size:15px; }
-section[id$="-thanks"] .thanks-motto{ max-width:52ch; margin:32px auto 0; padding-top:22px; border-top:1px solid var(--rule); font-family:"Fraunces","Source Serif 4",serif; font-style:italic; font-size:16px; color:var(--ink); }
-/* Fraunces carries no Bengali or Devanagari, and an italic slant faked by the
-   browser mangles those scripts - let them fall through to the document's own
-   serif, upright. */
+section[id$="-thanks"] .thanks-motto{
+  max-width:50ch; margin:34px auto 0; padding-top:22px; border-top:1px solid var(--rule-strong);
+  font-family:"Fraunces","Source Serif 4",serif; font-style:italic; font-size:16px; color:var(--ink);
+}
+/* Fraunces carries no Bengali or Devanagari, and a slant faked by the browser
+   mangles both scripts - let them fall through to the document's own serif,
+   upright, and drop the Latin tracking with it. */
 .doc-bn section[id$="-thanks"] .thanks-motto,
 .doc-hi section[id$="-thanks"] .thanks-motto{ font-family:inherit; font-style:normal; font-weight:600; }
 .doc-bn section[id$="-thanks"] .thanks-sub,
-.doc-hi section[id$="-thanks"] .thanks-sub{ font-style:normal; }
+.doc-hi section[id$="-thanks"] .thanks-sub{ font-style:normal; letter-spacing:normal; }
+
+/* Light enough that the photograph still reads; the radial above it keeps the
+   middle calm where the words sit. Defined last so it wins over the theme
+   blocks near the top of this sheet. */
+:root{ --thanks-veil:rgba(250,249,244,.20); }
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){ --thanks-veil:rgba(14,17,19,.78); } }
+:root[data-theme="dark"]{ --thanks-veil:rgba(14,17,19,.78); }
+
 @media print{
   /* Beats the blanket .js-hidden{display:block} above: an element+attribute
      selector outranks that single class, so the note stays out of the PDF. */
