@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260923-154646">
+<meta name="sop-build" content="20260923-160038">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -822,6 +822,9 @@ section[id$="-thanks"]{
   text-align:center;
 }
 section[id$="-thanks"]::after{ display:none !important; }
+/* display:block above outranks .js-hidden (a bare class), so without this the
+   closing page never hides and shows up under every other section. */
+section[id$="-thanks"].js-hidden{ display:none !important; }
 /* Same construction as the Welcome screen - fixed so the picture fills the
    window rather than only the height of the words, z-index:-1 to keep it
    under them, and the section itself transparent so nothing paints over it.
@@ -3547,7 +3550,24 @@ tr[hidden]{ display:none !important; }
   // to its Home view so picking a language always shows "the SOP" right
   // away rather than a blank "select a section" screen.
   document.getElementById('toolbar-lang-select').addEventListener('change', function(){
-    setLang(this.value);
+    var lang = this.value;
+    // Work out what is on screen BEFORE the switch, so the reader stays where
+    // they were instead of being dropped back on Home. Section ids differ only
+    // in their language prefix, so the suffix carries straight across.
+    var open = null, prev = document.querySelector('.doc-view.active');
+    if(prev){
+      var sec = prev.querySelector('article > section:not(.js-hidden)');
+      if(sec){ open = sec.id.replace(/^(en|bn|hi)-/, ''); }
+    }
+    var onMenu = document.body.classList.contains('nav-landing');
+    setLang(lang);
+    if(onMenu && window.AlcoveGoLanding){ window.AlcoveGoLanding(); return; }
+    if(open){
+      // Click the menu link rather than reaching into the navigation closure:
+      // it is already wired and does the highlighting and scrolling too.
+      var link = document.querySelector('#doc-' + lang + ' .toc a[href="#' + lang + '-' + open + '"]');
+      if(link){ link.click(); return; }
+    }
     if(window.AlcoveGoHome){ window.AlcoveGoHome(); }
   });
 
@@ -3688,6 +3708,12 @@ tr[hidden]{ display:none !important; }
   window.AlcoveGoHome = function(){
     var doc = activeDoc();
     if(doc){ goHome(doc); }
+  };
+  // Same, for the menu screen - a language switch has to be able to put the
+  // reader back where they were, and that includes the menu.
+  window.AlcoveGoLanding = function(){
+    var doc = activeDoc();
+    if(doc){ goLanding(doc); }
   };
 })();
 </script>
@@ -4091,9 +4117,12 @@ tr[hidden]{ display:none !important; }
   function buildIndex(doc){
     if(idx[doc.id]){ return idx[doc.id]; }
     var list = [];
-    doc.querySelectorAll('.toc ol a').forEach(function(a){
+    // The nav fit script moves whatever will not fit on one line out of the
+    // <ol> and into the More dropdown, so ".toc ol a" stops seeing the last
+    // few sections once the page has laid out - and they vanished from search.
+    doc.querySelectorAll('.toc a[href^="#"]').forEach(function(a){
       var href = a.getAttribute('href');
-      if(!href || href.charAt(0) !== '#'){ return; }
+      if(!href || href.length < 2){ return; }   // href="#" is Home, not a section
       var sec = doc.querySelector('#' + CSS.escape(href.slice(1)));
       if(!sec){ return; }
       var eye = sec.querySelector('.eyebrow');
