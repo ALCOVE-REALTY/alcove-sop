@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260923-151102">
+<meta name="sop-build" content="20260923-152315">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -808,10 +808,21 @@ mark.sop-hit.is-first{ background:var(--stamp-bg-strong); }
 .toc li.toc-extra{ counter-increment:none; }
 .toc li.toc-extra a::before{ content:none !important; }
 .toc li.toc-extra a::after{ display:none !important; }
-section[id$="-thanks"]{ text-align:center; padding-top:14px; }
-section[id$="-thanks"] h2{ margin-bottom:26px; }
-section[id$="-thanks"] p{ max-width:44ch; margin:0 auto 18px; font-size:16px; line-height:1.85; color:var(--ink-soft); }
-section[id$="-thanks"] .thanks-sign{ max-width:44ch; margin:34px auto 0; padding-top:22px; border-top:1px solid var(--rule); font-family:"Fraunces","Source Serif 4",serif; font-size:17px; font-weight:600; color:var(--ink); }
+section[id$="-thanks"]{ text-align:center; padding-top:10px; }
+/* The heading is the Latin "THANK YOU" in all three languages, so tracking
+   it out is safe here - it never lands on a Bengali or Devanagari run. */
+section[id$="-thanks"] h2.thanks-title{ font-size:clamp(30px,6vw,46px); letter-spacing:.14em; margin:0 0 8px; }
+section[id$="-thanks"] .thanks-sub{ font-style:italic; color:var(--ink-faint); font-size:15px; margin:0 0 32px; }
+section[id$="-thanks"] p{ max-width:52ch; margin:0 auto 20px; font-size:16px; line-height:1.85; color:var(--ink-soft); }
+/* Part of the sentence around it, not a list - display:block just puts it on
+   its own line so the four words carry. */
+section[id$="-thanks"] .thanks-values{ display:block; margin:16px auto; font-weight:700; font-size:17px; color:var(--structural); }
+section[id$="-thanks"] .thanks-sign{ margin:36px auto 0; }
+section[id$="-thanks"] .thanks-sign span{ display:block; line-height:1.75; }
+section[id$="-thanks"] .thanks-regards{ color:var(--ink-faint); font-size:15px; }
+section[id$="-thanks"] .thanks-dept{ font-weight:700; color:var(--ink); font-size:16px; }
+section[id$="-thanks"] .thanks-co{ color:var(--ink-soft); font-size:15px; }
+section[id$="-thanks"] .thanks-motto{ max-width:52ch; margin:32px auto 0; padding-top:22px; border-top:1px solid var(--rule); font-family:"Fraunces","Source Serif 4",serif; font-style:italic; font-size:16px; color:var(--ink); }
 @media print{
   /* Beats the blanket .js-hidden{display:block} above: an element+attribute
      selector outranks that single class, so the note stays out of the PDF. */
@@ -1880,11 +1891,17 @@ tr[hidden]{ display:none !important; }
 
 
     <section id="en-thanks" class="js-hidden">
-        <h2>Thank you</h2>
-        <p>Nobody sees this work. Nothing goes missing because you do it.</p>
-        <p>Thank you for that care.</p>
-        <p>If something here doesn't feel right, tell Document Control — this SOP is yours, not ours.</p>
-        <div class="thanks-sign">Alcove Realty</div>
+        <h2 class="thanks-title">THANK YOU</h2>
+        <p class="thanks-sub">With Sincere Appreciation</p>
+        <p>On behalf of Alcove Realty, our sincere thanks for reading and reviewing this Document Control SOP with care.</p>
+        <p>Your cooperation, and your faithful observance of the prescribed Document Control Procedures, is what secures our<span class="thanks-values">Accuracy • Transparency • Traceability • Efficiency</span></p>
+        <p>Should anything in this document not correspond with how the work is actually carried out, please inform the Document Control Department. It will be corrected in the next revision — a standard remains effective only for as long as it reflects the truth.</p>
+        <div class="thanks-sign">
+          <span class="thanks-regards">With Regards,</span>
+          <span class="thanks-dept">Document Control Department</span>
+          <span class="thanks-co">Alcove Realty</span>
+        </div>
+        <div class="thanks-motto">“Right Document • Right Revision • Right Information • Right Time”</div>
       </section>
       <div class="footline">
       <span>ALC-DC-SOP-001 · Alcove Realty · Document Control</span>
@@ -2628,11 +2645,17 @@ tr[hidden]{ display:none !important; }
 
 
     <section id="bn-thanks" class="js-hidden">
-        <h2>ধন্যবাদ</h2>
-        <p>এই কাজটা কেউ দেখে না। আপনারা করেন বলেই কোথাও কিছু হারিয়ে যায় না।</p>
-        <p>সেই যত্নটার জন্য ধন্যবাদ।</p>
-        <p>এখানে কিছু ঠিক মনে না হলে Document Control-কে বলবেন — SOP-টা আপনাদের, আমাদের নয়।</p>
-        <div class="thanks-sign">Alcove Realty</div>
+        <h2 class="thanks-title">THANK YOU</h2>
+        <p class="thanks-sub">With Sincere Appreciation</p>
+        <p>Alcove Realty-এর পক্ষ থেকে এই Document Control SOP মনোযোগ সহকারে পাঠ ও পর্যালোচনা করার জন্য আপনাকে আন্তরিক ধন্যবাদ।</p>
+        <p>আপনার সহযোগিতা ও নির্ধারিত Document Control Procedures-এর যথাযথ অনুসরণ আমাদের<span class="thanks-values">Accuracy • Transparency • Traceability • Efficiency</span>নিশ্চিত করতে সহায়তা করে।</p>
+        <p>এই ডকুমেন্টে লিখিত কোনো বিষয় যদি প্রকৃত কর্মপদ্ধতির সঙ্গে সঙ্গতিপূর্ণ না হয়, অনুগ্রহ করে Document Control Department-কে অবহিত করুন। পরবর্তী রিভিশনে তা সংশোধন করা হবে — কোনো মানদণ্ড ততক্ষণই কার্যকর, যতক্ষণ তা বাস্তবের সঙ্গে মেলে।</p>
+        <div class="thanks-sign">
+          <span class="thanks-regards">With Regards,</span>
+          <span class="thanks-dept">Document Control Department</span>
+          <span class="thanks-co">Alcove Realty</span>
+        </div>
+        <div class="thanks-motto">“Right Document • Right Revision • Right Information • Right Time”</div>
       </section>
       <div class="footline">
       <span>ALC-DC-SOP-001 · অ্যালকোভ রিয়েলটি · Document Control</span>
@@ -3376,11 +3399,17 @@ tr[hidden]{ display:none !important; }
 
 
     <section id="hi-thanks" class="js-hidden">
-        <h2>धन्यवाद</h2>
-        <p>यह काम कोई नहीं देखता। कुछ भी कहीं खोता नहीं, क्योंकि आप इसे करते हैं।</p>
-        <p>उस सावधानी के लिए धन्यवाद।</p>
-        <p>यहाँ कुछ ठीक न लगे तो डॉक्यूमेंट कंट्रोल को बताएँ — यह SOP आपका है, हमारा नहीं।</p>
-        <div class="thanks-sign">Alcove Realty</div>
+        <h2 class="thanks-title">THANK YOU</h2>
+        <p class="thanks-sub">With Sincere Appreciation</p>
+        <p>Alcove Realty की ओर से, इस Document Control SOP को ध्यानपूर्वक पढ़ने और परखने के लिए आपका हार्दिक धन्यवाद।</p>
+        <p>आपका सहयोग और निर्धारित Document Control Procedures का यथोचित पालन ही हमारी<span class="thanks-values">Accuracy • Transparency • Traceability • Efficiency</span>सुनिश्चित करता है।</p>
+        <p>इस दस्तावेज़ में लिखी कोई बात यदि वास्तविक कार्यप्रणाली से मेल न खाती हो, तो कृपया Document Control Department को सूचित करें। अगले रिवीज़न में उसे सुधार दिया जाएगा — कोई मानक तभी तक प्रभावी है, जब तक वह सच को दर्शाता है।</p>
+        <div class="thanks-sign">
+          <span class="thanks-regards">With Regards,</span>
+          <span class="thanks-dept">Document Control Department</span>
+          <span class="thanks-co">Alcove Realty</span>
+        </div>
+        <div class="thanks-motto">“Right Document • Right Revision • Right Information • Right Time”</div>
       </section>
       <div class="footline">
       <span>ALC-DC-SOP-001 · अल्कोव रियल्टी · Document Control</span>
