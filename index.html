@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260923-163819">
+<meta name="sop-build" content="20260924-104958">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -4451,15 +4451,45 @@ tr[hidden]{ display:none !important; }
     if(homeLink){ homeLink.classList.remove('active'); }
   }
 
+  // A one-pixel marker parked at the very end of the document. Watching it is
+  // more dependable than arithmetic on scroll offsets, which assumes the
+  // window is the thing scrolling - and it costs nothing when it is off screen.
+  function endMarker(doc){
+    var art = doc.querySelector('article');
+    if(!art) return null;
+    var m = art.querySelector('.read-on-end');
+    if(!m){
+      m = document.createElement('div');
+      m.className = 'read-on-end';
+      m.setAttribute('aria-hidden', 'true');
+      m.style.height = '1px';
+      art.appendChild(m);
+    }
+    return m;
+  }
+
+  function nearEnd(){
+    var doc = activeDoc();
+    if(!doc) return false;
+    var m = endMarker(doc);
+    if(!m) return false;
+    return m.getBoundingClientRect().top < window.innerHeight + TRIGGER;
+  }
+
+  // Reveal one section at a time for as long as the end of the document is
+  // still within reach. Bounded by the marker, so it brings on what the
+  // reader is about to need and then stops, rather than unrolling the lot.
+  function pump(){
+    if(nearEnd() && revealNext()){ setTimeout(pump, 60); }
+  }
+
   var pending = false;
   function onScroll(){
     if(pending) return;
     pending = true;
     (window.requestAnimationFrame || function(fn){ setTimeout(fn, 16); })(function(){
       pending = false;
-      var bottom = document.documentElement.scrollHeight
-                 - (window.pageYOffset + window.innerHeight);
-      if(bottom < TRIGGER){ revealNext(); }
+      pump();
       spy();
     });
   }
@@ -4467,17 +4497,23 @@ tr[hidden]{ display:none !important; }
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', onScroll, { passive: true });
 
-  // A short section can leave the page no taller than the window, so there is
-  // nothing to scroll and the chain would stall. Top it up until the page is
-  // long enough to scroll, or the sections run out.
-  function fill(){
-    var guard = 0;
-    while(document.documentElement.scrollHeight <= window.innerHeight + 40 && guard < 25){
-      if(!revealNext()) break;
-      guard++;
+  // The observer catches the cases the scroll handler cannot: a section short
+  // enough that the page never scrolls at all, and any browser where the
+  // scrolling element is not the window.
+  if(window.IntersectionObserver){
+    var io = new IntersectionObserver(function(entries){
+      for(var i = 0; i < entries.length; i++){
+        if(entries[i].isIntersecting){ pump(); spy(); }
+      }
+    }, { rootMargin: TRIGGER + 'px 0px ' + TRIGGER + 'px 0px', threshold: 0 });
+    var views = document.querySelectorAll('.doc-view');
+    for(var v = 0; v < views.length; v++){
+      var mk = endMarker(views[v]);
+      if(mk){ io.observe(mk); }
     }
   }
-  window.AlcoveReadOn = fill;
-  setTimeout(fill, 400);
+
+  window.AlcoveReadOn = pump;
+  setTimeout(pump, 400);
 })();
 </script>
