@@ -4,7 +4,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260923-162927">
+<meta name="sop-build" content="20260923-163819">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -4371,5 +4371,113 @@ tr[hidden]{ display:none !important; }
     window.AlcoveSetLang = function(l){ origSet(l); relabel(); };
   }
   relabel();
+})();
+</script>
+
+<!-- Read-on: the menu opens one section at a time, which is right for looking
+     something up, but wrong for reading the SOP through. Scrolling to the
+     bottom of whatever is open now reveals the next section beneath it, and
+     the menu highlight follows along. Picking a menu item still resets to
+     that one section, so both ways of using the page keep working. -->
+<script>
+(function(){
+  // How close to the bottom the reader has to get before the next section is
+  // put in place. Roughly one screenful, so it is already there by the time
+  // they reach it rather than appearing under their eyes.
+  var TRIGGER = 700;
+  // Where "the section being read" is measured from, below the sticky nav.
+  var READ_LINE = 170;
+
+  function activeDoc(){ return document.querySelector('.doc-view.active'); }
+
+  // The closing page is deliberately left out of the chain: its artwork is a
+  // fixed, full-window backdrop, so revealing it while an ordinary section is
+  // still on screen would drop a photograph behind that section's text.
+  function chain(doc){
+    var out = [], all = doc.querySelectorAll('article > section');
+    for(var i = 0; i < all.length; i++){
+      if(all[i].id.indexOf('-thanks') === -1){ out.push(all[i]); }
+    }
+    return out;
+  }
+
+  function revealNext(){
+    var doc = activeDoc();
+    if(!doc) return false;
+    if(document.body.classList.contains('nav-landing')) return false;
+    // Never continue out of the closing page.
+    if(doc.querySelector('section[id$="-thanks"]:not(.js-hidden)')) return false;
+
+    var list = chain(doc);
+    if(!list.length) return false;
+
+    var last = -1;
+    for(var i = 0; i < list.length; i++){
+      if(!list[i].classList.contains('js-hidden')){ last = i; }
+    }
+    // Nothing open yet - the reader is on Home and has scrolled past it, so
+    // the first section is what comes next. (Testing an earlier version that
+    // special-cased Home showed the chain stalling here: Home stays on screen
+    // above the sections, so "is Home visible" is true for the whole run.)
+    if(last < 0){
+      list[0].classList.remove('js-hidden');
+      return true;
+    }
+    if(last >= list.length - 1) return false;
+    list[last + 1].classList.remove('js-hidden');
+    return true;
+  }
+
+  // Move the menu highlight to whatever is actually under the reading line,
+  // so the nav still says where the reader is once they have scrolled past
+  // the section they picked.
+  function spy(){
+    var doc = activeDoc();
+    if(!doc) return;
+    if(document.body.classList.contains('nav-landing')) return;
+    var list = chain(doc), here = null;
+    for(var i = 0; i < list.length; i++){
+      var s = list[i];
+      if(s.classList.contains('js-hidden')) continue;
+      var r = s.getBoundingClientRect();
+      if(r.top <= READ_LINE && r.bottom > READ_LINE){ here = s; break; }
+    }
+    if(!here) return;
+    var links = doc.querySelectorAll('.toc a[href^="#"]');
+    for(var j = 0; j < links.length; j++){
+      links[j].classList.toggle('active', links[j].getAttribute('href') === '#' + here.id);
+    }
+    var homeLink = doc.querySelector('.toc-home-link');
+    if(homeLink){ homeLink.classList.remove('active'); }
+  }
+
+  var pending = false;
+  function onScroll(){
+    if(pending) return;
+    pending = true;
+    (window.requestAnimationFrame || function(fn){ setTimeout(fn, 16); })(function(){
+      pending = false;
+      var bottom = document.documentElement.scrollHeight
+                 - (window.pageYOffset + window.innerHeight);
+      if(bottom < TRIGGER){ revealNext(); }
+      spy();
+    });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+
+  // A short section can leave the page no taller than the window, so there is
+  // nothing to scroll and the chain would stall. Top it up until the page is
+  // long enough to scroll, or the sections run out.
+  function fill(){
+    var guard = 0;
+    while(document.documentElement.scrollHeight <= window.innerHeight + 40 && guard < 25){
+      if(!revealNext()) break;
+      guard++;
+    }
+  }
+  window.AlcoveReadOn = fill;
+  setTimeout(fill, 400);
 })();
 </script>
