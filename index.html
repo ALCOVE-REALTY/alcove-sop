@@ -9,7 +9,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260925-144259">
+<meta name="sop-build" content="20260925-145349">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Share+Tech+Mono&display=swap');
@@ -620,24 +620,20 @@ section[id$="-projects"]::after{ display:none; }
   article > section > *{ grid-column:1; min-width:0; }
   section[id$="-projects"]{ display:block; }
   article > section::after{
-    /* Spanning every row is what stops the picture from inflating row 1 and
-       shoving the heading down past its own height. It has to be an
-       explicit span: the rows here are implicit, so -1 resolves back to
-       row 1 and the gap comes straight back.
-       align-self:stretch (rather than :start) is what scales the picture to
-       the text: a stretched grid item fills every row it spans, so on a
-       short section (little text) the image comes out short, and on a long
-       one it comes out tall - matching whatever height the text column
-       actually took, instead of sitting at one fixed size regardless.
-       max-height guards the far end of that: without it, a very long
-       section (Procedure runs several screens) would stretch the photo into
-       a tall sliver and background-size:cover would crop it down to almost
-       nothing recognisable. Past the cap the box simply stops growing and
-       sits at the top of the (now taller) row, which is also why the old
-       position:sticky is gone - a box already the height of its own text
-       has nowhere left to usefully stick to. */
-    grid-column:2; grid-row:1 / span 50; align-self:stretch;
-    width:340px; max-height:640px; margin:0;
+    /* Tried scaling this to the text's own height (align-self:stretch) - it
+       closed the gap under a short section's picture, but cost the one
+       thing that mattered more: on a long section (Procedure runs several
+       screens) the image no longer travelled with the reader, since a box
+       already as tall as its own text has nowhere left to stick to. Back to
+       a small, fixed-size picture that stays in view via position:sticky.
+       Spanning every row is what stops the picture from inflating row 1 and
+       shoving the heading down past its own height; align-self keeps it at
+       the top of that tall area, and sticky then carries it down the text.
+       It has to be an explicit span: the rows here are implicit, so -1
+       resolves back to row 1 and the gap comes straight back. */
+    grid-column:2; grid-row:1 / span 50; align-self:start;
+    position:sticky; top:calc(var(--below-nav, 104px) + 18px);
+    width:340px; margin:0;
   }
 }
 @media print{
