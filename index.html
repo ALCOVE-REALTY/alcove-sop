@@ -9,7 +9,7 @@
      was dead in a mobile browser and the whole site arrived as a shrunken
      desktop page. formats.html always had the tag; this one did not. -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="sop-build" content="20260925-110801">
+<meta name="sop-build" content="20260925-111401">
 <title>Alcove Document Control SOP</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Tiro+Bangla&family=Noto+Serif+Bengali:wght@400;500;600;700&family=Tiro+Devanagari+Hindi&family=Noto+Serif+Devanagari:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -102,14 +102,27 @@ h1,h2,h3{ text-wrap:balance; color:var(--ink); }
 .toolbar-updated{
   font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-faint); white-space:nowrap;
 }
-/* Sits in the toolbar's own gap between the language picker and Save PDF -
-   plain text, not a button, since it isn't something to click. Ticks every
-   second via JS at the very end of the file; the digits and month/day names
-   switch script the moment the reader changes language, same as everything
-   else on this page. */
+/* Sits in the toolbar's own gap between the language picker and Save PDF,
+   styled like its button neighbours (.dlbtn's own border/background/radius)
+   so it reads as a real piece of the toolbar rather than stray text - just
+   without .dlbtn's cursor:pointer, since there is nothing here to click.
+   Ticks every second via JS at the very end of the file; the digits and
+   month/day names switch script the moment the reader changes language,
+   same as everything else on this page. */
 .toolbar-clock{
-  font-family:"IBM Plex Mono",monospace; font-size:12px; color:var(--ink-faint);
-  white-space:nowrap; letter-spacing:.02em; user-select:none;
+  display:inline-flex; align-items:center; gap:8px;
+  border:1px solid var(--rule-strong); background:var(--paper-raised);
+  border-radius:6px; padding:7px 14px;
+  font-family:"IBM Plex Mono",monospace; white-space:nowrap; user-select:none;
+}
+.toolbar-clock svg{ width:15px; height:15px; flex:none; color:var(--ink-faint); }
+.toolbar-clock .clock-date{ font-size:11.5px; color:var(--ink-faint); }
+/* The time is the part worth glancing at, so it carries the weight and the
+   colour - font-variant-numeric keeps the digits a fixed width as the
+   seconds roll over, so the whole box doesn't twitch every tick. */
+.toolbar-clock .clock-time{
+  font-size:14px; font-weight:700; color:var(--structural);
+  letter-spacing:.03em; font-variant-numeric:tabular-nums;
 }
 .toolbar-hint{
   text-align:center; font-size:12px; color:var(--ink-soft);
@@ -1062,7 +1075,11 @@ section[id$="-thanks"] .thanks-motto{
     <option value="bn">🌐 বাংলা</option>
     <option value="hi">🌐 हिंदी</option>
   </select>
-  <div class="toolbar-clock" id="toolbar-clock" aria-hidden="true"></div>
+  <div class="toolbar-clock" id="toolbar-clock" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+    <span class="clock-date" id="toolbar-clock-date"></span>
+    <span class="clock-time" id="toolbar-clock-time"></span>
+  </div>
   <div class="toolbar-mid">
     <button type="button" class="dlbtn" id="save-pdf-btn">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V3h12v6M6 18H4a1 1 0 0 1-1-1v-5a1 1 0 0 1 1-1h16a1 1 0 0 1 1 1v5a1 1 0 0 1-1 1h-2M6 14h12v7H6z"/></svg>
@@ -4626,8 +4643,9 @@ tr[hidden]{ display:none !important; }
      included), the same way the search box and section counts already do. -->
 <script>
 (function(){
-  var el = document.getElementById('toolbar-clock');
-  if(!el) return;
+  var dateEl = document.getElementById('toolbar-clock-date');
+  var timeEl = document.getElementById('toolbar-clock-time');
+  if(!dateEl || !timeEl) return;
 
   function activeLang(){
     var doc = document.querySelector('.doc-view.active');
@@ -4662,10 +4680,8 @@ tr[hidden]{ display:none !important; }
     var lang = activeLang();
     formattersFor(lang);
     var now = new Date();
-    var text = dateFmt && timeFmt
-      ? dateFmt.format(now) + ' \u00b7 ' + timeFmt.format(now)
-      : now.toLocaleDateString() + ' \u00b7 ' + now.toLocaleTimeString();
-    el.textContent = text;
+    dateEl.textContent = dateFmt ? dateFmt.format(now) : now.toLocaleDateString();
+    timeEl.textContent = timeFmt ? timeFmt.format(now) : now.toLocaleTimeString();
   }
 
   tick();
